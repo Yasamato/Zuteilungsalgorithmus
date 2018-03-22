@@ -40,6 +40,9 @@
 			case "wahl":
 				require("php/wahl.php");
 				break;
+			case "updateConfiguration":
+				require("php/dashboard.php");
+				break;
 			default:
 				die("Unbekannter Befehl!");
 				break;
@@ -80,7 +83,7 @@
 	</head>
 	<body>
 <?php
-			include "html/dashboard.php";
+			include "html/dashboard.html";
 		}
 		else {
 			if(read("csv/config.csv")[0]["Stage"] == 4){

@@ -1,103 +1,23 @@
 <?php
-if(!empty(array_filter($_POST))) {
-	$data = read("csv/config.csv")[0];
-	$names = [
-		"Stage",
-		"Schüleranzahl",
-		"Montag",
-		"Dienstag",
-		"Mittwoch",
-		"Donnerstag",
-		"Freitag",
-		"Schule_am_ersten_Vormittag"
-	];
-
-
-	$stage = $data["Stage"];
-	$numberOfStudents = $_POST["inputSchuelerAnzahl"];
-	if (array_key_exists("inlineCheckbox1", $_POST)) {
-		$monday = "true";
-	} else {
-		$monday = "false";
-	}
-	if (array_key_exists("inlineCheckbox2", $_POST)) {
-		$tuesday = "true";
-	} else {
-		$tuesday = "false";
-	}
-	if (array_key_exists("inlineCheckbox3", $_POST)) {
-		$wednesday = "true";
-	} else {
-		$wednesday = "false";
-	}
-	if (array_key_exists("inlineCheckbox4", $_POST)) {
-		$thursday = "true";
-	} else {
-		$thursday = "false";
-	}
-	if (array_key_exists("inlineCheckbox5", $_POST)) {
-		$friday = "true";
-	} else {
-		$friday = "false";
-	}
-	/*
-	$tuesday = ($_POST["inlineCheckbox2"] == "true");
-	$wednesday = ($_POST["inlineCheckbox3"] == "true");
-	$thursday = ($_POST["inlineCheckbox4"] == "true");
-	$friday = ($_POST["inlineCheckbox5"] == "true");
-	*/
-	$firstDay = $_POST["firstDay"];
-
-	$values = [
-		$stage,
-		$numberOfStudents,
-		$monday,
-		$tuesday,
-		$wednesday,
-		$thursday,
-		$friday,
-		$firstDay
-	];
-
-	// open the file
-	$fp = fopen('csv/config.csv', 'w');
-
-	// write the data and check for success
-	if (!fputcsv($fp, $names, "#") or !fputcsv($fp, $values, "#")) {
-		die("Projekt konnte nicht gespeichert werden!");
-	}
-	// close the file
-	fclose($fp);
-
-}
-
-$stufen = array(5, 6, 7, 8, 9, 10, 11, 12);
+$stufen = [
+  5 => 0,
+  6 => 0,
+  7 => 0,
+  8 => 0,
+  9 => 0,
+  10 => 0,
+  11 => 0,
+  12 => 0
+];
 $test = 0;
-$anzahl = array(0, 0, 0, 0, 0, 0, 0, 0);
-foreach($stufen as $stufe) {
-	$all = read("csv/projekte.csv");
-	foreach($all as $aaaa){
-		if($aaaa["min Klasse"]<=$stufe && $aaaa["max Klasse"]>= $stufe){
-			$anzahl[$test] += $aaaa["max Teilnehmer"];
+$anzahl = [0, 0, 0, 0, 0, 0, 0, 0];
+foreach(read("data/projekte.csv") as $p){
+  for($i = 5; $i < 12; $i++) {
+		if($p["minKlasse"] <= $i && $p["maxKlasse"] >= $i){
+			$stufen[$i] += $p["maxPlatz"];
 		}
 	}
-	
-	$test += 1;
 }
-
-$plaetze5 = $anzahl[0]; 
-$plaetze6 = $anzahl[1];
-$plaetze7 = $anzahl[2];
-$plaetze8 = $anzahl[3];
-$plaetze9 = $anzahl[4];
-$plaetze10 = $anzahl[5]; 
-$plaetze11 = $anzahl[6]; 
-$plaetze12 = $anzahl[7]; 
-
-
-
-
-
 ?>
   	<div class="container-fluid">
 
@@ -112,11 +32,11 @@ $plaetze12 = $anzahl[7];
 				</div>
 			</div>
 
-			
-			
+
+
 			<div class="container" style="padding-bottom: 1rem">
 						<div class="btn-group btn-group-toggle bg-dark" data-toggle="buttons" style="display: flex;">
-							
+
 						<!-- Button trigger modal -->
 						<button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#exampleModal">
 							Konfiguration
@@ -198,8 +118,8 @@ $plaetze12 = $anzahl[7];
 										</form>
 
 										<!-- DO EVERYTHING BUT DONT DELETE THIS!!!!-->
-										<form name='searchdata' id="search_form" method="post">         
-										</form> 
+										<form name='searchdata' id="search_form" method="post">
+										</form>
 
 										<script type="text/javascript">
 										function form_submit() {
@@ -209,44 +129,38 @@ $plaetze12 = $anzahl[7];
 									</div>
 								</div>
 							</div>
-						</div>	
+						</div>
 					</div>
 	  </div>
-      
+
       <!-- Beim laden der Seite soll aus Datei erlesen werden in welcher Stage die Projektwahl sich befindet. TEXT-Datei mit Werten 0-3 z.B.
       Je nach Stage, sollen andere Seiten das Abschicken der Formulare erlauben oder nicht.
-      
+
       Beim Projektwahl einrichten soll eine config datei erstellt werden und folgende Werte bestimmt werden:
       Wochentage der Projektwoche, Felder deaktiveren und vielleicht text hinterlegen
-      
-      
+
+
       Auswählen, wieviele Projekte gewählt werden soll. Mit Formel Empfehlung abgeben, auch aufgrund der verfügbaren Plätze?? Erst wenn Projektwahl-Stage eingestellt wird
-      
+
       			-->
   		<div class="container">
   			<div class="card-deck">
 
 				  <div class="card text-white bg-dark mb-3" >
   						<div class="card-body">
-    						<h5 class="card-title" id="eingereichteProjekte"><?php
-                  echo count(file('csv/projekte.csv'))-1;
-
-
-                      ?></h5>
-    						<p class="card-text">Projekte wurden eingereicht</p></p>
+    						<h5 class="card-title" id="eingereichteProjekte"><?php echo count(read('data/projekte.csv')); ?></h5>
+    						<p class="card-text">Projekte wurden eingereicht</p>
   						</div>
 					</div>
 
 				  <div class="card text-white bg-dark mb-3" >
   						<div class="card-body">
 								<h5 class="card-title" id="anzahlPlaetze"><?php
-									$all = read("csv/projekte.csv");
 									$anzahl = 0;
-
-									foreach($all as $aaaa){
-										$anzahl += $aaaa["max Teilnehmer"];
+									foreach(read("data/projekte.csv") as $p){
+										$anzahl += $p["maxPlatz"];
 									}
-                    echo $anzahl;
+                  echo $anzahl;
                 ?></h5>
     						<p class="card-text">Plätze sind verfügbar</p></p>
   						</div>
@@ -255,7 +169,7 @@ $plaetze12 = $anzahl[7];
 					<div class="card text-white bg-dark mb-3" >
   						<div class="card-body">
     						<h5 class="card-title" id="schuelergewaehlt">
-                  <?php echo count(file('csv/schueler.csv'))-1;?>
+                  <?php echo count(read('data/schueler.csv')); ?>
 
                 </h5>
     						<p class="card-text">Schüler haben schon gewählt</p>
@@ -264,93 +178,68 @@ $plaetze12 = $anzahl[7];
 
 				</div>
 		  </div>
-		  
+
 <!-- Verfügbare Plätze 5 - 8 -->
-			
+
 <div class="container">
   <div class="card-deck" id="verteilungPlaetze">
-
-<div class="card text-white bg-dark mb-3" >
+      <div class="card text-white bg-dark mb-3" >
 						<div class="card-body">
-  						<h5 class="card-title" id="plaetze5">
-						
-							<?php echo $plaetze5 ?>
-							</h5>
+  						<h5 class="card-title" id="plaetze5"><?php echo $stufen[5]; ?></h5>
   						<p class="card-text">Plätze sind verfügbar für Klassenstufe 5</p>
 						</div>
 			</div>
 		  <div class="card text-white bg-dark mb-3" >
 						<div class="card-body">
-  						<h5 class="card-title" id="plaetze6">
-						
-							<?php echo $plaetze6 ?>
-							</h5>
+  						<h5 class="card-title" id="plaetze6"><?php echo $stufen[6]; ?></h5>
   						<p class="card-text">Plätze sind verfügbar für Klassenstufe 6</p>
 						</div>
 			</div>
 			<div class="card text-white bg-dark mb-3" >
 						<div class="card-body">
-  						<h5 class="card-title" id="plaetze7">
-						
-							<?php echo $plaetze7 ?>
-							</h5>
+  						<h5 class="card-title" id="plaetze7"><?php echo $stufen[7]; ?></h5>
   						<p class="card-text">Plätze sind verfügbar für Klassenstufe 7</p>
 						</div>
 			</div>
 			<div class="card text-white bg-dark mb-3" >
 						<div class="card-body">
-  						<h5 class="card-title" id="plaetze8">
-						
-							<?php echo $plaetze8 ?>
-							</h5>
+  						<h5 class="card-title" id="plaetze8"><?php echo $stufen[8]; ?></h5>
   						<p class="card-text">Plätze sind verfügbar für Klassenstufe 8</p>
 						</div>
 			</div>
-		</div>
-	</div>
-	
+    </div>
+</div>
+
 	<!-- Verfügbare Plätze 9 - 12 -->
-	
-	<div class="container">
-			<div class="card-deck" id="verteilungPlaetze">
-		  <div class="card text-white bg-dark mb-3" >
-						<div class="card-body">
-  						<h5 class="card-title" id="plaetze9">
-						
-							<?php echo $plaetze9 ?>
-							</h5>
-  						<p class="card-text">Plätze sind verfügbar für Klassenstufe 9</p>
-						</div>
-			</div>
-		  <div class="card text-white bg-dark mb-3" >
-						<div class="card-body">
-  						<h5 class="card-title" id="plaetze10">
-						
-							<?php echo $plaetze10 ?>
-							</h5>
-  						<p class="card-text">Plätze sind verfügbar für Klassenstufe 10</p>
-						</div>
-			</div>
-			<div class="card text-white bg-dark mb-3" >
-						<div class="card-body">
-  						<h5 class="card-title" id="plaetze11">
-						
-							<?php echo $plaetze11 ?>
-							</h5>
-  						<p class="card-text">Plätze sind verfügbar für Klassenstufe 11</p>
-						</div>
-			</div>
-			<div class="card text-white bg-dark mb-3" >
-						<div class="card-body">
-  						<h5 class="card-title" id="plaetze12">
-						
-							<?php echo $plaetze12 ?>
-							</h5>
-  						<p class="card-text">Plätze sind verfügbar für Klassenstufe 12</p>
-						</div>
-			</div>
+
+<div class="container">
+	<div class="card-deck" id="verteilungPlaetze">
+	  <div class="card text-white bg-dark mb-3" >
+					<div class="card-body">
+						<h5 class="card-title" id="plaetze9"><?php echo $stufen[9]; ?></h5>
+						<p class="card-text">Plätze sind verfügbar für Klassenstufe 9</p>
+					</div>
+		</div>
+	  <div class="card text-white bg-dark mb-3" >
+					<div class="card-body">
+						<h5 class="card-title" id="plaetze10"><?php echo $stufen[10]; ?></h5>
+						<p class="card-text">Plätze sind verfügbar für Klassenstufe 10</p>
+					</div>
+		</div>
+		<div class="card text-white bg-dark mb-3" >
+					<div class="card-body">
+						<h5 class="card-title" id="plaetze11"><?php echo $stufen[11]; ?></h5>
+						<p class="card-text">Plätze sind verfügbar für Klassenstufe 11</p>
+					</div>
+		</div>
+		<div class="card text-white bg-dark mb-3" >
+					<div class="card-body">
+						<h5 class="card-title" id="plaetze12"><?php echo $stufen[12]; ?></h5>
+						<p class="card-text">Plätze sind verfügbar für Klassenstufe 12</p>
+					</div>
 		</div>
 	</div>
+</div>
 
 			<!-- Noch nicht funktionsfähig
   		<div class="container">
@@ -358,38 +247,25 @@ $plaetze12 = $anzahl[7];
   				<div class="progress-bar bg-dark"
             role="progressbar"
             style="width: 25%;"
-            aria-valuenow="<?php echo count(file('csv/schueler.csv'))-1; ?>"
+            aria-valuenow="<?php echo count(read('data/schueler.csv')); ?>"
             aria-valuemin="0"
             aria-valuemax="1000">
-            <?php echo(count(file('csv/schueler.csv'))-1)/1000*100  ?> %
+            <?php echo(count(read('data/schueler.csv')))/1000*100  ?> %
           </div>
 				</div>
-				<p> <?php echo count(file('csv/schueler.csv'))-1;?> von ### Schülern haben bereits gewählt</p>
+				<p> <?php echo count(read('data/schueler.csv'));?> von ### Schülern haben bereits gewählt</p>
   		</div>
-  		
+
   		-->
 
 		</div>
 		<script src="js/dashboard.js"></script>
 		<script>
 		a = <?php
-		$daten = read("csv/config.csv")[0];/*
-		if (($handle = fopen("csv/config.csv", "r")) !== FALSE) {
-			$i = 0;
-			while (($data = fgetcsv($handle, filesize('csv/config.csv'), ",")) !== FALSE) {
-				foreach ($data as $temp) {
-					if ($i != 0) {
-						$daten = explode("#", $temp);
-					}
-					$i += 1;
-				}
-			}
-			fclose($handle);
-		}*/
 		/*
 		TODO:
 		$daten["SchuleAmErstenVormittag"]
 		*/
-		echo "['" . $daten["Schüleranzahl"] . "', '" . $daten["Montag"] . "', '" . $daten["Dienstag"] . "', '" . $daten["Mittwoch"] . "', '" . $daten["Donnerstag"] . "', '" . $daten["Freitag"] . "', '" . "false" . "'];";
+		echo "['" . $config["Schüleranzahl"] . "', '" . $config["Montag"] . "', '" . $config["Dienstag"] . "', '" . $config["Mittwoch"] . "', '" . $config["Donnerstag"] . "', '" . $config["Freitag"] . "', '" . "false" . "'];";
 		?>
 		</script>

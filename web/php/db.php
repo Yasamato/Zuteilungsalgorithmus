@@ -1,5 +1,8 @@
 <?php
 	function read($path, $search = "", $value = ""){
+		if(!file_exists($path)){
+			return [];
+		}
 		if(($fh = fopen($path, "r")) !== false) {
 			$output = [];
 			$meta = true;
