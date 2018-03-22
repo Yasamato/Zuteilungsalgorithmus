@@ -1,0 +1,172 @@
+<div class="bg-blur">
+
+	<!-- Formularüberschrift -->
+	<div align="center">
+		<h1>Projekt-Einschreibe-Formular</h1>
+		<p>Hier können sie ihre Projekte eintragen
+			<br> Bitte achten sie auf die Richtigkeit ihrer Eingaben, da sie im Nachhinein <b class="text-danger">NICHT</b> mehr geändert werden können</p>
+		<p></p>
+	</div>
+
+	<!-- Hier ist das Formular -->
+	<form class="needs-validation" novalidate method="post">
+
+		<!-- erste Zeile -->
+		<div class="form-row">
+
+			<!-- Eingabefeld für Projektname -->
+			<div class="col">
+				<label for="inputProjektname">Projektname</label>
+				<input type="text" class="form-control" id="inputProjektname" placeholder="Projektname" required name="inputProjektname"
+				 autofocus>
+				<small id="ProjektNameHelpBlock" class="helptext">
+					Bitte geben sie einen geeigneten Projektnamen an
+				</small>
+				<div class="invalid-feedback">
+					Ungültige Eingabe
+				</div>
+			</div>
+
+			<!-- Eingabefeld für die Betreuer -->
+			<div class="col">
+				<label for="inputBetreuer">Betreuer</label>
+				<input type="text" class="form-control" id="inputBetreuer" placeholder="Betreuer" required name="inputBetreuer">
+				<small id="BetreuerHelpBlock" class="helptext">
+					Bitte geben sie die Betreuer getrennt durch Kommata an
+				</small>
+				<div class="invalid-feedback">
+					Ungültige Eingabe
+				</div>
+			</div>
+
+		</div>
+
+		<!-- zweite Zeile -->
+		<div class="form-row">
+
+			<!-- Eingabefeld für die Beschreibung -->
+			<div class="col">
+				<label for="inputBeschreibung">Beschreibung</label>
+				<textarea class="form-control" id="inputBeschreibung" placeholder="Beschreibung" required rows="4" name="inputBeschreibung"></textarea>
+				<small id="BeschreibungHelpBlock" class="helptext">
+					Bitte geben sie eine geeignete Beschreibung ihres Projektes an
+				</small>
+				<div class="invalid-feedback">
+					Ungültige Eingabe
+				</div>
+			</div>
+
+		</div>
+
+		<!-- dritte Zeile -->
+		<div class="form-row">
+
+			<!-- Eingabefeld für die min. Klassenstufe -->
+			<div class="col-md-2">
+				<label for="inputMinKlasse">min. Klassenstufe</label>
+				<input type="number" class="form-control" id="inputMinKlasse" placeholder="5" required min="5" max="12" name="inputMinKlasse">
+				<div class="invalid-feedback">
+					Ungültige Eingabe
+				</div>
+			</div>
+
+			<!-- Eingabefeld für die max. Klassenstufe -->
+			<div class="col-md-2">
+				<label for="inputMaxKlasse">max. Klassenstufe</label>
+				<input type="number" class="form-control" id="inputMaxKlasse" placeholder="12" required min="5" max="12" name="inputMaxKlasse">
+				<div class="invalid-feedback">
+					Ungültige Eingabe
+				</div>
+			</div>
+
+			<!-- Eingabefeld für die min. Teilnehmeranzahl -->
+			<div class="col">
+				<label for="inputMinPlaetze">min. Anzahl Teilnehmer</label>
+				<input type="number" class="form-control" id="inputMinPlaetze" placeholder="10" required min="1" name="inputMinPlaetze">
+				<div class="invalid-feedback">
+					Ungültige Eingabe
+				</div>
+			</div>
+
+			<!-- Eingabefeld für die max. Teilnehmeranzahl -->
+			<div class="col">
+				<label for="inputMaxPlaetze">max. Anzahl Teilnehmer</label>
+				<input type="number" class="form-control" id="inputMaxPlaetze" placeholder="30" required min="1" name="inputMaxPlaetze">
+				<div class="invalid-feedback">
+					Ungültige Eingabe
+				</div>
+			</div>
+
+			<!-- Eingabefeld für den Raumwunsch -->
+			<div class="col">
+				<label for="inputRaumwunsch">Raumwunsch</label>
+				<input type="text" class="form-control" id="inputRaumwunsch" placeholder="B101/Sporthalle" name="inputRaumwunsch">
+				<div class="invalid-feedback">
+					Ungültige Eingabe
+				</div>
+			</div>
+
+		</div>
+
+		<!-- vierte Zeile -->
+		<div class="form-row">
+
+			<!-- Eingabefeld für Kosten/Sontiges-->
+			<div class="col">
+				<label for="inputSonstiges">Kosten/Sonstiges</label>
+				<input type="text" class="form-control" id="inputSonstiges" placeholder="Kosten/Sonstiges" name="inputSonstiges">
+				<small id="SonstigesHelpBlock" class="helptext">
+					Falls Kosten anfallen oder irgendetwas anderes mitzuteilen ist, ist hier die Möglichkeit dazu
+				</small>
+				<div class="invalid-feedback">
+					Ungültige Eingabe
+				</div>
+			</div>
+
+		</div>
+
+		<!-- fünfte Zeile -->
+		<div class="form-row">
+			<div class="col">
+				<label for="inputBesVoraus">Besondere Voraussetzungen</label>
+				<input type="text" class="form-control" id="inputBesVoraus" placeholder="Computerkenntnisse" name="inputBesVoraus">
+				<div class="invalid-feedback">
+					Ungültige Eingabe
+				</div>
+			</div>
+		</div>
+
+		<!-- sechste Zeile -->
+		<div class="form-row">
+
+			<!-- Eingabefeld für Materialwünsche -->
+			<div class="col">
+				<label for="inputMaterial">Materialwünsche</label>
+				<input type="text" class="form-control" id="inputMaterial" placeholder="Beamer" name="inputMaterial">
+				<div class="invalid-feedback">
+					Ungültige Eingabe
+				</div>
+			</div>
+
+		</div>
+
+		<!-- Überschrift für die Wochenplanung-->
+		<div align="center" id="headline">
+			<p>Projekt Tagesablaufplan</p>
+		</div>
+
+		<!-- Hier wird per Javascript-Magie die Eingabefelder für die Wochenplanung generiert-->
+		<div class="form-row" id="weekdays">
+
+		</div>
+
+		<!-- Einreichen Knopf -->
+		<div align="center" class="button">
+			<button name="action" value="addProject" class="btn btn-primary" type="submit">Einreichen</button>
+		</div>
+
+
+	</form>
+
+</div>
+<script src="js/projektErstellung.js"></script>

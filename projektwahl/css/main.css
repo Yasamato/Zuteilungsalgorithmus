@@ -1,0 +1,31 @@
+html, body {
+	height: 100%;
+	color:#ffffff;
+	background-image:url("https://campus.lmg8.de/img/background.jpg");
+	background-attachment:fixed;
+	background-size:cover;
+}
+
+body {
+	overflow: scroll;
+	overflow-x: hidden;
+	display: -ms-flexbox;
+	display: -webkit-box;
+	display: flex;
+	-ms-flex-align: center;
+	-ms-flex-pack: center;
+	-webkit-box-align: center;
+	align-items: center;
+	-webkit-box-pack: center;
+	justify-content: center;
+	padding-top: 40px;
+	padding-bottom: 40px;
+}
+
+::-webkit-scrollbar {
+	width: 0px;
+	background: transparent;
+}
+::-webkit-scrollbar-thumb {
+	background: #098C38;
+}

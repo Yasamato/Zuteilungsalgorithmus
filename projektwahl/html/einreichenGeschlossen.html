@@ -1,0 +1,27 @@
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" style="color: #000;">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modalLabel">Gesperrt</h5>
+			</div>
+			<div class="modal-body">
+				<p>Die Phase der Projekt-Einreichung ist geschlossen. Bei Fragen und Problemen bitte an den Zuständigen wenden</p>
+			</div>
+			<div class="modal-footer">
+				<button id="okbtn" type="button" class="btn btn-primary">OK</button>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+window.onload = function () {
+	$('.modal').modal({
+		show: true,
+		keyboard: false,
+		backdrop: 'static'
+        });
+	$("#okbtn").on("click", function() {
+		window.location.href = "/";
+	});
+}
+</script>

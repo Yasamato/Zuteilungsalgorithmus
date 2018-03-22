@@ -1,0 +1,23 @@
+.container-fluid{
+	text-align: center;
+}
+
+.card-title{
+	font-size: 2rem;
+}
+
+.dropdown-item {
+	color:white;
+}
+
+.closebutton {
+	color:white;
+}
+
+#wochentagecheckboxes {
+	margin-left: 1rem;
+}
+
+#wochentagecheckboxescontainer {
+	margin-top: 1rem;
+}
