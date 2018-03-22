@@ -80,7 +80,7 @@
 	</head>
 	<body>
 <?php
-			include "dashboard.php";
+			include "html/dashboard.php";
 		}
 		else {
 			if(read("csv/config.csv")[0]["Stage"] == 4){
