@@ -1,24 +1,28 @@
 <?php
-	function read($file, $search = "", $value = ""){
-		if(($fh = fopen($file, "r")) !== false) {
+	function read($path, $search = "", $value = ""){
+		if(($fh = fopen($path, "r")) !== false) {
 			$output = [];
 			$meta = true;
-			while(($line = fgets($fh)) !== false) {
+			$file = fread($fh, filesize($path));
+			if(substr($file, 0, -1) == "\n"){
+				$file = substr($file, 0, filesize($path) - 1);
+			}
+			foreach(explode("__;__", $file) as $line){
+				if(empty($line)){
+					continue;
+				}
 				if($meta){
-					$t = explode("#", $line);
+					$head = explode("__#__", $line);
 					$meta = false;
-					$head = [];
-					foreach($t as $v){
-						$v = str_replace("\n", "", $v);
-						array_push($head, $v);
-					}
 				}
 				else{
-					$line = explode("#", $line);
+					$line = explode("__#__", $line);
 					$tmp = [];
 					$i = 0;
 					foreach($line as $v){
-						$v = str_replace("\n", "", $v);
+						if($i == 0){
+							$v = str_replace("\n", "", $v);
+						}
 						$tmp[$head[$i++]] = $v;
 					}
 					array_push($output, $tmp);
@@ -30,11 +34,11 @@
 			}
 		}
 		else {
-			die("Datei: " . $file . " konnte nicht geöffnet werden");
+			die("Datei: " . $path . " konnte nicht geöffnet werden");
 		}
 		return $output;
 	}
-	
+
 	function search($data, $search, $value){
 		$out = [];
 		foreach($data as $d){
@@ -44,23 +48,35 @@
 		}
 		return $out;
 	}
-	
-	function add($file, $entry){
-		if(($fh = fopen($file, "a")) !== false) {
-			fwrite($fh, implode($entry, "#") . "\n");
+
+	function add($path, $entry){
+		if(($fh = fopen($path, "a")) !== false) {
+			fwrite($fh, "__;__\n" . implode($entry, "__#__"));
 		}
 		else {
 			die("Datei: " . $file . " konnte nicht beschrieben werden");
 		}
 		fclose($fh);
 	}
-	
-	function set($file, $search, $searchNeedle, $index, $replace){
-		if(($fh = fopen($file, "r+")) !== false) {
+
+	function createFile($path, $headers){
+		if(($fh = fopen($path, "a")) !== false) {
+			fwrite($fh, implode($headers, "__#__"));
+		}
+		else {
+			die("Datei: " . $path . " konnte nicht angelegt werden");
+		}
+		fclose($fh);
+	}
+
+	function set($path, $search, $searchNeedle, $index, $replace){
+		if(($fh = fopen($path, "r+")) !== false) {
+			$output = [];
 			$meta = true;
-			while(($line = fgets($fh)) !== false) {
+			$file = fread($fh, filesize($path));
+			foreach(explode("__;__", $file) as $line){
 				if($meta){
-					$head = explode("#", $line);
+					$head = explode("__#__", $line);
 					$meta = false;
 				}
 				else{
@@ -68,6 +84,9 @@
 					$tmp = [];
 					$i = 0;
 					foreach($line as $v){
+						if($i == 0){
+							$v = str_replace("\n", "", $v);
+						}
 						$tmp[$head[$i++]] = $v;
 					}
 					array_push($output, $tmp);
@@ -79,12 +98,12 @@
 				}
 			}
 			foreach($output as $entry){
-				fwrite($fh, implode($entry, "#") . "\n");
+				fwrite($fh, "__;__\n" . implode($entry, "__#__"));
 			}
 			fclose($fh);
 		}
 		else{
-			die("Datei: " . $file . " konnte nicht eingelesen werden");
+			die("Datei: " . $path . " konnte nicht eingelesen werden");
 		}
 	}
 ?>

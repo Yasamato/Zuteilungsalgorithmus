@@ -1,7 +1,7 @@
 <script>
 	<?php
-		
-		$file = fopen("csv/projekte.csv", "r");	
+		$projekte = read("data/projekte.csv");
+		$file = fopen("csv/projekte.csv", "r");
 		fgetcsv($file, filesize("csv/projekte.csv"), "#");
 		//echo "var namen = [";
 		$projektIds = array();
@@ -33,9 +33,9 @@
 			//print_r(fgetcsv($file, $file.length, "#"));
 			$row = fgetcsv($file, filesize("csv/projekte.csv"), "#");
 			if(empty($row)){
-				continue;			
+				continue;
 			}
-		
+
 			if ($_SESSION['benutzer']['stufe'] >= $row[4] && $_SESSION['benutzer']['stufe'] <= $row[5]) {
 				array_push($projektIds, $row[0]);
 				array_push($namen, $row[1]);
@@ -64,8 +64,8 @@
 				array_push($frNach, $row[25]);
 			}
 		}
-		
-		
+
+
 		echo 'var projekte = [';
 		for ($i = 0; $i < count($namen);$i++) {
 			echo '{ projektId: "' . $projektIds[$i] . '",';
@@ -95,19 +95,19 @@
 			//echo 'frNach: "' . $frNach[$i] . '"';
 			echo '}';
 			if($i != count($beschreibungen)-1){
-				echo ",";			
-			}	
+				echo ",";
+			}
 		}
 		echo '];';
 
 
-		
+
 		fclose($file);
 	?>
-	
-		
-	
-	
+
+
+
+
 </script>
 
 <div class="modalHolder"></div>

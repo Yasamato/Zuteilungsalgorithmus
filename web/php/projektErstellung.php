@@ -1,74 +1,86 @@
 <?php
 //authentication
 if(isLogin() && $_SESSION['benutzer']['typ'] == "teachers"){
-	// Websitevariables
-	$name = $_POST["inputProjektname"];
-	$beschreibung = $_POST["inputBeschreibung"];
-	$betreuer = $_POST["inputBetreuer"];
-	$minKlasse =  $_POST["inputMinKlasse"];
-	$maxKlasse =  $_POST["inputMaxKlasse"];
-	$minPlaetze =  $_POST["inputMinPlaetze"];
-	$maxPlaetze =  $_POST["inputMaxPlaetze"];
-	$raumWunsch = $_POST["inputRaumwunsch"];
-	$sonstiges = $_POST["inputSonstiges"];
-	$besondereVorraussetzungen = $_POST["inputBesVoraus"];
-	$material = $_POST["inputMaterial"];
-	$mondayForenoon = $_POST["weekdayMondayForenoon"];
-	$checkboxFoodMonday = $_POST["checkboxFoodMonday"];
-	$mondayAfternoon = $_POST["weekdayMondayAfternoon"];
-	$tuesdayForenoon = $_POST["weekdayTuesdayForenoon"];
-	$checkboxFoodTuesday = $_POST["checkboxFoodTuesday"];
-	$tuesdayAfternoon = $_POST["weekdayTuesdayAfternoon"];
-	$wednesdayForenoon = $_POST["weekdayWednesdayForenoon"];
-	$checkboxFoodWednesday = $_POST["checkboxFoodMonday"];
-	$wednesdayAfternoon = $_POST["weekdayWednesdayAfternoon"];
-	$thursdayForenoon = $_POST["weekdayThursdayForenoon"];
-	$checkboxFoodThursday = $_POST["checkboxFoodThursday"];
-	$thursdayAfternoon = $_POST["weekdayThursdayAfternoon"];
-	$fridayForenoon = $_POST["weekdayFridayForenoon"];
-	$fridayAfternoon = $_POST["weekdayFridayAfternoon"];
-
-
-	// count the lines to get the index
-	$linecount = count(file('csv/projekte.csv'));
-
-	// create the data array to write into the csv
-	$list = [
-		$linecount,
-		$name,
-		$beschreibung,
-		$betreuer,
-		$minKlasse,
-		$maxKlasse,
-		$minPlaetze,
-		$maxPlaetze,
-		$sonstiges,
-		$besondereVorraussetzungen,
-		$raumWunsch, 
-		$material,
-		$mondayForenoon,
-		$checkboxFoodMonday,
-		$mondayAfternoon,
-		$tuesdayForenoon,
-		$checkboxFoodTuesday,
-		$tuesdayAfternoon,
-		$wednesdayForenoon,
-		$checkboxFoodWednesday,
-		$wednesdayAfternoon,
-		$thursdayForenoon,
-		$checkboxFoodThursday,
-		$thursdayAfternoon,
-		$fridayForenoon,
-		$fridayAfternoon
-	];
-	// open the file
-	$fp = fopen('csv/projekte.csv', 'a');
-
-	// write the data and check for success
-	if (!fputcsv($fp, $list,"#")) {
-		die("Projekt konnte nicht gespeichert werden");
+	if(empty($_POST["pName"]) ||
+	empty($_POST["beschreibung"]) ||
+	empty($_POST["betreuer"]) ||
+	empty($_POST["minKlasse"]) ||
+	empty($_POST["maxKlasse"]) ||
+	empty($_POST["minPlatz"]) ||
+	empty($_POST["maxPlatz"]) ||
+	empty($_POST["weekdayMondayForenoon"]) ||
+	empty($_POST["checkboxFoodMonday"]) ||
+	empty($_POST["weekdayMondayAfternoon"]) ||
+	empty($_POST["weekdayTuesdayForenoon"]) ||
+	empty($_POST["checkboxFoodTuesday"]) ||
+	empty($_POST["weekdayTuesdayAfternoon"]) ||
+	empty($_POST["weekdayWednesdayForenoon"]) ||
+	empty($_POST["checkboxFoodMonday"]) ||
+	empty($_POST["weekdayWednesdayAfternoon"]) ||
+	empty($_POST["weekdayThursdayForenoon"]) ||
+	empty($_POST["checkboxFoodThursday"]) ||
+	empty($_POST["weekdayThursdayAfternoon"]) ||
+	empty($_POST["weekdayFridayForenoon"]) ||
+	empty($_POST["weekdayFridayAfternoon"])){
+		die("Fehlende Angaben");
 	}
-	// close the file
-	fclose($fp);
+	if(!file_exists("data/projekte.csv")){
+		createFile("data/projekte.csv", [
+			"id",
+			"name",
+			"beschreibung",
+			"betreuer",
+			"minKlasse",
+			"maxKlasse",
+			"minPlatz",
+			"maxPlatz",
+			"vorraussetzungen",
+			"sonstiges",
+			"raum",
+			"material",
+			"weekdayMondayForenoon",
+			"checkboxFoodMonday",
+			"weekdayMondayAfternoon",
+			"weekdayTuesdayForenoon",
+			"checkboxFoodTuesday",
+			"weekdayTuesdayAfternoon",
+			"weekdayWednesdayForenoon",
+			"checkboxFoodMonday",
+			"weekdayWednesdayAfternoon",
+			"weekdayThursdayForenoon",
+			"checkboxFoodThursday",
+			"weekdayThursdayAfternoon",
+			"weekdayFridayForenoon",
+			"weekdayFridayAfternoon"
+		]);
+	}
+	add("data/projekte.csv", [
+			count(read('data/projekte.csv')),
+			$_POST["pName"],
+			$_POST["beschreibung"],
+			$_POST["betreuer"],
+			$_POST["minKlasse"],
+			$_POST["maxKlasse"],
+			$_POST["minPlatz"],
+			$_POST["maxPlatz"],
+			$_POST["sonstiges"],
+			$_POST["vorraussetzungen"],
+			$_POST["raum"],
+			$_POST["material"],
+			$_POST["weekdayMondayForenoon"],
+			$_POST["checkboxFoodMonday"],
+			$_POST["weekdayMondayAfternoon"],
+			$_POST["weekdayTuesdayForenoon"],
+			$_POST["checkboxFoodTuesday"],
+			$_POST["weekdayTuesdayAfternoon"],
+			$_POST["weekdayWednesdayForenoon"],
+			$_POST["checkboxFoodMonday"],
+			$_POST["weekdayWednesdayAfternoon"],
+			$_POST["weekdayThursdayForenoon"],
+			$_POST["checkboxFoodThursday"],
+			$_POST["weekdayThursdayAfternoon"],
+			$_POST["weekdayFridayForenoon"],
+			$_POST["weekdayFridayAfternoon"]
+	]);
 }
 ?>

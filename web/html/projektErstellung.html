@@ -17,8 +17,7 @@
 			<!-- Eingabefeld für Projektname -->
 			<div class="col">
 				<label for="inputProjektname">Projektname</label>
-				<input type="text" class="form-control" id="inputProjektname" placeholder="Projektname" required name="inputProjektname"
-				 autofocus>
+				<input type="text" class="form-control" id="inputProjektname" placeholder="Projektname" required name="pName" autofocus>
 				<small id="ProjektNameHelpBlock" class="helptext">
 					Bitte geben sie einen geeigneten Projektnamen an
 				</small>
@@ -30,7 +29,7 @@
 			<!-- Eingabefeld für die Betreuer -->
 			<div class="col">
 				<label for="inputBetreuer">Betreuer</label>
-				<input type="text" class="form-control" id="inputBetreuer" placeholder="Betreuer" required name="inputBetreuer">
+				<input type="text" class="form-control" id="inputBetreuer" placeholder="Betreuer" required name="betreuer">
 				<small id="BetreuerHelpBlock" class="helptext">
 					Bitte geben sie die Betreuer getrennt durch Kommata an
 				</small>
@@ -47,7 +46,7 @@
 			<!-- Eingabefeld für die Beschreibung -->
 			<div class="col">
 				<label for="inputBeschreibung">Beschreibung</label>
-				<textarea class="form-control" id="inputBeschreibung" placeholder="Beschreibung" required rows="4" name="inputBeschreibung"></textarea>
+				<textarea class="form-control" id="inputBeschreibung" placeholder="Beschreibung" required rows="4" name="beschreibung"></textarea>
 				<small id="BeschreibungHelpBlock" class="helptext">
 					Bitte geben sie eine geeignete Beschreibung ihres Projektes an
 				</small>
@@ -64,7 +63,7 @@
 			<!-- Eingabefeld für die min. Klassenstufe -->
 			<div class="col-md-2">
 				<label for="inputMinKlasse">min. Klassenstufe</label>
-				<input type="number" class="form-control" id="inputMinKlasse" placeholder="5" required min="5" max="12" name="inputMinKlasse">
+				<input type="number" class="form-control" id="inputMinKlasse" placeholder="5" required min="5" max="12" name="minKlasse">
 				<div class="invalid-feedback">
 					Ungültige Eingabe
 				</div>
@@ -73,7 +72,7 @@
 			<!-- Eingabefeld für die max. Klassenstufe -->
 			<div class="col-md-2">
 				<label for="inputMaxKlasse">max. Klassenstufe</label>
-				<input type="number" class="form-control" id="inputMaxKlasse" placeholder="12" required min="5" max="12" name="inputMaxKlasse">
+				<input type="number" class="form-control" id="inputMaxKlasse" placeholder="12" required min="5" max="12" name="maxKlasse">
 				<div class="invalid-feedback">
 					Ungültige Eingabe
 				</div>
@@ -82,7 +81,7 @@
 			<!-- Eingabefeld für die min. Teilnehmeranzahl -->
 			<div class="col">
 				<label for="inputMinPlaetze">min. Anzahl Teilnehmer</label>
-				<input type="number" class="form-control" id="inputMinPlaetze" placeholder="10" required min="1" name="inputMinPlaetze">
+				<input type="number" class="form-control" id="inputMinPlaetze" placeholder="10" required min="1" name="minPlatz">
 				<div class="invalid-feedback">
 					Ungültige Eingabe
 				</div>
@@ -91,7 +90,7 @@
 			<!-- Eingabefeld für die max. Teilnehmeranzahl -->
 			<div class="col">
 				<label for="inputMaxPlaetze">max. Anzahl Teilnehmer</label>
-				<input type="number" class="form-control" id="inputMaxPlaetze" placeholder="30" required min="1" name="inputMaxPlaetze">
+				<input type="number" class="form-control" id="inputMaxPlaetze" placeholder="30" required min="1" name="maxPlatz">
 				<div class="invalid-feedback">
 					Ungültige Eingabe
 				</div>
@@ -100,7 +99,7 @@
 			<!-- Eingabefeld für den Raumwunsch -->
 			<div class="col">
 				<label for="inputRaumwunsch">Raumwunsch</label>
-				<input type="text" class="form-control" id="inputRaumwunsch" placeholder="B101/Sporthalle" name="inputRaumwunsch">
+				<input type="text" class="form-control" id="inputRaumwunsch" placeholder="B101/Sporthalle" name="raum">
 				<div class="invalid-feedback">
 					Ungültige Eingabe
 				</div>
@@ -114,7 +113,7 @@
 			<!-- Eingabefeld für Kosten/Sontiges-->
 			<div class="col">
 				<label for="inputSonstiges">Kosten/Sonstiges</label>
-				<input type="text" class="form-control" id="inputSonstiges" placeholder="Kosten/Sonstiges" name="inputSonstiges">
+				<input type="text" class="form-control" id="inputSonstiges" placeholder="Kosten/Sonstiges" name="sonstiges">
 				<small id="SonstigesHelpBlock" class="helptext">
 					Falls Kosten anfallen oder irgendetwas anderes mitzuteilen ist, ist hier die Möglichkeit dazu
 				</small>
@@ -129,7 +128,7 @@
 		<div class="form-row">
 			<div class="col">
 				<label for="inputBesVoraus">Besondere Voraussetzungen</label>
-				<input type="text" class="form-control" id="inputBesVoraus" placeholder="Computerkenntnisse" name="inputBesVoraus">
+				<input type="text" class="form-control" id="inputBesVoraus" placeholder="Computerkenntnisse" name="vorraussetzungen">
 				<div class="invalid-feedback">
 					Ungültige Eingabe
 				</div>
@@ -142,7 +141,7 @@
 			<!-- Eingabefeld für Materialwünsche -->
 			<div class="col">
 				<label for="inputMaterial">Materialwünsche</label>
-				<input type="text" class="form-control" id="inputMaterial" placeholder="Beamer" name="inputMaterial">
+				<input type="text" class="form-control" id="inputMaterial" placeholder="Beamer" name="material">
 				<div class="invalid-feedback">
 					Ungültige Eingabe
 				</div>

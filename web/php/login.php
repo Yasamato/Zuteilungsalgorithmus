@@ -24,7 +24,7 @@
 	}
 
 	// DEBUG fake-accounts
-	if($_POST['user'] == "lehrer" && $_POST['pw'] == "12"){
+	if($_POST['user'] == "lehrer" && $_POST['pw'] == "lehrer"){
 		$_SESSION['benutzer'] = [
 			"uid" => "testeeeee",
 			"typ" => "teachers",
@@ -40,11 +40,22 @@
 			"typ" => "admin",
 			"klasse" => "",
 			"stufe" => "",
-			"vorname" => "L",
-			"nachname" => "eherer"
+			"vorname" => "A",
+			"nachname" => "wie arwin"
+		];
+	}
+	elseif($_POST['user'] == "wasd"){
+		$_SESSION['benutzer'] = [
+			"uid" => "testeeeee",
+			"typ" => "students",
+			"klasse" => $_POST['pw'] . "aaa",
+			"stufe" => $_POST['pw'],
+			"vorname" => "S",
+			"nachname" => "chüler"
 		];
 	}
 	else{
+		die("plss......");
 		//login
 		$loginResult = ldap_authenticate();
 		if($loginResult){
