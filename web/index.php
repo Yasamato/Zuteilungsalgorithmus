@@ -11,27 +11,20 @@
 		<link rel="stylesheet" href="css/main.css">
 <?php
 	session_start();
+	require("php/db.php");
+	$config = read("data/config.csv")[0];
 	function isLogin(){
 		return isset($_SESSION['benutzer']);
 	}
-	
+
 	function logout(){
 		session_destroy();
 		session_start();
 	}
 
-	require("php/db.php");
-	$config = read("csv/config.csv")[0];
-
-
 	// on form-submit
 	if(isset($_GET['logout'])){
 		logout();
-	}
-	if(isset($_GET['t'])){
-		require("php/db2.php");
-		print_r(read("csv/config2.csv"));
-		die("");
 	}
 	if (isset($_POST['action'])) {
 		switch ($_POST['action']) {
@@ -47,8 +40,11 @@
 			case "wahl":
 				require("php/wahl.php");
 				break;
+			case "updateConfiguration":
+				require("php/dashboard.php");
+				break;
 			default:
-				exit("Unbekannter Befehl!");
+				die("Unbekannter Befehl!");
 				break;
 		}
 	}
@@ -87,7 +83,7 @@
 	</head>
 	<body>
 <?php
-			include "dashboard.php";
+			include "html/dashboard.html";
 		}
 		else {
 			if(read("csv/config.csv")[0]["Stage"] == 4){
