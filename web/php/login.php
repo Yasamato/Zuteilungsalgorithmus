@@ -44,7 +44,7 @@
 			"nachname" => "wie arwin"
 		];
 	}
-	elseif($_POST['user'] == "wasd"){
+	elseif($_POST['user'] == "schüler"){
 		$_SESSION['benutzer'] = [
 			"uid" => "testeeeee",
 			"typ" => "students",

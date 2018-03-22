@@ -105,36 +105,40 @@ function switchInTable(ele1, ele2) {
 
 // setup
 window.onload = function(){
-	var pID = 0;
+	var projektAnzahl = calcAnzahlProjekte(50, 70, 20);
+	for(var i = 0; i < projektAnzahl; i++){
+		$(".wahlliste tbody").append("<tr id='wahl" + i + "'><th scope='row'>" + (i + 1) + "</th><td></td></tr>");
+	}
+
 	projekte.forEach(function(e){
 		$(".projektliste>div").append($(`
-			<div class="card list-group-item-` + colors[Math.floor(Math.random() *  colors.length)] + ` projekt-card" id="drag`+ pID+`">
-				<input  type="hidden"value="` + e.projektId + `">				
+			<div class="card list-group-item-` + colors[Math.floor(Math.random() *  colors.length)] + ` projekt-card" id="drag` + e.projektId + `">
+				<input  type="hidden"value="` + e.projektId + `">
 				<div class="card-body">
 					<h5 class="card-title">` + e.name + `</h5>
-					<a href="#" class="btn btn-` + colors[Math.floor(Math.random() *  colors.length)] + `" data-toggle="modal" data-target="#modal` + pID + `">Info</a>
+					<a href="#" class="btn btn-` + colors[Math.floor(Math.random() *  colors.length)] + `" data-toggle="modal" data-target="#modal` + e.projektId + `">Info</a>
 				</div>
 			</div>`));
 		$(".modalHolder").append($(`
 			<!-- Modal -->
-			<div class="modal fade" id="modal` + pID + `" tabindex="-1" role="dialog" aria-labelledby="modalLabel` + pID + `" aria-hidden="true">
+			<div class="modal fade" id="modal` + e.projektId + `" tabindex="-1" role="dialog" aria-labelledby="modalLabel` + e.projektId + `" aria-hidden="true">
 				<div class="modal-dialog modal-lg" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-						<h5 class="modal-title" id="modalLabel` + pID + `">` + e.name + `</h5>
+						<h5 class="modal-title" id="modalLabel` + e.projektId + `">` + e.name + `</h5>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
 						<div class="modal-body">
-							<p> ` + e.beschreibung + ` </p>
-							<p> <b>Betreuer:</b> ` + e.betreuer + ` </p>
-							<p> <b>Klassenstufe:</b>` + e.minKlasse + `-` + e.maxKlasse + ` </p>
-							<p> <b>Teilnehmerzahl:</b>` + e.minTeilnehmer + `-` + e.maxTeilnehmer + ` </p>
-							<p> <b>Kosten/Sonstiges:</b>` + e.sonstiges + ` </p>
-							<p> <b>Vorraussetungen:</b>` + e.vorraussetzungen + ` </p>
-							<table class="table table-hover table-responsive">
-								<thead>
+							<p>` + e.beschreibung + `</p>
+							<p><b>Betreuer:</b> ` + e.betreuer + `</p>
+							<p><b>Klassenstufe:</b> ` + e.minKlasse + `-` + e.maxKlasse + `</p>
+							<p><b>Teilnehmerzahl:</b> ` + e.minTeilnehmer + `-` + e.maxTeilnehmer + `</p>
+							<p><b>Kosten/Sonstiges:</b> ` + e.sonstiges + `</p>
+							<p><b>Vorraussetungen:</b> ` + e.vorraussetzungen + `</p>
+							<table class="table table-hover table-responsive table-striped">
+								<thead class="thead-dark">
 									<tr>
 									<th scope="col">Zeit</th>
 									<th >Montag</th>
@@ -150,7 +154,7 @@ window.onload = function(){
       								<td>` + e.moVor + `</td>
       								<td>` + e.diVor + `</td>
       								<td>` + e.miVor + `</td>
-      								<td>` + e.doVor + `</td>   								
+      								<td>` + e.doVor + `</td>
       								<td>` + e.frVor + `</td>
       							</tr>
       							<tr>
@@ -178,7 +182,6 @@ window.onload = function(){
 					</div>
 				</div>
 			</div>`));
-		pID += 1;
 	});
 
 	// Die Projekte selbst
@@ -212,11 +215,6 @@ window.onload = function(){
 			getInput();
 		});
 	});
-
-	var projektAnzahl = calcAnzahlProjekte(50, 70, 20);
-	for(var i = 0; i < projektAnzahl; i++){
-		$(".wahlliste tbody").append("<tr id='wahl" + i + "'><th>" + (i + 1) + "</th><td></td></tr>");
-	}
 
 	// Wahlliste (rechts)
 	$(".wahlliste").on("drop", function(e){

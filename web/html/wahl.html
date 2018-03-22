@@ -1,113 +1,46 @@
 <script>
-	<?php
-		$projekte = read("data/projekte.csv");
-		$file = fopen("csv/projekte.csv", "r");
-		fgetcsv($file, filesize("csv/projekte.csv"), "#");
-		//echo "var namen = [";
-		$projektIds = array();
-		$namen = array();
-		$beschreibungen = array();
-		$betreuer = array();
-		$minKlasse = array();
-		$maxKlasse = array();
-		$minTeilnehmer = array();
-		$maxTeilnehmer = array();
-		$sonstiges = array();
-		$vorraussetzungen = array();
-		$moVor = array();
-		$moMit = array();
-		$moNach = array();
-		$diVor = array();
-		$diMit = array();
-		$diNach = array();
-		$miVor = array();
-		$miMit = array();
-		$miNach = array();
-		$doVor = array();
-		$doMit = array();
-		$doNach = array();
-		$frVor = array();
-		//$frMit = array();
-		$frNach = array();
-		while (! feof($file)){
-			//print_r(fgetcsv($file, $file.length, "#"));
-			$row = fgetcsv($file, filesize("csv/projekte.csv"), "#");
-			if(empty($row)){
-				continue;
-			}
-
-			if ($_SESSION['benutzer']['stufe'] >= $row[4] && $_SESSION['benutzer']['stufe'] <= $row[5]) {
-				array_push($projektIds, $row[0]);
-				array_push($namen, $row[1]);
-				array_push($beschreibungen, $row[2]);
-				array_push($betreuer, $row[3]);
-				array_push($minKlasse, $row[4]);
-				array_push($maxKlasse, $row[5]);
-				array_push($minTeilnehmer, $row[6]);
-				array_push($maxTeilnehmer, $row[7]);
-				array_push($sonstiges, $row[8]);
-				array_push($vorraussetzungen, $row[9]);
-				array_push($moVor, $row[12]);
-				array_push($moMit, $row[13]);
-				array_push($moNach, $row[14]);
-				array_push($diVor, $row[15]);
-				array_push($diMit, $row[16]);
-				array_push($diNach, $row[17]);
-				array_push($miVor, $row[18]);
-				array_push($miMit, $row[19]);
-				array_push($miNach, $row[20]);
-				array_push($doVor, $row[21]);
-				array_push($doMit, $row[22]);
-				array_push($doNach, $row[23]);
-				array_push($frVor, $row[24]);
-				//array_push($frMit, $row[25]);
-				array_push($frNach, $row[25]);
-			}
+<?php
+	$projekte = [];
+	foreach(read("data/projekte.csv") as $p){
+		if($p['minKlasse'] <= $_SESSION['benutzer']['stufe'] && $p['maxKlasse'] >= $_SESSION['benutzer']['stufe']){
+			array_push($projekte, $p);
 		}
+	}
 
 
-		echo 'var projekte = [';
-		for ($i = 0; $i < count($namen);$i++) {
-			echo '{ projektId: "' . $projektIds[$i] . '",';
-			echo 'name: "' . $namen[$i] . '",';
-			echo 'beschreibung: "' . $beschreibungen[$i] . '",';
-			echo 'betreuer: "' . $betreuer[$i] . '",';
-			echo 'minKlasse: "' . $minKlasse[$i] . '",';
-			echo 'maxKlasse: "' . $maxKlasse[$i] . '",';
-			echo 'minTeilnehmer: "' . $minTeilnehmer[$i] . '",';
-			echo 'maxTeilnehmer: "' . $maxTeilnehmer[$i] . '",';
-			echo 'sonstiges: "' . $sonstiges[$i] . '",';
-			echo 'vorraussetzungen: "' . $vorraussetzungen[$i] . '",';
-			echo 'moVor: "' . $moVor[$i] . '",';
-			echo 'moMit: "' . $moMit[$i] . '",';
-			echo 'moNach: "' . $moNach[$i] . '",';
-			echo 'diVor: "' . $diVor[$i] . '",';
-			echo 'diMit: "' . $diMit[$i] . '",';
-			echo 'diNach: "' . $diNach[$i] . '",';
-			echo 'miVor: "' . $miVor[$i] . '",';
-			echo 'miMit: "' . $miMit[$i] . '",';
-			echo 'miNach: "' . $miNach[$i] . '",';
-			echo 'doVor: "' . $doVor[$i] . '",';
-			echo 'doMit: "' . $doMit[$i] . '",';
-			echo 'doNach: "' . $doNach[$i] . '",';
-			echo 'frVor: "' . $frVor[$i] . '",';
-			echo 'frNach: "' . $frNach[$i] . '",';
-			//echo 'frNach: "' . $frNach[$i] . '"';
-			echo '}';
-			if($i != count($beschreibungen)-1){
-				echo ",";
-			}
+	echo 'var projekte = [';
+	foreach($projekte as $p) {
+		echo '{projektId: `' . $p['id'] . '`, ';
+		echo 'name: `' . $p['name'] . '`, ';
+		echo 'beschreibung: `' . $p['beschreibung'] . '`, ';
+		echo 'betreuer: `' . $p['betreuer'] . '`, ';
+		echo 'minKlasse: `' . $p['minKlasse'] . '`, ';
+		echo 'maxKlasse: `' . $p['maxKlasse'] . '`, ';
+		echo 'minTeilnehmer: `' . $p['minPlatz'] . '`, ';
+		echo 'maxTeilnehmer: `' . $p['maxPlatz'] . '`, ';
+		echo 'sonstiges: `' . $p['sonstiges'] . '`, ';
+		echo 'vorraussetzungen: `' . $p['vorraussetzungen'] . '`, ';
+		echo 'moVor: `' . $p['moVor'] . '`, ';
+		echo 'moMit: `' . $p['moMensa'] . '`, ';
+		echo 'moNach: `' . $p['moNach'] . '`, ';
+		echo 'diVor: `' . $p['diVor'] . '`, ';
+		echo 'diMit: `' . $p['diMensa'] . '`, ';
+		echo 'diNach: `' . $p['diNach'] . '`, ';
+		echo 'miVor: `' . $p['miVor'] . '`, ';
+		echo 'miMit: `' . $p['miMensa'] . '`, ';
+		echo 'miNach: `' . $p['miNach'] . '`, ';
+		echo 'doVor: `' . $p['doVor'] . '`, ';
+		echo 'doMit: `' . $p['doMensa'] . '`, ';
+		echo 'doNach: `' . $p['doNach'] . '`, ';
+		echo 'frVor: `' . $p['frVor'] . '`, ';
+		echo 'frNach: `' . $p['frNach'] . '`, ';
+		echo '}';
+		if($p != $projekte[sizeof($projekte) - 1]){
+			echo ",\n";
 		}
-		echo '];';
-
-
-
-		fclose($file);
-	?>
-
-
-
-
+	}
+	echo '];';
+?>
 </script>
 
 <div class="modalHolder"></div>
@@ -128,8 +61,8 @@
 			<table class="table table-striped table-dark table-hover">
 		    		<thead>
 		    			<tr>
-		    				<th>#</th>
-		    				<th>Projekt</th>
+		    				<th scope="col">#</th>
+		    				<th scope="col">Projekt</th>
 		    			</tr>
 		    		</thead>
 		    		<tbody>
