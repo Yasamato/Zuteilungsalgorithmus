@@ -1,0 +1,4 @@
+Einfach startAlgorithmus.sh ausführen und sicherstellen, dass die dazugehörigen CSV-Dateien der Projekte und Schueler im gleichen Ordner wie die Algorithmus.jar liegen.
+Wenn der Algorithmus nicht multithreaden soll, dann in dem Startskript nach "-m" die Anzahl der Cores auf die gewünschte Anzahl setzen, oder ganz "-m Anzahl" weglassen.
+
+Wenn der Algorithmus eine andere Anzahl an Verteilungen berechnen soll, in dem Startskript die Anzahl verändern.
