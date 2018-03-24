@@ -1,17 +1,23 @@
 <?php
 if(isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
-	$data = read("data/config.csv")[0];
-	$names = [
-		"Stage",
-		"Schüleranzahl",
-		"Montag",
-		"Dienstag",
-		"Mittwoch",
-		"Donnerstag",
-		"Freitag",
-		"Schule_am_ersten_Vormittag"
-	];
 
+	// Saving the new configuration after submitting it
+	if(!file_exists("data/config.csv")){
+		// define the names of the columns in the first row
+		$names = [
+			"Stage",
+			"Schüleranzahl",
+			"Montag",
+			"Dienstag",
+			"Mittwoch",
+			"Donnerstag",
+			"Freitag",
+			"SchuleAmErstenVormittag"
+		];
+		createFile("data/config.csv", $names);
+	}
+
+	//prepare data
 	if (array_key_exists("inlineCheckbox1", $_POST)) {
 		$monday = "true";
 	} else {
@@ -37,13 +43,6 @@ if(isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
 	} else {
 		$friday = "false";
 	}
-	/*
-	$tuesday = ($_POST["inlineCheckbox2"] == "true");
-	$wednesday = ($_POST["inlineCheckbox3"] == "true");
-	$thursday = ($_POST["inlineCheckbox4"] == "true");
-	$friday = ($_POST["inlineCheckbox5"] == "true");
-	*/
-
 	$values = [
 		$config['Stage'],
 		$_POST["inputSchuelerAnzahl"],
@@ -54,11 +53,14 @@ if(isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
 		$friday,
 		$_POST["firstDay"]
 	];
+
+	// write the data and check for success
 	setRow("data/config.csv", 0, $values);
 	if(read("data/config.csv") == $config){
 		die("Konfiguration wurde nicht gespeichert.");
 	}
 	else{
+		//update config
 		$config = read("data/config.csv");
 	}
 }

@@ -1,4 +1,5 @@
 <?php
+// generate the statistics how many places are available in each class
 $stufen = [
   5 => 0,
   6 => 0,
@@ -9,6 +10,8 @@ $stufen = [
   11 => 0,
   12 => 0
 ];
+
+// read each project and add the max members to the affected classes
 foreach(read("data/projekte.csv") as $p){
   for($i = 5; $i < 12; $i++) {
 		if($p["minKlasse"] <= $i && $p["maxKlasse"] >= $i){
@@ -21,12 +24,14 @@ foreach(read("data/projekte.csv") as $p){
 <div class="modal fade bd-example-modal-lg1" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content bg-dark">
+
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Projektwahlkonfiguration</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span class="closebutton" aria-hidden="true">&times;</span>
         </button>
       </div>
+
       <div class="modal-body">
         <form id="configForm" method="post">
 
@@ -85,6 +90,7 @@ foreach(read("data/projekte.csv") as $p){
           </div>
         </form>
       </div>
+
     </div>
   </div>
 </div>
@@ -119,8 +125,7 @@ foreach(read("data/projekte.csv") as $p){
 
 
   Auswählen, wieviele Projekte gewählt werden soll. Mit Formel Empfehlung abgeben, auch aufgrund der verfügbaren Plätze?? Erst wenn Projektwahl-Stage eingestellt wird
-
-  			-->
+  -->
   <div class="container">
   	<div class="card-deck">
 
