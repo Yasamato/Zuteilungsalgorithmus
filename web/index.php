@@ -80,6 +80,7 @@
 		}
 		elseif($_SESSION['benutzer']['typ'] == "admin"){
 ?>
+		<link rel="stylesheet" href="css/dashboard.css">
 	</head>
 	<body>
 <?php
