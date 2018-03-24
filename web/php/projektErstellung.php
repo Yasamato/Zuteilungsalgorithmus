@@ -9,23 +9,25 @@ if(isLogin() && $_SESSION['benutzer']['typ'] == "teachers"){
 	empty($_POST["minPlatz"]) ||
 	empty($_POST["maxPlatz"]) ||
 	empty($_POST["weekdayMondayForenoon"]) ||
-	empty($_POST["checkboxFoodMonday"]) ||
 	empty($_POST["weekdayMondayAfternoon"]) ||
 	empty($_POST["weekdayTuesdayForenoon"]) ||
-	empty($_POST["checkboxFoodTuesday"]) ||
 	empty($_POST["weekdayTuesdayAfternoon"]) ||
 	empty($_POST["weekdayWednesdayForenoon"]) ||
-	empty($_POST["checkboxFoodMonday"]) ||
 	empty($_POST["weekdayWednesdayAfternoon"]) ||
 	empty($_POST["weekdayThursdayForenoon"]) ||
-	empty($_POST["checkboxFoodThursday"]) ||
 	empty($_POST["weekdayThursdayAfternoon"]) ||
 	empty($_POST["weekdayFridayForenoon"]) ||
 	empty($_POST["weekdayFridayAfternoon"])){
 		die("Fehlende Angaben");
 	}
-	if(!file_exists("csv/projekte.csv")){
-		createFile("csv/projekte.csv", [
+	foreach($_POST as $post){
+		if(strpos($post, "__#__") !== false || strpos($post, "__;__") !== false){
+			die("Ungültige Zeichenkette: __#__ oder __;__");
+		}
+	}
+
+	if(!file_exists("data/projekte.csv")){
+		createFile("data/projekte.csv", [
 			"id",
 			"name",
 			"beschreibung",
@@ -54,8 +56,13 @@ if(isLogin() && $_SESSION['benutzer']['typ'] == "teachers"){
 			"frNach"
 		]);
 	}
-	add("csv/projekte.csv", [
-			count(read('csv/projekte.csv')),
+
+	function checkBox($v){
+		return (isset($v) && $v ? "Ja" : "Nein");
+	}
+
+	add("data/projekte.csv", [
+			count(read('data/projekte.csv')),
 			$_POST["pName"],
 			str_replace("\n", "<br>", $_POST["beschreibung"]),
 			$_POST["betreuer"],
@@ -67,20 +74,20 @@ if(isLogin() && $_SESSION['benutzer']['typ'] == "teachers"){
 			$_POST["vorraussetzungen"],
 			$_POST["raum"],
 			$_POST["material"],
-			str_replace("\n", "<br>", $_POST["weekdayMondayForenoon"]),
-			$_POST["checkboxFoodMonday"],
-			str_replace("\n", "<br>", $_POST["weekdayMondayAfternoon"]),
-			str_replace("\n", "<br>", $_POST["weekdayTuesdayForenoon"]),
-			$_POST["checkboxFoodTuesday"],
-			str_replace("\n", "<br>", $_POST["weekdayTuesdayAfternoon"]),
-			str_replace("\n", "<br>", $_POST["weekdayWednesdayForenoon"]),
-			$_POST["checkboxFoodMonday"],
-			str_replace("\n", "<br>", $_POST["weekdayWednesdayAfternoon"]),
-			str_replace("\n", "<br>", $_POST["weekdayThursdayForenoon"]),
-			$_POST["checkboxFoodThursday"],
-			str_replace("\n", "<br>", $_POST["weekdayThursdayAfternoon"]),
-			str_replace("\n", "<br>", $_POST["weekdayFridayForenoon"]),
-			str_replace("\n", "<br>", $_POST["weekdayFridayAfternoon"])
+			str_replace("\n", "<br>", $_POST["moVor"]),
+			checkBox($_POST["moMensa"]),
+			str_replace("\n", "<br>", $_POST["moNach"]),
+			str_replace("\n", "<br>", $_POST["diVor"]),
+			checkBox($_POST["diMensa"]),
+			str_replace("\n", "<br>", $_POST["diNach"]),
+			str_replace("\n", "<br>", $_POST["miVor"]),
+			checkBox($_POST["miMensa"]),
+			str_replace("\n", "<br>", $_POST["miNach"]),
+			str_replace("\n", "<br>", $_POST["doVor"]),
+			checkBox($_POST["doMensa"]),
+			str_replace("\n", "<br>", $_POST["doNach"]),
+			str_replace("\n", "<br>", $_POST["frVor"]),
+			str_replace("\n", "<br>", $_POST["frNach"])
 	]);
 }
 ?>

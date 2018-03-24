@@ -80,10 +80,11 @@
 		}
 		elseif($_SESSION['benutzer']['typ'] == "admin"){
 ?>
+		<link rel="stylesheet" href="css/dashboard.css">
 	</head>
 	<body>
 <?php
-			include "html/dashboard.html";
+			include "html/dashboard.php";
 		}
 		else {
 			if(read("csv/config.csv")[0]["Stage"] == 4){

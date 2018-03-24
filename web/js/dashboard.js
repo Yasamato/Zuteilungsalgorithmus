@@ -32,3 +32,4 @@ $('input:radio').on('click', function(e) {
 function form_submit() {
     document.getElementById("configForm").submit();
 }
+

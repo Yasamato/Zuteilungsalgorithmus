@@ -159,10 +159,10 @@ window.onload = function(){
       							</tr>
       							<tr>
       								<th scope="row">Mensa-Essen</th>
-      								<td>` + e.moMit + `</td>
-      								<td>` + e.diMit + `</td>
-      								<td>` + e.miMit + `</td>
-      								<td>` + e.doMit + `</td>
+      								<td>` + e.moMensa + `</td>
+      								<td>` + e.diMensa + `</td>
+      								<td>` + e.miMensa + `</td>
+      								<td>` + e.doMensa + `</td>
       								<td>Nein</td>
       							</tr>
       							<tr>
