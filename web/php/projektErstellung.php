@@ -24,8 +24,8 @@ if(isLogin() && $_SESSION['benutzer']['typ'] == "teachers"){
 	empty($_POST["weekdayFridayAfternoon"])){
 		die("Fehlende Angaben");
 	}
-	if(!file_exists("data/projekte.csv")){
-		createFile("data/projekte.csv", [
+	if(!file_exists("csv/projekte.csv")){
+		createFile("csv/projekte.csv", [
 			"id",
 			"name",
 			"beschreibung",
@@ -54,8 +54,8 @@ if(isLogin() && $_SESSION['benutzer']['typ'] == "teachers"){
 			"frNach"
 		]);
 	}
-	add("data/projekte.csv", [
-			count(read('data/projekte.csv')),
+	add("csv/projekte.csv", [
+			count(read('csv/projekte.csv')),
 			$_POST["pName"],
 			str_replace("\n", "<br>", $_POST["beschreibung"]),
 			$_POST["betreuer"],
