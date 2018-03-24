@@ -9,8 +9,6 @@ $stufen = [
   11 => 0,
   12 => 0
 ];
-$test = 0;
-$anzahl = [0, 0, 0, 0, 0, 0, 0, 0];
 foreach(read("data/projekte.csv") as $p){
   for($i = 5; $i < 12; $i++) {
 		if($p["minKlasse"] <= $i && $p["maxKlasse"] >= $i){
@@ -259,13 +257,13 @@ foreach(read("data/projekte.csv") as $p){
   		-->
 
 		</div>
-		<script src="js/dashboard.js"></script>
 		<script>
-		a = <?php
+		var a = <?php
 		/*
 		TODO:
 		$daten["SchuleAmErstenVormittag"]
 		*/
 		echo "['" . $config["Schüleranzahl"] . "', '" . $config["Montag"] . "', '" . $config["Dienstag"] . "', '" . $config["Mittwoch"] . "', '" . $config["Donnerstag"] . "', '" . $config["Freitag"] . "', '" . "false" . "'];";
-		?>
+?>
 		</script>
+		<script src="js/dashboard.js"></script>

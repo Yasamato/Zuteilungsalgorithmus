@@ -23,7 +23,7 @@
 					$tmp = [];
 					$i = 0;
 					foreach($line as $v){
-						if($i == 0){
+						if($i == 0 || $i == count($line) - 1){
 							$v = str_replace("\n", "", $v);
 						}
 						$tmp[$head[$i++]] = $v;

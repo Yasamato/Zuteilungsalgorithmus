@@ -15,15 +15,15 @@ function read_configuration() {
 $('input:checkbox').on('click', function(e) {
     e.stopImmediatePropagation();
     var checked = (e.currentTarget.checked) ? false : true;
-    e.currentTarget.checked=(checked) ? false : checked.toString();
+    e.currentTarget.checked = (checked) ? false : checked.toString();
 });
 
 $('input:radio').on('click', function(e) {
     e.stopImmediatePropagation();
     var checked = (e.currentTarget.checked) ? false : true;
-    e.currentTarget.checked=(checked) ? false : checked.toString();
+    e.currentTarget.checked = (checked) ? false : checked.toString();
 });
 
 function form_submit() {
     document.getElementById("configForm").submit();
-   } 
+}
