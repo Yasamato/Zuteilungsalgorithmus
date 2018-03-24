@@ -17,6 +17,8 @@
 	session_start();
 	require("php/db.php");
 	$config = read("data/config.csv")[0];
+	echo "<!-- ";print_r($_POST); echo " -->";
+	echo "<!-- ";print_r($config); echo " -->";
 	function isLogin(){
 		return isset($_SESSION['benutzer']);
 	}

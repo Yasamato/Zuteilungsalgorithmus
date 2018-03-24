@@ -23,7 +23,3 @@ $('input:radio').on('click', function(e) {
     var checked = (e.currentTarget.checked) ? false : true;
     e.currentTarget.checked = (checked) ? false : checked.toString();
 });
-
-function form_submit() {
-    document.getElementById("configForm").submit();
-}

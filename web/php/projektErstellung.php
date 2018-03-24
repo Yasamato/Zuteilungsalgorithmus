@@ -8,16 +8,16 @@ if(isLogin() && $_SESSION['benutzer']['typ'] == "teachers"){
 	empty($_POST["maxKlasse"]) ||
 	empty($_POST["minPlatz"]) ||
 	empty($_POST["maxPlatz"]) ||
-	empty($_POST["weekdayMondayForenoon"]) ||
-	empty($_POST["weekdayMondayAfternoon"]) ||
-	empty($_POST["weekdayTuesdayForenoon"]) ||
-	empty($_POST["weekdayTuesdayAfternoon"]) ||
-	empty($_POST["weekdayWednesdayForenoon"]) ||
-	empty($_POST["weekdayWednesdayAfternoon"]) ||
-	empty($_POST["weekdayThursdayForenoon"]) ||
-	empty($_POST["weekdayThursdayAfternoon"]) ||
-	empty($_POST["weekdayFridayForenoon"]) ||
-	empty($_POST["weekdayFridayAfternoon"])){
+	empty($_POST["moVor"]) ||
+	empty($_POST["moNach"]) ||
+	empty($_POST["diVor"]) ||
+	empty($_POST["diNach"]) ||
+	empty($_POST["miVor"]) ||
+	empty($_POST["miNach"]) ||
+	empty($_POST["doVor"]) ||
+	empty($_POST["doNach"]) ||
+	empty($_POST["frVor"]) ||
+	empty($_POST["frNach"])){
 		die("Fehlende Angaben");
 	}
 	foreach($_POST as $post){

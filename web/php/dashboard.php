@@ -1,6 +1,6 @@
 <?php
-if(!empty(array_filter($_POST))) {
-	$data = read("csv/config.csv")[0];
+if(isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
+	$data = read("data/config.csv")[0];
 	$names = [
 		"Stage",
 		"Schüleranzahl",
@@ -12,9 +12,6 @@ if(!empty(array_filter($_POST))) {
 		"Schule_am_ersten_Vormittag"
 	];
 
-
-	$stage = $data["Stage"];
-	$numberOfStudents = $_POST["inputSchuelerAnzahl"];
 	if (array_key_exists("inlineCheckbox1", $_POST)) {
 		$monday = "true";
 	} else {
@@ -46,28 +43,26 @@ if(!empty(array_filter($_POST))) {
 	$thursday = ($_POST["inlineCheckbox4"] == "true");
 	$friday = ($_POST["inlineCheckbox5"] == "true");
 	*/
-	$firstDay = $_POST["firstDay"];
 
 	$values = [
-		$stage,
-		$numberOfStudents,
+		$config['Stage'],
+		$_POST["inputSchuelerAnzahl"],
 		$monday,
 		$tuesday,
 		$wednesday,
 		$thursday,
 		$friday,
-		$firstDay
+		$_POST["firstDay"]
 	];
-
-	// open the file
-	$fp = fopen('csv/config.csv', 'w');
-
-	// write the data and check for success
-	if (!fputcsv($fp, $names, "#") or !fputcsv($fp, $values, "#")) {
-		die("Projekt konnte nicht gespeichert werden!");
+	setRow("data/config.csv", 0, $values);
+	if(read("data/config.csv") == $config){
+		die("Konfiguration wurde nicht gespeichert.");
 	}
-	// close the file
-	fclose($fp);
-
+	else{
+		$config = read("data/config.csv");
+	}
+}
+else{
+	die("Unzureichende Berechtigung");
 }
 ?>
