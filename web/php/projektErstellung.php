@@ -20,6 +20,12 @@ if(isLogin() && $_SESSION['benutzer']['typ'] == "teachers"){
 	empty($_POST["weekdayFridayAfternoon"])){
 		die("Fehlende Angaben");
 	}
+	foreach($_POST as $post){
+		if(strpos($post, "__#__") !== false || strpos($post, "__;__") !== false){
+			die("Ungültige Zeichenkette: __#__ oder __;__");
+		}
+	}
+
 	if(!file_exists("data/projekte.csv")){
 		createFile("data/projekte.csv", [
 			"id",
