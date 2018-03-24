@@ -1,72 +1,24 @@
 // JavaScript Magie
-function replaceShit(string) {
-  document.getElementById(string).value = document.getElementById(string).value.replace("'", "\'");
-}
 
-function check() {
-  replaceShit("inputProjektname");
-  replaceShit("inputBeschreibung");
-  replaceShit("inputBetreuer");
-
-	if (parseInt(document.getElementById("minPlatz").value) > parseInt(document.getElementById("maxPlatz").value)) {
-		alert("Mindestanzahl der Teilnehmerplätze kann nicht größer sein als die die Maximalanzahl");
-    return false;
-	}
-	if (parseInt(document.getElementById("minKlasse").value) > parseInt(document.getElementById("maxKlasse").value)) {
-		alert("Mindeststufe der Klassenstufe kann nicht größer sein als die die Maximalstufe");
-    return false;
-	}
-	return true;
-}
-
-function createWeekdays() {
-  var wochentage = [
-    "Montag",
-    "Dienstag",
-    "Mittwoch",
-    "Donnerstag",
-    "Freitag"
-  ];
-  var weekdays = [
-    "mo",
-    "di",
-    "mi",
-    "do",
-    "fr"
-  ];
-  for (var i = 0; i < wochentage.length; i++) {
-      document.getElementById('weekdays').innerHTML += `<div class="weekday">
-        <label>`+ wochentage[i] + `</label>
-        <div class="form-group">
-          <label for="">Vormittag</label>
-          <textarea class="form-control" id="weekday` + weekdays[i] + `Forenoon" placeholder="" required rows="3" name="` + weekdays[i] + `Vor"></textarea>
-          <div class="invalid-feedback">
-          Ungültige Eingabe
-        </div>
-
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="true" checked id="checkboxFood` + weekdays[i] + `" name="` + weekdays[i] + `Mensa">
-          <label class="form-check-label" for="defaultCheck1">
-          Mensaessen möglich
-          </label>
-        </div>
-
-        <div class="form-group">
-          <label for="">Nachmittag</label>
-          <textarea class="form-control" id="weekday` + weekdays[i] + `Afternoon" placeholder="" required rows="3" name="` + weekdays[i] + `Nach"></textarea>
-          <div class="invalid-feedback">
-          Ungültige Eingabe
-          </div>
-        </div>
-
-      </div>`;
-  }
-  document.getElementById("frMensa").checked = false;
-  document.getElementById("frMensa").disabled = true;
-}
-
+// create the UI when the page is loaded
 window.onload = createWeekdays;
 
+// check if the input is logical correct
+function check() {
+  // check if the minimum is smaller or equal to the maximum
+  var numberOfPlacesAreCorrect = parseInt(document.getElementById("inputMinPlaetze").value) <= parseInt(document.getElementById("inputMaxPlaetze").value);
+	if (!numberOfPlacesAreCorrect) {
+		alert("Mindestanzahl der Teilnehmerplätze kann nicht größer sein als die die Maximalanzahl!");
+	}
+  // check if the minimum is smaller or equal to the maximum
+	var levelsAreCorrect = parseInt(document.getElementById("inputMinKlasse").value) <= parseInt(document.getElementById("inputMaxKlasse").value);
+	if (!levelsAreCorrect) {
+		alert("Mindeststufe der Klassenstufe kann nicht größer sein als die die Maximalstufe!");
+	}	
+	return numberOfPlacesAreCorrect && levelsAreCorrect;
+}
+
+// JavaScript for disabling form submissions if there are invalid fields
 (function() {
   'use strict';
   window.addEventListener('load', function() {
@@ -84,3 +36,56 @@ window.onload = createWeekdays;
     });
   }, false);
 })();
+
+// creates the schedule input of each weekday
+function createWeekdays() {
+  // weekdays for the UI
+  var wochentage = [
+    "Montag",
+    "Dienstag",
+    "Mittwoch",
+    "Donnerstag",
+    "Freitag"
+  ];
+  // weekdays for the code
+  // yep thats definitly necessary ;)
+  var weekdays = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday"
+  ];
+  // generate the schedule for each day
+  // it doesn't matter if it's necessary or not 
+  for (var i = 0; i < weekdays.length; i++) {
+      document.getElementById('weekdays').innerHTML += `<div class="weekday">
+        <label>`+ wochentage[i] + `</label>
+        <div class="form-group">
+          <label for="">Vormittag</label>
+          <textarea class="form-control" id="weekday` + weekdays[i] + `Forenoon" placeholder="" required rows="3" name="weekday` + weekdays[i] + `Forenoon"></textarea>
+          <div class="invalid-feedback">
+          Ungültige Eingabe
+        </div>
+
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="ja" checked id="checkboxFood` + weekdays[i] + `" name="checkboxFood` + weekdays[i] + `">
+          <label class="form-check-label" for="defaultCheck1">
+          Mensaessen möglich
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label for="">Nachmittag</label>
+          <textarea class="form-control" id="weekday` + weekdays[i] + `Afternoon" placeholder="" required rows="3" name="weekday` + weekdays[i] + `Afternoon"></textarea>
+          <div class="invalid-feedback">
+          Ungültige Eingabe
+          </div>
+        </div>
+
+      </div>`;
+  }
+  // disable the option to eat in the canteen on friday
+  document.getElementById("checkboxFoodFriday").checked = false;
+  document.getElementById("checkboxFoodFriday").disabled = true;
+}
