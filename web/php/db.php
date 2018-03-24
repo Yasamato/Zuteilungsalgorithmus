@@ -83,7 +83,7 @@
 					$meta = false;
 				}
 				else{
-					$line = explode("#", $line);
+					$line = explode("__#__", $line);
 					$tmp = [];
 					$i = 0;
 					foreach($line as $v){
