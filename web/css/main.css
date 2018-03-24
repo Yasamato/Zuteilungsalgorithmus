@@ -1,7 +1,7 @@
 html, body {
 	height: 100%;
 	color:#ffffff;
-	background-image:url("background.jpg");
+	background-image:url("https://campus.lmg8.de/img/background.jpg");
 	background-attachment:fixed;
 	background-size:cover;
 }
