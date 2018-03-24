@@ -1,3 +1,7 @@
+html, body {
+	height: auto;
+
+}
 body {
 	display: -webkit-box;
 	display: -moz-flexbox;
