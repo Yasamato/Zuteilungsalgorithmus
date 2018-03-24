@@ -9,16 +9,12 @@ if(isLogin() && $_SESSION['benutzer']['typ'] == "teachers"){
 	empty($_POST["minPlatz"]) ||
 	empty($_POST["maxPlatz"]) ||
 	empty($_POST["weekdayMondayForenoon"]) ||
-	empty($_POST["checkboxFoodMonday"]) ||
 	empty($_POST["weekdayMondayAfternoon"]) ||
 	empty($_POST["weekdayTuesdayForenoon"]) ||
-	empty($_POST["checkboxFoodTuesday"]) ||
 	empty($_POST["weekdayTuesdayAfternoon"]) ||
 	empty($_POST["weekdayWednesdayForenoon"]) ||
-	empty($_POST["checkboxFoodMonday"]) ||
 	empty($_POST["weekdayWednesdayAfternoon"]) ||
 	empty($_POST["weekdayThursdayForenoon"]) ||
-	empty($_POST["checkboxFoodThursday"]) ||
 	empty($_POST["weekdayThursdayAfternoon"]) ||
 	empty($_POST["weekdayFridayForenoon"]) ||
 	empty($_POST["weekdayFridayAfternoon"])){
@@ -54,6 +50,11 @@ if(isLogin() && $_SESSION['benutzer']['typ'] == "teachers"){
 			"frNach"
 		]);
 	}
+
+	function checkBox($v){
+		return (isset($v) && $v ? "Ja" : "Nein");
+	}
+
 	add("data/projekte.csv", [
 			count(read('data/projekte.csv')),
 			$_POST["pName"],
@@ -68,16 +69,16 @@ if(isLogin() && $_SESSION['benutzer']['typ'] == "teachers"){
 			$_POST["raum"],
 			$_POST["material"],
 			str_replace("\n", "<br>", $_POST["weekdayMondayForenoon"]),
-			$_POST["checkboxFoodMonday"],
+			checkBox($_POST["checkboxFoodMonday"]),
 			str_replace("\n", "<br>", $_POST["weekdayMondayAfternoon"]),
 			str_replace("\n", "<br>", $_POST["weekdayTuesdayForenoon"]),
-			$_POST["checkboxFoodTuesday"],
+			checkBox($_POST["checkboxFoodTuesday"]),
 			str_replace("\n", "<br>", $_POST["weekdayTuesdayAfternoon"]),
 			str_replace("\n", "<br>", $_POST["weekdayWednesdayForenoon"]),
-			$_POST["checkboxFoodMonday"],
+			checkBox($_POST["checkboxFoodMonday"]),
 			str_replace("\n", "<br>", $_POST["weekdayWednesdayAfternoon"]),
 			str_replace("\n", "<br>", $_POST["weekdayThursdayForenoon"]),
-			$_POST["checkboxFoodThursday"],
+			checkBox($_POST["checkboxFoodThursday"]),
 			str_replace("\n", "<br>", $_POST["weekdayThursdayAfternoon"]),
 			str_replace("\n", "<br>", $_POST["weekdayFridayForenoon"]),
 			str_replace("\n", "<br>", $_POST["weekdayFridayAfternoon"])
