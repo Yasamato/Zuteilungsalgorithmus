@@ -40,13 +40,7 @@ foreach(read("data/projekte.csv") as $p){
 
           <div class="form-group">
             <label for="stageSelect">Aktuelle Phase</label>
-            <select class="form-control" id="stageSelect" name="stage" aria-describedby="stageHelper">
-              <option value="0">Nicht veröffentlicht</option>
-              <option value="1">Projekte können eingereicht werden</option>
-              <option value="2">Projekt-Einreichung geschlossen</option>
-              <option value="3">Wahl-Interface geöffnet</option>
-              <option value="4">Wahlen abgeschlossen</option>
-            </select>
+            <select class="form-control" id="stageSelect" name="stage" aria-describedby="stageHelper"></select>
             <small id="stageHelper" class="form-text text-muted">
               <ul>
                 <li>"Nicht veröffentlicht": Keiner hat Zugriff außer der Admin</li>
