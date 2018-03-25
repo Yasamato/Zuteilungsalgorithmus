@@ -7,17 +7,13 @@
 }
 
 .dropdown-item {
-	color:white;
+	color: white;
 }
 
 .closebutton {
-	color:white;
+	color: white;
 }
 
-#wochentagecheckboxes {
-	margin-left: 1rem;
-}
-
-#wochentagecheckboxescontainer {
-	margin-top: 1rem;
+hr{
+	background-color: #098C38;
 }

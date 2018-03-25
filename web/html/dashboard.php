@@ -26,7 +26,7 @@ foreach(read("data/projekte.csv") as $p){
     <div class="modal-content bg-dark">
 
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Projektwahlkonfiguration</h5>
+        <h4 class="modal-title" id="exampleModalLabel">Projektwahlkonfiguration</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span class="closebutton" aria-hidden="true">&times;</span>
         </button>
@@ -35,42 +35,92 @@ foreach(read("data/projekte.csv") as $p){
       <div class="modal-body">
         <form id="configForm" method="post">
 
-          <div class="form-row">
+          <h5>Allgemeine Einstellungen</h5>
+
+          <div class="form-group">
+            <label for="stageSelect">Aktuelle Phase</label>
+            <select class="form-control" id="stageSelect" name="stage" aria-describedby="stageHelper">
+              <option value="0">Nicht veröffentlicht</option>
+              <option value="1">Projekte können eingereicht werden</option>
+              <option value="2">Projekt-Einreichung geschlossen</option>
+              <option value="3">Wahl-Interface geöffnet</option>
+              <option value="4">Wahlen abgeschlossen</option>
+            </select>
+            <small id="stageHelper" class="form-text text-muted">
+              <ul>
+                <li>"Nicht veröffentlicht": Keiner hat Zugriff außer der Admin</li>
+                <li>"Projekte können eingereicht werden": Änderungen an den Einstellungen zu den Projekten können nicht mehr getätigt werden, sowie über das Lehrer-Interface Projekte eingereicht werden</li>
+                <li>"Projekt-Einreichung geschlossen": Es können keine weiteren Projekte mehr eingereicht werden. Manuelle Abänderungen durch den Admin sind jedoch möglich</li>
+                <li>"Wahl-Interface geöffnet": Die Schüler können sich nun mit ihren Login-Daten anmelden und aus ihrem Projekt-Pool ihre Wahl wählen</li>
+                <li>"Wahl abgeschlossen": Manuelle Eingriffe des Admins sind möglich. Die Auswertung findet durch einen Admin statt</li>
+              </ul>
+            </small>
+          </div>
+
+          <div class="form-group">
               <label for="inputSchuelerAnzahl">Anzahl Schüler</label>
               <input class="form-control" type="number" placeholder="1000" id="inputSchuelerAnzahl" name="inputSchuelerAnzahl">
           </div>
 
-          <div class="form-row" id="wochentagecheckboxescontainer">
-            <label for="wochentagecheckboxes">Wochentage</label>
-            <div id="wochentagecheckboxes">
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="inlineCheckbox1" value="true" checked>
-                <label class="form-check-label" for="inlineCheckbox1">Montag</label>
-              </div>
+          <hr class="my-4">
+          <h5>Projekt-Einstellungen</h5>
 
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="inlineCheckbox2" value="true" checked>
-                <label class="form-check-label" for="inlineCheckbox2">Dienstag</label>
-              </div>
+          <table class="table table-responsive table-striped" id="wochentagecheckboxescontainer">
+            <thead class="thead-dark">
+              <tr>
+                <th>
+                  Wochentag
+                </th>
+                <th>
+                  <label class="form-check-label" for="inlineCheckbox1">Montag</label>
+                </th>
+                <th>
+                  <label class="form-check-label" for="inlineCheckbox2">Dienstag</label>
+                </th>
+                <th>
+                  <label class="form-check-label" for="inlineCheckbox3">Mittwoch</label>
+                </th>
+                <th>
+                  <label class="form-check-label" for="inlineCheckbox4">Donnerstag</label>
+                </th>
+                <th>
+                  <label class="form-check-label" for="inlineCheckbox5">Freitag</label>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>Enabled</th>
+                <td>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="inlineCheckbox1" value="true" checked>
+                  </div>
+                </td>
+                <td>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="inlineCheckbox2" value="true" checked>
+                  </div>
+                </td>
+                <td>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="inlineCheckbox3" value="true" checked>
+                  </div>
+                </td>
+                <td>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox4" name="inlineCheckbox4" value="true" checked>
+                  </div>
+                </td>
+                <td>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox5" name="inlineCheckbox5" value="true" checked>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
 
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="inlineCheckbox3" value="true" checked>
-                <label class="form-check-label" for="inlineCheckbox3">Mittwoch</label>
-              </div>
-
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox4" name="inlineCheckbox4" value="true" checked>
-                <label class="form-check-label" for="inlineCheckbox4">Donnerstag</label>
-              </div>
-
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox5" name="inlineCheckbox5" value="true" checked>
-                <label class="form-check-label" for="inlineCheckbox5">Freitag</label>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-row" id="ersterVormittagUnterricht">
+          <div class="form-group" id="ersterVormittagUnterricht">
             <label class="form-check-label" for="firstDay">Unterricht am ersten Projekttag-Vormittag?</label>
             <div id="firstdayradio">
               <div class="form-check form-check-inline">
