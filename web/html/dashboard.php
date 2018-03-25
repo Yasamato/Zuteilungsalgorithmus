@@ -361,7 +361,7 @@ foreach(read("data/projekte.csv") as $p){
   foreach (read("data/projekte.csv") as $p) {
     echo "{";
     foreach($p as $key => $v){
-      echo "'" . $key . "': '" . $v . "',";
+      echo "'" . $key . "': `" . $v . "`,";
     }
     echo "},";
   }
@@ -370,7 +370,7 @@ foreach(read("data/projekte.csv") as $p){
 foreach (read("data/schueler.csv") as $s) {
   echo "{";
   foreach($s as $key => $v){
-    echo "'" . $key . "': '" . $v . "',";
+    echo "'" . $key . "': `" . $v . "`,";
   }
   echo "},";
 }

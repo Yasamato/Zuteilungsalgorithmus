@@ -8,11 +8,11 @@ if(isLogin() && $_SESSION['benutzer']['typ'] == "teachers"){
 	empty($_POST["maxKlasse"]) ||
 	empty($_POST["minPlatz"]) ||
 	empty($_POST["maxPlatz"]) ||
-	$config["Montag"] && (empty($_POST["moVor"]) || empty($_POST["moNach"])) ||
-	$config["Dienstag"] && (empty($_POST["diVor"]) || empty($_POST["diNach"])) ||
-	$config["Mittwoch"] && (empty($_POST["miVor"]) || empty($_POST["miNach"])) ||
-	$config["Donnerstag"] && (empty($_POST["doVor"]) || empty($_POST["doNach"])) ||
-	$config["Freitag"] && (empty($_POST["frVor"]) || empty($_POST["frNach"]))){
+	$config["Montag"] == "true" && (empty($_POST["moVor"]) || empty($_POST["moNach"])) ||
+	$config["Dienstag"] == "true" && (empty($_POST["diVor"]) || empty($_POST["diNach"])) ||
+	$config["Mittwoch"] == "true" && (empty($_POST["miVor"]) || empty($_POST["miNach"])) ||
+	$config["Donnerstag"] == "true" && (empty($_POST["doVor"]) || empty($_POST["doNach"])) ||
+	$config["Freitag"] == "true" && (empty($_POST["frVor"]) || empty($_POST["frNach"]))){
 		die("Fehlende Angaben");
 	}
 	foreach($_POST as $post){
@@ -53,7 +53,11 @@ if(isLogin() && $_SESSION['benutzer']['typ'] == "teachers"){
 	}
 
 	function checkBox($v){
-		return (isset($v) && $v ? "Ja" : "Nein");
+		return isset($_POST[$v]) && $_POST[$v] ? "Ja" : "Nein";
+	}
+
+	function getSafeString($v){
+		return isset($_POST[$v]) ? str_replace("\n", "<br>", $_POST[$v]) : "";
 	}
 
 	add("data/projekte.csv", [
@@ -69,20 +73,20 @@ if(isLogin() && $_SESSION['benutzer']['typ'] == "teachers"){
 			$_POST["vorraussetzungen"],
 			$_POST["raum"],
 			$_POST["material"],
-			str_replace("\n", "<br>", $_POST["moVor"]),
-			checkBox($_POST["moMensa"]),
-			str_replace("\n", "<br>", $_POST["moNach"]),
-			str_replace("\n", "<br>", $_POST["diVor"]),
-			checkBox($_POST["diMensa"]),
-			str_replace("\n", "<br>", $_POST["diNach"]),
-			str_replace("\n", "<br>", $_POST["miVor"]),
-			checkBox($_POST["miMensa"]),
-			str_replace("\n", "<br>", $_POST["miNach"]),
-			str_replace("\n", "<br>", $_POST["doVor"]),
-			checkBox($_POST["doMensa"]),
-			str_replace("\n", "<br>", $_POST["doNach"]),
-			str_replace("\n", "<br>", $_POST["frVor"]),
-			str_replace("\n", "<br>", $_POST["frNach"])
+			getSafeString("moVor"),
+			checkBox("moMensa"),
+			getSafeString("moNach"),
+			getSafeString("diVor"),
+			checkBox("diMensa"),
+			getSafeString("diNach"),
+			getSafeString("miVor"),
+			checkBox("miMensa"),
+			getSafeString("miNach"),
+			getSafeString("doVor"),
+			checkBox("doMensa"),
+			getSafeString("doNach"),
+			getSafeString("frVor"),
+			getSafeString("frNach")
 	]);
 }
 ?>
