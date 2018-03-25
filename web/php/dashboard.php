@@ -17,42 +17,33 @@ if(isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
 		createFile("data/config.csv", $names);
 	}
 
-	//prepare data
-	if (array_key_exists("inlineCheckbox1", $_POST)) {
-		$monday = "true";
-	} else {
-		$monday = "false";
+	//Projekt-Einstellungen können nur in der ersten Phase geändert werden
+	if($config['Stage'] == 0){
+		//prepare data
+		$values = [
+			$_POST["stage"],
+			$_POST["inputSchuelerAnzahl"],
+			isset($_POST['montag']) ? "true" : "false",
+			isset($_POST['dienstag']) ? "true" : "false",
+			isset($_POST['mittwoch']) ? "true" : "false",
+			isset($_POST['donnerstag']) ? "true" : "false",
+			isset($_POST['freitag']) ? "true" : "false",
+			$_POST["firstDay"]
+		];
 	}
-	if (array_key_exists("inlineCheckbox2", $_POST)) {
-		$tuesday = "true";
-	} else {
-		$tuesday = "false";
+	else{
+		//prepare data
+		$values = [
+			$_POST["stage"],
+			$_POST["inputSchuelerAnzahl"],
+			$config['Montag'],
+			$config['Dienstag'],
+			$config['Mittwoch'],
+			$config['Donnerstag'],
+			$config['Freitag'],
+			$config["SchuleAmErstenVormittag"]
+		];
 	}
-	if (array_key_exists("inlineCheckbox3", $_POST)) {
-		$wednesday = "true";
-	} else {
-		$wednesday = "false";
-	}
-	if (array_key_exists("inlineCheckbox4", $_POST)) {
-		$thursday = "true";
-	} else {
-		$thursday = "false";
-	}
-	if (array_key_exists("inlineCheckbox5", $_POST)) {
-		$friday = "true";
-	} else {
-		$friday = "false";
-	}
-	$values = [
-		$_POST["stage"],
-		$_POST["inputSchuelerAnzahl"],
-		$monday,
-		$tuesday,
-		$wednesday,
-		$thursday,
-		$friday,
-		$_POST["firstDay"]
-	];
 
 	// write the data and check for success
 	setRow("data/config.csv", 0, $values);

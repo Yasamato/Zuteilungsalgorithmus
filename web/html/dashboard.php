@@ -94,27 +94,27 @@ foreach(read("data/projekte.csv") as $p){
                 <th>Enabled</th>
                 <td>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="inlineCheckbox1" value="true" checked>
+                    <input class="form-check-input" type="checkbox" id="montag" name="montag" value="true" checked>
                   </div>
                 </td>
                 <td>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="inlineCheckbox2" value="true" checked>
+                    <input class="form-check-input" type="checkbox" id="dienstag" name="dienstag" value="true" checked>
                   </div>
                 </td>
                 <td>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="inlineCheckbox3" value="true" checked>
+                    <input class="form-check-input" type="checkbox" id="mittwoch" name="mittwoch" value="true" checked>
                   </div>
                 </td>
                 <td>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox4" name="inlineCheckbox4" value="true" checked>
+                    <input class="form-check-input" type="checkbox" id="donnerstag" name="donnerstag" value="true" checked>
                   </div>
                 </td>
                 <td>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox5" name="inlineCheckbox5" value="true" checked>
+                    <input class="form-check-input" type="checkbox" id="freitag" name="freitag" value="true" checked>
                   </div>
                 </td>
               </tr>
@@ -290,9 +290,12 @@ foreach(read("data/projekte.csv") as $p){
 
 </div>
 <script>
-	var a = <?php
-  $config = read("data/config.csv")[0];
-	echo "['" . $config["Schüleranzahl"] . "', '" . $config["Montag"] . "', '" . $config["Dienstag"] . "', '" . $config["Mittwoch"] . "', '" . $config["Donnerstag"] . "', '" . $config["Freitag"] . "', '" . $config['SchuleAmErstenVormittag'] . "'];";
+	var a = {
+<?php
+  foreach(read("data/config.csv")[0] as $key => $v){
+    echo "'" . $key . "': '" . $v . "',";
+  }
 ?>
+};
 </script>
 <script src="js/dashboard.js"></script>
