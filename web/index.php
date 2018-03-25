@@ -19,7 +19,21 @@
 	$config = read("data/config.csv")[0];
 	echo "<!-- ";print_r($_POST); echo " -->";
 	echo "<!-- ";print_r($config); echo " -->";
-	function isLogin(){
+?>
+	<script>
+		var config = {<?php
+	foreach(read("data/config.csv")[0] as $key => $v){
+		echo "'" . $key . "': '" . $v . "',";
+	}
+	?>}
+	  // convert the string into a bool
+	  config["Montag"] = (config["Montag"] == 'true');
+	  config["Dienstag"] = (config["Dienstag"] == 'true');
+	  config["Mittwoch"] = (config["Mittwoch"] == 'true');
+	  config["Donnerstag"] = (config["Donnerstag"] == 'true');
+		config["Freitag"] = (config["Freitag"] == 'true');
+	</script>
+<?php	function isLogin(){
 		return isset($_SESSION['benutzer']);
 	}
 

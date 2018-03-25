@@ -356,13 +356,7 @@ foreach(read("data/projekte.csv") as $p){
 
 </div>
 <script>
-	var a = {
-<?php
-  foreach(read("data/config.csv")[0] as $key => $v){
-    echo "'" . $key . "': '" . $v . "',";
-  }
-?>
-  }, projekte = [
+	var projekte = [
 <?php
   foreach (read("data/projekte.csv") as $p) {
     echo "{";
