@@ -1,5 +1,6 @@
 <?php
 // generate the statistics how many places are available in each class
+// initialize the data array
 $stufen = [
   5 => 0,
   6 => 0,
@@ -144,7 +145,6 @@ foreach(read("data/projekte.csv") as $p){
     </div>
   </div>
 </div>
-
 <div class="container-fluid">
 
 	<div class="container">
@@ -173,103 +173,103 @@ foreach(read("data/projekte.csv") as $p){
   Beim Projektwahl einrichten soll eine config datei erstellt werden und folgende Werte bestimmt werden:
   Wochentage der Projektwoche, Felder deaktiveren und vielleicht text hinterlegen
 
+  Auswählen, wieviele Projekte gewählt werden soll. Mit Formel Empfehlung abgeben, auch aufgrund der verfügbaren Plätze?? Erst wenn Projektwahl-Stage eingestellt wird -->
 
-  Auswählen, wieviele Projekte gewählt werden soll. Mit Formel Empfehlung abgeben, auch aufgrund der verfügbaren Plätze?? Erst wenn Projektwahl-Stage eingestellt wird
-  -->
-  <div class="container">
-  	<div class="card-deck">
-
-  	  <div class="card text-white bg-dark mb-3" >
+	<div class="container">
+		<div class="card-deck">
+			<div class="card text-white bg-dark mb-3" >
 				<div class="card-body">
 					<h5 class="card-title" id="eingereichteProjekte"><?php echo count(read('data/projekte.csv')); ?></h5>
 					<p class="card-text">Projekte wurden eingereicht</p>
 				</div>
-  		</div>
+			</div>
 
-  	  <div class="card text-white bg-dark mb-3" >
+			<div class="card text-white bg-dark mb-3" >
+			<div class="card-body">
+				<h5 class="card-title" id="anzahlPlaetze"><?php
+					$anzahl = 0;
+					foreach(read("data/projekte.csv") as $p){
+						$anzahl += $p["maxPlatz"];
+					}
+				 	echo $anzahl;
+				?></h5>
+				<p class="card-text">Plätze sind verfügbar</p></p>
+			</div>
+		</div>
+
+		<div class="card text-white bg-dark mb-3" >
+			<div class="card-body">
+				<h5 class="card-title" id="schuelergewaehlt">
+	  				<?php echo count(read('csv/schueler.csv')); ?>
+				</h5>
+				<p class="card-text">Schüler haben schon gewählt</p>
+			</div>
+		</div>
+
+		</div>
+	</div>
+
+	<!-- Verfügbare Plätze 5 - 8 -->
+
+	<div class="container">
+		<div class="card-deck" id="verteilungPlaetze">
+			<div class="card text-white bg-dark mb-3" >
 				<div class="card-body">
-					<h5 class="card-title" id="anzahlPlaetze"><?php
-						$anzahl = 0;
-						foreach(read("data/projekte.csv") as $p){
-							$anzahl += $p["maxPlatz"];
-						}
-            echo $anzahl;
-          ?></h5>
-					<p class="card-text">Plätze sind verfügbar</p></p>
+					<h5 class="card-title" id="plaetze5"><?php echo $stufen[5]; ?></h5>
+					<p class="card-text">Plätze sind verfügbar für Klassenstufe 5</p>
 				</div>
-  		</div>
-
-  		<div class="card text-white bg-dark mb-3" >
+			</div>
+		 	<div class="card text-white bg-dark mb-3" >
 				<div class="card-body">
-					<h5 class="card-title" id="schuelergewaehlt">
-            <?php echo count(read('data/schueler.csv')); ?>
-          </h5>
-					<p class="card-text">Schüler haben schon gewählt</p>
+					<h5 class="card-title" id="plaetze6"><?php echo $stufen[6]; ?></h5>
+					<p class="card-text">Plätze sind verfügbar für Klassenstufe 6</p>
 				</div>
-  		</div>
+			</div>
+			<div class="card text-white bg-dark mb-3" >
+				<div class="card-body">
+					<h5 class="card-title" id="plaetze7"><?php echo $stufen[7]; ?></h5>
+					<p class="card-text">Plätze sind verfügbar für Klassenstufe 7</p>
+				</div>
+			</div>
+			<div class="card text-white bg-dark mb-3" >
+				<div class="card-body">
+					<h5 class="card-title" id="plaetze8"><?php echo $stufen[8]; ?></h5>
+					<p class="card-text">Plätze sind verfügbar für Klassenstufe 8</p>
+				</div>
+			</div>
+		</div>
+	</div>
 
-  	</div>
-  </div>
+	<!-- Verfügbare Plätze 9 - 12 -->
 
-  <!-- Verfügbare Plätze 5 - 8 -->
-  <div class="container">
-    <div class="card-deck" id="verteilungPlaetze">
-        <div class="card text-white bg-dark mb-3" >
-					<div class="card-body">
-						<h5 class="card-title" id="plaetze5"><?php echo $stufen[5]; ?></h5>
-						<p class="card-text">Plätze sind verfügbar für Klassenstufe 5</p>
-					</div>
-  			</div>
-  		  <div class="card text-white bg-dark mb-3" >
-					<div class="card-body">
-						<h5 class="card-title" id="plaetze6"><?php echo $stufen[6]; ?></h5>
-						<p class="card-text">Plätze sind verfügbar für Klassenstufe 6</p>
-					</div>
-  			</div>
-  			<div class="card text-white bg-dark mb-3" >
-					<div class="card-body">
-						<h5 class="card-title" id="plaetze7"><?php echo $stufen[7]; ?></h5>
-						<p class="card-text">Plätze sind verfügbar für Klassenstufe 7</p>
-					</div>
-  			</div>
-  			<div class="card text-white bg-dark mb-3" >
-					<div class="card-body">
-						<h5 class="card-title" id="plaetze8"><?php echo $stufen[8]; ?></h5>
-						<p class="card-text">Plätze sind verfügbar für Klassenstufe 8</p>
-					</div>
-  			</div>
-      </div>
-  </div>
-
-  <!-- Verfügbare Plätze 9 - 12 -->
-  <div class="container">
-  	<div class="card-deck" id="verteilungPlaetze">
-  	  <div class="card text-white bg-dark mb-3" >
+	<div class="container">
+		<div class="card-deck" id="verteilungPlaetze">
+			<div class="card text-white bg-dark mb-3" >
 				<div class="card-body">
 					<h5 class="card-title" id="plaetze9"><?php echo $stufen[9]; ?></h5>
 					<p class="card-text">Plätze sind verfügbar für Klassenstufe 9</p>
 				</div>
-  		</div>
-  	  <div class="card text-white bg-dark mb-3" >
+			</div>
+			<div class="card text-white bg-dark mb-3" >
 				<div class="card-body">
 					<h5 class="card-title" id="plaetze10"><?php echo $stufen[10]; ?></h5>
 					<p class="card-text">Plätze sind verfügbar für Klassenstufe 10</p>
 				</div>
-  		</div>
-  		<div class="card text-white bg-dark mb-3" >
+			</div>
+			<div class="card text-white bg-dark mb-3" >
 				<div class="card-body">
 					<h5 class="card-title" id="plaetze11"><?php echo $stufen[11]; ?></h5>
 					<p class="card-text">Plätze sind verfügbar für Klassenstufe 11</p>
 				</div>
-  		</div>
-  		<div class="card text-white bg-dark mb-3" >
+			</div>
+			<div class="card text-white bg-dark mb-3" >
 				<div class="card-body">
 					<h5 class="card-title" id="plaetze12"><?php echo $stufen[12]; ?></h5>
 					<p class="card-text">Plätze sind verfügbar für Klassenstufe 12</p>
 				</div>
-  		</div>
-  	</div>
-  </div>
+			</div>
+		</div>
+	</div>
 
 			<!-- Noch nicht funktionsfähig
   		<div class="container">
