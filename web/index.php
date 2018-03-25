@@ -6,13 +6,19 @@
 		<meta name="author" content="Leo Jung">
 		<meta name="description" content="Wahlseite der LMG8-Schule von Maxdorf">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
-		<!-- frameworks -->
+		<!-- css-frameworks -->
 		<link rel="stylesheet" href="bootstrap-4.0.0/css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/main.css">
+		<!-- JS-Libs -->
+		<script src="js/jquery-3.3.1.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+		<script src="bootstrap-4.0.0/js/bootstrap.min.js"></script>
 <?php
 	session_start();
 	require("php/db.php");
 	$config = read("data/config.csv")[0];
+	echo "<!-- ";print_r($_POST); echo " -->";
+	echo "<!-- ";print_r($config); echo " -->";
 	function isLogin(){
 		return isset($_SESSION['benutzer']);
 	}
@@ -60,25 +66,7 @@
 	//--------------------------------------------------------
 	//html-teil
 	if (isLogin()) {
-		if($_SESSION['benutzer']['typ'] == "teachers") {
-			//if(read("csv/config.csv")[0]["Stage"] == 2){
-?>
-		<link rel="stylesheet" href="css/projektErstellung.css">
-	</head>
-	<body>
-<?php
-				include "html/projektErstellung.html";
-			/*}
-			else{
-?>
-	</head>
-	<body>
-<?php
-				logout();
-				include "html/einreichenGeschlossen.html";
-			}*/
-		}
-		elseif($_SESSION['benutzer']['typ'] == "admin"){
+		if($_SESSION['benutzer']['typ'] == "admin"){
 ?>
 		<link rel="stylesheet" href="css/dashboard.css">
 	</head>
@@ -86,8 +74,26 @@
 <?php
 			include "html/dashboard.php";
 		}
+		elseif($_SESSION['benutzer']['typ'] == "teachers") {
+			if(read("csv/config.csv")[0]["Stage"] == 1){
+?>
+		<link rel="stylesheet" href="css/projektErstellung.css">
+	</head>
+	<body>
+<?php
+				include "html/projektErstellung.html";
+			}
+			else{
+?>
+	</head>
+	<body>
+<?php
+				logout();
+				include "html/einreichenGeschlossen.html";
+			}
+		}
 		else {
-			if(read("csv/config.csv")[0]["Stage"] == 4){
+			if(read("csv/config.csv")[0]["Stage"] == 3){
 ?>
 		<link rel="stylesheet" href="css/wahl.css">
 	</head>
@@ -135,9 +141,5 @@
 <?php
 	}
 ?>
-		<!-- JS-Libs -->
-		<script src="js/jquery-3.3.1.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-		<script src="bootstrap-4.0.0/js/bootstrap.min.js"></script>
 	</body>
 </html>
