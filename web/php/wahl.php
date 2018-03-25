@@ -4,12 +4,8 @@ if(isLogin()) {// hard gecoded für präsi
 		$projekte = read("csv/projekte.csv");
 		for($i = 0; $i < count($_POST['wahl']); $i++){
 			if($projekte[$i]['min Klasse'] <= $_SESSION['benutzer']['stufe'] && $projekte[$i]['max Klasse'] >= $_SESSION['benutzer']['stufe']){
-				if(!file_exists("csv/schueler.csv")){
-					if(($fh = fopen("csv/schueler.csv", "w+")) === false){
-						die("Speicherung Fehlgeschlagen, konnte nicht in die Datei schreiben");
-					}
-					fclose($fh);
-					add("csv/schueler.csv", [
+				if(!file_exists("data/schueler.csv")){
+					createFile("data/schueler.csv", [
 						"uid",
 						"vorname",
 						"nachname",
@@ -18,7 +14,7 @@ if(isLogin()) {// hard gecoded für präsi
 						"wahl"
 					]);
 				}
-				add("csv/schueler.csv", [
+				add("data/schueler.csv", [
 					$_SESSION['benutzer']['uid'],
 					$_SESSION['benutzer']['vorname'],
 					$_SESSION['benutzer']['nachname'],
