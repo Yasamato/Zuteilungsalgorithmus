@@ -21,13 +21,13 @@ foreach(read("data/projekte.csv") as $p){
 	}
 }
 ?>
-<!-- Modal -->
-<div class="modal fade bd-example-modal-lg1" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Einstellungs-Modal -->
+<div class="modal fade bd-example-modal-lg1" id="configModal" tabindex="-1" role="dialog" aria-labelledby="configModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content bg-dark">
 
       <div class="modal-header">
-        <h4 class="modal-title" id="exampleModalLabel">Projektwahlkonfiguration</h4>
+        <h4 class="modal-title" id="configModalLabel">Projektwahlkonfiguration</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span class="closebutton" aria-hidden="true">&times;</span>
         </button>
@@ -40,13 +40,7 @@ foreach(read("data/projekte.csv") as $p){
 
           <div class="form-group">
             <label for="stageSelect">Aktuelle Phase</label>
-            <select class="form-control" id="stageSelect" name="stage" aria-describedby="stageHelper">
-              <option value="0">Nicht veröffentlicht</option>
-              <option value="1">Projekte können eingereicht werden</option>
-              <option value="2">Projekt-Einreichung geschlossen</option>
-              <option value="3">Wahl-Interface geöffnet</option>
-              <option value="4">Wahlen abgeschlossen</option>
-            </select>
+            <select class="form-control" id="stageSelect" name="stage" aria-describedby="stageHelper"></select>
             <small id="stageHelper" class="form-text text-muted">
               <ul>
                 <li>"Nicht veröffentlicht": Keiner hat Zugriff außer der Admin</li>
@@ -66,7 +60,7 @@ foreach(read("data/projekte.csv") as $p){
           <hr class="my-4">
           <h5>Projekt-Einstellungen</h5>
 
-          <table class="table table-responsive table-striped" id="wochentagecheckboxescontainer">
+          <table class="table table-responsive table-striped">
             <thead class="thead-dark">
               <tr>
                 <th>
@@ -145,6 +139,70 @@ foreach(read("data/projekte.csv") as $p){
     </div>
   </div>
 </div>
+
+<!-- Projekte-Modal -->
+<div class="modal fade bd-example-modal-lg1" id="projekteModal" tabindex="-1" role="dialog" aria-labelledby="projekteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content bg-dark">
+
+      <div class="modal-header">
+        <h4 class="modal-title" id="projekteModalLabel">Projekte</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span class="closebutton" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <table class="table table-responsive table-striped table-hover" id="projekteTable">
+          <thead class="thead-dark">
+            <tr>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="modal-footer">
+        <button onclick="javascript:function(){console.log('Print requested: Projekte-Tabelle');}" type="button" class="btn btn-secondary">Drucken</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Schüler-Modal -->
+<div class="modal fade bd-example-modal-lg1" id="schuelerModal" tabindex="-1" role="dialog" aria-labelledby="schuelerModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content bg-dark">
+
+      <div class="modal-header">
+        <h4 class="modal-title" id="schuelerModalLabel">Schüler</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span class="closebutton" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <table class="table table-responsive table-striped table-hover" id="schuelerTable">
+          <thead class="thead-dark">
+            <tr>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="modal-footer">
+        <button onclick="javascript:function() {console.log('Print requested: Schüler-Tabelle');}" type="button" class="btn btn-secondary">Drucken</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <div class="container-fluid">
 
 	<div class="container">
@@ -161,7 +219,7 @@ foreach(read("data/projekte.csv") as $p){
 	<div class="container" style="padding-bottom: 1rem">
 		<div class="btn-group btn-group-toggle bg-dark" data-toggle="buttons" style="display: flex;">
   		<!-- Button trigger modal -->
-  		<button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#exampleModal">
+  		<button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#configModal">
   			Konfiguration
   		</button>
 		</div>
@@ -181,6 +239,10 @@ foreach(read("data/projekte.csv") as $p){
 				<div class="card-body">
 					<h5 class="card-title" id="eingereichteProjekte"><?php echo count(read('data/projekte.csv')); ?></h5>
 					<p class="card-text">Projekte wurden eingereicht</p>
+      		<!-- Button trigger modal -->
+      		<button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#projekteModal">
+      			Auflisten
+      		</button>
 				</div>
 			</div>
 
@@ -203,6 +265,10 @@ foreach(read("data/projekte.csv") as $p){
 	  				<?php echo count(read('csv/schueler.csv')); ?>
 				</h5>
 				<p class="card-text">Schüler haben schon gewählt</p>
+        <!-- Button trigger modal -->
+    		<button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#schuelerModal">
+          Auflisten
+        </button>
 			</div>
 		</div>
 
@@ -296,6 +362,25 @@ foreach(read("data/projekte.csv") as $p){
     echo "'" . $key . "': '" . $v . "',";
   }
 ?>
-};
+  }, projekte = [
+<?php
+  foreach (read("data/projekte.csv") as $p) {
+    echo "{";
+    foreach($p as $key => $v){
+      echo "'" . $key . "': '" . $v . "',";
+    }
+    echo "},";
+  }
+?>], schueler = [
+<?php
+foreach (read("data/schueler.csv") as $s) {
+  echo "{";
+  foreach($s as $key => $v){
+    echo "'" . $key . "': '" . $v . "',";
+  }
+  echo "},";
+}
+?>
+  ];
 </script>
 <script src="js/dashboard.js"></script>

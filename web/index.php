@@ -75,7 +75,7 @@
 			include "html/dashboard.php";
 		}
 		elseif($_SESSION['benutzer']['typ'] == "teachers") {
-			if(read("csv/config.csv")[0]["Stage"] == 1){
+			if($config["Stage"] == 1){
 ?>
 		<link rel="stylesheet" href="css/projektErstellung.css">
 	</head>
@@ -93,7 +93,7 @@
 			}
 		}
 		else {
-			if(read("csv/config.csv")[0]["Stage"] == 3){
+			if($config["Stage"] == 3){
 ?>
 		<link rel="stylesheet" href="css/wahl.css">
 	</head>
