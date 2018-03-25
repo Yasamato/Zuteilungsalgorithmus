@@ -66,25 +66,7 @@
 	//--------------------------------------------------------
 	//html-teil
 	if (isLogin()) {
-		if($_SESSION['benutzer']['typ'] == "teachers") {
-			//if(read("csv/config.csv")[0]["Stage"] == 2){
-?>
-		<link rel="stylesheet" href="css/projektErstellung.css">
-	</head>
-	<body>
-<?php
-				include "html/projektErstellung.html";
-			/*}
-			else{
-?>
-	</head>
-	<body>
-<?php
-				logout();
-				include "html/einreichenGeschlossen.html";
-			}*/
-		}
-		elseif($_SESSION['benutzer']['typ'] == "admin"){
+		if($_SESSION['benutzer']['typ'] == "admin"){
 ?>
 		<link rel="stylesheet" href="css/dashboard.css">
 	</head>
@@ -92,8 +74,26 @@
 <?php
 			include "html/dashboard.php";
 		}
+		elseif($_SESSION['benutzer']['typ'] == "teachers") {
+			if(read("csv/config.csv")[0]["Stage"] == 1){
+?>
+		<link rel="stylesheet" href="css/projektErstellung.css">
+	</head>
+	<body>
+<?php
+				include "html/projektErstellung.html";
+			}
+			else{
+?>
+	</head>
+	<body>
+<?php
+				logout();
+				include "html/einreichenGeschlossen.html";
+			}
+		}
 		else {
-			if(read("csv/config.csv")[0]["Stage"] == 4){
+			if(read("csv/config.csv")[0]["Stage"] == 3){
 ?>
 		<link rel="stylesheet" href="css/wahl.css">
 	</head>

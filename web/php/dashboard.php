@@ -44,7 +44,7 @@ if(isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
 		$friday = "false";
 	}
 	$values = [
-		$config['Stage'],
+		$_POST["stage"],
 		$_POST["inputSchuelerAnzahl"],
 		$monday,
 		$tuesday,
