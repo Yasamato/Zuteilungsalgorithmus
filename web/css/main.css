@@ -15,7 +15,7 @@ body {
 	-ms-flex-align: center;
 	-ms-flex-pack: center;
 	-webkit-box-align: baseline;
-	align-items: center;
+	margin-top: 6rem;
 	-webkit-box-pack: center;
 	justify-content: center;
 	padding-top: 40px;
