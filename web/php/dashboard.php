@@ -54,6 +54,21 @@ if(isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
 		//update config
 		$config = read("data/config.csv");
 	}
+?>
+	<script>
+		config = {<?php
+	foreach(read("data/config.csv")[0] as $key => $v){
+		echo "'" . $key . "': '" . $v . "',";
+	}
+	?>}
+	  // convert the string into a bool
+	  config["Montag"] = (config["Montag"] == 'true');
+	  config["Dienstag"] = (config["Dienstag"] == 'true');
+	  config["Mittwoch"] = (config["Mittwoch"] == 'true');
+	  config["Donnerstag"] = (config["Donnerstag"] == 'true');
+		config["Freitag"] = (config["Freitag"] == 'true');
+	</script>
+<?php
 }
 else{
 	die("Unzureichende Berechtigung");
