@@ -102,3 +102,40 @@ $('input:radio').on('click', function(e) {
     var checked = (e.currentTarget.checked) ? false : true;
     e.currentTarget.checked = (checked) ? false : checked.toString();
 });
+
+// Erstellt ein pdf-Dokument mit der Nummer, dem Titel und der Stufe aller Projekte
+function saveSmallProjectList(projectList){
+    var doc = new jsPDF('p', 'pt');
+    // Überschrift
+    var columns = ["Nr.", "Projekttitel", "Stufe"];
+    var rows = [];
+
+    // Eingabe der Projekte in rows
+    projectList.forEach(function(e){
+        rows.push([e.id, e.name, e.minKlasse + "-" + e.maxKlasse]);
+    });
+    // Einfügen der Tabelle
+    doc.autoTable(columns, rows, {
+        // Linien außen
+        tableLineColor: [44, 62, 80],
+        tableLineWidth: 0.75,
+        bodyStyles: {valign: 'top'},
+        styles: {
+            // Zellen machen Zeilensprung bei großen Inhalten
+            overflow: 'linebreak',
+            // Linien innen
+            lineColor: [44, 62, 80],
+            lineWidth: 0.05
+        },
+        // Größe der Spalten, Wrap nicht möglich, 'wrap' funktioniert nicht, also feste Werte
+        columnStyles: {
+            0: {columnWidth: 25},
+            1:{columnWidth:455},
+            2: {columnWidth: 35},
+        }
+    });
+    // Öffnet Dokument in neuem Tab
+    doc.output('dataurlnewwindow');
+    // Öffnet Speicherdialog
+    //doc.save();
+}
