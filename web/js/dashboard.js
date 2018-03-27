@@ -119,7 +119,6 @@ function saveSmallProjectList(projectList){
         // Linien außen
         tableLineColor: [44, 62, 80],
         tableLineWidth: 0.75,
-        bodyStyles: {valign: 'top'},
         styles: {
             // Zellen machen Zeilensprung bei großen Inhalten
             overflow: 'linebreak',
