@@ -164,7 +164,7 @@ foreach(read("data/projekte.csv") as $p){
       </div>
 
       <div class="modal-footer">
-        <button onclick="javascript:function(){console.log('Print requested: Projekte-Tabelle');}" type="button" class="btn btn-secondary">Drucken</button>
+        <button onclick="saveSmallProjectList(projekte)" type="button" class="btn btn-secondary">Drucken</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
       </div>
     </div>
