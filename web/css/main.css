@@ -15,7 +15,7 @@ body {
 	-ms-flex-align: center;
 	-ms-flex-pack: center;
 	-webkit-box-align: baseline;
-	margin-top: 6rem;
+	/*margin-top: 6rem;*/
 	-webkit-box-pack: center;
 	justify-content: center;
 	padding-top: 40px;
@@ -28,4 +28,13 @@ body {
 }
 ::-webkit-scrollbar-thumb {
 	background: #098C38;
+}
+
+.ghost {
+	position: absolute;
+	opacity: 0.5;
+}
+
+.modal {
+	overflow-y: scroll !important;
 }

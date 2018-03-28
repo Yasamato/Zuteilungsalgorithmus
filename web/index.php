@@ -11,6 +11,7 @@
 		<link rel="stylesheet" href="css/main.css">
 		<!-- JS-Libs -->
 		<script src="js/jquery-3.3.1.min.js"></script>
+		<script src="js/touch.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 		<script src="bootstrap-4.0.0/js/bootstrap.min.js"></script>
 <?php
@@ -155,5 +156,8 @@
 <?php
 	}
 ?>
+	<form id="logout" method="post">
+		<input type="hidden" name="action" value="logout">
+	</form>
 	</body>
 </html>

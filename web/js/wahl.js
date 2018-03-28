@@ -5,8 +5,7 @@ var colors = [
 ];
 
 function logout(){
-	$(".wahlliste>form").append($("input").attr("type", "hidden").attr("name", "action").attr("value", "logout"));
-	$(".wahlliste>form").submit();
+	$("#logout").submit();
 }
 
 function getInput(){
@@ -103,6 +102,169 @@ function switchInTable(ele1, ele2) {
 	}
 }
 
+function createProjektCard(e){
+	$(".projektliste>div").append($(`
+		<div class="card list-group-item-` + colors[Math.floor(Math.random() *  colors.length)] + ` projekt-card" id="drag` + e.projektId + `">
+			<input  type="hidden"value="` + e.projektId + `">
+			<div class="card-body">
+				<h5 class="card-title">` + e.name + `</h5>
+				<a href="#" class="btn btn-` + colors[Math.floor(Math.random() *  colors.length)] + `" data-toggle="modal" data-target="#modal` + e.projektId + `">Info</a>
+			</div>
+		</div>`));
+}
+
+function createInfoModal(e){
+	$(".modalHolder").append($(`
+	<!-- Modal -->
+	<div class="modal fade" id="modal` + e.projektId + `" tabindex="-1" role="dialog" aria-labelledby="modalLabel` + e.projektId + `" aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalLabel` + e.projektId + `">` + e.name + `</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p>` + e.beschreibung + `</p>
+					<p><b>Betreuer:</b> ` + e.betreuer + `</p>
+					<p><b>Klassenstufe:</b> ` + e.minKlasse + `-` + e.maxKlasse + `</p>
+					<p><b>Teilnehmerzahl:</b> ` + e.minTeilnehmer + `-` + e.maxTeilnehmer + `</p>
+					<p><b>Kosten/Sonstiges:</b> ` + e.sonstiges + `</p>
+					<p><b>Vorraussetungen:</b> ` + e.vorraussetzungen + `</p>
+					<table class="table table-hover table-responsive table-striped">
+						<thead class="thead-dark">
+							<tr>
+							<th scope="col">Zeit</th>
+							<th >Montag</th>
+								<th >Dienstag</th>
+								<th >Mittwoch</th>
+								<th >Donnerstag</th>
+								<th >Freitag	</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th scope="row">Vormittag</th>
+									<td>` + e.moVor + `</td>
+									<td>` + e.diVor + `</td>
+									<td>` + e.miVor + `</td>
+									<td>` + e.doVor + `</td>
+									<td>` + e.frVor + `</td>
+								</tr>
+								<tr>
+									<th scope="row">Mensa-Essen</th>
+									<td>` + e.moMensa + `</td>
+									<td>` + e.diMensa + `</td>
+									<td>` + e.miMensa + `</td>
+									<td>` + e.doMensa + `</td>
+									<td>Nein</td>
+								</tr>
+								<tr>
+									<th scope="row">Nachmittag</th>
+									<td>` + e.moNach + `</td>
+									<td>` + e.diNach + `</td>
+									<td>` + e.miNach + `</td>
+									<td>` + e.doNach + `</td>
+									<td>` + e.frNach + `</td>
+								</tr>
+							</tbody>
+						</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>`));
+}
+
+function ondragover(e){
+	e.originalEvent.stopPropagation();
+	e.originalEvent.preventDefault();
+}
+
+function dropCard(e){
+	e.originalEvent.stopPropagation();
+	e.originalEvent.preventDefault();
+	var el = document.getElementById(e.originalEvent.dataTransfer.getData('Text'));
+	console.log("dropped element on card");
+	console.log(e.originalEvent.currentTarget);
+	if($(".wahlliste").has(e.originalEvent.currentTarget).length){
+		console.log("in Wahlliste");
+		switchInTable(el, e.originalEvent.currentTarget);
+	}
+	else{
+		console.log("in Projektliste");
+		$(e.originalEvent.currentTarget).before(el);
+	}
+	getInput();
+}
+
+function cardDragstart(e){
+	e.originalEvent.stopPropagation();
+	if(e.originalEvent.dataTransfer){
+		e.originalEvent.dataTransfer.setData("Text", this.id);
+	}
+	else{
+		console.log("---------------------------------------------------------");
+		console.log("WARUMM?? gibt es kein dataTransfer?!");
+	}
+}
+
+function addCardListener(card){
+	//$(this).draggable();
+	$(this).on("touchstart touchmove touchend", touchHandler);
+	$(this).attr("draggable", "true");
+	$(this).on("dragstart", cardDragstart);
+	//$(this).on("touchstart", cardDragstart);
+	$(this).on("dragover", ondragover);
+	//$(this).on("touchmove", ondragover);
+	$(this).on("drop", dropCard);
+	//$(this).on("touchend", dropCard);
+}
+
+function dropWahlliste(e){
+	e.originalEvent.preventDefault();
+	e.originalEvent.stopPropagation();
+	var el = document.getElementById(e.originalEvent.dataTransfer.getData('Text'));
+	console.log(el);
+	console.log("dropped element on wahlliste");
+	console.log(e.originalEvent.currentTarget);
+	for(var i = $(".wahlliste tbody>tr").length - 1; i >= 0; i--){
+		if($("#wahl" + i + ">td").children().length == 0){
+			$("#wahl" + i + ">td").append(el);
+		}
+	}
+	getInput();
+}
+
+function addTableListener(row){
+	$(this).on("drop", function(e){
+		e.originalEvent.preventDefault();
+		e.originalEvent.stopPropagation();
+		var el = document.getElementById(e.originalEvent.dataTransfer.getData('Text'));
+		console.log("dropped element on tabelle");
+		console.log(e.originalEvent.currentTarget);
+		switchInTable(el, e.originalEvent.currentTarget);
+		getInput();
+	});
+	$(this).on("dragover", function(e){
+		e.originalEvent.preventDefault();
+		e.originalEvent.stopPropagation();
+	});
+}
+
+function dropProjektliste(e){
+	e.originalEvent.preventDefault();
+	e.originalEvent.stopPropagation();
+	var el = document.getElementById(e.originalEvent.dataTransfer.getData('Text'));
+	console.log("dropped element on projektliste");
+	console.log(e.originalEvent.currentTarget);
+	$(".projektliste>div").append(el);
+	getInput();
+}
+
 // setup
 window.onload = function(){
 	var projektAnzahl = calcAnzahlProjekte(50, 70, 20);
@@ -111,161 +273,20 @@ window.onload = function(){
 	}
 
 	projekte.forEach(function(e){
-		$(".projektliste>div").append($(`
-			<div class="card list-group-item-` + colors[Math.floor(Math.random() *  colors.length)] + ` projekt-card" id="drag` + e.projektId + `">
-				<input  type="hidden"value="` + e.projektId + `">
-				<div class="card-body">
-					<h5 class="card-title">` + e.name + `</h5>
-					<a href="#" class="btn btn-` + colors[Math.floor(Math.random() *  colors.length)] + `" data-toggle="modal" data-target="#modal` + e.projektId + `">Info</a>
-				</div>
-			</div>`));
-		$(".modalHolder").append($(`
-			<!-- Modal -->
-			<div class="modal fade" id="modal` + e.projektId + `" tabindex="-1" role="dialog" aria-labelledby="modalLabel` + e.projektId + `" aria-hidden="true">
-				<div class="modal-dialog modal-lg" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-						<h5 class="modal-title" id="modalLabel` + e.projektId + `">` + e.name + `</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div class="modal-body">
-							<p>` + e.beschreibung + `</p>
-							<p><b>Betreuer:</b> ` + e.betreuer + `</p>
-							<p><b>Klassenstufe:</b> ` + e.minKlasse + `-` + e.maxKlasse + `</p>
-							<p><b>Teilnehmerzahl:</b> ` + e.minTeilnehmer + `-` + e.maxTeilnehmer + `</p>
-							<p><b>Kosten/Sonstiges:</b> ` + e.sonstiges + `</p>
-							<p><b>Vorraussetungen:</b> ` + e.vorraussetzungen + `</p>
-							<table class="table table-hover table-responsive table-striped">
-								<thead class="thead-dark">
-									<tr>
-									<th scope="col">Zeit</th>
-									<th >Montag</th>
-      					 		<th >Dienstag</th>
-      					 		<th >Mittwoch</th>
-      							<th >Donnerstag</th>
-      							<th >Freitag	</th>
-      							</tr>
-      						</thead>
-      						<tbody>
-      							<tr>
-      								<th scope="row">Vormittag</th>
-      								<td>` + e.moVor + `</td>
-      								<td>` + e.diVor + `</td>
-      								<td>` + e.miVor + `</td>
-      								<td>` + e.doVor + `</td>
-      								<td>` + e.frVor + `</td>
-      							</tr>
-      							<tr>
-      								<th scope="row">Mensa-Essen</th>
-      								<td>` + e.moMensa + `</td>
-      								<td>` + e.diMensa + `</td>
-      								<td>` + e.miMensa + `</td>
-      								<td>` + e.doMensa + `</td>
-      								<td>Nein</td>
-      							</tr>
-      							<tr>
-      								<th scope="row">Nachmittag</th>
-      								<td>` + e.moNach + `</td>
-      								<td>` + e.diNach + `</td>
-      								<td>` + e.miNach + `</td>
-      								<td>` + e.doNach + `</td>
-      								<td>` + e.frNach + `</td>
-      							</tr>
-      						</tbody>
-      					</table>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-						</div>
-					</div>
-				</div>
-			</div>`));
+		createProjektCard(e);
+		createInfoModal(e);
 	});
 
 	// Die Projekte selbst
-	$(".card").each(function(card){
-		$(this).attr("draggable", "true");
-		$(this).on("dragstart", function(e){
-			e.originalEvent.stopPropagation();
-			//console.log(e);
-			e.originalEvent.dataTransfer.setData("Text", this.id);
-		});
-		$(this).on("dragover", function(e){
-			e.originalEvent.stopPropagation();
-			e.originalEvent.preventDefault();
-			//console.log(e);
-		});
-		$(this).on("drop", function(e){
-			console.log(e);
-			e.originalEvent.stopPropagation();
-			e.originalEvent.preventDefault();
-			var el = document.getElementById(e.originalEvent.dataTransfer.getData('Text'));
-			console.log("dropped element on card");
-			console.log(e.originalEvent.currentTarget);
-			if($(".wahlliste").has(e.originalEvent.currentTarget).length){
-				console.log("in Wahlliste");
-				switchInTable(el, e.originalEvent.currentTarget);
-			}
-			else{
-				console.log("in Projektliste");
-				$(e.originalEvent.currentTarget).before(el);
-			}
-			getInput();
-		});
-	});
+	$(".card").each(addCardListener);
 
 	// Wahlliste (rechts)
-	$(".wahlliste").on("drop", function(e){
-		console.log(e);
-		e.originalEvent.preventDefault();
-		e.originalEvent.stopPropagation();
-		var el = document.getElementById(e.originalEvent.dataTransfer.getData('Text'));
-		console.log("dropped element on wahlliste");
-		console.log(e.originalEvent.currentTarget);
-		for(var i = $(".wahlliste tbody>tr").length - 1; i >= 0; i--){
-			if($("#wahl" + i + ">td").children().length == 0){
-				$("#wahl" + i + ">td").append(el);
-			}
-		}
-		getInput();
-	});
-	$(".wahlliste").on("dragover", function(e){
-		e.originalEvent.preventDefault();
-		e.originalEvent.stopPropagation();
-	});
+	$(".wahlliste").on("drop", dropWahlliste);
+	$(".wahlliste").on("dragover", ondragover);
 	// tabelle rechts zum reinziehen
-	$(".wahlliste tbody>tr").each(function(row){
-		$(this).on("drop", function(e){
-			console.log(e);
-			e.originalEvent.preventDefault();
-			e.originalEvent.stopPropagation();
-			var el = document.getElementById(e.originalEvent.dataTransfer.getData('Text'));
-			console.log("dropped element on tabelle");
-			console.log(e.originalEvent.currentTarget);
-			switchInTable(el, e.originalEvent.currentTarget);
-			getInput();
-		});
-		$(this).on("dragover", function(e){
-			e.originalEvent.preventDefault();
-			e.originalEvent.stopPropagation();
-		});
-	});
+	$(".wahlliste tbody>tr").each(addTableListener);
 
 	// Projektliste (links)
-	$(".projektliste").on("drop", function(e){
-		console.log(e);
-		e.originalEvent.preventDefault();
-		e.originalEvent.stopPropagation();
-		var el = document.getElementById(e.originalEvent.dataTransfer.getData('Text'));
-		console.log("dropped element on projektliste");
-		console.log(e.originalEvent.currentTarget);
-		$(".projektliste>div").append(el);
-		getInput();
-	});
-	$(".projektliste").on("dragover", function(e){
-		e.originalEvent.stopPropagation();
-		e.originalEvent.preventDefault();
-	});
+	$(".projektliste").on("drop", dropProjektliste);
+	$(".projektliste").on("dragover", ondragover);
 }

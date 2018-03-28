@@ -1,3 +1,8 @@
+// logout form
+function logout(){
+	$("#logout").submit();
+}
+
 // set the html UI values to the config values
 window.onload = function() {
   console.log(config);
