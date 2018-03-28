@@ -1,5 +1,6 @@
 // a pain in the ass...............
 function touchHandler(e) {
+  e.preventDefault();
   if(e.changedTouches.length != 1){
     return;
   }
@@ -85,5 +86,4 @@ function touchHandler(e) {
   else{
     card.dispatchEvent(simulatedEvent);
   }
-  e.preventDefault();
 }

@@ -30,7 +30,11 @@ body {
 	background: #098C38;
 }
 
-.ghost{
+.ghost {
 	position: absolute;
 	opacity: 0.5;
+}
+
+.modal {
+	overflow-y: scroll !important;
 }
