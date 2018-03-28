@@ -182,11 +182,9 @@ function createInfoModal(e){
 function ondragover(e){
 	e.originalEvent.stopPropagation();
 	e.originalEvent.preventDefault();
-	console.log(e);
 }
 
 function dropCard(e){
-	console.log(e);
 	e.originalEvent.stopPropagation();
 	e.originalEvent.preventDefault();
 	var el = document.getElementById(e.originalEvent.dataTransfer.getData('Text'));
@@ -205,7 +203,6 @@ function dropCard(e){
 
 function cardDragstart(e){
 	e.originalEvent.stopPropagation();
-	console.log(e);
 	if(e.originalEvent.dataTransfer){
 		e.originalEvent.dataTransfer.setData("Text", this.id);
 	}
@@ -228,7 +225,6 @@ function addCardListener(card){
 }
 
 function dropWahlliste(e){
-	console.log(e);
 	e.originalEvent.preventDefault();
 	e.originalEvent.stopPropagation();
 	var el = document.getElementById(e.originalEvent.dataTransfer.getData('Text'));
@@ -245,7 +241,6 @@ function dropWahlliste(e){
 
 function addTableListener(row){
 	$(this).on("drop", function(e){
-		console.log(e);
 		e.originalEvent.preventDefault();
 		e.originalEvent.stopPropagation();
 		var el = document.getElementById(e.originalEvent.dataTransfer.getData('Text'));
@@ -261,7 +256,6 @@ function addTableListener(row){
 }
 
 function dropProjektliste(e){
-	console.log(e);
 	e.originalEvent.preventDefault();
 	e.originalEvent.stopPropagation();
 	var el = document.getElementById(e.originalEvent.dataTransfer.getData('Text'));

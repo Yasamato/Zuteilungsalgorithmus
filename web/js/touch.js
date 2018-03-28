@@ -1,6 +1,5 @@
 // a pain in the ass...............
 function touchHandler(e) {
-  e.preventDefault();
   if(e.changedTouches.length != 1){
     return;
   }
@@ -19,15 +18,19 @@ function touchHandler(e) {
     return;
   }
 
+  // in case of pressing the info button, return
+  if($(card).find("a")[0] == e.target){
+    return;
+  }
+
   //apply ghost image
   $(card).css({
     "top": touch.clientY + 5,
-    "left": touch.clientX + 5
+    "left": "calc(" + touch.clientX + "px - 7.5em)"
   });
 
   // get target and currentTarget
   var target = document.elementFromPoint(touch.clientX, touch.clientY);
-  console.log(target);
   var currentTarget = null;
   for(i = 0; i < projekte.length; i++){
     if($("#drag" + projekte.projektId) == $(target) || $("#drag" + projekte.projektId).has(target)){
@@ -86,4 +89,5 @@ function touchHandler(e) {
   else{
     card.dispatchEvent(simulatedEvent);
   }
+  e.preventDefault();
 }
