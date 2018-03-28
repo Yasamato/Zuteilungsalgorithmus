@@ -217,7 +217,10 @@ foreach(read("data/projekte.csv") as $p){
 	</div>
 
 	<div class="container" style="padding-bottom: 1rem">
-		<div class="btn-group btn-group-toggle bg-dark" data-toggle="buttons" style="display: flex;">
+		<div class="btn-group btn-group-toggle" data-toggle="buttons" style="display: flex;">
+      <button type="button" class="btn btn-danger w-100" onclick="logout()">
+        Abmelden
+      </button>
   		<!-- Button trigger modal -->
   		<button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#configModal">
   			Konfiguration

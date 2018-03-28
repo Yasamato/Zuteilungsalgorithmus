@@ -5,8 +5,7 @@ var colors = [
 ];
 
 function logout(){
-	$(".wahlliste>form").append($("input").attr("type", "hidden").attr("name", "action").attr("value", "logout"));
-	$(".wahlliste>form").submit();
+	$("#logout").submit();
 }
 
 function getInput(){
