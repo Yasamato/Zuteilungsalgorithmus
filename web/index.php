@@ -9,11 +9,6 @@
 		<!-- css-frameworks -->
 		<link rel="stylesheet" href="bootstrap-4.0.0/css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/main.css">
-		<!-- JS-Libs -->
-		<script src="js/jquery-3.3.1.min.js"></script>
-		<script src="js/touch.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-		<script src="bootstrap-4.0.0/js/bootstrap.min.js"></script>
 <?php
 	session_start();
 	require("php/db.php");
@@ -83,6 +78,7 @@
 	if (isLogin()) {
 		if($_SESSION['benutzer']['typ'] == "admin"){
 ?>
+		<script>var site = "dashboard";</script>
 		<link rel="stylesheet" href="css/dashboard.css">
 	</head>
 	<body>
@@ -92,6 +88,7 @@
 		elseif($_SESSION['benutzer']['typ'] == "teachers") {
 			if($config["Stage"] == 1){
 ?>
+		<script>var site = "projektErstellung";</script>
 		<link rel="stylesheet" href="css/projektErstellung.css">
 	</head>
 	<body>
@@ -110,6 +107,7 @@
 		else {
 			if($config["Stage"] == 3){
 ?>
+		<script>var site = "wahl";</script>
 		<link rel="stylesheet" href="css/wahl.css">
 	</head>
 	<body>
@@ -129,6 +127,7 @@
 	}
 	else {
 ?>
+		<script>var site = "login";</script>
 		<link rel="stylesheet" href="css/login.css">
 	</head>
 	<body>
@@ -156,8 +155,13 @@
 <?php
 	}
 ?>
-	<form id="logout" method="post">
-		<input type="hidden" name="action" value="logout">
-	</form>
+		<form id="logout" method="post">
+			<input type="hidden" name="action" value="logout">
+		</form>
+		<!-- JS-Libs -->
+		<script src="js/jquery-3.3.1.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+		<script src="bootstrap-4.0.0/js/bootstrap.min.js"></script>
+		<script src="js/main.min.js"></script>
 	</body>
 </html>
