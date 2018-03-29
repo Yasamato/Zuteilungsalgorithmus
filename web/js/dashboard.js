@@ -17,7 +17,7 @@ function createStageSelect(currentStage) {
 	}
 }
 
-function createWeekdays() {
+function createDashboardWeekdays() {
 	//disable projekt-settings, when inital phase is over
   $("#montag").prop("checked", config["Montag"]);
   if(config['Stage'] != 0){
@@ -98,7 +98,7 @@ function setupDashboard() {
 	// formular setup
 	createStageSelect(config["Stage"]);
   $("#inputSchuelerAnzahl").val(parseInt(config['Schüleranzahl']));
-	createWeekdays();
+	createDashboardWeekdays();
 	setFirstDayIsSchool();
 
   // Erstellen der Projekte- und Schüler-Tabellen
