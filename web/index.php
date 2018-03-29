@@ -97,6 +97,7 @@
 			}
 			else{
 ?>
+		<script>var site = "closed";</script>
 	</head>
 	<body>
 <?php
@@ -116,7 +117,7 @@
 			}
 			else{
 ?>
-?>
+		<script>var site = "closed";</script>
 	</head>
 	<body>
 <?php
