@@ -380,8 +380,7 @@ foreach (read("data/schueler.csv") as $s) {
 ?>
   ];
 </script>
+
 <!-- Libraries zum Erstellen der PDF -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js" integrity="sha384-CchuzHs077vGtfhGYl9Qtc7Vx64rXBXdIAZIPbItbNyWIRTdG0oYAqki3Ry13Yzu" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.2/jspdf.plugin.autotable.js"></script>
-<!-- Dashboard Scripts -->
-<script src="js/dashboard.js"></script>

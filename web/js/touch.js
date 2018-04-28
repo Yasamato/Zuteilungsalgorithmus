@@ -1,27 +1,49 @@
-// a pain in the ass...............
-function touchHandler(e) {
-  if(e.changedTouches.length != 1){
-    return;
-  }
-  var touch = e.changedTouches[0];
-  var type = "";
-
-  // find dragged card
-  var card = null;
+// Touch Events -> Drag Events
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function findProjektCard(element) {
   for(i = 0; i < $("div.card").length; i++){
-    if($($("div.card")[i]).has(e.target).length){
-      card = $("div.card")[i];
-      break;
+    if($("div.card")[i] == element || $($("div.card")[i]).has(element).length){
+      return $("div.card")[i];
     }
   }
-  if(!card){
-    return;
+  return null;
+}
+
+// Searches the element the target is child of (prjekt-card, wahlliste, projketliste)
+function findCurrentTarget(target) {
+  for(i = 0; i < projekte.length; i++) {
+    if($("#drag" + projekte.projektId) == $(target) || $("#drag" + projekte.projektId).has(target)) {
+      return document.getElementById("#drag" + projekte.projektId);
+    }
   }
 
-  // in case of pressing the info button, return
-  if($(card).find("a")[0] == e.target){
-    return;
+  if($(".wahlliste") == $(target) || $(".wahlliste").has(target)) {
+    return document.getElementById("wahlliste");
   }
+  return document.getElementById("projektliste");
+}
+
+function getDragEvent(type){
+  switch(type) {
+    case "touchstart": return "dragstart";
+    case "touchmove": return "dragover";
+    case "touchend": return "drop";
+    default: return null;
+  }
+}
+
+// Handles all touch events on projekt-cards
+function touchHandler(e) {
+  // disable multi-touch
+  if(e.changedTouches.length != 1) return;
+  var touch = e.changedTouches[0];
+
+  // find dragged card
+  var card = findProjektCard(e.target);
+  if(!card) return;
+
+  // in case of pressing the info button, return
+  if($(card).find("a")[0] == e.target) return;
 
   //apply ghost image
   $(card).css({
@@ -30,46 +52,29 @@ function touchHandler(e) {
   });
 
   // get target and currentTarget
-  var target = document.elementFromPoint(touch.clientX, touch.clientY);
-  var currentTarget = null;
-  for(i = 0; i < projekte.length; i++){
-    if($("#drag" + projekte.projektId) == $(target) || $("#drag" + projekte.projektId).has(target)){
-      currentTarget = document.getElementById("#drag" + projekte.projektId);
-    }
+  var target = document.elementFromPoint(touch.clientX, touch.clientY); // currently pointing on
+  var currentTarget = findCurrentTarget(target); // super-positioned element the event is being applyed (projekt-cards, wahlliste, projektliste)
+
+  // match corresponding drag-event
+  var type = getDragEvent(e.type);
+  if(type == null) return;
+  if(type == "dragstart" || type == "drop"){
+    // toggle ghost effect
+    $(card).toggleClass("ghost");
   }
-  if(currentTarget == null){
-    if($(".wahlliste") == $(target) || $(".wahlliste").has(target)){
-      currentTarget = document.getElementById("wahlliste");
-    }
-    else{
-      currentTarget = document.getElementById("projektliste");
-    }
+  if(type == "drop") {
+    $(card).css({
+      "top": "",
+      "left": ""
+    });
   }
 
-  switch(e.type) {
-    case "touchstart":
-      type = "dragstart";
-      $(card).toggleClass("ghost");
-      break;
-    case "touchmove":
-      type = "dragover";
-      break;
-    case "touchend":
-      type = "drop";
-      $(card).toggleClass("ghost");
-      $(card).css({
-        "top": "",
-        "left": ""
-      });
-      break;
-    default:
-      return;
-  }
-
+  // set dragging Projekt-Card
   var data = new DataTransfer();
   data.setData("Text", card.id);
-  data.dropEffect = "move";
   data.setDragImage(e.target, touch.clientX, touch.clientY);
+
+  // simulate dragging
   var simulatedEvent = new DragEvent(type, {
     "view": window,
     "bubbles": true,
@@ -83,10 +88,12 @@ function touchHandler(e) {
     "target": target
   });
 
-  if(type == "drop"){
+  if(type == "drop") {
+    // dispatch event on the target
     target.dispatchEvent(simulatedEvent);
   }
-  else{
+  else {
+    // dispatch the dragging on the card
     card.dispatchEvent(simulatedEvent);
   }
   e.preventDefault();
