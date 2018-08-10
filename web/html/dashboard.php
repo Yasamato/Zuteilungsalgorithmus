@@ -212,21 +212,24 @@ foreach(read("data/projekte.csv") as $p){
 					<h5 class="card-title">Dashboard Projektwahl</h5>
 					<p class="card-text">Übersicht über die Projektwahl-Datenbank</p>
 				</div>
+        <div class="card-footer">
+          <div class="text-center">
+        		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <button type="button" class="btn btn-danger" onclick="logout()">
+                Abmelden
+              </button>
+          		<!-- Button trigger modal -->
+          		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#configModal">
+          			Konfiguration
+          		</button>
+        		</div>
+          </div>
+        </div>
 			</div>
 		</div>
 	</div>
 
-	<div class="container" style="padding-bottom: 1rem">
-		<div class="btn-group btn-group-toggle" data-toggle="buttons" style="display: flex;">
-      <button type="button" class="btn btn-danger w-100" onclick="logout()">
-        Abmelden
-      </button>
-  		<!-- Button trigger modal -->
-  		<button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#configModal">
-  			Konfiguration
-  		</button>
-		</div>
-  </div>
+
 
   <!-- Beim laden der Seite soll aus Datei erlesen werden in welcher Stage die Projektwahl sich befindet. TEXT-Datei mit Werten 0-3 z.B.
   Je nach Stage, sollen andere Seiten das Abschicken der Formulare erlauben oder nicht.

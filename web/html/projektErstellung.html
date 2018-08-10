@@ -49,7 +49,7 @@
 				<label for="inputBeschreibung">Beschreibung</label>
 				<textarea class="form-control" id="inputBeschreibung" placeholder="Beschreibung" required rows="4" name="beschreibung"></textarea>
 				<small id="BeschreibungHelpBlock" class="helptext">
-					Bitte geben sie eine geeignete Beschreibung ihres Projektes an
+					Bitte geben sie eine geeignete Beschreibung des Projektes an.
 				</small>
 				<div class="invalid-feedback">
 					Ungültige Eingabe
@@ -116,7 +116,7 @@
 				<label for="inputSonstiges">Kosten/Sonstiges</label>
 				<input type="text" class="form-control" id="inputSonstiges" placeholder="Kosten/Sonstiges" name="sonstiges">
 				<small id="SonstigesHelpBlock" class="helptext">
-					Falls Kosten anfallen oder irgendetwas anderes mitzuteilen ist, ist hier die Möglichkeit dazu
+					Falls Kosten anfallen oder irgendetwas anderes mitzuteilen ist, bitte hier eintragen.
 				</small>
 				<div class="invalid-feedback">
 					Ungültige Eingabe
@@ -159,8 +159,15 @@
 		<div class="form-row" id="weekdays"></div>
 
 		<!-- Einreichen Knopf -->
-		<div align="center" class="button">
-			<button name="action" value="addProject" class="btn btn-primary" type="submit">Einreichen</button>
+		<div class="text-center">
+			<div class="btn-group">
+	      <button type="button" class="btn btn-danger" onclick="logout()">
+					Abmelden
+				</button>
+				<button name="action" value="addProject" class="btn btn-primary" type="submit">
+					Einreichen
+				</button>
+			</div>
 		</div>
 
 

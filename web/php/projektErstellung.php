@@ -1,6 +1,6 @@
 <?php
 //authentication
-if(isLogin() && $_SESSION['benutzer']['typ'] == "teachers"){
+if(isLogin() && ($_SESSION['benutzer']['typ'] == "teachers" || $_SESSION['benutzer']['typ'] == "admin")){
 	if(empty($_POST["pName"]) ||
 	empty($_POST["beschreibung"]) ||
 	empty($_POST["betreuer"]) ||
@@ -88,5 +88,35 @@ if(isLogin() && $_SESSION['benutzer']['typ'] == "teachers"){
 			getSafeString("frVor"),
 			getSafeString("frNach")
 	]);
+	?>
+	<div class="modal show" id="createOK" role="dialog" style="color: #212529;">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4>Erfolgreich eingereicht</h4>
+        </div>
+        <div class="modal-body">
+          <p>
+						Das Projekt <kbd><?php echo $_POST["pName"]; ?></kbd>
+						mit dem Betreuer <kbd><?php echo $_POST["betreuer"]; ?></kbd>
+						für <kbd><?php echo $_POST["minPlatz"]; ?></kbd>
+						bis <kbd><?php echo $_POST["maxPlatz"]; ?></kbd>
+						Schüler der Klassenstufe <kbd><?php echo $_POST["minPlatz"]; ?></kbd>
+						bis <kbd><?php echo $_POST["maxPlatz"]; ?></kbd> wurde erstellt.
+						Die Daten sind nun auf dem Server gespeichert und können von einem Admin editiert werden.
+					</p>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span>OK</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+	<?php
 }
+else die("ungültige Berechtigung");
 ?>
