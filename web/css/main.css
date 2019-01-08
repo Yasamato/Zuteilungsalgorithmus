@@ -38,3 +38,7 @@ body {
 .modal {
 	overflow-y: scroll !important;
 }
+
+.modal-lg {
+    max-width: 80% !important;
+}
