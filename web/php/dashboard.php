@@ -1,24 +1,9 @@
 <?php
-if(isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
+if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
 
 	// Saving the new configuration after submitting it
-	if(!file_exists("data/config.csv")){
-		// define the names of the columns in the first row
-		$names = [
-			"Stage",
-			"Schüleranzahl",
-			"Montag",
-			"Dienstag",
-			"Mittwoch",
-			"Donnerstag",
-			"Freitag",
-			"SchuleAmErstenVormittag"
-		];
-		createFile("data/config.csv", $names);
-	}
-
 	//Projekt-Einstellungen können nur in der ersten Phase geändert werden
-	if($config['Stage'] == 0){
+	if ($config['Stage'] == 0) {
 		//prepare data
 		$values = [
 			$_POST["stage"],
@@ -31,8 +16,8 @@ if(isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
 			$_POST["firstDay"]
 		];
 	}
-	else{
-		//prepare data
+	else {
+		// prepare data
 		$values = [
 			$_POST["stage"],
 			$_POST["inputSchuelerAnzahl"],
@@ -46,18 +31,19 @@ if(isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
 	}
 
 	// write the data and check for success
-	setRow("data/config.csv", 0, $values);
-	if(read("data/config.csv") == $config){
-		die("Konfiguration wurde nicht gespeichert.");
+	dbSetRow("../data/config.csv", "Stage", $config["Stage"], $values);
+	if (dbRead("../data/config.csv") == $config) {
+		error_log("Die Änderung der Einstellung in der Datei ../data/config.csv von '" . json_encode($config) . "' zu '" . json_encode($values) . "' ist fehlgeschlagen");
+		die("Speichern der Konfiguration fehlgeschlagen.");
 	}
-	else{
+	else {
 		//update config
-		$config = read("data/config.csv");
+		$config = dbRead("../data/config.csv");
 	}
 ?>
 	<script>
 		config = {<?php
-	foreach(read("data/config.csv")[0] as $key => $v){
+	foreach (dbRead("../data/config.csv")[0] as $key => $v) {
 		echo "'" . $key . "': '" . $v . "',";
 	}
 	?>}
@@ -70,7 +56,7 @@ if(isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
 	</script>
 <?php
 }
-else{
+else {
 	die("Unzureichende Berechtigung");
 }
 ?>

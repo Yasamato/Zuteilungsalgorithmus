@@ -4,6 +4,8 @@
 		<title>LMG8 Campus | Wahl</title>
 		<meta charset="utf-8">
 		<meta name="author" content="Leo Jung">
+		<meta name="author" content="Lukas Fausten">
+		<meta name="author" content="Tim Schneider">
 		<meta name="description" content="Wahlseite der LMG8-Schule von Maxdorf">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
 		<!-- css-frameworks -->
@@ -11,14 +13,40 @@
 		<link rel="stylesheet" href="css/main.css">
 <?php
 	session_start();
-	require("php/db.php");
-	$config = read("data/config.csv")[0];
-	echo "<!-- ";print_r($_POST); echo " -->";
-	echo "<!-- ";print_r($config); echo " -->";
+  require "../data/config.php";
+	require "php/db.php";
+	
+	if (!file_exists("../data/config.csv")) {
+		// define the names of the columns in the first row
+		$names = [
+			"Stage",
+			"Schüleranzahl",
+			"Montag",
+			"Dienstag",
+			"Mittwoch",
+			"Donnerstag",
+			"Freitag",
+			"SchuleAmErstenVormittag"
+		];
+		dbCreateFile("../data/config.csv", $names);
+		dbAdd("../data/config.csv", [
+			0,
+			1000,
+			true,
+			true,
+			true,
+			true,
+			true,
+			false
+		]);
+	}
+	$config = dbRead("../data/config.csv")[0];
+	echo "<!-- "; print_r($_POST); echo " -->";
+	echo "<!-- "; print_r($config); echo " -->";
 ?>
 	<script>
 		var config = {<?php
-	foreach(read("data/config.csv")[0] as $key => $v){
+	foreach (dbRead("../data/config.csv")[0] as $key => $v) {
 		echo "'" . $key . "': '" . $v . "',";
 	}
 	?>}
@@ -29,7 +57,7 @@
 	  config["Donnerstag"] = (config["Donnerstag"] == 'true');
 		config["Freitag"] = (config["Freitag"] == 'true');
 	</script>
-<?php	function isLogin(){
+<?php	function isLogin() {
 		return isset($_SESSION['benutzer']);
 	}
 
@@ -39,7 +67,7 @@
 	}
 
 	// on form-submit
-	if(isset($_GET['logout'])){
+	if (isset($_GET['logout'])) {
 		logout();
 	}
 	if (isset($_POST['action'])) {
@@ -76,7 +104,7 @@
 	//--------------------------------------------------------
 	//html-teil
 	if (isLogin()) {
-		if($_SESSION['benutzer']['typ'] == "admin"){
+		if ($_SESSION['benutzer']['typ'] == "admin") {
 ?>
 		<script>var site = "dashboard";</script>
 		<link rel="stylesheet" href="css/dashboard.css">
@@ -85,8 +113,8 @@
 <?php
 			include "html/dashboard.php";
 		}
-		elseif($_SESSION['benutzer']['typ'] == "teachers") {
-			if($config["Stage"] == 1){
+		elseif ($_SESSION['benutzer']['typ'] == "teachers") {
+			if ($config["Stage"] == 1) {
 ?>
 		<script>var site = "projektErstellung";</script>
 		<link rel="stylesheet" href="css/projektErstellung.css">
@@ -95,7 +123,7 @@
 <?php
 				include "html/projektErstellung.html";
 			}
-			else{
+			else {
 ?>
 		<script>var site = "closed";</script>
 	</head>
@@ -106,16 +134,16 @@
 			}
 		}
 		else {
-			if($config["Stage"] == 3){
+			if ($config["Stage"] == 3) {
 ?>
 		<script>var site = "wahl";</script>
 		<link rel="stylesheet" href="css/wahl.css">
 	</head>
 	<body>
 <?php
-				include "html/wahl.html";
+				include "html/wahl.php";
 			}
-			else{
+			else {
 ?>
 		<script>var site = "closed";</script>
 	</head>
@@ -135,7 +163,7 @@
 	<div class="container text-center login-box d-flex justify-content-center">
 		<form class="form-signin" method="post">
 <?php
-		if(isset($loginResult)) {
+		if (isset($loginResult)) {
 ?>
 			<div class="alert alert-danger alert-dismissible fade show" role="alert">
 				<strong>Verweigert</strong> Falsche Benutzerdaten!

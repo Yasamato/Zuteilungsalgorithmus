@@ -1,28 +1,28 @@
 <?php
 //authentication
-if(isLogin() && ($_SESSION['benutzer']['typ'] == "teachers" || $_SESSION['benutzer']['typ'] == "admin")){
-	if(empty($_POST["pName"]) ||
-	empty($_POST["beschreibung"]) ||
-	empty($_POST["betreuer"]) ||
-	empty($_POST["minKlasse"]) ||
-	empty($_POST["maxKlasse"]) ||
-	empty($_POST["minPlatz"]) ||
-	empty($_POST["maxPlatz"]) ||
-	$config["Montag"] == "true" && (empty($_POST["moVor"]) || empty($_POST["moNach"])) ||
-	$config["Dienstag"] == "true" && (empty($_POST["diVor"]) || empty($_POST["diNach"])) ||
-	$config["Mittwoch"] == "true" && (empty($_POST["miVor"]) || empty($_POST["miNach"])) ||
-	$config["Donnerstag"] == "true" && (empty($_POST["doVor"]) || empty($_POST["doNach"])) ||
-	$config["Freitag"] == "true" && (empty($_POST["frVor"]) || empty($_POST["frNach"]))){
+if (isLogin() && ($_SESSION['benutzer']['typ'] == "teachers" || $_SESSION['benutzer']['typ'] == "admin")) {
+	if (empty($_POST["pName"]) ||
+		empty($_POST["beschreibung"]) ||
+		empty($_POST["betreuer"]) ||
+		empty($_POST["minKlasse"]) ||
+		empty($_POST["maxKlasse"]) ||
+		empty($_POST["minPlatz"]) ||
+		empty($_POST["maxPlatz"]) ||
+		$config["Montag"] == "true" && (empty($_POST["moVor"]) || empty($_POST["moNach"])) ||
+		$config["Dienstag"] == "true" && (empty($_POST["diVor"]) || empty($_POST["diNach"])) ||
+		$config["Mittwoch"] == "true" && (empty($_POST["miVor"]) || empty($_POST["miNach"])) ||
+		$config["Donnerstag"] == "true" && (empty($_POST["doVor"]) || empty($_POST["doNach"])) ||
+		$config["Freitag"] == "true" && (empty($_POST["frVor"]) || empty($_POST["frNach"]))) {
 		die("Fehlende Angaben");
 	}
-	foreach($_POST as $post){
-		if(strpos($post, "__#__") !== false || strpos($post, "__;__") !== false){
-			die("Ungültige Zeichenkette: __#__ oder __;__");
+	foreach ($_POST as $post) {
+		if (strpos($post, CONFIG["dbLineSeperator"]) !== false || strpos($post, CONFIG["dbElementSeperator"]) !== false) {
+			die("Ungültige Zeichenkette: " . CONFIG["dbLineSeperator"] . " oder " . CONFIG["dbElementSeperator"] . " Bitte benutzen sie reguläre Zeichenketten!");
 		}
 	}
 
-	if(!file_exists("data/projekte.csv")){
-		createFile("data/projekte.csv", [
+	if (!file_exists("../data/projekte.csv")) {
+		dbCreateFile("../data/projekte.csv", [
 			"id",
 			"name",
 			"beschreibung",
@@ -52,16 +52,17 @@ if(isLogin() && ($_SESSION['benutzer']['typ'] == "teachers" || $_SESSION['benutz
 		]);
 	}
 
-	function checkBox($v){
+	function checkBox($v) {
 		return isset($_POST[$v]) && $_POST[$v] ? "Ja" : "Nein";
 	}
 
-	function getSafeString($v){
+	// htmlentities() ?
+	function getSafeString($v) {
 		return isset($_POST[$v]) ? str_replace("\n", "<br>", $_POST[$v]) : "";
 	}
 
-	add("data/projekte.csv", [
-			count(read('data/projekte.csv')),
+	dbAdd("../data/projekte.csv", [
+			count(dbRead("../data/projekte.csv")),
 			$_POST["pName"],
 			str_replace("\n", "<br>", $_POST["beschreibung"]),
 			$_POST["betreuer"],

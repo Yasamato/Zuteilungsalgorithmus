@@ -1,223 +1,195 @@
 <?php
-	function read($path, $search = "", $value = ""){
-		if(!file_exists($path)){
-			return [];
+	// erstellt eine neue Datei
+	function dbCreateFile($path, $headers, $ignoreExistingFile = false) {
+		if (file_exists($path)) {
+			error_log("Die Datei " . $path . " existiert bereits und wird ersetzt.");
+			if ($ignoreExistingFile) {
+				error_log("Die ursprüngliche Datei " . $path . " wurde endgültig überschrieben");
+			}
+			else {
+				rename($path, $path . ".old");
+				error_log("Die ursprüngliche Datei " . $path . " wurde sicherheitshalber nach " . $path . ".old verschoben");
+			}
 		}
-		if(($fh = fopen($path, "r")) !== false) {
-			$output = [];
-			$meta = true;
-			$file = fread($fh, filesize($path));
-			if(substr($file, 0, -1) == "\n"){
-				$file = substr($file, 0, filesize($path) - 1);
-			}
+		dbwrite($path, null, $headers);
+	}
 
-			//parse
-			foreach(explode("__;__", $file) as $line){
-				if(empty($line)){
-					continue;
-				}
-				if($meta){
-					$head = explode("__#__", $line);
-					$meta = false;
-				}
-				else{
-					$line = explode("__#__", $line);
-					$tmp = [];
-					$i = 0;
-					foreach($line as $v){
-						if($i == 0 || $i == count($line) - 1){
-							$v = str_replace("\n", "", $v);
-						}
-						$tmp[$head[$i++]] = $v;
-					}
-					array_push($output, $tmp);
+	// speichert die Daten in einer Datei ab
+	function dbWrite($path, $data, $head = "") {
+		if (($fh = fopen($path, "w")) !== false) {
+			if ($head == "") {
+				$head = [];
+				foreach ($data[0] as $key => $value) {
+					array_push($head, $key);
 				}
 			}
-			
+			fwrite($fh, implode(CONFIG["dbElementSeperator"], $head));
+			if (!empty($data)) {
+				foreach ($data as $entry) {
+					fwrite($fh, CONFIG["dbLineSeperator"] . "\n" . implode(CONFIG["dbElementSeperator"], $entry));
+				}
+			}
 			fclose($fh);
-			if(!empty($search)){
-				$output = search($output, $search, $value);
-			}
 		}
 		else {
-			die("Datei: " . $path . " konnte nicht geöffnet werden");
-		}
-		return $output;
-	}
-
-	function search($data, $search, $value){
-		$out = [];
-		foreach($data as $d){
-			if($d[$search] == $value){
-				array_push($out, $d);
-			}
-		}
-		return $out;
-	}
-
-	function add($path, $entry){
-		if(($fh = fopen($path, "a")) !== false) {
-			fwrite($fh, "__;__\n" . implode($entry, "__#__"));
-		}
-		else {
-			die("Datei: " . $file . " konnte nicht beschrieben werden");
-		}
-		fclose($fh);
-	}
-
-	function createFile($path, $headers){
-		if(($fh = fopen($path, "a")) !== false) {
-			fwrite($fh, implode($headers, "__#__"));
-		}
-		else {
+			error_log("Die Datei " . $path . " konnte nicht geöffnet werden");
 			die("Datei: " . $path . " konnte nicht angelegt werden");
 		}
+	}
+
+	// hängt einen Eintrag ans Ende der Datei
+	function dbAdd($path, $data) {
+		if (($fh = fopen($path, "a")) !== false) {
+			fwrite($fh, CONFIG["dbLineSeperator"] . "\n" . implode(CONFIG["dbElementSeperator"], $data));
+		}
+		else {
+			error_log("Die Datei " . $path . " konnte nicht geöffnet werden");
+			die("Datei: " . $file . " konnte nicht geöffnet werden");
+		}
 		fclose($fh);
+	}
+
+	// liest eine Datei ein und parsed diese
+	function dbRead($path) {
+		if (!file_exists($path)) {
+			error_log("Die Datei " . $path . " konnte nicht gefunden werden");
+			return [];
+		}
+
+		if (($fh = fopen($path, "r")) === false) {
+			error_log("Die Datei " . $path . " konnte nicht geöffnet werden");
+			die("Datei: " . $path . " konnte nicht geöffnet werden");
+			return [];
+		}
+
+		$parsedData = [];
+		$file = fread($fh, filesize($path));
+		if (substr($file, 0, -1) == "\n") {
+			$file = substr($file, 0, filesize($path) - 1);
+		}
+
+		// parsen
+		// Erstellt aus folgenden Beispieldaten:
+		// ID, Name, Nachname, Alter
+		// 1, Max, Mustermann, 18
+		// 2, Maxine, Mustermann, 16
+		//
+		// folgendes Objekt:
+		// [
+		// 	0 => [
+		// 		"ID" => 1,
+		// 		"Name" => "Max",
+		// 		"Nachname" => "Mustermann",
+		// 		"Alter" => 18
+		// 	],
+		// 	1 => [
+		// 		"ID" => 2,
+		// 		"Name" => "Maxine",
+		// 		"Nachname" => "Mustermann",
+		// 		"Alter" => 16
+		// 	]
+		// ]
+		$headLineNeeded = true;
+		foreach (explode(CONFIG["dbLineSeperator"], $file) as $line) {
+			if (empty($line)) {
+				error_log("Die Datei " . $path . " ist eventuell korrumpiert, enthält einen leeren Eintrag");
+				continue;
+			}
+
+			if ($headLineNeeded) {
+				$head = explode(CONFIG["dbElementSeperator"], $line);
+				$headLineNeeded = false;
+			}
+			else {
+				$line = explode(CONFIG["dbElementSeperator"], $line);
+				$parsedEntry = [];
+				$i = 0;
+				foreach ($line as $element) {
+					if ($i == 0 || $i == count($line) - 1) {
+						$element = str_replace("\n", "", $element);
+					}
+					$parsedEntry[$head[$i++]] = $element;
+				}
+				array_push($parsedData, $parsedEntry);
+			}
+		}
+
+		fclose($fh);
+		return $parsedData;
+	}
+
+	// durchsucht die Datei nach passenden Datensätze
+	function dbSearch($path, $search, $searchNeedle, $strict = false){
+		$data = dbRead($path);
+		$found = [];
+		foreach ($data as $entry) {
+			if ($strict && $entry[$search] == $searchNeedle || !$strict && strpos(strtolower($entry[$search]), strtolower($searchNeedle)) !== false) {
+				array_push($found, $entry);
+			}
+		}
+		return $found;
 	}
 
 	// Einzelwert-Ersetzung
-	function set($path, $search, $searchNeedle, $index, $replace){
-		if(($fh = fopen($path, "r+")) !== false) {
-			$output = [];
-			$meta = true;
-			$file = fread($fh, filesize($path));
+	function dbSet($path, $search, $searchNeedle, $index, $replace) {
+		$data = dbRead($path);
 
-			//parse
-			foreach(explode("__;__", $file) as $line){
-				if(empty($line)){
-					continue;
-				}
-				if($meta){
-					$head = explode("__#__", $line);
-					$meta = false;
-				}
-				else{
-					$line = explode("__#__", $line);
-					$tmp = [];
-					$i = 0;
-					foreach($line as $v){
-						if($i == 0 || $i == count($line) - 1){
-							$v = str_replace("\n", "", $v);
-						}
-						$tmp[$head[$i++]] = $v;
-					}
-					array_push($output, $tmp);
-				}
+		foreach ($data as $key => $entry) {
+			if ($entry[$search] == $searchNeedle) {
+				$data[$key][$index] = $replace;
 			}
-
-			//replace
-			foreach($output as $entry){
-				if($entry[$search] == $searchNeedle){
-					$entry[$index] = $replace;
-				}
-			}
-
-			//write
-			fseek($fh, 0);
-			fwrite($fh, implode($head, "__#__"));
-			foreach($output as $entry){
-				fwrite($fh, "__;__\n" . implode($entry, "__#__"));
-			}
-			fclose($fh);
 		}
-		else{
-			die("Datei: " . $path . " konnte nicht eingelesen werden");
+
+		dbWrite($path, $data);
+	}
+
+	// ersetzt einen kompletten Eintrag
+	function dbSetRow($path, $search, $searchNeedle, $newRow) {
+		$data = dbRead($path);
+
+		foreach ($data as $key => $entry) {
+			if ($entry[$search] == $searchNeedle) {
+				$i = 0;
+				foreach ($data[$key] as $index => $oldValue) {
+					$data[$key][$index] = $newRow[$i++];
+				}
+			}
+		}
+
+		dbWrite($path, $data);
+	}
+
+	// entfernt einen ganzen Eintrag
+	function dbRemove($path, $search, $searchNeedle) {
+		$data = dbRead($path);
+
+		$removed = false;
+		foreach ($data as $key => $entry) {
+			if ($entry[$search] == $searchNeedle) {
+				unset($data[$key]);
+				$removed = true;
+			}
+		}
+
+		if ($removed) {
+			dbWrite($path, $data);
+		}
+		else {
+			error_log("Versuche nicht vorhandenen Eintrag " . $search . " = " . $searchNeedle . " in " . $path . " zu entfernen");
 		}
 	}
 
-	// ganzer Eintrag-Ersetzung
-	function setRowWhere($path, $search, $searchNeedle, $replace){
-		if(($fh = fopen($path, "r+")) !== false) {
-			$output = [];
-			$meta = true;
-			$file = fread($fh, filesize($path));
-
-			//parse
-			foreach(explode("__;__", $file) as $line){
-				if(empty($line)){
-					continue;
-				}
-				if($meta){
-					$head = explode("__#__", $line);
-					$meta = false;
-				}
-				else{
-					$line = explode("__#__", $line);
-					$tmp = [];
-					$i = 0;
-					foreach($line as $v){
-						if($i == 0 || $i == count($line) - 1){
-							$v = str_replace("\n", "", $v);
-						}
-						$tmp[$head[$i++]] = $v;
-					}
-					array_push($output, $tmp);
-				}
-			}
-
-			//replace
-			for($i = 0; $i < count($output); $i++){
-				if($output[$i][$search] == $searchNeedle){
-					$output[$i] = $replace;
-				}
-			}
-
-			//write
-			fseek($fh, 0);
-			fwrite($fh, implode($head, "__#__"));
-			foreach($output as $entry){
-				fwrite($fh, "__;__\n" . implode($entry, "__#__"));
-			}
-			fclose($fh);
+	// löscht eine Datei
+	function dbDrop($path, $verifyDeletionOfFile = false) {
+		if (!file_exists($path)) {
+			error_log("Die Datei " . $path . " konnte nicht gefunden werden");
 		}
-		else{
-			die("Datei: " . $path . " konnte nicht eingelesen werden");
+
+		if ($verifyDeletionOfFile) {
+			unlink($path);
 		}
-	}
-
-	// ganzer Eintrag-Ersetzung
-	function setRow($path, $row, $replace){
-		if(($fh = fopen($path, "r+")) !== false) {
-			$output = [];
-			$meta = true;
-			$file = fread($fh, filesize($path));
-
-			//parse
-			foreach(explode("__;__", $file) as $line){
-				if(empty($line)){
-					continue;
-				}
-				if($meta){
-					$head = explode("__#__", $line);
-					$meta = false;
-				}
-				else{
-					$line = explode("__#__", $line);
-					$tmp = [];
-					$i = 0;
-					foreach($line as $v){
-						if($i == 0 || $i == count($line) - 1){
-							$v = str_replace("\n", "", $v);
-						}
-						$tmp[$head[$i++]] = $v;
-					}
-					array_push($output, $tmp);
-				}
-			}
-
-			// replace
-			$output[$row] = $replace;
-
-			//write
-			fseek($fh, 0);
-			fwrite($fh, implode($head, "__#__"));
-			foreach($output as $entry){
-				fwrite($fh, "__;__\n" . implode($entry, "__#__"));
-			}
-			fclose($fh);
-		}
-		else{
-			die("Datei: " . $path . " konnte nicht eingelesen werden");
+		else {
+			error_log("Zum unwiderruflichen Löschen der Datei " . $path . " muss das Argument verifyDeletionOfFile auf true gesetzt werden");
 		}
 	}
 ?>

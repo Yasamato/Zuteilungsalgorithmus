@@ -1,15 +1,15 @@
 <script>
 <?php
 	$projekte = [];
-	foreach(read("data/projekte.csv") as $p){
-		if($p['minKlasse'] <= $_SESSION['benutzer']['stufe'] && $p['maxKlasse'] >= $_SESSION['benutzer']['stufe']){
+	foreach (dbRead("../data/projekte.csv") as $p) {
+		if ($p['minKlasse'] <= $_SESSION['benutzer']['stufe'] && $p['maxKlasse'] >= $_SESSION['benutzer']['stufe']) {
 			array_push($projekte, $p);
 		}
 	}
 
 
 	echo 'var projekte = [';
-	foreach($projekte as $p) {
+	foreach ($projekte as $p) {
 		echo '{projektId: `' . $p['id'] . '`, ';
 		echo 'name: `' . $p['name'] . '`, ';
 		echo 'beschreibung: `' . $p['beschreibung'] . '`, ';
@@ -35,7 +35,7 @@
 		echo 'frVor: `' . $p['frVor'] . '`, ';
 		echo 'frNach: `' . $p['frNach'] . '`, ';
 		echo '}';
-		if($p != $projekte[sizeof($projekte) - 1]){
+		if ($p != $projekte[sizeof($projekte) - 1]) {
 			echo ",\n";
 		}
 	}
