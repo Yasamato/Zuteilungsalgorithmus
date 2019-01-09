@@ -3,9 +3,20 @@
 	<head>
 		<title>LMG8 Campus | Wahl</title>
 		<meta charset="utf-8">
+
+		<meta name="github" content="https://github.com/Agent77326/Zuteilungsalgorithmus/">
 		<meta name="author" content="Leo Jung">
+		<meta name="author" content="Jan Pfenning">
 		<meta name="author" content="Lukas Fausten">
 		<meta name="author" content="Tim Schneider">
+		<meta name="author" content="Tobias Palzer">
+		<meta name="author" content="Fabian von der Warth">
+		<meta name="author" content="Leon Selig">
+		<!-- Credits:
+
+
+		-->
+
 		<meta name="description" content="Wahlseite der LMG8-Schule von Maxdorf">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
 		<!-- css-frameworks -->
@@ -13,9 +24,9 @@
 		<link rel="stylesheet" href="css/main.css">
 <?php
 	session_start();
-  require "../data/config.php";
+  (include "../data/config.php") OR die("</head><body style='color: #000'>Der Webserver wurde noch nicht konfiguriert, kontaktiere einen Admin damit dieser setup.sh ausführt.</body></html>");
 	require "php/db.php";
-	
+
 	if (!file_exists("../data/config.csv")) {
 		// define the names of the columns in the first row
 		$names = [
