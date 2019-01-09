@@ -12,6 +12,7 @@
 			}
 		}
 		dbwrite($path, null, $headers);
+		chmod($path, CONFIG["dbFilesPermission"]);
 	}
 
 	// speichert die Daten in einer Datei ab
