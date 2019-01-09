@@ -13,9 +13,9 @@ $stufen = [
 ];
 
 // read each project and add the max members to the affected classes
-foreach(read("data/projekte.csv") as $p){
-  for($i = 5; $i < 12; $i++) {
-		if($p["minKlasse"] <= $i && $p["maxKlasse"] >= $i){
+foreach (dbRead("../data/projekte.csv") as $p) {
+  for ($i = 5; $i <= 12; $i++) {
+		if ($p["minKlasse"] <= $i && $p["maxKlasse"] >= $i) {
 			$stufen[$i] += $p["maxPlatz"];
 		}
 	}
@@ -212,21 +212,24 @@ foreach(read("data/projekte.csv") as $p){
 					<h5 class="card-title">Dashboard Projektwahl</h5>
 					<p class="card-text">Übersicht über die Projektwahl-Datenbank</p>
 				</div>
+        <div class="card-footer">
+          <div class="text-center">
+        		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <button type="button" class="btn btn-danger" onclick="logout()">
+                Abmelden
+              </button>
+          		<!-- Button trigger modal -->
+          		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#configModal">
+          			Konfiguration
+          		</button>
+        		</div>
+          </div>
+        </div>
 			</div>
 		</div>
 	</div>
 
-	<div class="container" style="padding-bottom: 1rem">
-		<div class="btn-group btn-group-toggle" data-toggle="buttons" style="display: flex;">
-      <button type="button" class="btn btn-danger w-100" onclick="logout()">
-        Abmelden
-      </button>
-  		<!-- Button trigger modal -->
-  		<button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#configModal">
-  			Konfiguration
-  		</button>
-		</div>
-  </div>
+
 
   <!-- Beim laden der Seite soll aus Datei erlesen werden in welcher Stage die Projektwahl sich befindet. TEXT-Datei mit Werten 0-3 z.B.
   Je nach Stage, sollen andere Seiten das Abschicken der Formulare erlauben oder nicht.
@@ -240,7 +243,7 @@ foreach(read("data/projekte.csv") as $p){
 		<div class="card-deck">
 			<div class="card text-white bg-dark mb-3" >
 				<div class="card-body">
-					<h5 class="card-title" id="eingereichteProjekte"><?php echo count(read('data/projekte.csv')); ?></h5>
+					<h5 class="card-title" id="eingereichteProjekte"><?php echo count(dbRead("../data/projekte.csv")); ?></h5>
 					<p class="card-text">Projekte wurden eingereicht</p>
       		<!-- Button trigger modal -->
       		<button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#projekteModal">
@@ -253,7 +256,7 @@ foreach(read("data/projekte.csv") as $p){
 			<div class="card-body">
 				<h5 class="card-title" id="anzahlPlaetze"><?php
 					$anzahl = 0;
-					foreach(read("data/projekte.csv") as $p){
+					foreach (dbRead("../data/projekte.csv") as $p) {
 						$anzahl += $p["maxPlatz"];
 					}
 				 	echo $anzahl;
@@ -265,7 +268,7 @@ foreach(read("data/projekte.csv") as $p){
 		<div class="card text-white bg-dark mb-3" >
 			<div class="card-body">
 				<h5 class="card-title" id="schuelergewaehlt">
-	  				<?php echo count(read('csv/schueler.csv')); ?>
+	  				<?php echo count(dbRead("../data/schueler.csv")); ?>
 				</h5>
 				<p class="card-text">Schüler haben schon gewählt</p>
         <!-- Button trigger modal -->
@@ -346,13 +349,13 @@ foreach(read("data/projekte.csv") as $p){
   				<div class="progress-bar bg-dark"
             role="progressbar"
             style="width: 25%;"
-            aria-valuenow="<?php echo count(read('data/schueler.csv')); ?>"
+            aria-valuenow="<?php echo count(dbRead("../data/schueler.csv")); ?>"
             aria-valuemin="0"
             aria-valuemax="1000">
-            <?php echo(count(read('data/schueler.csv'))) / 1000 * 100; ?> %
+            <?php echo(count(dbRead("../data/schueler.csv"))) / 1000 * 100; ?> %
           </div>
 				</div>
-				<p> <?php echo count(read('data/schueler.csv')); ?> von ### Schülern haben bereits gewählt</p>
+				<p> <?php echo count(dbRead("../data/schueler.csv")); ?> von ### Schülern haben bereits gewählt</p>
   		</div>
 
   		-->
@@ -361,18 +364,18 @@ foreach(read("data/projekte.csv") as $p){
 <script>
 	var projekte = [
 <?php
-  foreach (read("data/projekte.csv") as $p) {
+  foreach (dbRead("../data/projekte.csv") as $p) {
     echo "{";
-    foreach($p as $key => $v){
+    foreach ($p as $key => $v) {
       echo "'" . $key . "': `" . $v . "`,";
     }
     echo "},";
   }
 ?>], schueler = [
 <?php
-foreach (read("data/schueler.csv") as $s) {
+foreach (dbRead("../data/schueler.csv") as $s) {
   echo "{";
-  foreach($s as $key => $v){
+  foreach ($s as $key => $v) {
     echo "'" . $key . "': `" . $v . "`,";
   }
   echo "},";

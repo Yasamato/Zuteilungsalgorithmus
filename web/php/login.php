@@ -23,8 +23,20 @@
 		return false;
 	}
 
+	if (!empty($_POST['user']) && !empty($_POST["pw"]) && $_POST["user"] == CONFIG["adminUser"] && $_POST["pw"] == CONFIG["adminPassword"]) {
+		// admin ist vom login-System losgelöst
+		// passwort und benutzername können in ../data/config.php festgelegt werden
+		$_SESSION['benutzer'] = [
+			"uid" => "admin",
+			"typ" => "admin",
+			"klasse" => "",
+			"stufe" => "",
+			"vorname" => "",
+			"nachname" => ""
+		];
+	}
 	// DEBUG fake-accounts
-	if($_POST['user'] == "lehrer" && $_POST['pw'] == "lehrer"){
+	elseif($_POST['user'] == "lehrer" && $_POST['pw'] == "lehrer"){
 		$_SESSION['benutzer'] = [
 			"uid" => "testeeeee",
 			"typ" => "teachers",
@@ -32,16 +44,6 @@
 			"stufe" => "",
 			"vorname" => "L",
 			"nachname" => "eherer"
-		];
-	}
-	elseif($_POST['user'] == "admin" && $_POST['pw'] == "admin"){
-		$_SESSION['benutzer'] = [
-			"uid" => "testeeeee",
-			"typ" => "admin",
-			"klasse" => "",
-			"stufe" => "",
-			"vorname" => "A",
-			"nachname" => "wie arwin"
 		];
 	}
 	elseif($_POST['user'] == "schüler"){
