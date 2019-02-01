@@ -1,4 +1,12 @@
 <?php
+	function replaceNewline($array) {
+		$new = [];
+		foreach ($array as $key => $value) {
+			$new[$key] = nl2br($value);
+		}
+		return $new;
+	}
+
 	// erstellt eine neue Datei
 	function dbCreateFile($path, $headers, $ignoreExistingFile = false) {
 		if (file_exists($path)) {
@@ -24,10 +32,10 @@
 					array_push($head, $key);
 				}
 			}
-			fwrite($fh, implode(CONFIG["dbElementSeperator"], $head));
+			fwrite($fh, implode(CONFIG["dbElementSeperator"], replaceNewline($head)));
 			if (!empty($data)) {
 				foreach ($data as $entry) {
-					fwrite($fh, CONFIG["dbLineSeperator"] . "\n" . implode(CONFIG["dbElementSeperator"], $entry));
+					fwrite($fh, CONFIG["dbLineSeperator"] . "\n" . implode(CONFIG["dbElementSeperator"], replaceNewline($entry)));
 				}
 			}
 			fclose($fh);
@@ -41,7 +49,7 @@
 	// hängt einen Eintrag ans Ende der Datei
 	function dbAdd($path, $data) {
 		if (($fh = fopen($path, "a")) !== false) {
-			fwrite($fh, CONFIG["dbLineSeperator"] . "\n" . implode(CONFIG["dbElementSeperator"], $data));
+			fwrite($fh, CONFIG["dbLineSeperator"] . "\n" . implode(CONFIG["dbElementSeperator"], replaceNewline($data)));
 		}
 		else {
 			error_log("Die Datei " . $path . " konnte nicht geöffnet werden");
@@ -64,7 +72,10 @@
 		}
 
 		$parsedData = [];
-		$file = fread($fh, filesize($path));
+		$file = file_get_contents($path);
+		if (substr($file, 0, 1) == "\n") {
+			$file = substr($file, 1, filesize($path));
+		}
 		if (substr($file, 0, -1) == "\n") {
 			$file = substr($file, 0, filesize($path) - 1);
 		}
@@ -91,7 +102,7 @@
 		// 	]
 		// ]
 		$headLineNeeded = true;
-		foreach (explode(CONFIG["dbLineSeperator"], $file) as $line) {
+		foreach (explode(CONFIG["dbLineSeperator"] . "\n", $file) as $line) {
 			if (empty($line)) {
 				error_log("Die Datei " . $path . " ist eventuell korrumpiert, enthält einen leeren Eintrag");
 				continue;
@@ -137,7 +148,7 @@
 
 		foreach ($data as $key => $entry) {
 			if ($entry[$search] == $searchNeedle) {
-				$data[$key][$index] = $replace;
+				$data[$key][$index] = replaceNewline($replace);
 			}
 		}
 
@@ -147,6 +158,7 @@
 	// ersetzt einen kompletten Eintrag
 	function dbSetRow($path, $search, $searchNeedle, $newRow) {
 		$data = dbRead($path);
+		$newRow = replaceNewline($newRow);
 
 		foreach ($data as $key => $entry) {
 			if ($entry[$search] == $searchNeedle) {
