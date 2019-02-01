@@ -19,12 +19,12 @@
 
 		<meta name="description" content="Wahlseite der LMG8-Schule von Maxdorf">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
-		
+
 		<!-- css-frameworks -->
-		<link rel="stylesheet" href="bootstrap-4.0.0/css/bootstrap.min.css">
-		<!-- replace local with remote if needed...
+		<!--<link rel="stylesheet" href="bootstrap-4.0.0/css/bootstrap.min.css">-->
+		<!-- replace local with remote if needed...-->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-		-->
+
 		<link rel="stylesheet" href="css/main.css">
 <?php
 	session_start();
@@ -59,9 +59,9 @@
 
 	<script>
 		var config = {<?php
-		foreach (dbRead("../data/config.csv")[0] as $key => $v) {
-			echo "'" . $key . "': '" . $v . "',";
-		}
+			foreach (dbRead("../data/config.csv")[0] as $key => $v) {
+				echo "'" . $key . "': '" . $v . "', ";
+			}
 		?>};
 		// convert the string into a bool
 		config["Montag"] = (config["Montag"] == 'true');
@@ -203,16 +203,16 @@
 			<input type="hidden" name="action" value="logout">
 		</form>
 		<!-- JS-Libs -->
-		<script src="js/jquery-3.3.1.min.js"></script>
+		<!--<script src="js/jquery-3.3.1.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-		<script src="bootstrap-4.0.0/js/bootstrap.min.js"></script>
+		<script src="bootstrap-4.0.0/js/bootstrap.min.js"></script>-->
 
-		<!-- replace local with remote if needed...
+		<!-- replace local with remote if needed...-->
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-		-->
 
-		<script src="js/main.min.js"></script>
+
+		<script src="js/main.js"></script>
 	</body>
 </html>
