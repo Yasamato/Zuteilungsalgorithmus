@@ -16,7 +16,7 @@ echo
 echo "Algorithmus"
 echo "\t- Fabian von der Warth"
 echo "\t- Leon Selig"
-echo "\t- ???"
+echo "\t- Jonas Dalchow"
 echo "\t- Leo Jung"
 echo
 echo "Webdesign"
