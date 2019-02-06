@@ -38,12 +38,12 @@ if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
 	}
 	else {
 		//update config
-		$config = dbRead("../data/config.csv");
+		$config = dbRead("../data/config.csv")[0];
 	}
 ?>
 	<script>
 		config = {<?php
-	foreach (dbRead("../data/config.csv")[0] as $key => $v) {
+	foreach ($config as $key => $v) {
 		echo "'" . $key . "': '" . $v . "',";
 	}
 	?>}
