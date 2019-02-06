@@ -55,12 +55,17 @@
 			false
 		]);
 	}
+	$config = dbRead("../data/config.csv")[0];
 ?>
 
 	<script>
 		var config = {<?php
-			foreach (dbRead("../data/config.csv")[0] as $key => $v) {
-				echo "'" . $key . "': '" . $v . "', ";
+			$last = end($config);
+			foreach ($config as $key => $v) {
+				echo "'" . $key . "': '" . $v . "'";
+				if ($v != $last) {
+					echo ",\n";
+				}
 			}
 		?>};
 		// convert the string into a bool
@@ -115,7 +120,38 @@
 		//print_r($loginResult);
 		print_r($_SESSION['benutzer']);
 	}*/
+?>
+		<script>
+		<?php
+			$projekte = [];
+			if (isLogin()) {
+				if ($_SESSION['benutzer']['typ'] == "teachers" || $_SESSION['benutzer']['typ'] == "admin") {
+					$projekte = dbRead("../data/projekte.csv");
+				}
+				else {
+					foreach (dbRead("../data/projekte.csv") as $p) {
+						if ($p['minKlasse'] <= $_SESSION['benutzer']['stufe'] && $p['maxKlasse'] >= $_SESSION['benutzer']['stufe']) {
+							array_push($projekte, $p);
+						}
+					}
+				}
+			}
 
+			echo 'var projekte = [';
+			foreach ($projekte as $p) {
+		    echo "{";
+		    foreach ($p as $key => $v) {
+		      echo "'" . $key . "': `" . $v . "`,";
+		    }
+		    echo "}";
+				if ($p != $projekte[sizeof($projekte) - 1]) {
+					echo ",\n";
+				}
+			}
+			echo '];';
+		?>
+		</script>
+<?php
 	//--------------------------------------------------------
 	//html-teil
 	if (isLogin()) {
@@ -202,6 +238,7 @@
 		<form id="logout" method="post">
 			<input type="hidden" name="action" value="logout">
 		</form>
+		<div class="tmp-modal"></div>
 		<!-- JS-Libs -->
 		<!--<script src="js/jquery-3.3.1.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
