@@ -362,16 +362,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
 
 </div>
 <script>
-	var projekte = [
-<?php
-  foreach (dbRead("../data/projekte.csv") as $p) {
-    echo "{";
-    foreach ($p as $key => $v) {
-      echo "'" . $key . "': `" . $v . "`,";
-    }
-    echo "},";
-  }
-?>], schueler = [
+	var schueler = [
 <?php
 foreach (dbRead("../data/schueler.csv") as $s) {
   echo "{";

@@ -19,9 +19,9 @@ function logout() {
 
 function showProjektInfoModal(p) {
 	$(".tmp-modal").html(`
-	<div class="modal fade" id="tmp-modal" tabindex="-1" role="dialog" aria-labelledby="tmp-modalLabel" aria-hidden="true">
+	<div class="modal fade" id="tmp-modal" tabindex="-1" role="dialog" aria-labelledby="tmp-modalLabel" aria-hidden="true" style="z-index: 1051 !important;">
 		<div class="modal-dialog modal-lg" role="document">
-			<div class="modal-content">
+			<div class="modal-content bg-dark">
 				<div class="modal-header">
 				<h5 class="modal-title" id="tmp-modalLabel">` + p.name + `</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -32,7 +32,7 @@ function showProjektInfoModal(p) {
 					<p>` + p.beschreibung + `</p>
 					<p><b>Betreuer:</b> ` + p.betreuer + `</p>
 					<p><b>Klassenstufe:</b> ` + p.minKlasse + `-` + p.maxKlasse + `</p>
-					<p><b>Teilnehmerzahl:</b> ` + p.minTeilnehmer + `-` + p.maxTeilnehmer + `</p>
+					<p><b>Teilnehmerzahl:</b> ` + p.minPlatz + `-` + p.maxPlatz + `</p>
 					<p><b>Kosten/Sonstiges:</b> ` + p.sonstiges + `</p>
 					<p><b>Vorraussetungen:</b> ` + p.vorraussetzungen + `</p>
 					<table class="table table-hover table-responsive table-striped">
@@ -163,14 +163,19 @@ function setFirstDayIsSchool() {
 
 function createDashboardProjekteTable(projekte) {
   console.log("Creating: projekteTable");
-  $.each(projekte[0], function(index, value){
-    $("#projekteTable>thead>tr").append($("<th>" + index  + "</th>"));
-  });
+  $("#projekteTable>thead>tr").html(`
+    <th>Name</th>
+    <th>Betreuer</th>
+    <th>Stufe</th>
+    <th>Platz</th>`);
   $.each(projekte, function(index, value){
-    $("#projekteTable>tbody").append($("<tr></tr>"));
-    $.each(projekte[index], function(index, value){
-      $("#projekteTable>tbody:last-child").append($("<td>" + value + "</td>"));
-    });
+    $("#projekteTable>tbody").append($(`
+      <tr>
+        <td><a href="#" class="btn btn-success" onclick="showProjektInfoModal(projekte[` + index + `]);">Info</a> ` + projekte[index].name + `</td>
+        <td>` + projekte[index].betreuer + `</td>
+        <td>` + projekte[index].minKlasse + `-` + projekte[index].maxKlasse + `</td>
+        <td>` + projekte[index].minPlatz + `-` + projekte[index].maxPlatz + `</td>
+      </tr>`));
   });
 }
 
