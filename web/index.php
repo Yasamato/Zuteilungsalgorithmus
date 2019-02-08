@@ -36,23 +36,51 @@
 		$names = [
 			"Stage",
 			"Schüleranzahl",
-			"Montag",
-			"Dienstag",
-			"Mittwoch",
-			"Donnerstag",
-			"Freitag",
-			"SchuleAmErstenVormittag"
+			"MontagVormittag",
+			"MontagVormittagHinweis",
+			"MontagNachmittag",
+			"MontagNachmittagHinweis",
+			"DienstagVormittag",
+			"DienstagVormittagHinweis",
+			"DienstagNachmittag",
+			"DienstagNachmittagHinweis",
+			"MittwochVormittag",
+			"MittwochVormittagHinweis",
+			"MittwochNachmittag",
+			"MittwochNachmittagHinweis",
+			"DonnerstagVormittag",
+			"DonnerstagVormittagHinweis",
+			"DonnerstagNachmittag",
+			"DonnerstagNachmittagHinweis",
+			"FreitagVormittag",
+			"FreitagVormittagHinweis",
+			"FreitagNachmittag",
+			"FreitagNachmittagHinweis"
 		];
 		dbCreateFile("../data/config.csv", $names);
 		dbAdd("../data/config.csv", [
 			0,
-			1000,
-			true,
-			true,
-			true,
-			true,
-			true,
-			false
+			800,
+			"true",
+			"",
+			"true",
+			"",
+			"true",
+			"",
+			"true",
+			"",
+			"true",
+			"",
+			"true",
+			"",
+			"true",
+			"",
+			"true",
+			"",
+			"true",
+			"",
+			"false",
+			""
 		]);
 	}
 	$config = dbRead("../data/config.csv")[0];
@@ -60,20 +88,26 @@
 
 	<script>
 		var config = {<?php
-			$last = end($config);
+			end($config);
+			$last = key($config);
 			foreach ($config as $key => $v) {
 				echo "'" . $key . "': '" . $v . "'";
-				if ($v != $last) {
+				if ($key != $last) {
 					echo ",\n";
 				}
 			}
 		?>};
 		// convert the string into a bool
-		config["Montag"] = (config["Montag"] == 'true');
-		config["Dienstag"] = (config["Dienstag"] == 'true');
-		config["Mittwoch"] = (config["Mittwoch"] == 'true');
-		config["Donnerstag"] = (config["Donnerstag"] == 'true');
-		config["Freitag"] = (config["Freitag"] == 'true');
+		config["MontagVormittag"] = (config["MontagVormittag"] == 'true');
+		config["MontagNachmittag"] = (config["MontagNachmittag"] == 'true');
+		config["DienstagVormittag"] = (config["DienstagVormittag"] == 'true');
+		config["DienstagNachmittag"] = (config["DienstagNachmittag"] == 'true');
+		config["MittwochVormittag"] = (config["MittwochVormittag"] == 'true');
+		config["MittwochNachmittag"] = (config["MittwochNachmittag"] == 'true');
+		config["DonnerstagVormittag"] = (config["DonnerstagVormittag"] == 'true');
+		config["DonnerstagNachmittag"] = (config["DonnerstagNachmittag"] == 'true');
+		config["FreitagVormittag"] = (config["FreitagVormittag"] == 'true');
+		config["FreitagNachmittag"] = (config["FreitagNachmittag"] == 'true');
 	</script>
 
 <?php
