@@ -22,7 +22,7 @@ if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
 			empty($_POST["dauer"]["mittwoch"]["nachmittagHinweis"]) ? "" : $_POST["dauer"]["mittwoch"]["nachmittagHinweis"],
 			empty($_POST["dauer"]["donnerstag"]["vormittag"]) ? "false" : "true",
 			empty($_POST["dauer"]["donnerstag"]["vormittagHinweis"]) ? "" : $_POST["dauer"]["donnerstag"]["vormittagHinweis"],
-			empty($_POST["dauer"]["donnerstagdonnerstag"]["nachmittag"]) ? "false" : "true",
+			empty($_POST["dauer"]["donnerstag"]["nachmittag"]) ? "false" : "true",
 			empty($_POST["dauer"]["donnerstag"]["nachmittagHinweis"]) ? "" : $_POST["dauer"]["donnerstag"]["nachmittagHinweis"],
 			empty($_POST["dauer"]["freitag"]["vormittag"]) ? "false" : "true",
 			empty($_POST["dauer"]["freitag"]["vormittagHinweis"]) ? "" : $_POST["dauer"]["freitag"]["vormittagHinweis"],
@@ -34,27 +34,27 @@ if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
 		// prepare data
 		$values = [
 			$_POST["stage"],
-			$_POST["inputSchuelerAnzahl"],
+			$_POST["schuelerAnzahl"],
 			$config['MontagVormittag'],
-			$config['MontagVormittagHinweis'],
+			empty($_POST["dauer"]["montag"]["vormittagHinweis"]) ? "" : $_POST["dauer"]["montag"]["vormittagHinweis"],
 			$config['MontagNachmittag'],
-			$config['MontagNachmittagHinweis'],
+			empty($_POST["dauer"]["montag"]["nachmittagHinweis"]) ? "" : $_POST["dauer"]["montag"]["nachmittagHinweis"],
 			$config['DienstagVormittag'],
-			$config['DienstagVormittagHinweis'],
+			empty($_POST["dauer"]["dienstag"]["vormittagHinweis"]) ? "" : $_POST["dauer"]["dienstag"]["vormittagHinweis"],
 			$config['DienstagNachmittag'],
-			$config['DienstagNachmittagHinweis'],
+			empty($_POST["dauer"]["dienstag"]["nachmittagHinweis"]) ? "" : $_POST["dauer"]["dienstag"]["nachmittagHinweis"],
 			$config['MittwochVormittag'],
-			$config['MittwochVormittagHinweis'],
+			empty($_POST["dauer"]["mittwoch"]["vormittagHinweis"]) ? "" : $_POST["dauer"]["mittwoch"]["vormittagHinweis"],
 			$config['MittwochNachmittag'],
-			$config['MittwochNachmittagHinweis'],
+			empty($_POST["dauer"]["mittwoch"]["nachmittagHinweis"]) ? "" : $_POST["dauer"]["mittwoch"]["nachmittagHinweis"],
 			$config['DonnerstagVormittag'],
-			$config['DonnerstagVormittagHinweis'],
+			empty($_POST["dauer"]["donnerstag"]["vormittagHinweis"]) ? "" : $_POST["dauer"]["donnerstag"]["vormittagHinweis"],
 			$config['DonnerstagNachmittag'],
-			$config['DonnerstagNachmittagHinweis'],
+			empty($_POST["dauer"]["donnerstag"]["nachmittagHinweis"]) ? "" : $_POST["dauer"]["donnerstag"]["nachmittagHinweis"],
 			$config['FreitagVormittag'],
-			$config['FreitagVormittagHinweis'],
+			empty($_POST["dauer"]["freitag"]["vormittagHinweis"]) ? "" : $_POST["dauer"]["freitag"]["vormittagHinweis"],
 			$config['FreitagNachmittag'],
-			$config['FreitagNachmittagHinweis']
+			empty($_POST["dauer"]["freitag"]["nachmittagHinweis"]) ? "" : $_POST["dauer"]["freitag"]["nachmittagHinweis"]
 		];
 	}
 

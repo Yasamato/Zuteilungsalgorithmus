@@ -23,6 +23,7 @@
 		return false;
 	}
 
+
 	if (!empty($_POST['user']) && !empty($_POST["pw"]) && $_POST["user"] == CONFIG["adminUser"] && $_POST["pw"] == CONFIG["adminPassword"]) {
 		// admin ist vom login-System losgelöst
 		// passwort und benutzername können in ../data/config.php festgelegt werden
@@ -57,7 +58,7 @@
 		];
 	}
 	else{
-		die("plss......");
+		die("Die Fake-Accounts...........");
 		//login
 		$loginResult = ldap_authenticate();
 		if($loginResult){

@@ -5,7 +5,6 @@ window.onload = function() {
   switch(site) {
     case "wahl": return setupWahl();
     case "dashboard": return setupDashboard();
-    case "projektErstellung": return setupProjektErstellung();
     case "closed": return setupClosedModal();
     default: return;
   }
@@ -17,6 +16,24 @@ function logout() {
 	$("#logout").submit();
 }
 
+function createProjekteTable(projekte) {
+  console.log("Creating: projekteTable");
+  $("#projekteTable>thead>tr").html(`
+    <th>Name</th>
+    <th>Betreuer</th>
+    <th>Stufe</th>
+    <th>Platz</th>`);
+  $.each(projekte, function(index, value){
+    $("#projekteTable>tbody").append($(`
+      <tr>
+        <td><a href="#" class="btn btn-success" onclick="showProjektInfoModal(projekte[` + index + `]);">Info</a> ` + projekte[index].name + `</td>
+        <td>` + projekte[index].betreuer + `</td>
+        <td>` + projekte[index].minKlasse + `-` + projekte[index].maxKlasse + `</td>
+        <td>` + projekte[index].minPlatz + `-` + projekte[index].maxPlatz + `</td>
+      </tr>`));
+  });
+}
+
 function showProjektInfoModal(p) {
 	$(".tmp-modal").html(`
 	<div class="modal fade" id="tmp-modal" tabindex="-1" role="dialog" aria-labelledby="tmp-modalLabel" aria-hidden="true" style="z-index: 1051 !important;">
@@ -24,26 +41,30 @@ function showProjektInfoModal(p) {
 			<div class="modal-content bg-dark">
 				<div class="modal-header">
 				<h5 class="modal-title" id="tmp-modalLabel">` + p.name + `</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
 				</div>
 				<div class="modal-body">
-					<p>` + p.beschreibung + `</p>
-					<p><b>Betreuer:</b> ` + p.betreuer + `</p>
-					<p><b>Klassenstufe:</b> ` + p.minKlasse + `-` + p.maxKlasse + `</p>
-					<p><b>Teilnehmerzahl:</b> ` + p.minPlatz + `-` + p.maxPlatz + `</p>
-					<p><b>Kosten/Sonstiges:</b> ` + p.sonstiges + `</p>
-					<p><b>Vorraussetungen:</b> ` + p.vorraussetzungen + `</p>
-					<table class="table table-hover table-responsive table-striped">
-						<thead class="thead-dark">
+          <div class="row">
+            <div class="col-sm-4">
+    					<p><b>Betreuer:</b> ` + p.betreuer + `</p>
+    					<p><b>Klassenstufe:</b> ` + p.minKlasse + `-` + p.maxKlasse + `</p>
+    					<p><b>Teilnehmerzahl:</b> ` + p.minPlatz + `-` + p.maxPlatz + `</p>
+    					<p><b>Kosten/Sonstiges:</b> ` + p.sonstiges + `</p>
+    					<p><b>Vorraussetungen:</b> ` + p.vorraussetzungen + `</p>
+            </div>
+            <div class="col-sm-8">
+              <p>` + p.beschreibung + `</p>
+            </div>
+          </div>
+					<table class="table table-dark table-hover table-striped">
+						<thead>
 							<tr>
-							<th scope="col">Zeit</th>
-							<th >Montag</th>
-								<th >Dienstag</th>
-								<th >Mittwoch</th>
-								<th >Donnerstag</th>
-								<th >Freitag	</th>
+  							<th scope="col">Zeit</th>
+  							<th>Montag</th>
+								<th>Dienstag</th>
+								<th>Mittwoch</th>
+								<th>Donnerstag</th>
+								<th>Freitag</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -75,6 +96,7 @@ function showProjektInfoModal(p) {
 						</table>
 				</div>
 				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" onclick="window.location.href = '?site=edit&projekt=` + p.id + `';">Bearbeiten</button>
 					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 				</div>
 			</div>
@@ -115,24 +137,6 @@ function createStageSelect(currentStage) {
 	}
 }
 
-function createDashboardProjekteTable(projekte) {
-  console.log("Creating: projekteTable");
-  $("#projekteTable>thead>tr").html(`
-    <th>Name</th>
-    <th>Betreuer</th>
-    <th>Stufe</th>
-    <th>Platz</th>`);
-  $.each(projekte, function(index, value){
-    $("#projekteTable>tbody").append($(`
-      <tr>
-        <td><a href="#" class="btn btn-success" onclick="showProjektInfoModal(projekte[` + index + `]);">Info</a> ` + projekte[index].name + `</td>
-        <td>` + projekte[index].betreuer + `</td>
-        <td>` + projekte[index].minKlasse + `-` + projekte[index].maxKlasse + `</td>
-        <td>` + projekte[index].minPlatz + `-` + projekte[index].maxPlatz + `</td>
-      </tr>`));
-  });
-}
-
 function createDashboardStudentsTable(students) {
   console.log("Creating: schuelerTable");
   $.each(schueler[0], function(index, value){
@@ -154,26 +158,10 @@ function setupDashboard() {
 
 	// formular setup
 	createStageSelect(config["Stage"]);
-  $("#inputSchuelerAnzahl").val(parseInt(config['Schüleranzahl']));
-	createWeekdays();
-	setFirstDayIsSchool();
 
   // Erstellen der Projekte- und Schüler-Tabellen
-	createDashboardProjekteTable(projekte);
+	createProjekteTable(projekte);
 	createDashboardStudentsTable(schueler);
-
-	// Hinzufügen der EventListener
-	$('input:checkbox').on('click', function(e) {
-	    e.stopImmediatePropagation();
-	    var checked = (e.currentTarget.checked) ? false : true;
-	    e.currentTarget.checked = (checked) ? false : checked.toString();
-	});
-
-	$('input:radio').on('click', function(e) {
-	    e.stopImmediatePropagation();
-	    var checked = (e.currentTarget.checked) ? false : true;
-	    e.currentTarget.checked = (checked) ? false : checked.toString();
-	});
 }
 
 // Drucken
@@ -527,117 +515,6 @@ function touchHandler(e) {
     card.dispatchEvent(simulatedEvent);
   }
   e.preventDefault();
-}
-
-// projektErstellung-Interface
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function createTag(day) {
-  return $(`<div class="weekday">
-  <label>` + day + `</label>
-  <div class="form-group">
-    <label for="">Vormittag</label>
-    <textarea class="form-control" id="` + day + `Vor" placeholder="" required rows="3" name="` + day + `Vor"></textarea>
-    <div class="invalid-feedback">
-      Ungültige Eingabe
-    </div>
-  </div>
-
-  <div class="form-check">
-    <input class="form-check-input" type="checkbox" value="ja" checked id="` + day + `Mensa" name="` + day + `Mensa">
-    <label class="form-check-label" for="defaultCheck1">
-      Mensaessen möglich
-    </label>
-  </div>
-
-  <div class="form-group">
-    <label for="">Nachmittag</label>
-    <textarea class="form-control" id="` + day + `Nach" placeholder="" required rows="3" name="` + day + `Nach"></textarea>
-    <div class="invalid-feedback">
-      Ungültige Eingabe
-    </div>
-  </div>
-
-</div>`);
-}
-
-function disableWochentag(disabled, day) {
-  if(disabled){
-    $("#" + day + "Vor").prop("disabled", true);
-    $("#" + day + "Vor").addClass("disabled");
-    $("#" + day + "Mensa").prop("disabled", true);
-    $("#" + day + "Mensa").addClass("disabled");
-    $("#" + day + "Nach").prop("disabled", true);
-    $("#" + day + "Nach").addClass("disabled");
-  }
-}
-
-// creates the schedule input of each weekday
-function createWeekdays() {
-  // weekdays for the UI
-  var wochentage = [
-    "Montag",
-    "Dienstag",
-    "Mittwoch",
-    "Donnerstag",
-    "Freitag"
-  ];
-  // weekdays for the code
-  var weekdays = [
-    "mo",
-    "di",
-    "mi",
-    "do",
-    "fr"
-  ];
-
-  // generate the schedule for each day
-  for (var i = 0; i < weekdays.length; i++) {
-    $('#weekdays').append(createTag(weekdays[i]));
-    disableWochentag(!config[wochentage[i]], weekdays[i]);
-  }
-
-  // disable the option to eat in the canteen on friday
-  $("#frMensa").prop("checked", false);
-  $("#frMensa").prop("disabled", true);
-}
-
-function setupProjektErstellung() {
-  createWeekdays();
-}
-
-// JavaScript for disabling form submissions if there are invalid fields
-(function() {
-  'use strict';
-  window.addEventListener('load', function() {
-    if(site != "projektErstellung") return;
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    var forms = document.getElementsByClassName('needs-validation');
-    // Loop over them and prevent submission
-    var validation = Array.prototype.filter.call(forms, function(form) {
-      form.addEventListener('submit', function(event) {
-        if (!form.checkValidity() || !check()) {
-          event.preventDefault();
-          event.stopPropagation();
-        }
-        form.classList.add('was-validated');
-      }, false);
-    });
-  }, false);
-})();
-
-function check() {
-  // check if the minimum is smaller or equal to the maximum
-  var numberOfPlacesAreCorrect = parseInt($("#inputMinPlaetze").val()) <= parseInt($("#inputMaxPlaetze").val());
-	if (!numberOfPlacesAreCorrect) {
-		alert("Mindestanzahl der Teilnehmerplätze kann nicht größer sein als die die Maximalanzahl!");
-	}
-
-  // check if the minimum is smaller or equal to the maximum
-	var levelsAreCorrect = parseInt($("#inputMinKlasse").val()) <= parseInt($("#inputMaxKlasse").val());
-	if (!levelsAreCorrect) {
-		alert("Mindeststufe der Klassenstufe kann nicht größer sein als die die Maximalstufe!");
-	}
-	return numberOfPlacesAreCorrect && levelsAreCorrect;
 }
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
