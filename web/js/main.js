@@ -115,52 +115,6 @@ function createStageSelect(currentStage) {
 	}
 }
 
-function createWeekdays() {
-	//disable projekt-settings, when inital phase is over
-  $("#montag").prop("checked", config["Montag"]);
-  if (config['Stage'] != 0) {
-    $("#montag").prop("disabled", true);
-    $("#montag").addClass("disabled");
-  }
-
-  $("#dienstag").prop("checked", config["Dienstag"]);
-  if (config['Stage'] != 0) {
-    $("#dienstag").prop("disabled", true);
-    $("#dienstag").addClass("disabled");
-  }
-
-  $("#Mittwoch").prop("checked", config["Mittwoch"]);
-  if (config['Stage'] != 0) {
-    $("#mittwoch").prop("disabled", true);
-    $("#mittwoch").addClass("disabled");
-  }
-
-  $("#donnerstag").prop("checked", config["Donnerstag"]);
-  if (config['Stage'] != 0) {
-    $("#donnerstag").prop("disabled", true);
-    $("#donnerstag").addClass("disabled");
-  }
-
-  $("#freitag").prop("checked", config["Freitag"]);
-  if (config['Stage'] != 0) {
-    $("#freitag").prop("disabled", true);
-    $("#freitag").addClass("disabled");
-  }
-}
-
-function setFirstDayIsSchool() {
-  // convert the string into a bool
-  config["SchuleAmErstenVormittag"] = (config["SchuleAmErstenVormittag"] == 'true');
-  $("#firstDaytrue").prop("checked", config["SchuleAmErstenVormittag"]);
-  //disable projekt-settings, when inital phase is over
-  if (config["Stage"] != 0) {
-    $("#firstDaytrue").prop("disabled", true);
-    $("#firstDaytrue").addClass("disabled");
-    $("#firstDayfalse").prop("disabled", true);
-    $("#firstDayfalse").addClass("disabled");
-  }
-}
-
 function createDashboardProjekteTable(projekte) {
   console.log("Creating: projekteTable");
   $("#projekteTable>thead>tr").html(`

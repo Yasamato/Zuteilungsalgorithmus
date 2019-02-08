@@ -100,7 +100,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
                 <th>Vormittags</th>
                 <td>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="dauer[montag][vormittag]" <?php echo $config["MontagVormittag"] == "true" ? "checked" : ""; ?>>Findet statt
+                    <input class="form-check-input" type="checkbox" name="dauer[montag][vormittag]" <?php echo $config["MontagVormittag"] == "true" ? "checked" : ""; echo $config["Stage"] > 0  ? " disabled" : ""; ?>>Findet statt
                   </div>
                   <div class="form-group">
                     <textarea class="form-control" name="dauer[montag][vormittagHinweis]" placeholder="Anmerkungen"><?php
@@ -110,7 +110,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
                 </td>
                 <td>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="dauer[dienstag][vormittag]" <?php echo $config["DienstagVormittag"] == "true"  ? "checked" : ""; ?>>Findet statt
+                    <input class="form-check-input" type="checkbox" name="dauer[dienstag][vormittag]" <?php echo $config["DienstagVormittag"] == "true"  ? "checked" : ""; echo $config["Stage"] > 0  ? " disabled" : ""; ?>>Findet statt
                   </div>
                   <div class="form-group">
                     <textarea class="form-control" name="dauer[dienstag][vormittagHinweis]" placeholder="Anmerkungen"><?php
@@ -120,7 +120,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
                 </td>
                 <td>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="dauer[mittwoch][vormittag]" <?php echo $config["MittwochVormittag"] == "true"  ? "checked" : ""; ?>>Findet statt
+                    <input class="form-check-input" type="checkbox" name="dauer[mittwoch][vormittag]" <?php echo $config["MittwochVormittag"] == "true"  ? "checked" : ""; echo $config["Stage"] > 0  ? " disabled" : ""; ?>>Findet statt
                   </div>
                   <div class="form-group">
                     <textarea class="form-control" name="dauer[mittwoch][vormittagHinweis]" placeholder="Anmerkungen"><?php
@@ -130,7 +130,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
                 </td>
                 <td>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="dauer[donnerstag][vormittag]" <?php echo $config["DonnerstagVormittag"] == "true"  ? "checked" : ""; ?>>Findet statt
+                    <input class="form-check-input" type="checkbox" name="dauer[donnerstag][vormittag]" <?php echo $config["DonnerstagVormittag"] == "true"  ? "checked" : ""; echo $config["Stage"] > 0  ? " disabled" : ""; ?>>Findet statt
                   </div>
                   <div class="form-group">
                     <textarea class="form-control" name="dauer[donnerstag][vormittagHinweis]" placeholder="Anmerkungen"><?php
@@ -140,7 +140,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
                 </td>
                 <td>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="dauer[freitag][vormittag]" <?php echo $config["FreitagVormittag"] == "true"  ? "checked" : ""; ?>>Findet statt
+                    <input class="form-check-input" type="checkbox" name="dauer[freitag][vormittag]" <?php echo $config["FreitagVormittag"] == "true"  ? "checked" : ""; echo $config["Stage"] > 0  ? " disabled" : ""; ?>>Findet statt
                   </div>
                   <div class="form-group">
                     <textarea class="form-control" name="dauer[freitag][vormittagHinweis]" placeholder="Anmerkungen"><?php
@@ -154,7 +154,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
                 <th>Nachmittags</th>
                 <td>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="dauer[montag][nachmittag]" <?php echo $config["MontagNachmittag"] == "true"  ? "checked" : ""; ?>>Findet statt
+                    <input class="form-check-input" type="checkbox" name="dauer[montag][nachmittag]" <?php echo $config["MontagNachmittag"] == "true"  ? "checked" : ""; echo $config["Stage"] > 0  ? " disabled" : ""; ?>>Findet statt
                   </div>
                   <div class="form-group">
                     <textarea class="form-control" name="dauer[montag][nachmittagHinweis]" placeholder="Anmerkungen"><?php
@@ -164,7 +164,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
                 </td>
                 <td>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="dauer[dienstag][nachmittag]" <?php echo $config["DienstagNachmittag"] == "true"  ? "checked" : ""; ?>>Findet statt
+                    <input class="form-check-input" type="checkbox" name="dauer[dienstag][nachmittag]" <?php echo $config["DienstagNachmittag"] == "true"  ? "checked" : ""; echo $config["Stage"] > 0  ? " disabled" : ""; ?>>Findet statt
                   </div>
                   <div class="form-group">
                     <textarea class="form-control" name="dauer[dienstag][nachmittagHinweis]" placeholder="Anmerkungen"><?php
@@ -174,7 +174,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
                 </td>
                 <td>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="dauer[mittwoch][nachmittag]" <?php echo $config["MittwochNachmittag"] == "true"  ? "checked" : ""; ?>>Findet statt
+                    <input class="form-check-input" type="checkbox" name="dauer[mittwoch][nachmittag]" <?php echo $config["MittwochNachmittag"] == "true"  ? "checked" : ""; echo $config["Stage"] > 0  ? " disabled" : ""; ?>>Findet statt
                   </div>
                   <div class="form-group">
                     <textarea class="form-control" name="dauer[mittwoch][nachmittagHinweis]" placeholder="Anmerkungen"><?php
@@ -184,7 +184,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
                 </td>
                 <td>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="dauer[donnerstag][nachmittag]" <?php echo $config["DonnerstagNachmittag"] == "true"  ? "checked" : ""; ?>>Findet statt
+                    <input class="form-check-input" type="checkbox" name="dauer[donnerstag][nachmittag]" <?php echo $config["DonnerstagNachmittag"] == "true"  ? "checked" : ""; echo $config["Stage"] > 0  ? " disabled" : ""; ?>>Findet statt
                   </div>
                   <div class="form-group">
                     <textarea class="form-control" name="dauer[donnerstag][nachmittagHinweis]" placeholder="Anmerkungen"><?php
@@ -194,7 +194,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
                 </td>
                 <td>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="dauer[freitag][nachmittag]" <?php echo $config["FreitagNachmittag"] == "true"  ? "checked" : ""; ?>>Findet statt
+                    <input class="form-check-input" type="checkbox" name="dauer[freitag][nachmittag]" <?php echo $config["FreitagNachmittag"] == "true"  ? "checked" : ""; echo $config["Stage"] > 0  ? " disabled" : ""; ?>>Findet statt
                   </div>
                   <div class="form-group">
                     <textarea class="form-control" name="dauer[freitag][nachmittagHinweis]" placeholder="Anmerkungen"><?php
