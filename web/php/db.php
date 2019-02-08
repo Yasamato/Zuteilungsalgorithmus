@@ -103,10 +103,11 @@
 		// ]
 		$headLineNeeded = true;
 		foreach (explode(CONFIG["dbLineSeperator"] . "\n", $file) as $line) {
-			if (empty($line)) {
+			// das auskommentierte führt zu Fehlern bei leerem Text, welcher bsp. nur optional ist
+			/*if (empty($line)) {
 				error_log("Die Datei " . $path . " ist eventuell korrumpiert, enthält einen leeren Eintrag");
 				continue;
-			}
+			}*/
 
 			if ($headLineNeeded) {
 				$head = explode(CONFIG["dbElementSeperator"], $line);

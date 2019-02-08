@@ -38,28 +38,40 @@ foreach (dbRead("../data/projekte.csv") as $p) {
 
           <h5>Allgemeine Einstellungen</h5>
 
-          <div class="form-group">
-            <label for="stageSelect">Aktuelle Phase</label>
-            <select class="form-control" id="stageSelect" name="stage" aria-describedby="stageHelper"></select>
-            <small id="stageHelper" class="form-text text-muted">
-              <ul>
-                <li>"Nicht veröffentlicht": Keiner hat Zugriff außer der Admin</li>
-                <li>"Projekte können eingereicht werden": Änderungen an den Einstellungen zu den Projekten können nicht mehr getätigt werden, sowie über das Lehrer-Interface Projekte eingereicht werden</li>
-                <li>"Projekt-Einreichung geschlossen": Es können keine weiteren Projekte mehr eingereicht werden. Manuelle Abänderungen durch den Admin sind jedoch möglich</li>
-                <li>"Wahl-Interface geöffnet": Die Schüler können sich nun mit ihren Login-Daten anmelden und aus ihrem Projekt-Pool ihre Wahl wählen</li>
-                <li>"Wahl abgeschlossen": Manuelle Eingriffe des Admins sind möglich. Die Auswertung findet durch einen Admin statt</li>
-              </ul>
-            </small>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Aktuelle Phase:</label>
+            <div class="col-sm-10">
+              <select class="form-control" name="stage" id="stageSelect" aria-describedby="stageHelper"></select>
+            </div>
           </div>
+          <small id="stageHelper" class="form-text text-muted">
+            <ul>
+              <li>"Nicht veröffentlicht": Keiner hat Zugriff außer der Admin</li>
+              <li>"Projekte können eingereicht werden": Änderungen an den Einstellungen zu den Projekten können nicht mehr getätigt werden, sowie über das Lehrer-Interface Projekte eingereicht werden</li>
+              <li>"Projekt-Einreichung geschlossen": Es können keine weiteren Projekte mehr eingereicht werden. Manuelle Abänderungen durch den Admin sind jedoch möglich</li>
+              <li>"Wahl-Interface geöffnet": Die Schüler können sich nun mit ihren Login-Daten anmelden und aus ihrem Projekt-Pool ihre Wahl wählen</li>
+              <li>"Wahl abgeschlossen": Manuelle Eingriffe des Admins sind möglich. Die Auswertung findet durch einen Admin statt</li>
+            </ul>
+          </small>
 
-          <div class="form-group">
-              <label for="inputSchuelerAnzahl">Anzahl Schüler</label>
-              <input class="form-control" type="number" placeholder="1000" id="inputSchuelerAnzahl" name="inputSchuelerAnzahl">
+          <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Anzahl an Schülern:</label>
+              <div class="col-sm-10">
+                <input class="form-control" type="number" placeholder="Gesamtanzahl in #" name="schuelerAnzahl" value="<?php echo $config["Schüleranzahl"]; ?>" required>
+              </div>
           </div>
+          <small class="form-text text-muted">
+            Geben sie die Gesamtanzahl an wahlberechtigten Schülern an. Diese wird benötigt um die benötigte Anzahl an Wahlfeldern zu errechnen.
+          </small>
 
           <hr class="my-4">
           <h5>Projekt-Einstellungen</h5>
-
+          <small class="form-text text-muted">
+            Stellen sie die Dauer der Projektwoche ein sowie ggf. Hinweise für die Lehrer zur Projekterstellung.
+            Diese Anmerkungen werden als zusätzliche Information beim Einreichen von Projekten beim entsprechenden Feld angezeigt.
+            Durch das Auswählen der Checkboxen wird festgelegt, ob Projekte an dem jeweiligem Vor-/Nachmittag statt finden.
+          </small>
+          <br>
           <table class="table table-responsive table-striped">
             <thead class="thead-dark">
               <tr>
@@ -67,71 +79,136 @@ foreach (dbRead("../data/projekte.csv") as $p) {
                   Wochentag
                 </th>
                 <th>
-                  <label class="form-check-label" for="inlineCheckbox1">Montag</label>
+                  <label class="form-check-label">Montag</label>
                 </th>
                 <th>
-                  <label class="form-check-label" for="inlineCheckbox2">Dienstag</label>
+                  <label class="form-check-label">Dienstag</label>
                 </th>
                 <th>
-                  <label class="form-check-label" for="inlineCheckbox3">Mittwoch</label>
+                  <label class="form-check-label">Mittwoch</label>
                 </th>
                 <th>
-                  <label class="form-check-label" for="inlineCheckbox4">Donnerstag</label>
+                  <label class="form-check-label">Donnerstag</label>
                 </th>
                 <th>
-                  <label class="form-check-label" for="inlineCheckbox5">Freitag</label>
+                  <label class="form-check-label">Freitag</label>
                 </th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <th>Enabled</th>
+                <th>Vormittags</th>
                 <td>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="montag" name="montag" value="true" checked>
+                    <input class="form-check-input" type="checkbox" name="dauer[montag][vormittag]" <?php echo $config["MontagVormittag"] == "true" ? "checked" : ""; ?>>Findet statt
+                  </div>
+                  <div class="form-group">
+                    <textarea class="form-control" name="dauer[montag][vormittagHinweis]" placeholder="Anmerkungen"><?php
+                      echo (!empty($config["MontagVormittagHinweis"]) ? $config["MontagVormittagHinweis"] : "");
+                    ?></textarea>
                   </div>
                 </td>
                 <td>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="dienstag" name="dienstag" value="true" checked>
+                    <input class="form-check-input" type="checkbox" name="dauer[dienstag][vormittag]" <?php echo $config["DienstagVormittag"] == "true"  ? "checked" : ""; ?>>Findet statt
+                  </div>
+                  <div class="form-group">
+                    <textarea class="form-control" name="dauer[dienstag][vormittagHinweis]" placeholder="Anmerkungen"><?php
+                      echo (!empty($config["DienstagVormittagHinweis"]) ? $config["DienstagVormittagHinweis"] : "");
+                    ?></textarea>
                   </div>
                 </td>
                 <td>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="mittwoch" name="mittwoch" value="true" checked>
+                    <input class="form-check-input" type="checkbox" name="dauer[mittwoch][vormittag]" <?php echo $config["MittwochVormittag"] == "true"  ? "checked" : ""; ?>>Findet statt
+                  </div>
+                  <div class="form-group">
+                    <textarea class="form-control" name="dauer[mittwoch][vormittagHinweis]" placeholder="Anmerkungen"><?php
+                      echo (!empty($config["MittwochVormittagHinweis"]) ? $config["MittwochVormittagHinweis"] : "");
+                    ?></textarea>
                   </div>
                 </td>
                 <td>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="donnerstag" name="donnerstag" value="true" checked>
+                    <input class="form-check-input" type="checkbox" name="dauer[donnerstag][vormittag]" <?php echo $config["DonnerstagVormittag"] == "true"  ? "checked" : ""; ?>>Findet statt
+                  </div>
+                  <div class="form-group">
+                    <textarea class="form-control" name="dauer[donnerstag][vormittagHinweis]" placeholder="Anmerkungen"><?php
+                      echo (!empty($config["DonnerstagVormittagHinweis"]) ? $config["DonnerstagVormittagHinweis"] : "");
+                    ?></textarea>
                   </div>
                 </td>
                 <td>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="freitag" name="freitag" value="true" checked>
+                    <input class="form-check-input" type="checkbox" name="dauer[freitag][vormittag]" <?php echo $config["FreitagVormittag"] == "true"  ? "checked" : ""; ?>>Findet statt
+                  </div>
+                  <div class="form-group">
+                    <textarea class="form-control" name="dauer[freitag][vormittagHinweis]" placeholder="Anmerkungen"><?php
+                      echo (!empty($config["FreitagVormittagHinweis"]) ? $config["FreitagVormittagHinweis"] : "");
+                    ?></textarea>
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <th>Nachmittags</th>
+                <td>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="dauer[montag][nachmittag]" <?php echo $config["MontagNachmittag"] == "true"  ? "checked" : ""; ?>>Findet statt
+                  </div>
+                  <div class="form-group">
+                    <textarea class="form-control" name="dauer[montag][nachmittagHinweis]" placeholder="Anmerkungen"><?php
+                      echo (!empty($config["MontagNachmittagHinweis"]) ? $config["MontagNachmittagHinweis"] : "");
+                    ?></textarea>
+                  </div>
+                </td>
+                <td>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="dauer[dienstag][nachmittag]" <?php echo $config["DienstagNachmittag"] == "true"  ? "checked" : ""; ?>>Findet statt
+                  </div>
+                  <div class="form-group">
+                    <textarea class="form-control" name="dauer[dienstag][nachmittagHinweis]" placeholder="Anmerkungen"><?php
+                      echo (!empty($config["DienstagNachmittagHinweis"]) ? $config["DienstagNachmittagHinweis"] : "");
+                    ?></textarea>
+                  </div>
+                </td>
+                <td>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="dauer[mittwoch][nachmittag]" <?php echo $config["MittwochNachmittag"] == "true"  ? "checked" : ""; ?>>Findet statt
+                  </div>
+                  <div class="form-group">
+                    <textarea class="form-control" name="dauer[mittwoch][nachmittagHinweis]" placeholder="Anmerkungen"><?php
+                      echo (!empty($config["MittwochNachmittagHinweis"]) ? $config["MittwochNachmittagHinweis"] : "");
+                    ?></textarea>
+                  </div>
+                </td>
+                <td>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="dauer[donnerstag][nachmittag]" <?php echo $config["DonnerstagNachmittag"] == "true"  ? "checked" : ""; ?>>Findet statt
+                  </div>
+                  <div class="form-group">
+                    <textarea class="form-control" name="dauer[donnerstag][nachmittagHinweis]" placeholder="Anmerkungen"><?php
+                      echo (!empty($config["DonnerstagNachmittagHinweis"]) ? $config["DonnerstagNachmittagHinweis"] : "");
+                    ?></textarea>
+                  </div>
+                </td>
+                <td>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="dauer[freitag][nachmittag]" <?php echo $config["FreitagNachmittag"] == "true"  ? "checked" : ""; ?>>Findet statt
+                  </div>
+                  <div class="form-group">
+                    <textarea class="form-control" name="dauer[freitag][nachmittagHinweis]" placeholder="Anmerkungen"><?php
+                      echo (!empty($config["FreitagNachmittagHinweis"]) ? $config["FreitagNachmittagHinweis"] : "");
+                    ?></textarea>
                   </div>
                 </td>
               </tr>
             </tbody>
           </table>
 
-          <div class="form-group" id="ersterVormittagUnterricht">
-            <label class="form-check-label" for="firstDay">Unterricht am ersten Projekttag-Vormittag?</label>
-            <div id="firstdayradio">
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" id="firstDaytrue" name="firstDay" value="true">
-                <label class="form-check-label" for="firstDaytrue">Ja</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" id="firstDayfalse" name="firstDay" value="false" checked>
-                <label class="form-check-label" for="firstDayfalse">Nein</label>
-              </div>
-            </div>
-          </div>
-
           <div id="configurebuttons">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button onclick="javascript:function(){$('form#configForm').submit();}" type="submit" name="action" value="updateConfiguration" class="btn btn-primary">Save changes</button>
+            <button onclick="javascript:function(){$('form#configForm').submit();}" type="submit" name="action" value="updateConfiguration" class="btn btn-primary">Speichere Änderungen</button>
           </div>
         </form>
       </div>
@@ -155,11 +232,9 @@ foreach (dbRead("../data/projekte.csv") as $p) {
       <div class="modal-body">
         <table class="table table-responsive table-striped table-hover" id="projekteTable">
           <thead class="thead-dark">
-            <tr>
-            </tr>
+            <tr></tr>
           </thead>
-          <tbody>
-          </tbody>
+          <tbody></tbody>
         </table>
       </div>
 
@@ -261,7 +336,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
 					}
 				 	echo $anzahl;
 				?></h5>
-				<p class="card-text">Plätze sind verfügbar</p></p>
+				<p class="card-text">Plätze sind insgesamt verfügbar</p></p>
 			</div>
 		</div>
 

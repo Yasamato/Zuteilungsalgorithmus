@@ -7,12 +7,7 @@ if (isLogin() && ($_SESSION['benutzer']['typ'] == "teachers" || $_SESSION['benut
 		empty($_POST["minKlasse"]) ||
 		empty($_POST["maxKlasse"]) ||
 		empty($_POST["minPlatz"]) ||
-		empty($_POST["maxPlatz"]) ||
-		$config["Montag"] == "true" && (empty($_POST["moVor"]) || empty($_POST["moNach"])) ||
-		$config["Dienstag"] == "true" && (empty($_POST["diVor"]) || empty($_POST["diNach"])) ||
-		$config["Mittwoch"] == "true" && (empty($_POST["miVor"]) || empty($_POST["miNach"])) ||
-		$config["Donnerstag"] == "true" && (empty($_POST["doVor"]) || empty($_POST["doNach"])) ||
-		$config["Freitag"] == "true" && (empty($_POST["frVor"]) || empty($_POST["frNach"]))) {
+		empty($_POST["maxPlatz"]) ||) {
 		die("Fehlende Angaben");
 	}
 	foreach ($_POST as $post) {
@@ -50,6 +45,12 @@ if (isLogin() && ($_SESSION['benutzer']['typ'] == "teachers" || $_SESSION['benut
 			"frVor",
 			"frNach"
 		]);
+	}
+
+	foreach (dbRead("../data/projekte.csv") as $projekt) {
+		if (strtolower($projekt["name"]) == strtolower($_POST["pName"])) {
+			die("Ein Projekt mit dem gleichen Namen existiert bereits");
+		}
 	}
 
 	function checkBox($v) {
