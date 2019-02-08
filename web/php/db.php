@@ -1,11 +1,4 @@
 <?php
-	function replaceNewline($array) {
-		$new = [];
-		foreach ($array as $key => $value) {
-			$new[$key] = nl2br($value);
-		}
-		return $new;
-	}
 
 	// erstellt eine neue Datei
 	function dbCreateFile($path, $headers, $ignoreExistingFile = false) {
@@ -32,10 +25,10 @@
 					array_push($head, $key);
 				}
 			}
-			fwrite($fh, implode(CONFIG["dbElementSeperator"], replaceNewline($head)));
+			fwrite($fh, implode(CONFIG["dbElementSeperator"], newlineRemove($head)));
 			if (!empty($data)) {
 				foreach ($data as $entry) {
-					fwrite($fh, CONFIG["dbLineSeperator"] . "\n" . implode(CONFIG["dbElementSeperator"], replaceNewline($entry)));
+					fwrite($fh, CONFIG["dbLineSeperator"] . "\n" . implode(CONFIG["dbElementSeperator"], newlineRemove($entry)));
 				}
 			}
 			fclose($fh);
@@ -49,7 +42,7 @@
 	// hängt einen Eintrag ans Ende der Datei
 	function dbAdd($path, $data) {
 		if (($fh = fopen($path, "a")) !== false) {
-			fwrite($fh, CONFIG["dbLineSeperator"] . "\n" . implode(CONFIG["dbElementSeperator"], replaceNewline($data)));
+			fwrite($fh, CONFIG["dbLineSeperator"] . "\n" . implode(CONFIG["dbElementSeperator"], newlineRemove($data)));
 		}
 		else {
 			error_log("Die Datei " . $path . " konnte nicht geöffnet werden");
@@ -149,7 +142,7 @@
 
 		foreach ($data as $key => $entry) {
 			if ($entry[$search] == $searchNeedle) {
-				$data[$key][$index] = replaceNewline($replace);
+				$data[$key][$index] = newlineRemove($replace);
 			}
 		}
 
@@ -159,7 +152,7 @@
 	// ersetzt einen kompletten Eintrag
 	function dbSetRow($path, $search, $searchNeedle, $newRow) {
 		$data = dbRead($path);
-		$newRow = replaceNewline($newRow);
+		$newRow = newlineRemove($newRow);
 
 		foreach ($data as $key => $entry) {
 			if ($entry[$search] == $searchNeedle) {

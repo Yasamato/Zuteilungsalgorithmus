@@ -1,4 +1,8 @@
 <?php
+if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
+  die("Zugriff verweigert");
+}
+
 // generate the statistics how many places are available in each class
 // initialize the data array
 $stufen = [
@@ -47,10 +51,10 @@ foreach (dbRead("../data/projekte.csv") as $p) {
           <small id="stageHelper" class="form-text text-muted">
             <ul>
               <li>"Nicht veröffentlicht": Keiner hat Zugriff außer der Admin</li>
-              <li>"Projekte können eingereicht werden": Änderungen an den Einstellungen zu den Projekten können nicht mehr getätigt werden, sowie über das Lehrer-Interface Projekte eingereicht werden</li>
-              <li>"Projekt-Einreichung geschlossen": Es können keine weiteren Projekte mehr eingereicht werden. Manuelle Abänderungen durch den Admin sind jedoch möglich</li>
-              <li>"Wahl-Interface geöffnet": Die Schüler können sich nun mit ihren Login-Daten anmelden und aus ihrem Projekt-Pool ihre Wahl wählen</li>
-              <li>"Wahl abgeschlossen": Manuelle Eingriffe des Admins sind möglich. Die Auswertung findet durch einen Admin statt</li>
+              <li>"Projekte können eingereicht werden": Änderungen an den Einstellungen zu den Projekten können nicht mehr getätigt werden, jedoch die Hinweise vom Admin verändert werden sowie über das Lehrer-Interface Projekte eingesehen, bearbeitet und eingereicht werden</li>
+              <li>"Projekt-Einreichung geschlossen": Es können keine weiteren Projekte mehr von den Lehrern eingereicht werden. Editierungen bereits bestehender Projekte ist weiterhin möglich durch den Admin sowie die Lehrer</li>
+              <li>"Wahl-Interface geöffnet": Die Schüler können sich nun mit ihren Login-Daten anmelden und aus ihrem Projekt-Pool ihre Wahl wählen. Die Lehrerschaft hat nun nur noch Zugriff auf die Liste mit den Projekten, kann diese jedoch aber nicht mehr abändern (nur der Admin)</li>
+              <li>"Wahl abgeschlossen": Der Schüler-Zugriff wird geschlossen, Lehrer können die Liste ansehen. Änderungen können nur noch händisch von einem Admin getätigt werden. Die Auswertung wird durch einen Admin durchgeführt</li>
             </ul>
           </small>
 
@@ -72,7 +76,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
             Durch das Auswählen der Checkboxen wird festgelegt, ob Projekte an dem jeweiligem Vor-/Nachmittag statt finden.
           </small>
           <br>
-          <table class="table table-responsive table-striped">
+          <table class="table table-striped">
             <thead class="thead-dark">
               <tr>
                 <th>
@@ -230,8 +234,8 @@ foreach (dbRead("../data/projekte.csv") as $p) {
       </div>
 
       <div class="modal-body">
-        <table class="table table-responsive table-striped table-hover" id="projekteTable">
-          <thead class="thead-dark">
+        <table class="table table-dark table-striped table-hover" id="projekteTable">
+          <thead>
             <tr></tr>
           </thead>
           <tbody></tbody>

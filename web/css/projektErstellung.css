@@ -1,23 +1,6 @@
 html, body {
 	height: auto;
 }
-body {
-	display: -webkit-box;
-	display: -moz-flexbox;
-}
-
-.helptext {
-	color:#bbbbbb
-}
-.button {
-	margin: 2rem;
-}
-
-.weekday {
-	margin-top: 2rem;
-	margin-right: 1rem;
-
-}
 
 ::placeholder {
 	color:red;
@@ -29,13 +12,8 @@ textarea {
 }
 
 #bg-blur {
-	background-color: rgba(0 ,0 ,0 ,0.3);
+	background-color: rgba(0 ,0 ,0 ,0.4);
 	padding: 2rem;
 	border-radius: 2rem;
 	margin: 2rem;
-}
-
-#headline {
-	margin-top: 2rem;
-	font-size: 2rem;
 }

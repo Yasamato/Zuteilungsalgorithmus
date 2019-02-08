@@ -11,6 +11,7 @@
 		<meta name="author" content="Tim Schneider">
 		<meta name="author" content="Tobias Palzer">
 		<meta name="author" content="Fabian von der Warth">
+		<meta name="author" content="Jonas Dalchow">
 		<meta name="author" content="Leon Selig">
 		<!-- Credits:
 
@@ -26,14 +27,28 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
 		<link rel="stylesheet" href="css/main.css">
+
+		<!-- JS-Libs -->
+		<!-- es gilt als good practice die js ganz unten als letztes einzubinden im body.... -->
+		<!--<script src="js/jquery-3.3.1.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+		<script src="bootstrap-4.0.0/js/bootstrap.min.js"></script>-->
+
+		<!-- replace local with remote if needed...-->
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+
+		<script src="js/main.js"></script>
 <?php
 	session_start();
   (include "../data/config.php") OR die("</head><body style='color: #000'>Der Webserver wurde noch nicht konfiguriert, kontaktiere einen Admin damit dieser setup.sh ausführt.</body></html>");
 	require "php/db.php";
 
 	if (!file_exists("../data/config.csv")) {
-		// define the names of the columns in the first row
-		$names = [
+		// define the header of the columns in the first row
+		dbCreateFile("../data/config.csv", [
 			"Stage",
 			"Schüleranzahl",
 			"MontagVormittag",
@@ -56,8 +71,7 @@
 			"FreitagVormittagHinweis",
 			"FreitagNachmittag",
 			"FreitagNachmittagHinweis"
-		];
-		dbCreateFile("../data/config.csv", $names);
+		]);
 		dbAdd("../data/config.csv", [
 			0,
 			800,
@@ -84,6 +98,39 @@
 		]);
 	}
 	$config = dbRead("../data/config.csv")[0];
+
+	if (!file_exists("../data/projekte.csv")) {
+		// define the header of the columns in the first row
+		dbCreateFile("../data/projekte.csv", [
+			"id",
+			"name",
+			"beschreibung",
+			"betreuer",
+			"minKlasse",
+			"maxKlasse",
+			"minPlatz",
+			"maxPlatz",
+			"vorraussetzungen",
+			"sonstiges",
+			"raum",
+			"material",
+			"moVor",
+			"moMensa",
+			"moNach",
+			"diVor",
+			"diMensa",
+			"diNach",
+			"miVor",
+			"miMensa",
+			"miNach",
+			"doVor",
+			"doMensa",
+			"doNach",
+			"frVor",
+			"frMensa",
+			"frNach"
+		]);
+	}
 ?>
 
 	<script>
@@ -115,9 +162,36 @@
 		return isset($_SESSION['benutzer']);
 	}
 
-	function logout(){
+	function logout() {
 		session_destroy();
 		session_start();
+	}
+
+	function alert($msg) {
+		echo "<script>alert('" . $msg . "');</script>";
+	}
+
+	function newlineBack($txt) {
+	  $txt = str_replace("<br>", "\n", $txt);
+	  $txt = str_replace("<br/>", "\n", $txt);
+	  return str_replace("<br />", "\n", $txt);
+	}
+
+	function getProjektInfo($id) {
+	  foreach (dbRead("../data/projekte.csv") as $projekt) {
+	    if ($projekt["id"] == $id) {
+	      return $projekt;
+	    }
+	  }
+	}
+
+	function checkBox($v) {
+		return isset($_POST[$v]) && $_POST[$v] ? "true" : "false";
+	}
+
+	// htmlentities() ?
+	function newlineRemove($txt) {
+		return str_replace("\n", "<br>", $txt);
 	}
 
 	// on form-submit
@@ -134,6 +208,9 @@
 				break;
 			case "addProject":
 				require("php/projektErstellung.php");
+				break;
+			case "editProject":
+				require("php/editProject.php");
 				break;
 			case "wahl":
 				require("php/wahl.php");
@@ -190,23 +267,62 @@
 	//html-teil
 	if (isLogin()) {
 		if ($_SESSION['benutzer']['typ'] == "admin") {
+			if (!empty($_GET['site']) && $_GET['site'] == "create") {
+?>
+	<script>var site = "projektErstellung";</script>
+	<link rel="stylesheet" href="css/projektErstellung.css">
+</head>
+<body>
+<?php
+				include "html/projektErstellung.php";
+			}
+			elseif (!empty($_GET['site']) && $_GET['site'] == "edit") {
+?>
+	<script>var site = "projektEdit";</script>
+	<link rel="stylesheet" href="css/projektErstellung.css">
+</head>
+<body>
+<?php
+				include "html/projektEdit.php";
+			}
+			else {
 ?>
 		<script>var site = "dashboard";</script>
 		<link rel="stylesheet" href="css/dashboard.css">
 	</head>
 	<body>
 <?php
-			include "html/dashboard.php";
+				include "html/dashboard.php";
+			}
 		}
 		elseif ($_SESSION['benutzer']['typ'] == "teachers") {
-			if ($config["Stage"] == 1) {
+			if ($config["Stage"] > 0) {
+				if (!empty($_GET['site']) && $_GET['site'] == "create" && $config["Stage"] == 1) {
 ?>
 		<script>var site = "projektErstellung";</script>
 		<link rel="stylesheet" href="css/projektErstellung.css">
 	</head>
 	<body>
 <?php
-				include "html/projektErstellung.html";
+					include "html/projektErstellung.php";
+				}
+				elseif (!empty($_GET['site']) && $_GET['site'] == "edit" && $config["Stage"] < 3) {
+?>
+		<script>var site = "projektEdit";</script>
+		<link rel="stylesheet" href="css/projektErstellung.css">
+	</head>
+	<body>
+<?php
+					include "html/projektEdit.php";
+				}
+				else {
+?>
+		<script>var site = "projektListe";</script>
+	</head>
+	<body>
+<?php
+					include "html/projektListe.html";
+				}
 			}
 			else {
 ?>
@@ -269,21 +385,18 @@
 <?php
 	}
 ?>
-		<form id="logout" method="post">
+		<form id="logout" method="post" action="/">
 			<input type="hidden" name="action" value="logout">
 		</form>
 		<div class="tmp-modal"></div>
-		<!-- JS-Libs -->
-		<!--<script src="js/jquery-3.3.1.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-		<script src="bootstrap-4.0.0/js/bootstrap.min.js"></script>-->
-
-		<!-- replace local with remote if needed...-->
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
 
-		<script src="js/main.js"></script>
+		<footer class="footer">
+			<div class="container text-center">
+				<small class="text-muted">
+					(c) 2018-2019 Leo Jung, Fabian von der Warth, Jan Pfenning, Tim Schneider, Lukas Fausten, Tobias Palzer, Leon Selig, Jonas Dalchow
+				</small>
+			</div>
+		</footer>
 	</body>
 </html>
