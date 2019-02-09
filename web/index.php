@@ -340,14 +340,6 @@
 <?php
 				include "html/projektEdit.php";
 			}
-			elseif (!empty($_GET['site']) && $_GET['site'] == "printProjekt") {
-?>
-	<script>var site = "printProjekt";</script>
-</head>
-<body>
-<?php
-				include "html/printProjekt.php";
-			}
 			else {
 ?>
 		<script>var site = "dashboard";</script>
