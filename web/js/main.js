@@ -26,6 +26,7 @@ function printProjekte(projektListe) {
 }
 
 function windowPrint() {
+  alert("Warnung: nur unter Google Chrome wird die Druck-API von html5 (relativ) gut unterstützt. Durch die Verwendung eines anderen Browsers kann es zu Verzerrungen kommen.");
   console.log("Trying to print");
   if (window.print) {
     window.print();
@@ -42,18 +43,18 @@ function getPrintProjekt(projekt) {
 
   <!-- Zeile 1 -->
   <div class="row">
-    <div class="col-sm-2">
+    <div class="col-2">
       <h4>Projekt-ID.</h4>
       <p>` + projekt["id"] + `</p>
     </div>
 
-    <div class="col-sm-8">
+    <div class="col-8">
       <h4>Projekttitel</h4>
       <p>` + projekt["name"] + `</p>
     </div>
 
-    <div class="col-sm-2 last">
-      <h4>ProjektLeitung</h4>
+    <div class="col-2 last">
+      <h4>Betreuer</h4>
       <p>` + projekt["betreuer"] + `</p>
     </div>
   </div>
@@ -62,12 +63,12 @@ function getPrintProjekt(projekt) {
   <!-- Zeile 2 -->
   <div class="row">
     <div class="col-2">
-      <h4>Klassenstufe</h4>
+      <h4>Stufen</h4>
       <p>` + projekt["minKlasse"] + ` - ` + projekt["maxKlasse"] + `</p>
     </div>
 
     <div class="col-2">
-      <h4>Teilnehmerzahl</h4>
+      <h4>Teilnehmeranzahl</h4>
       <p>` + projekt["minPlatz"] + ` - ` + projekt["maxPlatz"] + `</p>
     </div>
 
