@@ -17,7 +17,6 @@ body {
 	-ms-flex-align: center;
 	-ms-flex-pack: center;
 	-webkit-box-align: baseline;
-	/*margin-top: 6rem;*/
 	-webkit-box-pack: center;
 	justify-content: center;
 	padding-top: 40px;
@@ -45,12 +44,20 @@ body {
     max-width: 90% !important;
 }
 
-table{
+button {
+	margin-bottom: 1rem;
+}
+
+button.close {
+	color: white;
+}
+
+table {
   overflow-x: auto !important;
 }
 
 @media (max-width: 750px) {
-	table{
+	table {
     display: block !important;
 	}
 }
@@ -61,4 +68,82 @@ table{
 	width: 100%;
 	height: 40px;
 	line-height: 60px;
+}
+
+@media screen {
+	#section-to-print {
+		display: none;
+		visibility: hidden;
+	}
+}
+
+@media print {
+	@page {
+		size: A4;
+    margin: 0;
+	}
+
+	html, body, body * {
+		margin: 0;
+		padding: 0;
+		background-color: #fff !important;
+		background-image: none !important;
+	}
+
+	body>div:not(#section-to-print) {
+		display: none;
+		visibility: hidden;
+	}
+
+	#section-to-print {
+		display: block;
+		visibility: visible;
+		color: #000 !important;
+		font-size: 18px;
+		width: 100%;
+		top: 0;
+		left: 0;
+		margin: 0;
+	}
+
+	#section-to-print .print-projekt {
+		height: 29.685cm; // theoretisch wären es 29,7cm...... (minus die 0.05cm border)
+		width: 100%;
+		padding: 2cm;
+		border-bottom: 0.05cm dashed #000;
+		text-align: left;
+	}
+
+	#section-to-print .row {
+		border: 2px solid #000;
+		margin-bottom: 0.7cm;
+	}
+	#section-to-print .row>div, #section-to-print table td, #section-to-print table th {
+		border-right: 2px solid #000;
+	}
+	#section-to-print .row>div.last, #section-to-print table td.last, #section-to-print table th.last {
+		border-right: none;
+	}
+	#section-to-print .row #beschreibung {
+		height: 7cm;
+	}
+	#section-to-print h3 {
+		font-size: 1.75rem;
+	}
+
+	#section-to-print table {
+		border: 2px solid #000;
+	}
+	#section-to-print .table thead th {
+		border-bottom: none;
+	}
+	#section-to-print table, thead, tbody, tr {
+		width: 100%;
+	}
+	#section-to-print tbody td, tbody th {
+		border-top: 2px solid #000 !important;
+	}
+	#section-to-print tr.tagesablauf>td>p {
+		height: 3cm;
+	}
 }

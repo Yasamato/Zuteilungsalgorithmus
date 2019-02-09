@@ -1,8 +1,8 @@
-.container-fluid{
+.container-fluid {
 	text-align: center;
 }
 
-.card-title{
+.card-title {
 	font-size: 2rem;
 }
 
@@ -10,10 +10,6 @@
 	color: white;
 }
 
-.closebutton {
-	color: white;
-}
-
-hr{
+hr {
 	background-color: #098C38;
 }

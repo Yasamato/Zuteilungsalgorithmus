@@ -4,22 +4,13 @@ if (isLogin()) {// hard gecoded für präsi
 		$projekte = dbRead("../data/projekte.csv");
 		$valid = true;
 		foreach ($_POST['wahl'] as $p) {
-			if ($projekte[$p]['minKlasse'] > $_SESSION['benutzer']['stufe'] && $projekte[$p]['maxKlasse'] < $_SESSION['benutzer']['stufe']) {
+			$projekt = getProjektInfo($p);
+			if ($projekt['minKlasse'] > $_SESSION['benutzer']['stufe'] && $projekt['maxKlasse'] < $_SESSION['benutzer']['stufe']) {
 				$valid = false;
 			}
 		}
 
 		if ($valid) {
-			if (!file_exists("../data/schueler.csv")) {
-				dbCreateFile("../data/schueler.csv", [
-					"uid",
-					"vorname",
-					"nachname",
-					"stufe",
-					"klasse",
-					"wahl"
-				]);
-			}
 
 			$wahl = [
 				$_SESSION['benutzer']['uid'],
@@ -30,22 +21,23 @@ if (isLogin()) {// hard gecoded für präsi
 				implode("§", $_POST['wahl']) // warum haben wir hier §?
 			];
 			// Überschreiben des vorigen Eintrags
-			if (count(dbSearch("../data/schueler.csv", "uid", $_SESSION['benutzer']['uid'])) > 0) {
-				dbSetRow("../data/schueler.csv", "uid", $_SESSION['benutzer']['uid'], $wahl);
-				print("Eintrag erfolgreich aktualisiert");
+			if (count(dbSearch("../data/wahl.csv", "uid", $_SESSION['benutzer']['uid'])) > 0) {
+				dbSetRow("../data/wahl.csv", "uid", $_SESSION['benutzer']['uid'], $wahl);
+				alert("Eintrag erfolgreich aktualisiert");
 			}
 			else {
-				dbAdd("../data/schueler.csv", $wahl);
-				print("Erfolgreich eingetragen");
+				dbAdd("../data/wahl.csv", $wahl);
+				alert("Erfolgreich eingetragen");
 			}
 		}
 		else {
+			// Petze :)
 			error_log("Invalide Stufenlimitierung! Der Schüler " .  $_SESSION['benutzer']['vorname'] . ", " . $_SESSION['benutzer']['nachname'] . " aus der " . $_SESSION['benutzer']['stufe'] . " " . $_SESSION['benutzer']['klasse'] . " versuchte eine ungültige Wahl einzureichen.");
-			die("Ungültige Wahl");
+			alert("Ungültige Wahl");
 		}
 	}
 	else{
-		die("Ungültige Wahl");
+		alert("Ungültige Wahl");
 	}
 }
 else{

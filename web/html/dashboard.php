@@ -173,6 +173,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
                   <div class="form-group">
                     <textarea class="form-control" name="dauer[dienstag][nachmittagHinweis]" placeholder="Anmerkungen"><?php
                       echo (!empty($config["DienstagNachmittagHinweis"]) ? $config["DienstagNachmittagHinweis"] : "");
+
                     ?></textarea>
                   </div>
                 </td>
@@ -227,24 +228,31 @@ foreach (dbRead("../data/projekte.csv") as $p) {
     <div class="modal-content bg-dark">
 
       <div class="modal-header">
-        <h4 class="modal-title" id="projekteModalLabel">Projekte</h4>
+        <h4 class="modal-title">Projekte</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span class="closebutton" aria-hidden="true">&times;</span>
         </button>
       </div>
 
       <div class="modal-body">
+        <button onclick="javascript: printProjekte(projekte);" type="button" class="btn btn-secondary">Liste drucken</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
         <table class="table table-dark table-striped table-hover" id="projekteTable">
           <thead>
-            <tr></tr>
+            <tr>
+              <th>Name</th>
+              <th>Betreuer</th>
+              <th>Stufe</th>
+              <th>Platz</th>
+            </tr>
           </thead>
           <tbody></tbody>
         </table>
       </div>
 
       <div class="modal-footer">
-        <button onclick="saveSmallProjectList(projekte)" type="button" class="btn btn-secondary">Drucken</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        <button onclick="javascript: printProjekte(projekte);" type="button" class="btn btn-secondary">Liste drucken</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
       </div>
     </div>
   </div>
@@ -256,16 +264,23 @@ foreach (dbRead("../data/projekte.csv") as $p) {
     <div class="modal-content bg-dark">
 
       <div class="modal-header">
-        <h4 class="modal-title" id="schuelerModalLabel">Schüler</h4>
+        <h4 class="modal-title">Schüler</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span class="closebutton" aria-hidden="true">&times;</span>
         </button>
       </div>
 
       <div class="modal-body">
-        <table class="table table-responsive table-striped table-hover" id="schuelerTable">
+        <button onclick="javascript:function() {console.log('Print requested: Schüler-Tabelle');}" type="button" class="btn btn-secondary">Liste drucken</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
+        <table class="table table-dark table-striped table-hover" id="schuelerTable">
           <thead class="thead-dark">
             <tr>
+              <th>Stufe</th>
+              <th>Klasse</th>
+              <th>Vorname</th>
+              <th>Nachname</th>
+              <th>Wahl</th>
             </tr>
           </thead>
           <tbody>
@@ -274,8 +289,8 @@ foreach (dbRead("../data/projekte.csv") as $p) {
       </div>
 
       <div class="modal-footer">
-        <button onclick="javascript:function() {console.log('Print requested: Schüler-Tabelle');}" type="button" class="btn btn-secondary">Drucken</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        <button onclick="javascript:function() {console.log('Print requested: Schüler-Tabelle');}" type="button" class="btn btn-secondary">Liste drucken</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
       </div>
     </div>
   </div>
@@ -347,7 +362,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
 		<div class="card text-white bg-dark mb-3" >
 			<div class="card-body">
 				<h5 class="card-title" id="schuelergewaehlt">
-	  				<?php echo count(dbRead("../data/schueler.csv")); ?>
+	  				<?php echo count(dbRead("../data/wahl.csv")); ?>
 				</h5>
 				<p class="card-text">Schüler haben schon gewählt</p>
         <!-- Button trigger modal -->
@@ -440,20 +455,3 @@ foreach (dbRead("../data/projekte.csv") as $p) {
   		-->
 
 </div>
-<script>
-	var schueler = [
-<?php
-foreach (dbRead("../data/schueler.csv") as $s) {
-  echo "{";
-  foreach ($s as $key => $v) {
-    echo "'" . $key . "': `" . $v . "`,";
-  }
-  echo "},";
-}
-?>
-  ];
-</script>
-
-<!-- Libraries zum Erstellen der PDF -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js" integrity="sha384-CchuzHs077vGtfhGYl9Qtc7Vx64rXBXdIAZIPbItbNyWIRTdG0oYAqki3Ry13Yzu" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.2/jspdf.plugin.autotable.js"></script>
