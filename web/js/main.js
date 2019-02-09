@@ -16,13 +16,158 @@ function logout() {
 	$("#logout").submit();
 }
 
+function printProjekte(projektListe) {
+  console.log("Preparing print");
+  $("#section-to-print").html("");
+  for (var i = 0; i < projektListe.length; i++) {
+    $("#section-to-print").append($(getPrintProjekt(projektListe[i])));
+  }
+  windowPrint();
+}
+
+function windowPrint() {
+  console.log("Trying to print");
+  if (window.print) {
+    window.print();
+  }
+  else {
+    alert("Der Browser ist zu alt und kann Webseiten nicht drucken");
+  }
+}
+
+// etwas html....
+function getPrintProjekt(projekt) {
+  return `
+<div class="container-fluid print-projekt">
+
+  <!-- Zeile 1 -->
+  <div class="row">
+    <div class="col-sm-2">
+      <h4>Projekt-ID.</h4>
+      <p>` + projekt["id"] + `</p>
+    </div>
+
+    <div class="col-sm-8">
+      <h4>Projekttitel</h4>
+      <p>` + projekt["name"] + `</p>
+    </div>
+
+    <div class="col-sm-2 last">
+      <h4>ProjektLeitung</h4>
+      <p>` + projekt["betreuer"] + `</p>
+    </div>
+  </div>
+
+
+  <!-- Zeile 2 -->
+  <div class="row">
+    <div class="col-2">
+      <h4>Klassenstufe</h4>
+      <p>` + projekt["minKlasse"] + ` - ` + projekt["maxKlasse"] + `</p>
+    </div>
+
+    <div class="col-2">
+      <h4>Teilnehmerzahl</h4>
+      <p>` + projekt["minPlatz"] + ` - ` + projekt["maxPlatz"] + `</p>
+    </div>
+
+    <div class="col-8 last">
+      <h4>Kosten/Sonstiges</h4>
+      <p>` + projekt["sonstiges"] + `</p>
+    </div>
+  </div>
+
+
+  <!-- Zeile 3 -->
+  <div class="row">
+    <div class="col last">
+      <h4>Vorraussetungen</h4>
+      <p>` + projekt["vorraussetzungen"] + `</p>
+    </div>
+  </div>
+
+
+  <!-- Zeile 4 -->
+  <div class="row">
+    <div class="col last" id="beschreibung">
+      <h4>Beschreibung</h4>
+      <p>` + projekt["beschreibung"] + `</p>
+    </div>
+  </div>
+
+
+  <!-- Zeile 5 -->
+  <h3 class="text-center">Vorraussichtlicher Ablauf</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Tag</th>
+        <th>Montag</th>
+        <th>Dienstag</th>
+        <th>Mittwoch</th>
+        <th>Donnerstag</th>
+        <th class="last">Freitag</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <!-- Vormittag -->
+      <tr class="tagesablauf">
+        <th>Vormittag</th>
+        <td>
+          <p>` + projekt["moVor"] + `</p>
+        </td>
+        <td>
+          <p>` + projekt["diVor"] + `</p>
+        </td>
+        <td>
+          <p>` + projekt["miVor"] + `</p>
+        </td>
+        <td>
+          <p>` + projekt["doVor"] + `</p>
+        </td>
+        <td class="last">
+          <p>` + projekt["frVor"] + `</p>
+        </td>
+      </tr>
+
+      <tr>
+        <th>Mensa</th>
+        <td>` + (projekt["moMensa"] == "true" ? "Ja" : "Nein") + `</td>
+        <td>` + (projekt["diMensa"] == "true" ? "Ja" : "Nein") + `</td>
+        <td>` + (projekt["miMensa"] == "true" ? "Ja" : "Nein") + `</td>
+        <td>` + (projekt["doMensa"] == "true" ? "Ja" : "Nein") + `</td>
+        <td>` + (projekt["frMensa"] == "true" ? "Ja" : "Nein") + `</td>
+      </tr>
+
+      <!-- Nachmittag -->
+      <tr class="tagesablauf">
+        <th>Nachmittag</th>
+        <td>
+          <p>` + projekt["moNach"] + `</p>
+        </td>
+        <td>
+          <p>` + projekt["diNach"] + `</p>
+        </td>
+        <td>
+          <p>` + projekt["miNach"] + `</p>
+        </td>
+        <td>
+          <p>` + projekt["doNach"] + `</p>
+        </td>
+        <td class="last">
+          <p>` + projekt["frNach"] + `</p>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+
+</div>`;
+}
+
 function createProjekteTable(projekte) {
   console.log("Creating: projekteTable");
-  $("#projekteTable>thead>tr").html(`
-    <th>Name</th>
-    <th>Betreuer</th>
-    <th>Stufe</th>
-    <th>Platz</th>`);
   $.each(projekte, function(index, value){
     $("#projekteTable>tbody").append($(`
       <tr>
@@ -139,14 +284,24 @@ function createStageSelect(currentStage) {
 
 function createDashboardStudentsTable(students) {
   console.log("Creating: schuelerTable");
-  $.each(schueler[0], function(index, value){
-    $("#schuelerTable>thead>tr").append($("<th>" + index  + "</th>"));
-  });
-  $.each(schueler, function(index, value){
-    $("#schuelerTable>tbody").append($("<tr></tr>"));
-    $.each(schueler[index], function(index, value){
-      $("#schuelerTable>tbody:last-child").append($("<td>" + value + "</td>"));
-    });
+  console.log(students);
+  $.each(students, function(index, student){
+    var html = `
+    <tr>
+      <td>` + student["stufe"] + `</td>
+      <td>` + student["klasse"] + `</td>
+      <td>` + student["vorname"] + `</td>
+      <td>` + student["nachname"] + `</td>
+      <td>
+        <ol>`;
+    for (var i = 0; i < student["wahl"].length; i++) {
+      html += `
+          <li><a href="#" onclick="console.log(window.schueler); showProjektInfoModal(window.schueler['` + index + `']['wahl'][` + i + `]);">` + student["wahl"][i]["name"] + `</a></li>`;
+    }
+    html += `
+      </ol>
+    </tr>`;
+    $("#schuelerTable>tbody").append($(html));
   });
 }
 
@@ -154,14 +309,13 @@ function setupDashboard() {
 	console.log("Current Configuration:");
   console.log(config);
   console.log(projekte);
-  console.log(schueler);
 
 	// formular setup
 	createStageSelect(config["Stage"]);
 
   // Erstellen der Projekte- und Schüler-Tabellen
 	createProjekteTable(projekte);
-	createDashboardStudentsTable(schueler);
+  createDashboardStudentsTable(window.schueler);
 }
 
 // Drucken

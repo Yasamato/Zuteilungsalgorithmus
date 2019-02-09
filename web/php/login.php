@@ -39,7 +39,7 @@
 	// DEBUG fake-accounts
 	elseif($_POST['user'] == "lehrer" && $_POST['pw'] == "lehrer"){
 		$_SESSION['benutzer'] = [
-			"uid" => "testeeeee",
+			"uid" => "test-" . uniqid(),
 			"typ" => "teachers",
 			"klasse" => "",
 			"stufe" => "",
@@ -49,7 +49,7 @@
 	}
 	elseif($_POST['user'] == "schüler"){
 		$_SESSION['benutzer'] = [
-			"uid" => "testeeeee",
+			"uid" => "test-" . uniqid(),
 			"typ" => "students",
 			"klasse" => $_POST['pw'] . "aaa",
 			"stufe" => $_POST['pw'],

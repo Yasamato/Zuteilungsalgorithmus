@@ -131,6 +131,18 @@
 			"frNach"
 		]);
 	}
+
+	if (!file_exists("../data/wahl.csv")) {
+		// define the header of the columns in the first row
+		dbCreateFile("../data/wahl.csv", [
+			"uid",
+			"vorname",
+			"nachname",
+			"stufe",
+			"klasse",
+			"wahl"
+		]);
+	}
 ?>
 
 	<script>
@@ -263,6 +275,49 @@
 		?>
 		</script>
 <?php
+	if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
+?>
+		<script>
+		  window.schueler = [<?php
+		  $schueler = dbRead("../data/wahl.csv");
+		  end($schueler);
+		  $last = key($config);
+
+		  foreach (dbRead("../data/wahl.csv") as $key => $student) {
+		    echo "
+		    {
+		      'uid': `" . $student["uid"] . "`,
+		      'stufe': `" . $student["stufe"] . "`,
+		      'klasse': `" . $student["klasse"] . "`,
+		      'vorname': `" . $student["vorname"] . "`,
+		      'nachname':  `" . $student["nachname"] . "`,
+		      'wahl': [";
+		    $wahl = explode("§", $student["wahl"]);
+		    for ($i = 0; $i < count($wahl); $i++) {
+		      $projekt = getProjektInfo($wahl[$i]);
+			    echo "{";
+			    foreach ($projekt as $key => $v) {
+			      echo "'" . $key . "': `" . $v . "`,";
+			    }
+			    echo "}";
+		      if ($i < count($wahl) - 1) {
+		        echo ",";
+		      }
+		    }
+		    echo "
+		      ]
+		    }";
+		    if ($key != $last) {
+		      echo ",\n";
+		    }
+		  }
+			?>
+
+		  ];
+		</script>
+<?php
+	}
+
 	//--------------------------------------------------------
 	//html-teil
 	if (isLogin()) {
@@ -284,6 +339,14 @@
 <body>
 <?php
 				include "html/projektEdit.php";
+			}
+			elseif (!empty($_GET['site']) && $_GET['site'] == "printProjekt") {
+?>
+	<script>var site = "printProjekt";</script>
+</head>
+<body>
+<?php
+				include "html/printProjekt.php";
 			}
 			else {
 ?>
@@ -389,6 +452,7 @@
 			<input type="hidden" name="action" value="logout">
 		</form>
 		<div class="tmp-modal"></div>
+		<div id="section-to-print"></div>
 
 
 		<footer class="footer">
