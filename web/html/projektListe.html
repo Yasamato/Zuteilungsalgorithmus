@@ -8,10 +8,13 @@
 				</div>
         <div class="card-footer">
           <div class="text-center">
-        		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
               <button type="button" class="btn btn-danger" onclick="logout()">
                 Abmelden
               </button>
+            </div>
+        		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <button onclick="javascript: printProjekte(projekte);" type="button" class="btn btn-secondary">Liste drucken</button>
         			<button type="button" class="btn btn-success" onclick="window.location.href = '?site=create';">
                 Reiche ein neues Projekt ein
               </button>
