@@ -19,8 +19,19 @@ function logout() {
 function printProjekte(projektListe) {
   console.log("Preparing print");
   $("#section-to-print").html("");
-  for (var i = 0; i < projektListe.length; i++) {
-    $("#section-to-print").append($(getPrintProjekt(projektListe[i])));
+  if (!projektListe) {
+    for (var i = 0; i < projekte.length; i++) {
+      $("#section-to-print").append($(getPrintProjekt(projekte[i])));
+    }
+  }
+  else {
+    for (var i = 0; i < projekte.length; i++) {
+      for (var n = 0; n < projektListe.length; n++) {
+        if (projektListe[n] == projekte[i]["id"]) {
+          $("#section-to-print").append($(getPrintProjekt(projekte[i])));
+        }
+      }
+    }
   }
   windowPrint();
 }
@@ -43,19 +54,14 @@ function getPrintProjekt(projekt) {
 
   <!-- Zeile 1 -->
   <div class="row">
-    <div class="col-2">
-      <h4>Projekt-ID.</h4>
-      <p>` + projekt["id"] + `</p>
-    </div>
-
     <div class="col-8">
-      <h4>Projekttitel</h4>
-      <p>` + projekt["name"] + `</p>
+      <h3>Projekttitel</h3>
+      <span>` + projekt["name"] + `</span>
     </div>
 
-    <div class="col-2 last">
-      <h4>Betreuer</h4>
-      <p>` + projekt["betreuer"] + `</p>
+    <div class="col-4 last">
+      <h3>Betreuer</h3>
+      <span>` + projekt["betreuer"] + `</span>
     </div>
   </div>
 
@@ -63,18 +69,18 @@ function getPrintProjekt(projekt) {
   <!-- Zeile 2 -->
   <div class="row">
     <div class="col-2">
-      <h4>Stufen</h4>
-      <p>` + projekt["minKlasse"] + ` - ` + projekt["maxKlasse"] + `</p>
+      <h3>Stufen</h3>
+      <span>` + projekt["minKlasse"] + ` - ` + projekt["maxKlasse"] + `</span>
     </div>
 
     <div class="col-2">
-      <h4>Teilnehmeranzahl</h4>
-      <p>` + projekt["minPlatz"] + ` - ` + projekt["maxPlatz"] + `</p>
+      <h3>Teilnehmeranzahl</h3>
+      <span>` + projekt["minPlatz"] + ` - ` + projekt["maxPlatz"] + `</span>
     </div>
 
     <div class="col-8 last">
-      <h4>Kosten/Sonstiges</h4>
-      <p>` + projekt["sonstiges"] + `</p>
+      <h3>Kosten/Sonstiges</h3>
+      <span>` + (projekt["sonstiges"] ? projekt["sonstiges"] : "Keine") + `</span>
     </div>
   </div>
 
@@ -82,16 +88,16 @@ function getPrintProjekt(projekt) {
   <!-- Zeile 3 -->
   <div class="row">
     <div class="col last">
-      <h4>Vorraussetungen</h4>
-      <p>` + projekt["vorraussetzungen"] + `</p>
+      <h3>Vorraussetungen</h3>
+      <span>` + (projekt["vorraussetzungen"] ? projekt["vorraussetzungen"] : "Keine") + `</span>
     </div>
   </div>
 
 
   <!-- Zeile 4 -->
-  <div class="row">
-    <div class="col last" id="beschreibung">
-      <h4>Beschreibung</h4>
+  <div class="row beschreibung">
+    <div class="col last">
+      <h3>Beschreibung</h3>
       <p>` + projekt["beschreibung"] + `</p>
     </div>
   </div>
@@ -243,6 +249,8 @@ function showProjektInfoModal(p) {
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-danger" onclick="window.location.href = '?site=edit&projekt=` + p.id + `';">Bearbeiten</button>
+					<button type="button" class="btn btn-success" onclick="javascript: printProjekte([` + p.id + `]);">Drucken</button>
+
 					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 				</div>
 			</div>

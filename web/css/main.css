@@ -79,11 +79,11 @@ table {
 
 @media print {
 	@page {
-		size: 297mm 210mm;
+		size: 842pt 595pt;
 		margin: 0;
 	}
 
-	html, body, body * {
+	html, body {
 		margin: 0;
 		padding: 0;
 		background-color: #fff !important;
@@ -95,70 +95,73 @@ table {
 		visibility: hidden;
 	}
 
-	#section-to-print {
-		display: block;
-		visibility: visible;
-		color: #000 !important;
-		font-size: 18px;
-		width: 100%;
-		top: 0;
-		left: 0;
-		margin: 0;
+	.footer {
+		display: none;
+		visibility: hidden;
 	}
-	
+
 	.container {
 		width: auto;
 	}
 }
 
 #section-to-print {
-	color: #000 !important;
-	font-size: 18px;
 	width: 100%;
-	top: 0;
-	left: 0;
-	margin: 0;
+	color: #000 !important;
+	padding: 0;
+	font-size: 20pt;
+	line-height: 1;
+}
+#section-to-print h3 {
+	font-size: 30pt;
+	page-break-after: avoid;
+}
+
+#section-to-print img {
+	height: 30pt;
 }
 
 #section-to-print .print-projekt {
-	/*height: 29.7cm; // theoretisch wären es 29,7cm...... (minus die 0.05cm border)*/
-	padding: 2cm;
+	width: 100%;
+	padding: 40pt;
 	text-align: left;
 	page-break-after: always;
 }
 
-#section-to-print .row {
+#section-to-print .print-projekt .row {
 	width: 100%;
-	border: 2px solid #000;
-	margin-bottom: 0.7cm;
+	border: 2pt solid #000;
+	margin-bottom: 10pt;
+	margin-left: 0;
+	margin-right: 0;
 }
+#section-to-print .print-projekt .row>div {
+	padding-bottom: 6pt;
+}
+
 #section-to-print .row>div, #section-to-print table td, #section-to-print table th {
-	border-right: 2px solid #000;
+	border-right: 2pt solid #000;
 }
 #section-to-print .row>div.last, #section-to-print table td.last, #section-to-print table th.last {
 	border-right: none;
 }
-#section-to-print .row #beschreibung {
-	min-height: 7cm;
-}
-#section-to-print h3 {
-	font-size: 2.2rem;
+#section-to-print .print-projekt .row.beschreibung {
+	min-height: 430pt;
 }
 
 #section-to-print table {
-	margin-left: -15px;
-	margin-right: 15px;
-	border: 2px solid #000;
+	border: 2pt solid #000;
+	page-break-inside: avoid;
 }
-#section-to-print .table thead th {
+#section-to-print table thead th {
 	border-bottom: none;
 }
-#section-to-print table, thead, tbody, tr {
+#section-to-print table, #section-to-print thead, #section-to-print tbody, #section-to-print tr {
 	width: 100%;
 }
-#section-to-print tbody td, tbody th {
-	border-top: 2px solid #000 !important;
+#section-to-print tbody td, #section-to-print tbody th {
+	border-top: 2pt solid #000 !important;
 }
 #section-to-print tr.tagesablauf>td>p {
-	min-height: 3cm;
+	min-height: 100pt;
 }

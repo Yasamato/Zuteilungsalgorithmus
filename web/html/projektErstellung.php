@@ -57,7 +57,7 @@ if (!isLogin() || ($_SESSION['benutzer']['typ'] != "admin" && $_SESSION['benutze
 			<!-- Eingabefeld für die Beschreibung -->
 			<div class="col">
 				<label for="inputBeschreibung">Beschreibung</label>
-				<textarea class="form-control" id="inputBeschreibung" placeholder="Beschreibung" required rows="4" name="beschreibung"><?php echo empty($_POST["beschreibung"]) ? "": $_POST["beschreibung"]; ?></textarea>
+				<textarea class="form-control" id="inputBeschreibung" placeholder="Beschreibung" required rows="12" name="beschreibung"><?php echo empty($_POST["beschreibung"]) ? "": $_POST["beschreibung"]; ?></textarea>
 				<small class="text-muted">
 					Bitte geben Sie eine geeignete Beschreibung des Projektes an.
 				</small>
