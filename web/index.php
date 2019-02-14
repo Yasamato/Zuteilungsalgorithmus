@@ -186,6 +186,21 @@
 <?php
 	}
 
+			echo 'var projekte = [';
+			foreach ($projekte as $p) {
+		    echo "{";
+		    foreach ($p as $key => $v) {
+		      echo "'" . $key . "': `" . $v . "`,";
+		    }
+		    echo "}";
+				if ($p != $projekte[sizeof($projekte) - 1]) {
+					echo ",\n";
+				}
+			}
+			echo '];';
+		?>
+		</script>
+<?php
 	//--------------------------------------------------------
 	//html-teil
 	if (isLogin()) {

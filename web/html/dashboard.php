@@ -173,6 +173,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
                   <div class="form-group">
                     <textarea class="form-control" name="dauer[dienstag][nachmittagHinweis]" placeholder="Anmerkungen"><?php
                       echo (!empty($config["DienstagNachmittagHinweis"]) ? $config["DienstagNachmittagHinweis"] : "");
+
                     ?></textarea>
                   </div>
                 </td>
