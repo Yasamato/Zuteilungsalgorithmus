@@ -92,7 +92,7 @@ function showProjektInfoModal(p) {
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-danger" onclick="window.location.href = '?site=edit&projekt=` + p.id + `';">Bearbeiten</button>
-					<button type="button" class="btn btn-success" onclick="javascript: window.open('printPDF.php?print=projekt&projekt=` + p.id + `');">Drucken</button>
+					<button type="button" class="btn btn-secondary" onclick="javascript: window.open('printPDF.php?print=projekt&projekt=` + p.id + `');">Drucken</button>
 
 					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 				</div>

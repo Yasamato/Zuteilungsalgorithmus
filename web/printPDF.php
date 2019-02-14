@@ -5,7 +5,7 @@
 	require 'php/utils.php';
   require 'php/TCPDF-6.2.26/tcpdf.php';
 
-  if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin" && $_SESSION['benutzer']['typ'] != "lehrer") {
+  if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin" && $_SESSION['benutzer']['typ'] != "teachers") {
     die("Zugriff verweigert");
   }
 
