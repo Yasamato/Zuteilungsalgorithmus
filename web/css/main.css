@@ -2,7 +2,7 @@ html, body {
 	height: 100%;
 	color: #ffffff;
 	background-color: darkgray;
-	background-image: url("/background.jpg");
+	background-image: url("/pictures/background.jpg");
 	background-attachment: fixed;
 	background-size: cover;
 }
@@ -68,100 +68,4 @@ table {
 	width: 100%;
 	height: 40px;
 	line-height: 60px;
-}
-
-@media screen {
-	#section-to-print {
-		display: none;
-		visibility: hidden;
-	}
-}
-
-@media print {
-	@page {
-		size: 842pt 595pt;
-		margin: 0;
-	}
-
-	html, body {
-		margin: 0;
-		padding: 0;
-		background-color: #fff !important;
-		background-image: none !important;
-	}
-
-	body>div:not(#section-to-print) {
-		display: none;
-		visibility: hidden;
-	}
-
-	.footer {
-		display: none;
-		visibility: hidden;
-	}
-
-	.container {
-		width: auto;
-	}
-}
-
-#section-to-print {
-	width: 100%;
-	color: #000 !important;
-	padding: 0;
-	font-size: 20pt;
-	line-height: 1;
-}
-#section-to-print h3 {
-	font-size: 30pt;
-	page-break-after: avoid;
-}
-
-#section-to-print img {
-	height: 30pt;
-}
-
-#section-to-print .print-projekt {
-	width: 100%;
-	padding: 40pt;
-	text-align: left;
-	page-break-after: always;
-}
-
-#section-to-print .print-projekt .row {
-	width: 100%;
-	border: 2pt solid #000;
-	margin-bottom: 10pt;
-	margin-left: 0;
-	margin-right: 0;
-}
-#section-to-print .print-projekt .row>div {
-	padding-bottom: 6pt;
-}
-
-#section-to-print .row>div, #section-to-print table td, #section-to-print table th {
-	border-right: 2pt solid #000;
-}
-#section-to-print .row>div.last, #section-to-print table td.last, #section-to-print table th.last {
-	border-right: none;
-}
-#section-to-print .print-projekt .row.beschreibung {
-	min-height: 430pt;
-}
-
-#section-to-print table {
-	border: 2pt solid #000;
-	page-break-inside: avoid;
-}
-#section-to-print table thead th {
-	border-bottom: none;
-}
-#section-to-print table, #section-to-print thead, #section-to-print tbody, #section-to-print tr {
-	width: 100%;
-}
-#section-to-print tbody td, #section-to-print tbody th {
-	border-top: 2pt solid #000 !important;
-}
-#section-to-print tr.tagesablauf>td>p {
-	min-height: 100pt;
 }
