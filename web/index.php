@@ -129,7 +129,7 @@
 			array_push($wahlen, $student);
 		}
 	}
-	
+
 	$projekte = [];
 	if (isLogin()) {
 		if ($_SESSION['benutzer']['typ'] == "teachers" || $_SESSION['benutzer']['typ'] == "admin") {
@@ -203,7 +203,7 @@
 <?php
 					include "html/projektErstellung.php";
 				}
-				elseif (!empty($_GET['site']) && $_GET['site'] == "edit" && $config["Stage"] < 3) {
+				elseif (!empty($_GET['site']) && $_GET['site'] == "edit") {
 ?>
 		<script>var site = "projektEdit";</script>
 		<link rel="stylesheet" href="css/projektErstellung.css">
