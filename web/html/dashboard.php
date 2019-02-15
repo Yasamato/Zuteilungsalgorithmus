@@ -308,7 +308,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
       </div>
 
       <div class="modal-body">
-        <button onclick="javascript: alert('*drucke Schülerliste aus*');" type="button" class="btn btn-secondary">Liste drucken</button>
+        <button onclick="javascript: window.open('printPDF.php?print=students&klasse=all');" type="button" class="btn btn-secondary">Liste drucken</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
         <br>
         <small class="text-muted">Das Ergebnis der Auswertung ist erst verfügbar sobald die Auswertung durch den Admin durchgeführt wurde. Die Auswertung kann erst im Admin-Panel durchgeführt werden, sobald die Wahlen geschlossen sind.</small>
@@ -383,7 +383,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
       </div>
 
       <div class="modal-footer">
-        <button onclick="javascript: alert('*drucke Schülerliste aus*');" type="button" class="btn btn-secondary">Liste drucken</button>
+        <button onclick="javascript: window.open('printPDF.php?print=students&klasse=all');" type="button" class="btn btn-secondary">Liste drucken</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
       </div>
     </div>
@@ -420,46 +420,6 @@ foreach (dbRead("../data/projekte.csv") as $p) {
 
     		<div class="card text-white bg-dark p-3">
     			<div class="card-body">
-    				<h5 class="card-title"><?php echo count(dbRead("../data/projekte.csv")); ?></h5>
-    				<p class="card-text">Projekte wurden eingereicht</p>
-        		<!-- Button trigger modal -->
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-              <button onclick="javascript: window.open('printPDF.php?print=projekt&projekt=all');" type="button" class="btn btn-secondary">Drucken</button>
-          		<button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#projekteModal">
-          			Auflisten
-          		</button>
-            </div>
-            <button type="button" class="btn btn-success" onclick="window.location.href = '?site=create';">
-              Reiche ein neues Projekt ein
-            </button>
-    			</div>
-    		</div>
-
-    		<div class="card text-white bg-dark p-3">
-    			<div class="card-body">
-    				<h5 class="card-title">
-    	  				<?php echo count(dbRead("../data/wahl.csv")); ?>
-    				</h5>
-    				<p class="card-text">Schüler haben schon gewählt</p>
-            <!-- Button trigger modal -->
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-              <button onclick="javascript: alert('*drucke Schülerliste aus*');" type="button" class="btn btn-secondary">Drucken</button>
-          		<button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#schuelerModal">
-                Auflisten
-              </button>
-            </div>
-    			</div>
-    		</div>
-
-      </div>
-    </div>
-
-    <!-- Spalte 2 -->
-    <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
-      <div class="card-columns" style="column-count: 1;">
-
-    		<div class="card text-white bg-dark p-3">
-    			<div class="card-body">
     				<h5 class="card-title"><?php
     					$min = 0;
               $max = 0;
@@ -473,11 +433,74 @@ foreach (dbRead("../data/projekte.csv") as $p) {
     			</div>
     		</div>
 
+    		<div class="card text-white bg-dark p-3">
+    			<div class="card-body">
+    				<h5 class="card-title"><?php echo count($projekte); ?></h5>
+    				<p class="card-text">Projekt<?php echo count($projekte) == 1 ? " wurde" : "e wurden"; ?> eingereicht</p>
+        		<!-- Button trigger modal -->
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <button onclick="javascript: window.open('printPDF.php?print=projekt&projekt=all');" type="button" class="btn btn-secondary">Drucken</button>
+          		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#projekteModal">
+          			Auflisten
+          		</button>
+            </div>
+            <button type="button" class="btn btn-success" onclick="window.location.href = '?site=create';">
+              Neues Projekt erstellen
+            </button>
+    			</div>
+    		</div>
+
+    		<div class="card text-white bg-dark p-3">
+    			<div class="card-body">
+    				<h5 class="card-title">
+    	  				<?php echo count($wahlen); ?> von <?php echo $config["Schüleranzahl"]; ?>
+    				</h5>
+    				<p class="card-text">Schüler haben schon gewählt</p>
+            <!-- Button trigger modal -->
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <button onclick="javascript: window.open('printPDF.php?print=students&klasse=all');" type="button" class="btn btn-secondary">Drucken</button>
+          		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#schuelerModal">
+                Auflisten
+              </button>
+            </div>
+    			</div>
+    		</div>
+
+      </div>
+    </div>
+
+    <!-- Spalte 2 -->
+    <div class="col-12 col-sm-6 col-lg-4 col-xl-5">
+      <div class="card-columns">
+        <?php
+        $klassen = [];
+        foreach ($wahlen as $key => $student) {
+          if (empty($klassen[$student["klasse"]])) {
+            $klassen[$student["klasse"]] = [$student];
+          }
+          else {
+            array_push($klassen[$student["klasse"]], $student);
+          }
+        }
+        ksort($klassen);
+
+        foreach ($klassen as $key => $klasse) {
+          ?>
+      		<div class="card text-white bg-dark p-3">
+      			<div class="card-body">
+      				<h5 class="card-title"><?php echo count($klasse) > 0 ? count($klasse) : "0"; ?></h5>
+      				<p class="card-text">Person<?php echo count($klasse) == 1 ? "" : "en"; ?> aus Klasse <?php echo $key; ?> ha<?php echo count($klasse) == 1 ? "t" : "ben"; ?> bereits gewählt</p>
+              <button onclick="javascript: window.open('printPDF.php?print=students&klasse=<?php echo $key; ?>');" type="button" class="btn btn-secondary">Drucken</button>
+      			</div>
+      		</div><?php
+        }
+        ?>
+
       </div>
     </div>
 
     <!-- Spalte 3 -->
-    <div class="col-12 col-lg-4 col-xl-6">
+    <div class="col-12 col-lg-4 col-xl-4">
     	<div class="card-columns">
 
     		<div class="card text-white bg-dark p-3">
@@ -532,22 +555,5 @@ foreach (dbRead("../data/projekte.csv") as $p) {
     	</div>
     </div>
   </div>
-
-			<!-- Noch nicht funktionsfähig
-  		<div class="container">
-  			<div class="progress" style= "height: 4em;" >
-  				<div class="progress-bar bg-dark"
-            role="progressbar"
-            style="width: 25%;"
-            aria-valuenow="<?php echo count(dbRead("../data/schueler.csv")); ?>"
-            aria-valuemin="0"
-            aria-valuemax="1000">
-            <?php echo(count(dbRead("../data/schueler.csv"))) / 1000 * 100; ?> %
-          </div>
-				</div>
-				<p> <?php echo count(dbRead("../data/schueler.csv")); ?> von ### Schülern haben bereits gewählt</p>
-  		</div>
-
-  		-->
 
 </div>

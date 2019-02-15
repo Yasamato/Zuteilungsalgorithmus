@@ -1,3 +1,7 @@
+html, body {
+	height: auto;
+}
+
 ::placeholder {
 	color:red;
 	opacity: 1;

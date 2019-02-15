@@ -51,7 +51,7 @@
 		$_SESSION['benutzer'] = [
 			"uid" => "test-" . uniqid(),
 			"typ" => "students",
-			"klasse" => $_POST['pw'] . "aaa",
+			"klasse" => $_POST['pw'] . "test",
 			"stufe" => $_POST['pw'],
 			"vorname" => "S",
 			"nachname" => "chüler"

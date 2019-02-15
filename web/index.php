@@ -111,7 +111,25 @@
 		//print_r($loginResult);
 		print_r($_SESSION['benutzer']);
 	}*/
-  $wahlen = dbRead("../data/wahl.csv");
+	$klassen = [];
+	foreach (dbRead("../data/wahl.csv") as $key => $student) {
+		if (empty($klassen[$student["klasse"]])) {
+			$klassen[$student["klasse"]] = [$student];
+		}
+		else {
+			array_push($klassen[$student["klasse"]], $student);
+		}
+	}
+	foreach ($klassen as $klasse => $studentlist) {
+		array_multisort(array_column($studentlist, "nachname"), SORT_ASC, $studentlist);
+	}
+	$wahlen = [];
+	foreach ($klassen as $klasse) {
+		foreach ($klasse as $student) {
+			array_push($wahlen, $student);
+		}
+	}
+	
 	$projekte = [];
 	if (isLogin()) {
 		if ($_SESSION['benutzer']['typ'] == "teachers" || $_SESSION['benutzer']['typ'] == "admin") {
