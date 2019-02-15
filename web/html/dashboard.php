@@ -247,7 +247,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
             </tr>
           </thead>
           <tbody><?php
-              foreach (dbRead("../data/projekt.csv") as $key => $projekt) {
+              foreach ($projekte as $key => $projekt) {
                 echo '
             <tr>
               <td><a href="#" class="btn btn-success" onclick="showProjektInfoModal(projekte[' . $key . ']);">Info</a> ' . $projekt["name"] . '</td>
