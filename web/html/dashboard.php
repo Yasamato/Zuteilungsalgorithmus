@@ -235,7 +235,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
       </div>
 
       <div class="modal-body">
-        <button onclick="javascript: printProjekte(projekte);" type="button" class="btn btn-secondary">Liste drucken</button>
+        <button onclick="javascript: window.open('printPDF.php?print=projekt&projekt=all');" type="button" class="btn btn-secondary">Liste drucken</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
         <table class="table table-dark table-striped table-hover" id="projekteTable">
           <thead>
@@ -251,7 +251,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
       </div>
 
       <div class="modal-footer">
-        <button onclick="javascript: printProjekte(projekte);" type="button" class="btn btn-secondary">Liste drucken</button>
+        <button onclick="javascript: window.open('printPDF.php?print=projekt&projekt=all');" type="button" class="btn btn-secondary">Liste drucken</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
       </div>
     </div>
@@ -271,7 +271,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
       </div>
 
       <div class="modal-body">
-        <button onclick="javascript:function() {console.log('Print requested: Schüler-Tabelle');}" type="button" class="btn btn-secondary">Liste drucken</button>
+        <button onclick="javascript: alert('*drucke Schülerliste aus*');" type="button" class="btn btn-secondary">Liste drucken</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
         <table class="table table-dark table-striped table-hover" id="schuelerTable">
           <thead class="thead-dark">
@@ -289,7 +289,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
       </div>
 
       <div class="modal-footer">
-        <button onclick="javascript:function() {console.log('Print requested: Schüler-Tabelle');}" type="button" class="btn btn-secondary">Liste drucken</button>
+        <button onclick="javascript: alert('*drucke Schülerliste aus*');" type="button" class="btn btn-secondary">Liste drucken</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
       </div>
     </div>
@@ -340,9 +340,12 @@ foreach (dbRead("../data/projekte.csv") as $p) {
 					<h5 class="card-title" id="eingereichteProjekte"><?php echo count(dbRead("../data/projekte.csv")); ?></h5>
 					<p class="card-text">Projekte wurden eingereicht</p>
       		<!-- Button trigger modal -->
-      		<button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#projekteModal">
-      			Auflisten
-      		</button>
+          <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <button onclick="javascript: window.open('printPDF.php?print=projekt&projekt=all');" type="button" class="btn btn-secondary">Drucken</button>
+        		<button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#projekteModal">
+        			Auflisten
+        		</button>
+          </div>
 				</div>
 			</div>
 
@@ -366,9 +369,12 @@ foreach (dbRead("../data/projekte.csv") as $p) {
 				</h5>
 				<p class="card-text">Schüler haben schon gewählt</p>
         <!-- Button trigger modal -->
-    		<button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#schuelerModal">
-          Auflisten
-        </button>
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+          <button onclick="javascript: alert('*drucke Schülerliste aus*');" type="button" class="btn btn-secondary">Drucken</button>
+      		<button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#schuelerModal">
+            Auflisten
+          </button>
+        </div>
 			</div>
 		</div>
 

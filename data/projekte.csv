@@ -1,137 +1,14 @@
 id__#__name__#__beschreibung__#__betreuer__#__minKlasse__#__maxKlasse__#__minPlatz__#__maxPlatz__#__vorraussetzungen__#__sonstiges__#__raum__#__material__#__moVor__#__moMensa__#__moNach__#__diVor__#__diMensa__#__diNach__#__miVor__#__miMensa__#__miNach__#__doVor__#__doMensa__#__doNach__#__frVor__#__frMensa__#__frNach__;__
 0__#__Projekt: 42__#__Eis ♥,<br>nächste Zeile<br>#done__#__Eismann__#__5__#__12__#__10__#__30__#__Brauchen Kostüme__#__Ihr solltet spucken können__#__Keller__#__Horror-Schloss__#__Schule__#__true__#__Einhörner schlachten__#__Malen nach zahlen mit bob__#__true__#__bob der baumeister__#__huuuuuuhuuhuhuh__#__true__#__kinderjagd__#__Test-Donnerstag__#__true__#__Blut wischen__#__Blut wieder drauf klatschen__#__false__#__Präsi__;__
 1__#__Brah Brah Brah__#__Geeignete Beschreibung__#__Dabbbb auf die Hateerr__#__5__#__12__#__10__#__30__#__322€__#__Dabbb__#__Sekretariat__#__Alles__#__Dabb__#__true__#__Dabb__#__Dabb__#__true__#__Dabb__#__Dabb__#__true__#__Dabb__#__Dabb__#__true__#__Dabb__#__Dabb__#__false__#__Dabb__;__
-2__#__5er only__#__▒▒▒▒▒▒▒▒▒▒▒▒▒▒▄▄██████▄
-<br>▒▒▒▒▒▒▒▒▒▒▄▄████████████▄
-<br>▒▒▒▒▒▒▄▄██████████████████
-<br>▒▒▒▄████▀▀▀██▀██▌███▀▀▀████
-<br>▒▒▐▀████▌▀██▌▀▐█▌████▌█████▌
-<br>▒▒█▒▒▀██▀▀▐█▐█▌█▌▀▀██▌██████
-<br>▒▒█▒▒▒▒████████████████████▌
-<br>▒▒▒▌▒▒▒▒█████░░░░░░░██████▀
-<br>▒▒▒▀▄▓▓▓▒███░░░░░░█████▀▀
-<br>▒▒▒▒▀░▓▓▒▐█████████▀▀▒
-<br>▒▒▒▒▒░░▒▒▐█████▀▀▒▒▒▒▒▒
-<br>▒▒░░░░░▀▀▀▀▀▀▒▒▒▒▒▒▒▒▒
-<br>▒▒▒░░░░░░░░▒▒__#__Mister Specks__#__5__#__5__#__2__#__7__#__nichts__#__keine__#__5er-Klassenraum__#____#__Vorstellung__#__true__#__Malen__#____#__true__#____#__Spielen__#__true__#__Schlafen__#____#__true__#____#__Daheim bleiben__#__false__#____;__
-3__#__6er only__#__▓▓▓▓ 
-<br>▒▒▒▓▓ 
-<br>▒▒▒▒▒▓ 
-<br>▒▒▒▒▒▒▓ 
-<br>▒▒▒▒▒▒▓ 
-<br>▒▒▒▒▒▒▒▓ 
-<br>▒▒▒▒▒▒▒▓▓▓ 
-<br>▒▓▓▓▓▓▓░░░▓ 
-<br>▒▓░░░░▓░░░░▓ 
-<br>▓░░░░░░▓░▓░▓ 
-<br>▓░░░░░░▓░░░▓ 
-<br>▓░░▓░░░▓▓▓▓ 
-<br>▒▓░░░░▓▒▒▒▒▓ 
-<br>▒▒▓▓▓▓▒▒▒▒▒▓ 
-<br>▒▒▒▒▒▒▒▒▓▓▓▓ 
-<br>▒▒▒▒▒▓▓▓▒▒▒▒▓ 
-<br>▒▒▒▒▓▒▒▒▒▒▒▒▒▓ 
-<br>▒▒▒▓▒▒▒▒▒▒▒▒▒▓ 
-<br>▒▒▓▒▒▒▒▒▒▒▒▒▒▒▓ 
-<br>▒▓▒▓▒▒▒▒▒▒▒▒▒▓ 
-<br>▒▓▒▓▓▓▓▓▓▓▓▓▓ 
-<br>▒▓▒▒▒▒▒▒▒▓ 
-<br>▒▒▓▒▒▒▒▒▓ __#__huhu__#__6__#__6__#__88__#__100__#__Hommer__#__Auto__#__hm GARAGE__#____#__blibli__#__false__#__blubbb__#____#__false__#____#__nope__#__false__#__Oh No__#____#__false__#____#__sssssss__#__false__#____;__
+2__#__5er only__#__▒▒▒▒▒▒▒▒▒▒▒▒▒▒▄▄██████▄<br>▒▒▒▒▒▒▒▒▒▒▄▄████████████▄<br>▒▒▒▒▒▒▄▄██████████████████<br>▒▒▒▄████▀▀▀██▀██▌███▀▀▀████<br>▒▒▐▀████▌▀██▌▀▐█▌████▌█████▌<br>▒▒█▒▒▀██▀▀▐█▐█▌█▌▀▀██▌██████<br>▒▒█▒▒▒▒████████████████████▌<br>▒▒▒▌▒▒▒▒█████░░░░░░░██████▀<br>▒▒▒▀▄▓▓▓▒███░░░░░░█████▀▀<br>▒▒▒▒▀░▓▓▒▐█████████▀▀▒<br>▒▒▒▒▒░░▒▒▐█████▀▀▒▒▒▒▒▒<br>▒▒░░░░░▀▀▀▀▀▀▒▒▒▒▒▒▒▒▒<br>▒▒▒░░░░░░░░▒▒__#__Mister Specks__#__5__#__5__#__2__#__7__#__nichts__#__keine__#__5er-Klassenraum__#____#__Vorstellung__#__true__#__Malen__#____#__true__#____#__Spielen__#__true__#__Schlafen__#____#__true__#____#__Daheim bleiben__#__false__#____;__
+3__#__6er only__#__╔══╗ ♫<br>║██║ ♪♪<br>║██║♫♪<br>║ ◎♫♪♫<br>╚══╝ Turn Up The Music!!!__#__huhu__#__6__#__6__#__88__#__100__#__Hommer__#__Auto__#__hm GARAGE__#____#____#__false__#__blubbb__#____#__false__#____#__nope__#__false__#__Oh No__#____#__false__#____#__sssssss__#__false__#____;__
 4__#__7er only__#__DD__#__dd__#__7__#__7__#__1__#__12__#____#____#____#____#__Ankommen__#__Ja__#__Schlafen__#____#__Nein__#____#__Schlafen__#__Nein__#__Schlafen__#____#__Nein__#____#__Schlafen__#__false__#__Pennen__;__
-5__#__8er only__#_________oBBBBB8o______oBBBBBBB 
-<br>_____o8BBBBBBBBBBB__BBBBBBBBB8________o88o, 
-<br>___o8BBBBBB**8BBBB__BBBBBBBBBB_____oBBBBBBBo, 
-<br>__oBBBBBBB*___***___BBBBBBBBBB_____BBBBBBBBBBo, 
-<br>_8BBBBBBBBBBooooo___*BBBBBBB8______*BB*_8BBBBBBo, 
-<br>_8BBBBBBBBBBBBBBBB8ooBBBBBBB8___________8BBBBBBB8, 
-<br>__*BBBBBBBBBBBBBBBBBBBBBBBBBB8_o88BB88BBBBBBBBBBBB, 
-<br>____*BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB8, 
-<br>______**8BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB*, 
-<br>___________*BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB8*, 
-<br>____________*BBBBBBBBBBBBBBBBBBBBBBBB8888**, 
-<br>_____________BBBBBBBBBBBBBBBBBBBBBBB*, 
-<br>_____________*BBBBBBBBBBBBBBBBBBBBB*, 
-<br>______________*BBBBBBBBBBBBBBBBBB8, 
-<br>_______________*BBBBBBBBBBBBBBBB*, 
-<br>________________8BBBBBBBBBBBBBBB8, 
-<br>_________________8BBBBBBBBBBBBBBBo, 
-<br>__________________BBBBBBBBBBBBBBB8, 
-<br>__________________BBBBBBBBBBBBBBBB,__#__Michelin Mann__#__8__#__8__#__2__#__22__#__Reifenwechseln__#____#____#__Reifen__#__Auto klauen__#__false__#__Reifen abmontieren__#____#__false__#____#__Reifen begutachten__#__false__#__Reifen liegen lassen__#____#__false__#____#__Reifen verkaufen__#__false__#____;__
-6__#__9er only__#________________________________________s$
-<br>_____________________________________$s
-<br>____________________________________s$s
-<br>________________________________ss$$$s
-<br>__________________________s$$$$$$$$s
-<br>__________$$$$$$$______s$$$$$$$$$s
-<br>__________$$$$$$$$___$$$$$$$$$$$$
-<br>__________$$$$$$$$$_$$$$$$$$$$$$$_s$
-<br>$________$$$$$$$$$$$$$$$$$$$sss$$$$$
-<br>$$_______$$$$$$$$$$$$$$$$$$$$$$s
-<br>s$$s_______s$$$$$$$$$$$$$$$$$$$$$$_____s
-<br>_$$$$___sss$$$$$$$$$$$$$$$$_s$$$_s$____$
-<br>__s$$$$$$$$$$$$$$$$$$$$$$$$__$_______$$$
-<br>______ssss$$$$$$$$$$$$$$$$$$s___s$$$$$$
-<br>_________$$$$$$$$$$$$$$$$$$$$$$$$$$
-<br>__________$$$$$$$$$$$$$$$$$$$$$
-<br>____________$$$$$__$$$$$$$$$$$$s
-<br>_____________$$$$$____$$$$$$$$$$$$$
-<br>_____________$$$$$$___$$$$$$__$$s
-<br>____________$$$$$$$$______$$$$__s$s
-<br>____________$$$$$$$$$$as_____s$$___$
-<br>___________$$$$$$$$$$$$s______$$s
-<br>_________s$$$s$$$$$$_$sss
-<br>_________s$$_$$$$$$_______________s$s_
-<br>_________s$___s$$$$s___________s$$$$$$$$
-<br>_________s_____$$$$$___$$$$$$$$$$$s
-<br>________________$$$$_s$$$$$$s
-<br>_________________$$$$$$$s
-<br>__________________$$$$
-<br>___________________$$$$
-<br>____________________$$$$
-<br>_____________________$$$
-<br>______________________$$
-<br>______________________$$s
-<br>_______________________$$
-<br>_______________________$$$
-<br>________________________$$
-<br>________________________$$__#__Fee__#__9__#__9__#__7__#__13__#__Magieaffinität benötigt__#__Mana__#__Verwunschener Wald__#__Zauberstäbe__#__Wald buddeln__#__false__#__Nein kein essen. Arbeitet ihr Sklaven__#____#__false__#____#__Bäume pflanzen__#__false__#__Blumen pflanzen__#____#__false__#____#__Zauberstäbe schwingen üben__#__false__#____;__
-7__#__10er only__#__✻ ┈☼▇▇▇▇ ☼┈ ✻
-<br>┈┈▂▇▇▇▇▂┈┈
-<br>┈✻ ╱╭╮╭╮╲ ✻┈
-<br>☼┈▏┈╭╮┈ ▕┈☼
-<br>╲▏╲╰━━╯╱▕╱
-<br>▔╲╱╰▃▃╯╲╱▔
-<br>┈☼▏╰▃▃╯▕☼┈
-<br>✻ ┈▏╰▃▃╯▕┈ ✻
-<br>┈✻ ╲＿＿＿＿╱ ✻┈__#__Olaf__#__10__#__10__#__1__#__2__#____#____#__Eisberg__#____#__Eis sammeln__#__false__#__Eis sammeln__#____#__false__#____#__Eis sammeln__#__false__#__Eis sammeln__#____#__false__#____#__Eis sammeln__#__false__#____;__
-8__#__11er only__#__╔══════════════════════╗
-<br>║╔════════════════════╗╚╗
-<br>║║██░░░░░░░░░░░░░░░░░░╚╗╚╗
-<br>║║██░░░░░Battery Low ░░░░░ ─║║║
-<br>║║██░░░░░░░░░░░░░░░░░░╔╝╔╝__#__Handy__#__11__#__11__#__90__#__91__#__Unbegrenzte Internetflatrate mit High-Speed__#____#__Aquarium__#__NASA-Leitung + Steckdosen mit Ladegeräten__#__Zocken__#__false__#__Zocken__#____#__false__#____#__Zocken__#__false__#__Zocken__#____#__false__#____#__Zocken__#__false__#____;__
-9__#__12er only__#___________________________$$$$
-<br>_______________________$$$$$$
-<br>______________________$$$$$$
-<br>______________________$$$$
-<br>______________________$$
-<br>_________$$$$$$$$$$$$$_$$$$$$$$$$$$$
-<br>______$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-<br>____$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-<br>___$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-<br>__$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-<br>_$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-<br>_$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-<br>_$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-<br>_$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-<br>__$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-<br>___$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-<br>____$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-<br>_____$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-<br>______$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-<br>________$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-<br>__________$$$$$$$$$$$$$$$$$$$$$$$$$
-<br>____________$$$$$$$$$$$$$$$$$$$$$
-<br>______________$$$$$$$$__$$$$$$$__#__Apfel-Man__#__12__#__12__#__8__#__88__#__Apfel essen__#__Äpfel__#__C101__#__Besteck__#__Apfeln__#__false__#__Apfeln__#____#__false__#____#__Apfeln__#__false__#__Apfeln__#____#__false__#____#__Apfeln__#__false__#____;__
+5__#__8er only__#_________oBBBBB8o______oBBBBBBB <br>_____o8BBBBBBBBBBB__BBBBBBBBB8________o88o, <br>___o8BBBBBB**8BBBB__BBBBBBBBBB_____oBBBBBBBo, <br>__oBBBBBBB*___***___BBBBBBBBBB_____BBBBBBBBBBo, <br>_8BBBBBBBBBBooooo___*BBBBBBB8______*BB*_8BBBBBBo, <br>_8BBBBBBBBBBBBBBBB8ooBBBBBBB8___________8BBBBBBB8, <br>__*BBBBBBBBBBBBBBBBBBBBBBBBBB8_o88BB88BBBBBBBBBBBB, <br>____*BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB8, <br>______**8BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB*, <br>___________*BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB8*, <br>____________*BBBBBBBBBBBBBBBBBBBBBBBB8888**, <br>_____________BBBBBBBBBBBBBBBBBBBBBBB*, <br>_____________*BBBBBBBBBBBBBBBBBBBBB*, <br>______________*BBBBBBBBBBBBBBBBBB8, <br>_______________*BBBBBBBBBBBBBBBB*, <br>________________8BBBBBBBBBBBBBBB8, <br>_________________8BBBBBBBBBBBBBBBo, <br>__________________BBBBBBBBBBBBBBB8, <br>__________________BBBBBBBBBBBBBBBB,__#__Michelin Mann__#__8__#__8__#__2__#__22__#__Reifenwechseln__#____#____#__Reifen__#__Auto klauen__#__false__#__Reifen abmontieren__#____#__false__#____#__Reifen begutachten__#__false__#__Reifen liegen lassen__#____#__false__#____#__Reifen verkaufen__#__false__#____;__
+6__#__9er only__#__*insert some cool ascii-art*__#__Fee__#__9__#__9__#__7__#__13__#__Mana__#__Magieaffinität benötigt__#__Verwunschener Wald__#__Zauberstäbe__#__Wald buddeln__#__false__#__Nein kein essen. Arbeitet ihr Sklaven__#____#__false__#____#__Bäume pflanzen__#__false__#__Blumen pflanzen__#____#__false__#____#__Zauberstäbe schwingen üben__#__false__#____;__
+7__#__10er only__#__✻ ┈☼▇▇▇▇ ☼┈ ✻<br>┈┈▂▇▇▇▇▂┈┈<br>┈✻ ╱╭╮╭╮╲ ✻┈<br>☼┈▏┈╭╮┈ ▕┈☼<br>╲▏╲╰━━╯╱▕╱<br>▔╲╱╰▃▃╯╲╱▔<br>┈☼▏╰▃▃╯▕☼┈<br>✻ ┈▏╰▃▃╯▕┈ ✻<br>┈✻ ╲＿＿＿＿╱ ✻┈__#__Olaf__#__10__#__10__#__1__#__2__#____#____#__Eisberg__#____#__Eis sammeln__#__false__#__Eis sammeln__#____#__false__#____#__Eis sammeln__#__false__#__Eis sammeln__#____#__false__#____#__Eis sammeln__#__false__#____;__
+8__#__11er only__#__╔══════════════════════╗<br>║╔════════════════════╗╚╗<br>║║██░░░░░░░░░░░░░░░░░░╚╗╚╗<br>║║██░░░░░Battery Low ░░░░░ ─║║║<br>║║██░░░░░░░░░░░░░░░░░░╔╝╔╝__#__Handy__#__11__#__11__#__90__#__91__#__Unbegrenzte Internetflatrate mit High-Speed__#____#__Aquarium__#__NASA-Leitung + Steckdosen mit Ladegeräten__#__Zocken__#__false__#__Zocken__#____#__false__#____#__Zocken__#__false__#__Zocken__#____#__false__#____#__Zocken__#__false__#____;__
+9__#__12er only__#__WE HAVE TAKEN OVER░ \☻/\☻/<br>░░░░░░░░░░░░░░░░░░░▌░ ▌<br>░░░░░░░░░░░░░░░░░░ / \░ / \<br>░░░░░░░░░░░░░░░░░███████ ]▄▄▄▄▄▄▄▄▄-----------●<br>░░░░░░░░░░░░▂▄▅█████████▅▄▃▂<br>░░░░░░░░░░░I███████████████████].__#__Apfel-Man__#__12__#__12__#__8__#__88__#__Äpfel__#__Apfel essen__#__C101__#__Besteck__#____#__false__#__Apfeln__#____#__false__#____#__Apfeln__#__false__#__Apfeln__#____#__false__#____#__Apfeln__#__false__#____;__
 10__#__Test22__#__Du und ich__#__Ich__#__5__#__12__#__1__#__100__#____#____#____#____#__A__#__Ja__#__A__#____#__Nein__#____#__A__#__Ja__#__A__#____#__Nein__#____#__A__#__false__#__A__;__
 5c5dd47f695a9__#__Testttt__#____#__22__#__5__#__12__#__1__#__3__#____#____#____#____#____#__true__#____#____#__true__#____#____#__true__#____#____#__true__#____#____#__false__#____;__
 5c5dd4ddec690__#__Testttt3 :)__#__Das ist ein weniger konstruktiver Text__#__22__#__5__#__12__#__1__#__3__#____#____#____#____#__moVor__#__true__#__moNach__#__diVor__#__true__#__diNach__#__miVor__#__true__#__miNach__#__doVor__#__true__#__doNach__#__frVor__#__false__#__frNach__;__
