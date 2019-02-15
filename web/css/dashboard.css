@@ -1,31 +1,26 @@
-.container-fluid {
-	text-align: center;
-}
-
-.card-title {
-	font-size: 2rem;
-}
-
 .card-columns {
 	column-count: 1;
 }
 @media (min-width: 576px) {
-	.card-columns {
+	#row1 .card-columns {
+		column-count: 2;
+	}
+	#row2 .card-columns, #row3 .card-columns {
 		column-count: 2;
 	}
 }
 @media (min-width: 768px) {
-	.card-columns {
+	#row2 .card-columns, #row3 .card-columns {
 		column-count: 3;
 	}
 }
 @media (min-width: 992px) {
-	.card-columns {
+	#row1 .card-columns, #row2 .card-columns, #row3 .card-columns {
 		column-count: 1;
 	}
 }
 @media (min-width: 1200px) {
-	.card-columns {
+	#row2 .card-columns, #row3 .card-columns {
 		column-count: 2;
 	}
 }

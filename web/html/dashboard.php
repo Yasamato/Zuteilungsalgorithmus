@@ -272,16 +272,24 @@ foreach (dbRead("../data/projekte.csv") as $p) {
             </tr>
           </thead>
           <tbody><?php
-              foreach ($projekte as $key => $projekt) {
-                echo '
+          if (empty($projekte)) {
+            echo "
+            <tr>
+              <td>
+                Bisher wurden keine Projekte eingereicht
+              </td>
+            </tr>";
+          }
+          foreach ($projekte as $key => $projekt) {
+            echo '
             <tr>
               <td><a href="#" class="btn btn-success" onclick="showProjektInfoModal(projekte[' . $key . ']);">Info</a> ' . $projekt["name"] . '</td>
               <td>' . $projekt["betreuer"] . '</td>
               <td>' . $projekt["minKlasse"] . '-' . $projekt["maxKlasse"] . '</td>
               <td>' . $projekt["minPlatz"] . '-' . $projekt["maxPlatz"] . '</td>
             </tr>';
-              }
-            ?>
+          }
+          ?>
 
           </tbody>
         </table>
@@ -325,6 +333,14 @@ foreach (dbRead("../data/projekte.csv") as $p) {
             </tr>
           </thead>
           <tbody><?php
+          if (empty($wahlen)) {
+            echo "
+            <tr>
+              <td>
+                Bisher wurde keine Wahl getätigt
+              </td>
+            </tr>";
+          }
           foreach ($wahlen as $key => $student) {
             echo '
             <tr>
@@ -395,8 +411,8 @@ foreach (dbRead("../data/projekte.csv") as $p) {
 <div class="container-fluid">
   <div class="row">
   <!-- Spalte 1 -->
-    <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
-      <div class="card-columns" style="column-count: 1;">
+    <div class="col-12 col-lg-4 col-xl-4" id="row1">
+      <div class="card-columns">
 
     		<div class="card text-white bg-dark p-3">
     			<div class="card-body">
@@ -470,20 +486,18 @@ foreach (dbRead("../data/projekte.csv") as $p) {
     </div>
 
     <!-- Spalte 2 -->
-    <div class="col-12 col-sm-6 col-lg-4 col-xl-5">
+    <div class="col-12 col-lg-4 col-xl-4" id="row2">
       <div class="card-columns">
         <?php
-        $klassen = [];
-        foreach ($wahlen as $key => $student) {
-          if (empty($klassen[$student["klasse"]])) {
-            $klassen[$student["klasse"]] = [$student];
-          }
-          else {
-            array_push($klassen[$student["klasse"]], $student);
-          }
+        if (empty($klassen)) {
+          ?>
+      		<div class="card text-white bg-dark p-3">
+      			<div class="card-body">
+      				<h5 class="card-title">Niemand</h5>
+      				<p class="card-text">hat bereits gewählt, hier würden alle Klassen aufgelistet werden von denen bereits Schüler gewählt haben.</p>
+      			</div>
+      		</div><?php
         }
-        ksort($klassen);
-
         foreach ($klassen as $key => $klasse) {
           ?>
       		<div class="card text-white bg-dark p-3">
@@ -500,7 +514,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
     </div>
 
     <!-- Spalte 3 -->
-    <div class="col-12 col-lg-4 col-xl-4">
+    <div class="col-12 col-lg-4 col-xl-4" id="row3">
     	<div class="card-columns">
 
     		<div class="card text-white bg-dark p-3">

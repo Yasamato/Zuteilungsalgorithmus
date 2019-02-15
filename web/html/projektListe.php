@@ -32,6 +32,31 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "teachers") {
   </div>
 
   <div class="container">
+    <div class="card-columns">
+      <?php
+      if (empty($klassen)) {
+        ?>
+        <div class="card text-white bg-dark p-3">
+          <div class="card-body">
+            <h5 class="card-title">Niemand</h5>
+            <p class="card-text">hat bereits gewählt, hier würden alle Klassen aufgelistet werden von denen bereits Schüler gewählt haben.</p>
+          </div>
+        </div><?php
+      }
+      foreach ($klassen as $key => $klasse) {
+        ?>
+        <div class="card text-white bg-dark p-3">
+          <div class="card-body">
+            <h5 class="card-title"><?php echo count($klasse) > 0 ? count($klasse) : "0"; ?></h5>
+            <p class="card-text">Person<?php echo count($klasse) == 1 ? "" : "en"; ?> aus Klasse <?php echo $key; ?> ha<?php echo count($klasse) == 1 ? "t" : "ben"; ?> bereits gewählt</p>
+            <button onclick="javascript: window.open('printPDF.php?print=students&klasse=<?php echo $key; ?>');" type="button" class="btn btn-secondary">Drucken</button>
+          </div>
+        </div><?php
+      }
+      ?>
+
+    </div>
+
     <table class="table table-dark table-striped table-hover" id="projekteTable">
       <thead>
         <tr>
@@ -42,16 +67,24 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "teachers") {
         </tr>
       </thead>
       <tbody><?php
-          foreach ($projekte as $key => $projekt) {
-            echo '
+      if (empty($projekte)) {
+        echo "
+        <tr>
+          <td>
+            Bisher wurden keine Projekte eingereicht
+          </td>
+        </tr>";
+      }
+      foreach ($projekte as $key => $projekt) {
+        echo '
         <tr>
           <td><a href="#" class="btn btn-success" onclick="showProjektInfoModal(projekte[' . $key . ']);">Info</a> ' . $projekt["name"] . '</td>
           <td>' . $projekt["betreuer"] . '</td>
           <td>' . $projekt["minKlasse"] . '-' . $projekt["maxKlasse"] . '</td>
           <td>' . $projekt["minPlatz"] . '-' . $projekt["maxPlatz"] . '</td>
         </tr>';
-          }
-        ?>
+      }
+      ?>
 
       </tbody>
     </table>
