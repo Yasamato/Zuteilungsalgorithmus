@@ -180,14 +180,20 @@
 
   // Anfrage verarbeiten
   $pdf = new printPDF('L', 'mm', 'A4');
+	$pdf->SetCreator(PDF_CREATOR);
+	$pdf->SetAuthor('Lise-Meitner-Gymnasium Maxdorf G8GTS');
   if (!empty($_GET["print"]) && !empty($_GET["projekt"]) && $_GET["print"] == "projekt") {
     if ($_GET['projekt'] == "all") {
+			$pdf->SetTitle("Projektwoche " . date("Y") . " - Projektliste");
+			$pdf->SetSubject('Projektliste');
       foreach (dbRead("../data/projekte.csv") as $projekt) {
         $pdf->printProjekt($projekt);
       }
     }
     else {
       foreach (dbSearch("../data/projekte.csv", "id", $_GET['projekt'], true) as $projekt) {
+				$pdf->SetTitle("Projektwoche " . date("Y") . " - Projekt " . $projekt["name"]);
+				$pdf->SetSubject("Projekt " . $projekt["name"]);
         $pdf->printProjekt($projekt);
       }
     }
