@@ -111,82 +111,41 @@
 		//print_r($loginResult);
 		print_r($_SESSION['benutzer']);
 	}*/
-?>
-		<script>
-		<?php
-			$projekte = [];
-			if (isLogin()) {
-				if ($_SESSION['benutzer']['typ'] == "teachers" || $_SESSION['benutzer']['typ'] == "admin") {
-					$projekte = dbRead("../data/projekte.csv");
-				}
-				else {
-					foreach (dbRead("../data/projekte.csv") as $p) {
-						if ($p['minKlasse'] <= $_SESSION['benutzer']['stufe'] && $p['maxKlasse'] >= $_SESSION['benutzer']['stufe']) {
-							array_push($projekte, $p);
-						}
-					}
-				}
-			}
-
-			echo 'var projekte = [';
-			foreach ($projekte as $p) {
-		    echo "{";
-		    foreach ($p as $key => $v) {
-		      echo "'" . $key . "': `" . $v . "`,";
-		    }
-		    echo "}";
-				if ($p != $projekte[sizeof($projekte) - 1]) {
-					echo ",\n";
-				}
-			}
-			echo '];';
-		?>
-		</script>
-<?php
-	if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
-?>
-		<script>
-		  window.schueler = [<?php
-		  $schueler = dbRead("../data/wahl.csv");
-		  end($schueler);
-		  $last = key($config);
-
-		  foreach (dbRead("../data/wahl.csv") as $key => $student) {
-		    echo "
-		    {
-		      'uid': `" . $student["uid"] . "`,
-		      'stufe': `" . $student["stufe"] . "`,
-		      'klasse': `" . $student["klasse"] . "`,
-		      'vorname': `" . $student["vorname"] . "`,
-		      'nachname':  `" . $student["nachname"] . "`,
-		      'wahl': [";
-		    $wahl = explode("§", $student["wahl"]);
-		    for ($i = 0; $i < count($wahl); $i++) {
-		      $projekt = getProjektInfo($wahl[$i]);
-			    echo "{";
-			    foreach ($projekt as $key => $v) {
-			      echo "'" . $key . "': `" . $v . "`,";
-			    }
-			    echo "}";
-		      if ($i < count($wahl) - 1) {
-		        echo ",";
-		      }
-		    }
-		    echo "
-		      ]
-		    }";
-		    if ($key != $last) {
-		      echo ",\n";
-		    }
-		  }
-			?>
-
-		  ];
-		</script>
-<?php
+	$klassen = [];
+	foreach (dbRead("../data/wahl.csv") as $key => $student) {
+		if (empty($klassen[$student["klasse"]])) {
+			$klassen[$student["klasse"]] = [$student];
+		}
+		else {
+			array_push($klassen[$student["klasse"]], $student);
+		}
 	}
-
-			echo 'var projekte = [';
+	foreach ($klassen as $klasse => $studentlist) {
+		array_multisort(array_column($studentlist, "nachname"), SORT_ASC, $studentlist);
+	}
+	$wahlen = [];
+	foreach ($klassen as $klasse) {
+		foreach ($klasse as $student) {
+			array_push($wahlen, $student);
+		}
+	}
+	
+	$projekte = [];
+	if (isLogin()) {
+		if ($_SESSION['benutzer']['typ'] == "teachers" || $_SESSION['benutzer']['typ'] == "admin") {
+			$projekte = dbRead("../data/projekte.csv");
+		}
+		else {
+			foreach (dbRead("../data/projekte.csv") as $p) {
+				if ($p['minKlasse'] <= $_SESSION['benutzer']['stufe'] && $p['maxKlasse'] >= $_SESSION['benutzer']['stufe']) {
+					array_push($projekte, $p);
+				}
+			}
+		}
+	}
+?>
+		<script>
+			var projekte = [<?php
 			foreach ($projekte as $p) {
 		    echo "{";
 		    foreach ($p as $key => $v) {
@@ -197,8 +156,8 @@
 					echo ",\n";
 				}
 			}
-			echo '];';
 		?>
+			];
 		</script>
 <?php
 	//--------------------------------------------------------
@@ -259,7 +218,7 @@
 	</head>
 	<body>
 <?php
-					include "html/projektListe.html";
+					include "html/projektListe.php";
 				}
 			}
 			else {

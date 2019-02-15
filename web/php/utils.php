@@ -129,7 +129,8 @@
 			"nachname",
 			"stufe",
 			"klasse",
-			"wahl"
+			"wahl",
+			"ergebnis"
 		]);
 	}
 ?>

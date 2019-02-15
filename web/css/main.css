@@ -45,7 +45,7 @@ body {
 }
 
 button {
-	margin-bottom: 1rem;
+	margin-bottom: 0.5rem !important;
 }
 
 button.close {
@@ -56,10 +56,25 @@ table {
   overflow-x: auto !important;
 }
 
+.modal hr {
+	background-color: #098C38;
+}
+
 @media (max-width: 750px) {
 	table {
     display: block !important;
 	}
+	.modal-lg {
+	    max-width: 100% !important;
+	}
+}
+
+.card {
+	text-align: center;
+}
+
+.card-title {
+	font-size: 2rem;
 }
 
 .footer {

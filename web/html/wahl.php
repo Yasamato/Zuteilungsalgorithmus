@@ -10,7 +10,7 @@
 		<h5>Projektwahl <small>hier hinein ziehen</small></h5>
 		<hr class="my-4">
 		<div class="btn-group" role="group" aria-label="Button Kontrolle">
-			<button class="btn btn-danger" onclick="logout()">Abbrechen</button>
+			<button class="btn btn-danger" onclick="logout()">Abmelden</button>
 		</div>
 		<hr class="my-4">
 		<div class="table-responsive">

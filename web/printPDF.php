@@ -168,6 +168,43 @@
       $this->ln($h);
     }
 
+		function printKlasse($klasse, $studentlist) {
+			array_multisort(array_column($studentlist, "nachname"), SORT_ASC, $studentlist);
+      $this->AddPage();
+      $this->setCellHeightRatio(1.1);
+      $this->ln(13);
+
+      // Zeile 1
+      $this->SetFont('freeserif', 'B', 14);
+      $this->Cell(0, 0, 'Wahlergebnis - Klase ' . $klasse);
+      $this->ln(6);
+
+			// Aufbereiten des Headers
+			$header = [
+				"Klasse",
+				"Nachname",
+				"Vorname",
+				"Ergebnis"
+			];
+			// Aufbereiten der Daten für doe Schülertabelle
+			$dataToPrint = [];
+			foreach ($studentlist as $student) {
+				array_push($dataToPrint, [
+					$student["klasse"],
+					$student["nachname"],
+					$student["vorname"],
+					empty($student["ergebnis"]) ? "N/A" : $student["ergebnis"]
+				]);
+			}
+			// Aufbereiten der Breiten
+			$widths = [
+				10, 40, 40, 100
+			];
+			// Tabelle
+			$this->ColoredTable($header, $dataToPrint, $widths);
+			$this->Cell(0, 6, count($studentlist) . " Schüler-Eintr" . (count($studentlist) > 1 ? "äge" : "ag") . " gefunden");
+		}
+
     function Header() {
       $this->Image("pictures/Logo_Farbe.jpg", 10, 6, 30); // pfad ,x ,y , size
       $this->SetFont('freeserif', 'B', 15);
@@ -176,24 +213,84 @@
       $this->Cell(66, 10, 'Projektwoche ' . date("Y"));
       $this->ln(13);
     }
+
+		// Colored table
+    public function ColoredTable($header, $data, $widths) {
+      // Colors, line width and bold font
+      $this->SetFillColor(9, 140, 56);
+      $this->SetTextColor(0);
+      $this->SetDrawColor(0, 0, 0);
+      $this->SetFont('freeserif', 'B', 8);
+      // Header
+      //$w = array(40, 35, 40, 45);
+      for ($i = 0; $i < count($header); ++$i) {
+        $this->Cell($widths[$i], 7, $header[$i], 1, 0, 'C', 1);
+      }
+      $this->Ln();
+      // Color and font restoration
+      $this->SetFillColor(224, 235, 255);
+      $this->SetTextColor(0);
+      $this->SetFont('freeserif', "", 8);
+      // Data
+      $fill = 0;
+      foreach($data as $row) {
+				for ($i = 0; $i < count($row); $i++) {
+          $this->Cell($widths[$i], 6, $row[$i], "LR", 0, 'L', $fill);
+				}
+        $this->Ln();
+        $fill=!$fill;
+      }
+      $this->Cell(array_sum($widths), 0, '', 'T');
+			$this->ln();
+    }
   }
 
   // Anfrage verarbeiten
-  $pdf = new printPDF('L', 'mm', 'A4');
   if (!empty($_GET["print"]) && !empty($_GET["projekt"]) && $_GET["print"] == "projekt") {
+	  $pdf = new printPDF('L', 'mm', 'A4');
+		$pdf->SetCreator(PDF_CREATOR);
+		$pdf->SetAuthor('Lise-Meitner-Gymnasium Maxdorf G8GTS');
     if ($_GET['projekt'] == "all") {
+			$pdf->SetTitle("Projektwoche " . date("Y") . " - Projektliste");
+			$pdf->SetSubject('Projektliste');
       foreach (dbRead("../data/projekte.csv") as $projekt) {
         $pdf->printProjekt($projekt);
       }
     }
     else {
-      foreach (dbSearch("../data/projekte.csv", "id", $_GET['projekt'], true) as $projekt) {
-        $pdf->printProjekt($projekt);
-      }
+      $projekt = getProjektInfo($_GET['projekt']);
+			$pdf->SetTitle("Projektwoche " . date("Y") . " - Projekt " . $projekt["name"]);
+			$pdf->SetSubject("Projekt " . $projekt["name"]);
+      $pdf->printProjekt($projekt);
     }
   }
   elseif (!empty($_GET["print"]) && $_GET["print"] == "students") {
-    die("Ich bin ein Platzhalter für eine nicht implementierte Funktion!");
+	  $pdf = new printPDF('P', 'mm', 'A4');
+		$pdf->SetCreator(PDF_CREATOR);
+		$pdf->SetAuthor('Lise-Meitner-Gymnasium Maxdorf G8GTS');
+		$klassen = [];
+		foreach (dbRead("../data/wahl.csv") as $key => $student) {
+			if (empty($klassen[$student["klasse"]])) {
+				$klassen[$student["klasse"]] = [$student];
+			}
+			else {
+				array_push($klassen[$student["klasse"]], $student);
+			}
+		}
+		ksort($klassen);
+
+    if ($_GET['klasse'] == "all") {
+			$pdf->SetTitle("Projektwoche " . date("Y") . " - Wahlergebnis");
+			$pdf->SetSubject('Wahlergebnis');
+			foreach ($klassen as $key => $klasse) {
+        $pdf->printKlasse($key, $klasse);
+      }
+    }
+    else {
+			$pdf->SetTitle("Projektwoche " . date("Y") . " - Wahlergebnis Klasse " . $_GET['klasse']);
+			$pdf->SetSubject("Wahlergebnis Klasse " . $_GET['klasse']);
+      $pdf->printKlasse($_GET['klasse'], $klassen[$_GET['klasse']]);
+    }
   }
   else {
     die("Ungültige Anfrage");

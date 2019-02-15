@@ -16,19 +16,6 @@ function logout() {
 	$("#logout").submit();
 }
 
-function createProjekteTable(projekte) {
-  console.log("Creating: projekteTable");
-  $.each(projekte, function(index, value){
-    $("#projekteTable>tbody").append($(`
-      <tr>
-        <td><a href="#" class="btn btn-success" onclick="showProjektInfoModal(projekte[` + index + `]);">Info</a> ` + projekte[index].name + `</td>
-        <td>` + projekte[index].betreuer + `</td>
-        <td>` + projekte[index].minKlasse + `-` + projekte[index].maxKlasse + `</td>
-        <td>` + projekte[index].minPlatz + `-` + projekte[index].maxPlatz + `</td>
-      </tr>`));
-  });
-}
-
 function showProjektInfoModal(p) {
 	$(".tmp-modal").html(`
 	<div class="modal fade" id="tmp-modal" tabindex="-1" role="dialog" aria-labelledby="tmp-modalLabel" aria-hidden="true" style="z-index: 1051 !important;">
@@ -134,29 +121,6 @@ function createStageSelect(currentStage) {
 	}
 }
 
-function createDashboardStudentsTable(students) {
-  console.log("Creating: schuelerTable");
-  console.log(students);
-  $.each(students, function(index, student){
-    var html = `
-    <tr>
-      <td>` + student["stufe"] + `</td>
-      <td>` + student["klasse"] + `</td>
-      <td>` + student["vorname"] + `</td>
-      <td>` + student["nachname"] + `</td>
-      <td>
-        <ol>`;
-    for (var i = 0; i < student["wahl"].length; i++) {
-      html += `
-          <li><a href="#" onclick="console.log(window.schueler); showProjektInfoModal(window.schueler['` + index + `']['wahl'][` + i + `]);">` + student["wahl"][i]["name"] + `</a></li>`;
-    }
-    html += `
-      </ol>
-    </tr>`;
-    $("#schuelerTable>tbody").append($(html));
-  });
-}
-
 function setupDashboard() {
 	console.log("Current Configuration:");
   console.log(config);
@@ -164,48 +128,6 @@ function setupDashboard() {
 
 	// formular setup
 	createStageSelect(config["Stage"]);
-
-  // Erstellen der Projekte- und Schüler-Tabellen
-	createProjekteTable(projekte);
-  createDashboardStudentsTable(window.schueler);
-}
-
-// Drucken
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function saveSmallProjectList(projectList){
-// Erstellt ein pdf-Dokument mit der Nummer, dem Titel und der Stufe aller Projekte
-    var doc = new jsPDF('p', 'pt');
-    // Überschrift
-    var columns = ["Nr.", "Projekttitel", "Stufe"];
-    var rows = [];
-
-    // Eingabe der Projekte in rows
-    projectList.forEach(function(e){
-        rows.push([e.id, e.name, e.minKlasse + "-" + e.maxKlasse]);
-    });
-    // Einfügen der Tabelle
-    doc.autoTable(columns, rows, {
-        // Linien außen
-        tableLineColor: [44, 62, 80],
-        tableLineWidth: 0.75,
-        styles: {
-            // Zellen machen Zeilensprung bei großen Inhalten
-            overflow: 'linebreak',
-            // Linien innen
-            lineColor: [44, 62, 80],
-            lineWidth: 0.05
-        },
-        // Größe der Spalten, Wrap nicht möglich, 'wrap' funktioniert nicht, also feste Werte
-        columnStyles: {
-            0: {columnWidth: 25},
-            1:{columnWidth:455},
-            2: {columnWidth: 35},
-        }
-    });
-    // Öffnet Dokument in neuem Tab
-    doc.output('dataurlnewwindow');
-    // Öffnet Speicherdialog
-    //doc.save();
 }
 
 // Wahl-Interface
