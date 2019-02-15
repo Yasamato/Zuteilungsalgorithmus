@@ -246,7 +246,18 @@ foreach (dbRead("../data/projekte.csv") as $p) {
               <th>Platz</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody><?php
+              foreach (dbRead("../data/projekt.csv") as $key => $projekt) {
+                echo '
+            <tr>
+              <td><a href="#" class="btn btn-success" onclick="showProjektInfoModal(projekte[' . $key . ']);">Info</a> ' . $projekt["name"] . '</td>
+              <td>' . $projekt["betreuer"] . '</td>
+              <td>' . $projekt["minKlasse"] . '-' . $projekt["maxKlasse"] . '</td>
+              <td>' . $projekt["minPlatz"] . '-' . $projekt["maxPlatz"] . '</td>
+            </tr>';
+              }
+            ?>
+          </tbody>
         </table>
       </div>
 

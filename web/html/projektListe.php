@@ -1,3 +1,9 @@
+<?php
+if (!isLogin() || $_SESSION['benutzer']['typ'] != "teachers") {
+  die("Zugriff verweigert");
+}
+?>
+
 <div class="container-fluid">
   <div class="container text-center">
 		<div class="card-deck">
@@ -28,13 +34,26 @@
   <div class="container">
     <table class="table table-dark table-striped table-hover" id="projekteTable">
       <thead>
-        <tr></tr>
+        <tr>
+          <th>Name</th>
+          <th>Betreuer</th>
+          <th>Stufe</th>
+          <th>Platz</th>
+        </tr>
       </thead>
-      <tbody></tbody>
+      <tbody><?php
+          foreach ($projekte as $key => $projekt) {
+            echo '
+        <tr>
+          <td><a href="#" class="btn btn-success" onclick="showProjektInfoModal(projekte[' . $key . ']);">Info</a> ' . $projekt["name"] . '</td>
+          <td>' . $projekt["betreuer"] . '</td>
+          <td>' . $projekt["minKlasse"] . '-' . $projekt["maxKlasse"] . '</td>
+          <td>' . $projekt["minPlatz"] . '-' . $projekt["maxPlatz"] . '</td>
+        </tr>';
+          }
+        ?>
+
+      </tbody>
     </table>
   </div>
 </div>
-
-<script>
-  createProjekteTable(projekte);
-</script>

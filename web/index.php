@@ -186,7 +186,7 @@
 <?php
 	}
 
-			echo 'var projekte = [';
+			echo '<script>var projekte = [';
 			foreach ($projekte as $p) {
 		    echo "{";
 		    foreach ($p as $key => $v) {
@@ -259,7 +259,7 @@
 	</head>
 	<body>
 <?php
-					include "html/projektListe.html";
+					include "html/projektListe.php";
 				}
 			}
 			else {

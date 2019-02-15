@@ -61,7 +61,6 @@
 		if (($fh = fopen($path, "r")) === false) {
 			error_log("Die Datei " . $path . " konnte nicht geöffnet werden");
 			die("Datei: " . $path . " konnte nicht geöffnet werden");
-			return [];
 		}
 
 		$parsedData = [];
