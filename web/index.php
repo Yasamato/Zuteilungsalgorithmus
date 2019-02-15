@@ -111,82 +111,23 @@
 		//print_r($loginResult);
 		print_r($_SESSION['benutzer']);
 	}*/
-?>
-		<script>
-		<?php
-			$projekte = [];
-			if (isLogin()) {
-				if ($_SESSION['benutzer']['typ'] == "teachers" || $_SESSION['benutzer']['typ'] == "admin") {
-					$projekte = dbRead("../data/projekte.csv");
-				}
-				else {
-					foreach (dbRead("../data/projekte.csv") as $p) {
-						if ($p['minKlasse'] <= $_SESSION['benutzer']['stufe'] && $p['maxKlasse'] >= $_SESSION['benutzer']['stufe']) {
-							array_push($projekte, $p);
-						}
-					}
+  $wahlen = dbRead("../data/wahl.csv");
+	$projekte = [];
+	if (isLogin()) {
+		if ($_SESSION['benutzer']['typ'] == "teachers" || $_SESSION['benutzer']['typ'] == "admin") {
+			$projekte = dbRead("../data/projekte.csv");
+		}
+		else {
+			foreach (dbRead("../data/projekte.csv") as $p) {
+				if ($p['minKlasse'] <= $_SESSION['benutzer']['stufe'] && $p['maxKlasse'] >= $_SESSION['benutzer']['stufe']) {
+					array_push($projekte, $p);
 				}
 			}
-
-			echo 'var projekte = [';
-			foreach ($projekte as $p) {
-		    echo "{";
-		    foreach ($p as $key => $v) {
-		      echo "'" . $key . "': `" . $v . "`,";
-		    }
-		    echo "}";
-				if ($p != $projekte[sizeof($projekte) - 1]) {
-					echo ",\n";
-				}
-			}
-			echo '];';
-		?>
-		</script>
-<?php
-	if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
-?>
-		<script>
-		  window.schueler = [<?php
-		  $schueler = dbRead("../data/wahl.csv");
-		  end($schueler);
-		  $last = key($config);
-
-		  foreach (dbRead("../data/wahl.csv") as $key => $student) {
-		    echo "
-		    {
-		      'uid': `" . $student["uid"] . "`,
-		      'stufe': `" . $student["stufe"] . "`,
-		      'klasse': `" . $student["klasse"] . "`,
-		      'vorname': `" . $student["vorname"] . "`,
-		      'nachname':  `" . $student["nachname"] . "`,
-		      'wahl': [";
-		    $wahl = explode("§", $student["wahl"]);
-		    for ($i = 0; $i < count($wahl); $i++) {
-		      $projekt = getProjektInfo($wahl[$i]);
-			    echo "{";
-			    foreach ($projekt as $key => $v) {
-			      echo "'" . $key . "': `" . $v . "`,";
-			    }
-			    echo "}";
-		      if ($i < count($wahl) - 1) {
-		        echo ",";
-		      }
-		    }
-		    echo "
-		      ]
-		    }";
-		    if ($key != $last) {
-		      echo ",\n";
-		    }
-		  }
-			?>
-
-		  ];
-		</script>
-<?php
+		}
 	}
-
-			echo '<script>var projekte = [';
+?>
+		<script>
+			var projekte = [<?php
 			foreach ($projekte as $p) {
 		    echo "{";
 		    foreach ($p as $key => $v) {
@@ -197,8 +138,8 @@
 					echo ",\n";
 				}
 			}
-			echo '];';
 		?>
+			];
 		</script>
 <?php
 	//--------------------------------------------------------

@@ -18,7 +18,8 @@ if (isLogin()) {// hard gecoded für präsi
 				$_SESSION['benutzer']['nachname'],
 				$_SESSION['benutzer']['stufe'],
 				$_SESSION['benutzer']['klasse'],
-				implode("§", $_POST['wahl']) // warum haben wir hier §?
+				implode("§", $_POST['wahl']), // warum haben wir hier §? weil ir es können :)
+				""
 			];
 			// Überschreiben des vorigen Eintrags
 			if (count(dbSearch("../data/wahl.csv", "uid", $_SESSION['benutzer']['uid'])) > 0) {

@@ -237,7 +237,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
       <div class="modal-body">
         <button onclick="javascript: window.open('printPDF.php?print=projekt&projekt=all');" type="button" class="btn btn-secondary">Liste drucken</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
-        <table class="table table-dark table-striped table-hover" id="projekteTable">
+        <table class="table table-dark table-striped table-hover">
           <thead>
             <tr>
               <th>Name</th>
@@ -257,6 +257,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
             </tr>';
               }
             ?>
+
           </tbody>
         </table>
       </div>
@@ -284,7 +285,10 @@ foreach (dbRead("../data/projekte.csv") as $p) {
       <div class="modal-body">
         <button onclick="javascript: alert('*drucke Schülerliste aus*');" type="button" class="btn btn-secondary">Liste drucken</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
-        <table class="table table-dark table-striped table-hover" id="schuelerTable">
+        <br>
+        <small class="text-muted">Das Ergebnis der Auswertung ist erst verfügbar sobald die Auswertung durch den Admin durchgeführt wurde. Die Auswertung kann erst im Admin-Panel durchgeführt werden, sobald die Wahlen geschlossen sind.</small>
+
+        <table class="table table-dark table-striped table-hover">
           <thead class="thead-dark">
             <tr>
               <th>Stufe</th>
@@ -292,9 +296,63 @@ foreach (dbRead("../data/projekte.csv") as $p) {
               <th>Vorname</th>
               <th>Nachname</th>
               <th>Wahl</th>
+              <th>Ergebnis</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody><?php
+          foreach ($wahlen as $key => $student) {
+            echo '
+            <tr>
+              <td>' . $student["stufe"] . '</td>
+              <td>' . $student["klasse"] . '</td>
+              <td>' . $student["vorname"] . '</td>
+              <td>' . $student["nachname"] . '</td>
+              <td>
+                <ol>';
+
+              foreach (explode("§", $student["wahl"]) as $key => $wahl) {
+                $p = null;
+                foreach ($projekte as $key => $projekt) {
+                  if ($projekt["id"] == $wahl) {
+                    $p = $key;
+                    break;
+                  }
+                }
+                echo '
+                  <li>
+                    <a href="#" onclick="showProjektInfoModal(projekte[' . $p . ']);">
+                      ' . getProjektInfo($wahl)["name"] . '
+                    </a>
+                  </li>';
+              }
+
+              echo '
+                </ol>
+              </td>
+              <td>';
+
+              if (empty($student["ergebnis"])) {
+                echo "N/A";
+              }
+              else {
+                $p = null;
+                foreach ($projekte as $key => $projekt) {
+                  if ($projekt["id"] == $student["ergebnis"]) {
+                    $p = $key;
+                    break;
+                  }
+                }
+                echo '
+                  <a href="#" onclick="showProjektInfoModal(projekte[' . $p . ']);">
+                    ' . getProjektInfo($student["ergebnis"])["name"] . '
+                  </a>';
+              }
+              echo '
+              </td>
+            </tr>';
+          }
+          ?>
+
           </tbody>
         </table>
       </div>

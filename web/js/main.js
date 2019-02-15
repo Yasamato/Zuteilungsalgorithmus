@@ -121,29 +121,6 @@ function createStageSelect(currentStage) {
 	}
 }
 
-function createDashboardStudentsTable(students) {
-  console.log("Creating: schuelerTable");
-  console.log(students);
-  $.each(students, function(index, student){
-    var html = `
-    <tr>
-      <td>` + student["stufe"] + `</td>
-      <td>` + student["klasse"] + `</td>
-      <td>` + student["vorname"] + `</td>
-      <td>` + student["nachname"] + `</td>
-      <td>
-        <ol>`;
-    for (var i = 0; i < student["wahl"].length; i++) {
-      html += `
-          <li><a href="#" onclick="console.log(window.schueler); showProjektInfoModal(window.schueler['` + index + `']['wahl'][` + i + `]);">` + student["wahl"][i]["name"] + `</a></li>`;
-    }
-    html += `
-      </ol>
-    </tr>`;
-    $("#schuelerTable>tbody").append($(html));
-  });
-}
-
 function setupDashboard() {
 	console.log("Current Configuration:");
   console.log(config);
@@ -151,9 +128,6 @@ function setupDashboard() {
 
 	// formular setup
 	createStageSelect(config["Stage"]);
-
-  // Erstellen der Projekte- und Schüler-Tabellen
-  createDashboardStudentsTable(window.schueler);
 }
 
 // Wahl-Interface

@@ -191,11 +191,10 @@
       }
     }
     else {
-      foreach (dbSearch("../data/projekte.csv", "id", $_GET['projekt'], true) as $projekt) {
-				$pdf->SetTitle("Projektwoche " . date("Y") . " - Projekt " . $projekt["name"]);
-				$pdf->SetSubject("Projekt " . $projekt["name"]);
-        $pdf->printProjekt($projekt);
-      }
+      $projekt = getProjektInfo($_GET['projekt']);
+			$pdf->SetTitle("Projektwoche " . date("Y") . " - Projekt " . $projekt["name"]);
+			$pdf->SetSubject("Projekt " . $projekt["name"]);
+      $pdf->printProjekt($projekt);
     }
   }
   elseif (!empty($_GET["print"]) && $_GET["print"] == "students") {
