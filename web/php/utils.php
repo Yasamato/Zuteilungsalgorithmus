@@ -19,11 +19,7 @@
 	}
 
 	function getProjektInfo($id) {
-	  foreach (dbRead("../data/projekte.csv") as $projekt) {
-	    if ($projekt["id"] == $id) {
-	      return $projekt;
-	    }
-	  }
+	  return dbSearch("../data/projekte.csv", "id", $id, true);
 	}
 
 	function checkBox($v) {

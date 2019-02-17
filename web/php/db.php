@@ -12,8 +12,9 @@
 				error_log("Die ursprüngliche Datei " . $path . " wurde sicherheitshalber nach " . $path . ".old verschoben");
 			}
 		}
-		dbwrite($path, null, $headers);
+		$result = dbWrite($path, null, $headers);
 		chmod($path, CONFIG["dbFilesPermission"]);
+		return $result;
 	}
 
 	// speichert die Daten in einer Datei ab
@@ -34,8 +35,8 @@
 			fclose($fh);
 		}
 		else {
-			error_log("Die Datei " . $path . " konnte nicht geöffnet werden");
-			die("Datei: " . $path . " konnte nicht angelegt werden");
+			error_log("Die Datei " . $path . " konnte nicht angelegt werden");
+			die("Datei: " . $file . " konnte nicht angelegt werden, kontaktiere einen Admin damit dieser die Zugriffsberechtigungen überprüfen kann");
 		}
 	}
 
@@ -46,7 +47,7 @@
 		}
 		else {
 			error_log("Die Datei " . $path . " konnte nicht geöffnet werden");
-			die("Datei: " . $file . " konnte nicht geöffnet werden");
+			die("Datei: " . $file . " konnte nicht geöffnet werden, kontaktiere einen Admin damit dieser die Zugriffsberechtigungen überprüfen kann");
 		}
 		fclose($fh);
 	}
@@ -55,12 +56,12 @@
 	function dbRead($path) {
 		if (!file_exists($path)) {
 			error_log("Die Datei " . $path . " konnte nicht gefunden werden");
-			return [];
+			return false;
 		}
 
 		if (($fh = fopen($path, "r")) === false) {
 			error_log("Die Datei " . $path . " konnte nicht geöffnet werden");
-			die("Datei: " . $path . " konnte nicht geöffnet werden");
+			die("Datei: " . $file . " konnte nicht geöffnet werden, kontaktiere einen Admin damit dieser die Zugriffsberechtigungen überprüfen kann");
 		}
 
 		$parsedData = [];
@@ -145,7 +146,7 @@
 			}
 		}
 
-		dbWrite($path, $data);
+		return dbWrite($path, $data);
 	}
 
 	// ersetzt einen kompletten Eintrag
@@ -162,7 +163,7 @@
 			}
 		}
 
-		dbWrite($path, $data);
+		return dbWrite($path, $data);
 	}
 
 	// entfernt einen ganzen Eintrag
@@ -178,24 +179,23 @@
 		}
 
 		if ($removed) {
-			dbWrite($path, $data);
+			return dbWrite($path, $data);
 		}
-		else {
-			error_log("Versuche nicht vorhandenen Eintrag " . $search . " = " . $searchNeedle . " in " . $path . " zu entfernen");
-		}
+		error_log("Versuche nicht vorhandenen Eintrag " . $search . " = " . $searchNeedle . " in " . $path . " zu entfernen");
+		return false;
 	}
 
 	// löscht eine Datei
 	function dbDrop($path, $verifyDeletionOfFile = false) {
 		if (!file_exists($path)) {
 			error_log("Die Datei " . $path . " konnte nicht gefunden werden");
+			return false;
 		}
 
 		if ($verifyDeletionOfFile) {
-			unlink($path);
+			return unlink($path);
 		}
-		else {
-			error_log("Zum unwiderruflichen Löschen der Datei " . $path . " muss das Argument verifyDeletionOfFile auf true gesetzt werden");
-		}
+		error_log("Zum unwiderruflichen Löschen der Datei " . $path . " muss das Argument verifyDeletionOfFile auf true gesetzt werden");
+		return false;
 	}
 ?>

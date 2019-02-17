@@ -1,20 +1,26 @@
-body {
+.card {
 	color: #000;
 }
-.projektliste>div>.projekt-card {
-	width: 15em;
-	margin: 5px 2px;
+.card.projekt {
+	border: 2px dashed transparent;
+	max-width: 300px;
+	margin: 0.3rem;
+}
+.card.projekt.drag-over {
+	border-color: #098C38;
+}
+.card.projekt.dragged {
+	border-color: #DC3545;
 }
 
-.projektliste {
-	width: 66.6666%;
-	height: 100%;
+#projektliste {
 	overflow-y: scroll;
-	overflow-x: hidden;
+	overflow-x: visible;
 }
 
-.wahlliste {
-	width: 33.3333%;
-	overflow-y: scroll;
-	height: 100%;
+#wahlliste {
+	border: 2px dashed transparent;
+}
+#wahlliste.drop-active {
+	border-color: #098C38;
 }

@@ -78,9 +78,17 @@ function showProjektInfoModal(p) {
 						</table>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-danger" onclick="window.location.href = '?site=edit&projekt=` + p.id + `';">Bearbeiten</button>
-					<button type="button" class="btn btn-secondary" onclick="javascript: window.open('printPDF.php?print=projekt&projekt=` + p.id + `');">Drucken</button>
-
+					` + (window.user == "admin" ? `
+      		<form id="delete` + p.id + `" method="post" action="/">
+      			<input type="hidden" name="action" value="deleteProjekt">
+      			<input type="hidden" name="projekt" value="` + p.id + `">
+      		</form>
+          <button type="button" class="btn btn-danger" onclick="javascript: $('#delete` + p.id + `').submit();">Löschen</button>
+					` : "") + `
+					` + (window.user == "admin" || window.user == "teachers" ? `
+          <button type="button" class="btn btn-danger" onclick="javascript: window.location.href = '?site=edit&projekt=` + p.id + `';">Bearbeiten</button>
+          <button type="button" class="btn btn-secondary" onclick="javascript: window.open('printPDF.php?print=projekt&projekt=` + p.id + `');">Drucken</button>
+					` : "") + `
 					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 				</div>
 			</div>
@@ -132,11 +140,6 @@ function setupDashboard() {
 
 // Wahl-Interface
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-var colors = [
-	"primary",
-	"success",
-	"dark",
-];
 
 // x = anzahl Schüler / Anzahl Plätze
 function calcAnzahlProjekte(students, platz, anzahlProjekte) {
@@ -148,27 +151,16 @@ function calcAnzahlProjekte(students, platz, anzahlProjekte) {
 	return (t < 4 ? 4 : t);
 }
 
-function createProjektCard(e) {
-	$(".projektliste>div").append($(`
-		<div class="card list-group-item-` + colors[Math.floor(Math.random() *  colors.length)] + ` projekt-card" id="drag` + e.id + `">
-			<input  type="hidden" value="` + e.id + `">
-			<div class="card-body">
-				<h5 class="card-title">` + e.name + `</h5>
-				<a href="#" class="btn btn-` + colors[Math.floor(Math.random() *  colors.length)] + `" onclick="showProjektInfoModal(projekte[` + projekte.indexOf(e) + `]);">Info</a>
-			</div>
-		</div>`));
-}
-
 function createWahlTable(projektAnzahl) {
 	for(var i = 0; i < projektAnzahl; i++){
-		$(".wahlliste tbody").append("<tr id='wahl" + i + "'><th scope='row'>" + (i + 1) + "</th><td></td></tr>");
+		$("#wahlliste tbody").append("<tr id='wahl" + i + "'><th scope='row'>" + (i + 1) + "</th><td></td></tr>");
 	}
 }
 
 function getInput() {
 	console.log("counting choosen projekts");
 	var wahl = [];
-	for(var i = 0; i < $(".wahlliste tbody>tr").length; i++) {
+	for(var i = 0; i < $("#wahlliste tbody>tr").length; i++) {
 		if($("#wahl" + i + ">td").children().length == 0) {
 			if($(".btn-group").children().length > 1) {
 				$($(".btn-group").children()[2]).remove();
@@ -181,268 +173,122 @@ function getInput() {
 	}
 	if($(".btn-group").children().length < 2) {
 		$(".btn-group").append($("<button class='btn btn-success' name='action' value='wahl'>Wahl abschicken</button>").on("click", function(e){
-			$(".wahlliste>form").empty();
+			$("#wahlliste>form").empty();
 			for(var i = 0; i < wahl.length; i++) {
-				$(".wahlliste>form").append($("<input type='hidden' name='wahl[" + i + "]'>").val($(wahl[i].children()[0]).val()));
+				$("#wahlliste>form").append($("<input type='hidden' name='wahl[" + i + "]'>").val($(wahl[i].children()[0]).val()));
 				console.log("input angehängt");
 			}
-			$(".wahlliste>form").append($("<input type='hidden' name='action'>").val("wahl"));
-			$(".wahlliste>form").submit();
+			$("#wahlliste>form").append($("<input type='hidden' name='action'>").val("wahl"));
+			$("#wahlliste>form").submit();
 		}));
 	}
 	return;
 }
 
-// init listeners
-function addCardListener(card) {
-	$(this).on("touchstart touchmove touchend", touchHandler);
-	$(this).attr("draggable", "true");
-	$(this).on("dragstart", cardDragstart);
-	$(this).on("dragover", preventDefaultActions);
-	$(this).on("drop", dropCard);
-}
-
-function addTableListener(row) {
-	$(this).on("drop", dropOnTable);
-	$(this).on("dragover", preventDefaultActions);
-}
-
 function setupWahl() {
 	// html creation
 	createWahlTable(calcAnzahlProjekte(50, 70, 20));
-	projekte.forEach(function(e){
-		createProjektCard(e);
-	});
 
-	// Die Projekte selbst
-	$(".card").each(addCardListener);
+  function appendWahlliste(card) {
+  	for(var i = $("#wahlliste tbody>tr").length - 1; i >= 0; i--) {
+  		if($("#wahl" + i + ">td").children().length == 0) {
+  			$("#wahl" + i + ">td").append($(card));
+  		}
+  	}
+  }
 
-	// Wahlliste (rechts)
-	$(".wahlliste").on("drop", dropWahlliste);
-	$(".wahlliste").on("dragover", preventDefaultActions);
-	// tabelle rechts zum reinziehen
-	$(".wahlliste tbody>tr").each(addTableListener);
-
-	// Projektliste (links)
-	$(".projektliste").on("drop", dropProjektliste);
-	$(".projektliste").on("dragover", preventDefaultActions);
-}
-
-// Drag Handles
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function switchInTable(ele1, ele2) {
-	console.log("switch.....");
-	// suche Position in der Tabelle
-	var iEle1 = -1, iEle2 = -1;
-	for(var i = 0; i < $(".wahlliste tbody>tr").length; i++){
-		if($("#wahl" + i).has(ele1).length || $("#wahl" + i).is(ele1)) {
-			iEle1 = i;
-		}
-		else if($("#wahl" + i).has(ele2).length || $("#wahl" + i).is(ele2)) {
-			iEle2 = i;
-		}
-	}
-
-	// check ob auch projekt-card ausgewählt wurde, ersetze ggf.
-	if(!$(ele1).hasClass("card")) {
-		ele1 = $(ele1).find("div")[0];
-		console.log("ele1: no card");
-	}
-	if(!$(ele2).hasClass("card")) {
-		ele2 = $(ele2).find("div")[0];
-		console.log("ele2: no card");
-	}
-
-	// vertausche bzw. setze ein
-	if(ele1 == ele2) {
-		console.log("mit sich selbst vertauscht....");
-		return;
-	}
-	if(iEle1 > -1 && iEle2 > -1) {
-		if(typeof ele2 !== "undefined") {
-			$("#wahl" + iEle1).children()[1].append(ele2);
-		}
-		if(typeof ele1 !== "undefined") {
-			$("#wahl" + iEle2).children()[1].append(ele1);
-		}
-	}
-	else if(iEle1 > -1) {
-		$("#wahl" + iEle1).children()[1].append(ele2);
-		if(typeof ele1 !== "undefined") {
-			$(".projektliste>div").append(ele1);
-		}
-	}
-	else if(iEle2 > -1) {
-		$("#wahl" + iEle2).children()[1].append(ele1);
-		if(typeof ele2 !== "undefined") {
-			$(".projektliste>div").append(ele2);
-		}
-	}
-}
-
-function appendWahlliste(card) {
-	for(var i = $(".wahlliste tbody>tr").length - 1; i >= 0; i--) {
-		if($("#wahl" + i + ">td").children().length == 0) {
-			$("#wahl" + i + ">td").append(card);
-		}
-	}
-}
-
-function preventDefaultActions(e) {
-	e.originalEvent.stopPropagation();
-	e.originalEvent.preventDefault();
-}
-
-function cardDragstart(e) {
-	e.originalEvent.stopPropagation();
-	if(e.originalEvent.dataTransfer) {
-		e.originalEvent.dataTransfer.setData("Text", this.id);
-	}
-	else {
-		console.log("!!------------------------!!");
-		console.log("DataTransfer is missing!!");
-	}
-}
-
-function dropCard(e) {
-	preventDefaultActions(e);
-	var card = $("#" + e.originalEvent.dataTransfer.getData('Text'))[0];
-	console.log("dropped element on card");
-	console.log(e.originalEvent.currentTarget);
-	if($(".wahlliste").has(e.originalEvent.currentTarget).length) {
-		console.log("in Wahlliste");
-		switchInTable(card, e.originalEvent.currentTarget);
-	}
-	else {
-		console.log("in Projektliste");
-		$(e.originalEvent.currentTarget).before(card);
-	}
-	getInput();
-}
-
-function dropWahlliste(e) {
-	preventDefaultActions(e);
-	console.log("dropped element on wahlliste");
-	console.log(e.originalEvent.currentTarget);
-	appendWahlliste($("#" + e.originalEvent.dataTransfer.getData('Text')));
-	getInput();
-}
-
-function dropOnTable(e) {
-	preventDefaultActions(e);
-	console.log("dropped element on tabelle");
-	console.log(e.originalEvent.currentTarget);
-	switchInTable($("#" + e.originalEvent.dataTransfer.getData('Text'))[0], e.originalEvent.currentTarget);
-	getInput();
-}
-
-function dropProjektliste(e) {
-	preventDefaultActions(e);
-	console.log("dropped element on projektliste");
-	console.log(e.originalEvent.currentTarget);
-	$(".projektliste>div").append($("#" + e.originalEvent.dataTransfer.getData('Text')));
-	getInput();
-}
-
-// Touch Events -> Drag Events
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function findProjektCard(element) {
-  for(i = 0; i < $("div.card").length; i++){
-    if($("div.card")[i] == element || $($("div.card")[i]).has(element).length){
-      return $("div.card")[i];
+  interact('body').dropzone({
+    accept: '.card.projekt',
+    overlap: 0.85,
+    ondrop: function (event) {
+      var draggableElement = event.relatedTarget,
+          dropzoneElement = event.target;
+      $("#projektliste").append($(draggableElement));
     }
-  }
-  return null;
-}
-
-// Searches the element the target is child of (prjekt-card, wahlliste, projketliste)
-function findCurrentTarget(target) {
-  for(i = 0; i < projekte.length; i++) {
-    if($("#drag" + projekte.projektId) == $(target) || $("#drag" + projekte.projektId).has(target)) {
-      return document.getElementById("#drag" + projekte.projektId);
+  });
+  interact('#wahlliste').dropzone({
+    accept: '.card.projekt',
+    overlap: 0.3,
+    ondragenter: function (event) {
+      var draggableElement = event.relatedTarget,
+          dropzoneElement = event.target;
+      dropzoneElement.classList.add('drop-active');
+    },
+    ondragleave: function (event) {
+      var draggableElement = event.relatedTarget,
+          dropzoneElement = event.target;
+      dropzoneElement.classList.remove('drop-active');
+    },
+    ondrop: function (event) {
+      var draggableElement = event.relatedTarget,
+          dropzoneElement = event.target;
+      appendWahlliste(draggableElement);
+      dropzoneElement.classList.remove('drop-active');
     }
-  }
-
-  if($(".wahlliste") == $(target) || $(".wahlliste").has(target)) {
-    return document.getElementById("wahlliste");
-  }
-  return document.getElementById("projektliste");
-}
-
-function getDragEvent(type){
-  switch(type) {
-    case "touchstart": return "dragstart";
-    case "touchmove": return "dragover";
-    case "touchend": return "drop";
-    default: return null;
-  }
-}
-
-// Handles all touch events on projekt-cards
-function touchHandler(e) {
-  // disable multi-touch
-  if(e.changedTouches.length != 1) return;
-  var touch = e.changedTouches[0];
-
-  // find dragged card
-  var card = findProjektCard(e.target);
-  if(!card) return;
-
-  // in case of pressing the info button, return
-  if($(card).find("a")[0] == e.target) return;
-
-  //apply ghost image
-  $(card).css({
-    "top": touch.clientY + 5,
-    "left": "calc(" + touch.clientX + "px - 7.5em)"
   });
+  // -- Projekt-Cards
+  interact('.card.projekt').dropzone({
+    accept: '.card.projekt',
+    overlap: 0.2,
+    ondragenter: function (event) {
+      var draggableElement = event.relatedTarget,
+          dropzoneElement = event.target;
+      dropzoneElement.classList.add('drag-over');
+    },
+    ondragleave: function (event) {
+      var draggableElement = event.relatedTarget,
+          dropzoneElement = event.target;
+      dropzoneElement.classList.remove('drag-over');
+    },
+    ondrop: function (event) {
+      var draggableElement = event.relatedTarget,
+          dropzoneElement = event.target;
+      if (dropzoneElement.parentNode == document.querySelector('#projektliste')) {
+        dropzoneElement.parentNode.insertBefore(draggableElement, dropzoneElement);
+      }
+      // tbody>tr>td>card
+      else if (dropzoneElement.parentNode.parentNode.parentNode == document.querySelector('#wahlliste tbody')) {
+        if (draggableElement.parentNode.parentNode.parentNode == document.querySelector('#wahlliste tbody')) {
+          draggableElement.parentNode.appendChild(dropzoneElement);
+          appendWahlliste(draggableElement);
+        }
+        else {
+          $("#projektliste").append($(dropzoneElement));
+          appendWahlliste(draggableElement);
+        }
+      }
+      dropzoneElement.classList.remove('drag-over');
+    }
+  }).draggable({
+    autoScroll: false,
+    onmove: function (event) {
+      var target = event.target,
+        // keep the dragged position in the data-x/data-y attributes
+        x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+        y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
 
-  // get target and currentTarget
-  var target = document.elementFromPoint(touch.clientX, touch.clientY); // currently pointing on
-  var currentTarget = findCurrentTarget(target); // super-positioned element the event is being applyed (projekt-cards, wahlliste, projektliste)
+      target.classList.add('dragged');
+      // translate the element
+      target.style.webkitTransform =
+      target.style.transform =
+        'translate(' + x + 'px, ' + y + 'px)';
 
-  // match corresponding drag-event
-  var type = getDragEvent(e.type);
-  if(type == null) return;
-  if(type == "dragstart" || type == "drop"){
-    // toggle ghost effect
-    $(card).toggleClass("ghost");
-  }
-  if(type == "drop") {
-    $(card).css({
-      "top": "",
-      "left": ""
-    });
-  }
+      // update the posiion attributes
+      target.setAttribute('data-x', x);
+      target.setAttribute('data-y', y);
+    },
+    onend: function (event) {
+      var target = event.target;
 
-  // set dragging Projekt-Card
-  var data = new DataTransfer();
-  data.setData("Text", card.id);
-  data.setDragImage(e.target, touch.clientX, touch.clientY);
+      target.classList.remove('dragged');
+      // translate the element
+      target.style.webkitTransform =
+      target.style.transform =
+        'translate(0px, 0px)';
 
-  // simulate dragging
-  var simulatedEvent = new DragEvent(type, {
-    "view": window,
-    "bubbles": true,
-    "cancelable": true,
-    "screenX": touch.screenX,
-    "screenY": touch.screenY,
-    "clientX": touch.clientX,
-    "clientY": touch.clientY,
-    "dataTransfer": data,
-    "currentTarget": currentTarget,
-    "target": target
+      // update the posiion attributes
+      target.removeAttribute('data-x');
+      target.removeAttribute('data-y');
+    }
   });
-
-  if(type == "drop") {
-    // dispatch event on the target
-    target.dispatchEvent(simulatedEvent);
-  }
-  else {
-    // dispatch the dragging on the card
-    card.dispatchEvent(simulatedEvent);
-  }
-  e.preventDefault();
 }
-
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
