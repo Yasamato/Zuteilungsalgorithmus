@@ -14,8 +14,7 @@
 }
 
 #projektliste {
-	overflow-y: scroll;
-	overflow-x: visible;
+	overflow-x: hidden;
 }
 
 #wahlliste {

@@ -202,8 +202,10 @@ function setupWahl() {
     overlap: 0.85,
     ondrop: function (event) {
       var draggableElement = event.relatedTarget,
-          dropzoneElement = event.target;
-      $("#projektliste").append($(draggableElement));
+        dropzoneElement = event.target;
+      if (draggableElement.parentNode != document.querySelector('#projektliste')) {
+        $("#projektliste").append($(draggableElement));
+      }
     }
   });
   interact('#wahlliste').dropzone({
@@ -260,7 +262,6 @@ function setupWahl() {
       dropzoneElement.classList.remove('drag-over');
     }
   }).draggable({
-    autoScroll: false,
     onmove: function (event) {
       var target = event.target,
         // keep the dragged position in the data-x/data-y attributes
