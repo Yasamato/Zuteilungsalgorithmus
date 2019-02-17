@@ -197,6 +197,7 @@ function setupWahl() {
   	}
   }
 
+  /* Doku hier: http://interactjs.io/ */
   interact('body').dropzone({
     accept: '.card.projekt',
     overlap: 0.85,

@@ -19,7 +19,7 @@
 	}
 
 	function getProjektInfo($id) {
-	  return dbSearch("../data/projekte.csv", "id", $id, true);
+	  return dbSearch("../data/projekte.csv", "id", $id, true)[0];
 	}
 
 	function checkBox($v) {
