@@ -13,6 +13,12 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "teachers") {
 					<p class="card-text">Lehrer - Portal</p>
 				</div>
         <div class="card-footer">
+          <small class="text-muted">
+            Um Projekte zu löschen, wenden Sie sich an den verwaltenden Administrator.
+            Nachdem die Wahlen begonnen haben oder die Einreich-Phase geschlossen wurde, können keine neuen Projekte eingereicht werden.
+            Auf Anfrage kann jedoch der Administrator jederzeit Projekte manuell hinzufügen.
+            Editierungen an bereits bestehenden Projekten können jederzeit von allen Lehrern vorgenommen werden.
+          </small>
           <div class="text-center">
             <div class="btn-group btn-group-toggle" data-toggle="buttons">
               <button type="button" class="btn btn-danger" onclick="logout()">
@@ -20,10 +26,13 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "teachers") {
               </button>
             </div>
         		<div class="btn-group btn-group-toggle" data-toggle="buttons">
-              <button onclick="javascript: window.open('printPDF.php?print=projekt&projekt=all');" type="button" class="btn btn-secondary">Liste drucken</button>
-        			<button type="button" class="btn btn-success" onclick="window.location.href = '?site=create';">
-                Reiche ein neues Projekt ein
-              </button>
+              <button onclick="javascript: window.open('printPDF.php?print=projekt&projekt=all');" type="button" class="btn btn-secondary">Projekte drucken</button>
+              <?php if ($config["Stage"] < 2) { ?>
+          			<button type="button" class="btn btn-success" onclick="window.location.href = '?site=create';">
+                  Reiche ein neues Projekt ein
+                </button>
+                <?php
+              } ?>
         		</div>
           </div>
         </div>
@@ -49,7 +58,7 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "teachers") {
           <div class="card-body">
             <h5 class="card-title"><?php echo count($klasse) > 0 ? count($klasse) : "0"; ?></h5>
             <p class="card-text">Person<?php echo count($klasse) == 1 ? "" : "en"; ?> aus Klasse <?php echo $key; ?> ha<?php echo count($klasse) == 1 ? "t" : "ben"; ?> bereits gewählt</p>
-            <button onclick="javascript: window.open('printPDF.php?print=students&klasse=<?php echo $key; ?>');" type="button" class="btn btn-secondary">Drucken</button>
+            <button onclick="javascript: window.open('printPDF.php?print=students&klasse=<?php echo $key; ?>');" type="button" class="btn btn-secondary">Liste Drucken</button>
           </div>
         </div><?php
       }

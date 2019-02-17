@@ -238,7 +238,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
 
           <div id="configurebuttons">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button onclick="javascript:function(){$('form#configForm').submit();}" type="submit" name="action" value="updateConfiguration" class="btn btn-primary">Speichere Änderungen</button>
+            <button onclick="javascript: $('form#configForm').submit();" type="submit" name="action" value="updateConfiguration" class="btn btn-primary">Speichere Änderungen</button>
           </div>
         </form>
       </div>
@@ -351,7 +351,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
               <td>
                 <ol>';
 
-              foreach (explode("§", $student["wahl"]) as $key => $wahl) {
+              foreach ($student["wahl"] as $key => $wahl) {
                 $p = null;
                 foreach ($projekte as $key => $projekt) {
                   if ($projekt["id"] == $wahl) {

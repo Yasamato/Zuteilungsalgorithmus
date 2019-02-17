@@ -1,5 +1,4 @@
 html, body {
-	height: 100%;
 	color: #ffffff;
 	background-color: darkgray;
 	background-image: url("/pictures/background.jpg");
@@ -19,7 +18,7 @@ body {
 	-webkit-box-align: baseline;
 	-webkit-box-pack: center;
 	justify-content: center;
-	padding-top: 40px;
+	padding-top: 10px;
 	padding-bottom: 40px;
 }
 
@@ -38,6 +37,7 @@ body {
 
 .modal {
 	overflow-y: scroll !important;
+	color: #fff;
 }
 
 .modal-lg {
