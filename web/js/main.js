@@ -206,6 +206,7 @@ function setupWahl() {
       if (draggableElement.parentNode != document.querySelector('#projektliste')) {
         $("#projektliste").append($(draggableElement));
       }
+      getInput();
     }
   });
   interact('#wahlliste').dropzone({
@@ -226,6 +227,7 @@ function setupWahl() {
           dropzoneElement = event.target;
       appendWahlliste(draggableElement);
       dropzoneElement.classList.remove('drop-active');
+      getInput();
     }
   });
   // -- Projekt-Cards
@@ -260,6 +262,7 @@ function setupWahl() {
         }
       }
       dropzoneElement.classList.remove('drag-over');
+      getInput();
     }
   }).draggable({
     onmove: function (event) {
