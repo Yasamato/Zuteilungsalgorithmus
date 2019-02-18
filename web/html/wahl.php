@@ -16,7 +16,7 @@
 					continue;
 				}
 			?>
-			<div class="card projekt list-group-item-dark p-3">
+			<div class="card projekt shadow list-group-item-dark p-3">
 				<input type="hidden" value="<?php echo $projekt["id"]; ?>">
 				<div class="card-body">
 					<h5><?php echo $projekt["name"]; ?></h5>
@@ -74,7 +74,7 @@
 						if (!empty($vorherigeWahl["wahl"])) {
 							$projekt = getProjektInfo($vorherigeWahl["wahl"][$i]);
 						?>
-						<div class="card projekt list-group-item-dark p-3">
+						<div class="card projekt shadow list-group-item-dark p-3">
 							<input type="hidden" value="<?php echo $projekt["id"]; ?>">
 							<div class="card-body">
 								<h5><?php echo $projekt["name"]; ?></h5>
