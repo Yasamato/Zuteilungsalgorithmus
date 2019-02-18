@@ -19,7 +19,12 @@
 	}
 
 	function getProjektInfo($id) {
-	  return dbSearch("../data/projekte.csv", "id", $id, true)[0];
+		$result = dbSearch("../data/projekte.csv", "id", $id, true);
+		if (!empty($result)) {
+	  	return $result[0];
+		}
+		error_log("Projekt mit der ID: " . $id . " konnte nicht gefunden werden");
+		return null;
 	}
 
 	function checkBox($v) {

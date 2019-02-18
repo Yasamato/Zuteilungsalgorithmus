@@ -114,15 +114,13 @@ function setupClosedModal() {
 
 function getInput() {
 	console.log("counting choosen projekts");
-	var wahl = [];
 	for (var i = 0; i < $("#wahlliste tbody>tr").length; i++) {
-		if ($("#wahl" + i + ">td").children().length == 0) {
-			if ($(".btn-group").children().length > 1) {
-				$($(".btn-group").children()[1]).remove();
-			}
-			return;
+		if ($("#wahlliste tbody>tr")[i].children[1].children.length == 0) {
+      if ($(".btn-group").children().length > 1) {
+			     $($(".btn-group").children()[1]).remove();
+      }
+      return;
 		}
-		wahl.push($($("#wahl" + i + ">td").children()[0]));
 	}
 	if ($(".btn-group").children().length < 2) {
 		$(".btn-group").append($("<button class='btn btn-success' name='action' value='wahl'>Wahl abschicken</button>").on("click", function(e){
@@ -139,11 +137,11 @@ function getInput() {
 }
 
 function appendWahlliste(card) {
-	for(var i = $("#wahlliste tbody>tr").length - 1; i >= 0; i--) {
-		if($("#wahl" + i + ">td").children().length == 0) {
-			$("#wahl" + i + ">td").append($(card));
+  $($("#wahlliste tbody>tr").get().reverse()).each(function (index, value) {
+		if (value.children[1].children.length == 0) {
+			$(value.children[1]).append($(card));
 		}
-	}
+  });
 }
 
 function setupWahl() {

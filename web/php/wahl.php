@@ -5,7 +5,7 @@ if (isLogin()) {// hard gecoded für präsi
 		$valid = true;
 		foreach ($_POST['wahl'] as $p) {
 			$projekt = getProjektInfo($p);
-			if ($projekt['minKlasse'] > $_SESSION['benutzer']['stufe'] && $projekt['maxKlasse'] < $_SESSION['benutzer']['stufe']) {
+			if (empty($projekt) || $projekt['minKlasse'] > $_SESSION['benutzer']['stufe'] && $projekt['maxKlasse'] < $_SESSION['benutzer']['stufe']) {
 				$valid = false;
 			}
 		}
