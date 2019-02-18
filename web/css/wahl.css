@@ -10,6 +10,7 @@
 	border-color: #098C38;
 }
 .card.projekt.dragged {
+	z-index: 100;
 	border-color: #DC3545;
 }
 

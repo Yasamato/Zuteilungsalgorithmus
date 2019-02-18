@@ -4,7 +4,6 @@ window.onload = function() {
   console.log("Page: " + site);
   switch(site) {
     case "wahl": return setupWahl();
-    case "dashboard": return setupDashboard();
     case "closed": return setupClosedModal();
     default: return;
   }
@@ -108,34 +107,6 @@ function setupClosedModal() {
 	$("#okbtn").on("click", function() {
 		window.location.href = "/";
 	});
-}
-
-// Dashboard-Interface
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function createStageSelect(currentStage) {
-	var stages = [
-		'<option value="0">#1 Nicht veröffentlicht</option>',
-		'<option value="1">#2 Projekte können eingereicht werden</option>',
-		'<option value="2">#3 Projekt-Einreichung geschlossen</option>',
-		'<option value="3">#4 Wahl-Interface geöffnet</option>',
-		'<option value="4">#5 Wahlen abgeschlossen</option>'
-	];
-	$("#stageSelect").append($(stages[currentStage]));
-	for (var i = 0; i < 5; i++) {
-		if (i == config["Stage"]) {
-			continue;
-		}
-		$("#stageSelect").append($(stages[i]));
-	}
-}
-
-function setupDashboard() {
-	console.log("Current Configuration:");
-  console.log(config);
-  console.log(projekte);
-
-	// formular setup
-	createStageSelect(config["Stage"]);
 }
 
 // Wahl-Interface

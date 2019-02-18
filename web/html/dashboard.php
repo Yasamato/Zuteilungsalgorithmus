@@ -70,7 +70,24 @@ foreach (dbRead("../data/projekte.csv") as $p) {
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">Aktuelle Phase:</label>
             <div class="col-sm-10">
-              <select class="form-control" name="stage" id="stageSelect" aria-describedby="stageHelper"></select>
+              <select class="form-control" name="stage" id="stageSelect" aria-describedby="stageHelper">
+                <?php
+              	$stages = [
+              		'<option value="0">#1 Nicht veröffentlicht</option>',
+              		'<option value="1">#2 Projekte können eingereicht werden</option>',
+              		'<option value="2">#3 Projekt-Einreichung geschlossen</option>',
+              		'<option value="3">#4 Wahl-Interface geöffnet</option>',
+              		'<option value="4">#5 Wahlen abgeschlossen</option>'
+              	];
+              	echo $stages[$config["Stage"]];
+              	for ($i = 0; $i < 5; $i++) {
+              		if ($i == $config["Stage"]) {
+              			continue;
+              		}
+              		echo $stages[$i];
+              	}
+                ?>
+              </select>
             </div>
           </div>
           <small id="stageHelper" class="form-text text-muted">
