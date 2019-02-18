@@ -4,7 +4,7 @@
 			<?php
 			foreach ($projekte as $key => $projekt) {
 			?>
-			<div class="card projekt list-group-item-dark p-3" id="drag<?php echo $key; ?>">
+			<div class="card projekt list-group-item-dark p-3">
 				<input type="hidden" value="<?php echo $key; ?>">
 				<div class="card-body">
 					<h5><?php echo $projekt["name"]; ?></h5>

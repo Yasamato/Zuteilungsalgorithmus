@@ -115,7 +115,7 @@ function setupClosedModal() {
 // x = anzahl Schüler / Anzahl Plätze
 function calcAnzahlProjekte(students, platz, anzahlProjekte) {
 	var x = students / platz;
-	if(x < 0.6) return 4;
+	if (x < 0.6) return 4;
 	var t = (75.4745 * Math.pow(x, 4) - 223.148 * Math.pow(x, 3) + 246.143 * Math.pow(x, 2) - 119.873 * x + 21.8101) * anzahlProjekte;
 	console.log("Schüler: " + students + " / Plätze: " + platz + " = " + x);
 	console.log("f(" + x + ") = " + t);
@@ -123,7 +123,7 @@ function calcAnzahlProjekte(students, platz, anzahlProjekte) {
 }
 
 function createWahlTable(projektAnzahl) {
-	for(var i = 0; i < projektAnzahl; i++){
+	for (var i = 0; i < projektAnzahl; i++) {
 		$("#wahlliste tbody").append("<tr id='wahl" + i + "'><th scope='row'>" + (i + 1) + "</th><td></td></tr>");
 	}
 }
@@ -131,21 +131,19 @@ function createWahlTable(projektAnzahl) {
 function getInput() {
 	console.log("counting choosen projekts");
 	var wahl = [];
-	for(var i = 0; i < $("#wahlliste tbody>tr").length; i++) {
-		if($("#wahl" + i + ">td").children().length == 0) {
-			if($(".btn-group").children().length > 1) {
-				$($(".btn-group").children()[2]).remove();
+	for (var i = 0; i < $("#wahlliste tbody>tr").length; i++) {
+		if ($("#wahl" + i + ">td").children().length == 0) {
+			if ($(".btn-group").children().length > 1) {
+				$($(".btn-group").children()[1]).remove();
 			}
 			return;
 		}
-		else {
-			wahl.push($($("#wahl" + i + ">td").children()[0]));
-		}
+		wahl.push($($("#wahl" + i + ">td").children()[0]));
 	}
-	if($(".btn-group").children().length < 2) {
+	if ($(".btn-group").children().length < 2) {
 		$(".btn-group").append($("<button class='btn btn-success' name='action' value='wahl'>Wahl abschicken</button>").on("click", function(e){
 			$("#wahlliste>form").empty();
-			for(var i = 0; i < wahl.length; i++) {
+			for (var i = 0; i < wahl.length; i++) {
 				$("#wahlliste>form").append($("<input type='hidden' name='wahl[" + i + "]'>").val($(wahl[i].children()[0]).val()));
 				console.log("input angehängt");
 			}
