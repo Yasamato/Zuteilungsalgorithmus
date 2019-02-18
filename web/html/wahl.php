@@ -33,6 +33,28 @@
     			</tr>
     		</thead>
     		<tbody>
+					<?php
+					// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+					// Das ist sogar important!
+					// x = anzahl Schüler / Anzahl Plätze
+					function calcAnzahlProjekte($students, $platz, $anzahlProjekte) {
+						$x = $students / $platz;
+						if ($x < 0.6) return 4;
+						$t = (75.4745 * pow($x, 4) - 223.148 * pow($x, 3) + 246.143 * pow($x, 2) - 119.873 * $x + 21.8101) * $anzahlProjekte;
+						return ($t < 4 ? 4 : $t);
+					}
+
+					$platz = 0;
+					$anzahlProjekte = 0;
+					foreach (dbRead("../data/projekte.csv") as $projekt) {
+						$platz += $projekt["maxPlatz"];
+						$anzahlProjekte += 1;
+					}
+
+					for ($i = 0; $i < calcAnzahlProjekte($config["Schüleranzahl"], $platz, $anzahlProjekte); $i++) {
+						echo "<tr><th>" . ($i + 1) . "</th><td></td></tr>";
+					}
+					?>
     		</tbody>
     	</table>
 		</div>
