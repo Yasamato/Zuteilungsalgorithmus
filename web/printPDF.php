@@ -12,7 +12,7 @@
   class printPDF extends TCPDF {
     // Breite: 297mm - 2cm margin => 277mm zum Arbeiten
     function printProjekt($projekt) {
-      $this->AddPage();
+      $this->AddPage("L", "A4");
       $this->setCellHeightRatio(1.1);
       $this->ln(13);
 
@@ -170,7 +170,7 @@
 
 		function printKlasse($klasse, $studentlist) {
 			array_multisort(array_column($studentlist, "nachname"), SORT_ASC, $studentlist);
-      $this->AddPage();
+      $this->AddPage("P", "A4");
       $this->setCellHeightRatio(1.1);
       $this->ln(13);
 
@@ -250,11 +250,43 @@
 	  $pdf = new printPDF('L', 'mm', 'A4');
 		$pdf->SetCreator(PDF_CREATOR);
 		$pdf->SetAuthor('Lise-Meitner-Gymnasium Maxdorf G8GTS');
+
+		$klassen = [];
+		foreach (dbRead("../data/wahl.csv") as $key => $student) {
+			if (empty($klassen[$student["klasse"]])) {
+				$klassen[$student["klasse"]] = [$student];
+			}
+			else {
+				array_push($klassen[$student["klasse"]], $student);
+			}
+		}
+		ksort($klassen);
+		$bereitsAusgewertet = false;
+		foreach (dbRead("../data/wahl.csv") as $key => $student) {
+			if (!empty($student["ergebnis"])) {
+				$bereitsAusgewertet = true;
+			}
+			elseif ($bereitsAusgewertet) {
+				error_log("Die Wahltabelle wurde nur teilweise ausgewertet!! Etwas ist schief gelaufen");
+				$bereitsAusgewertet = false;
+				break;
+			}
+		}
+
     if ($_GET['projekt'] == "all") {
 			$pdf->SetTitle("Projektwoche " . date("Y") . " - Projektliste");
 			$pdf->SetSubject('Projektliste');
       foreach (dbRead("../data/projekte.csv") as $projekt) {
         $pdf->printProjekt($projekt);
+				if ($bereitsAusgewertet) {
+					$teilnehmer = [];
+					foreach (dbRead("../data/wahl.csv") as $key => $student) {
+						if ($student["ergebnis"] == $projekt["id"]) {
+							array_push($teilnehmer, $student);
+						}
+					}
+					$pdf->printKlasse("Teilnehmer " . $projekt["name"], $teilnehmer);
+				}
       }
     }
     else {
@@ -262,6 +294,15 @@
 			$pdf->SetTitle("Projektwoche " . date("Y") . " - Projekt " . $projekt["name"]);
 			$pdf->SetSubject("Projekt " . $projekt["name"]);
       $pdf->printProjekt($projekt);
+			if ($bereitsAusgewertet) {
+				$teilnehmer = [];
+				foreach (dbRead("../data/wahl.csv") as $key => $student) {
+					if ($student["ergebnis"] == $projekt["id"]) {
+						array_push($teilnehmer, $student);
+					}
+				}
+				$pdf->printKlasse("Teilnehmer " . $projekt["name"], $teilnehmer);
+			}
     }
   }
   elseif (!empty($_GET["print"]) && $_GET["print"] == "students") {
