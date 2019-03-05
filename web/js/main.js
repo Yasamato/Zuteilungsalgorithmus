@@ -4,7 +4,6 @@ window.onload = function() {
   console.log("Page: " + site);
   switch(site) {
     case "wahl": return setupWahl();
-    case "dashboard": return setupDashboard();
     case "closed": return setupClosedModal();
     default: return;
   }
@@ -110,74 +109,26 @@ function setupClosedModal() {
 	});
 }
 
-// Dashboard-Interface
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function createStageSelect(currentStage) {
-	var stages = [
-		'<option value="0">#1 Nicht veröffentlicht</option>',
-		'<option value="1">#2 Projekte können eingereicht werden</option>',
-		'<option value="2">#3 Projekt-Einreichung geschlossen</option>',
-		'<option value="3">#4 Wahl-Interface geöffnet</option>',
-		'<option value="4">#5 Wahlen abgeschlossen</option>'
-	];
-	$("#stageSelect").append($(stages[currentStage]));
-	for (var i = 0; i < 5; i++) {
-		if (i == config["Stage"]) {
-			continue;
-		}
-		$("#stageSelect").append($(stages[i]));
-	}
-}
-
-function setupDashboard() {
-	console.log("Current Configuration:");
-  console.log(config);
-  console.log(projekte);
-
-	// formular setup
-	createStageSelect(config["Stage"]);
-}
-
 // Wahl-Interface
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// x = anzahl Schüler / Anzahl Plätze
-function calcAnzahlProjekte(students, platz, anzahlProjekte) {
-	var x = students / platz;
-	if(x < 0.6) return 4;
-	var t = (75.4745 * Math.pow(x, 4) - 223.148 * Math.pow(x, 3) + 246.143 * Math.pow(x, 2) - 119.873 * x + 21.8101) * anzahlProjekte;
-	console.log("Schüler: " + students + " / Plätze: " + platz + " = " + x);
-	console.log("f(" + x + ") = " + t);
-	return (t < 4 ? 4 : t);
-}
-
-function createWahlTable(projektAnzahl) {
-	for(var i = 0; i < projektAnzahl; i++){
-		$("#wahlliste tbody").append("<tr id='wahl" + i + "'><th scope='row'>" + (i + 1) + "</th><td></td></tr>");
-	}
-}
-
 function getInput() {
 	console.log("counting choosen projekts");
-	var wahl = [];
-	for(var i = 0; i < $("#wahlliste tbody>tr").length; i++) {
-		if($("#wahl" + i + ">td").children().length == 0) {
-			if($(".btn-group").children().length > 1) {
-				$($(".btn-group").children()[2]).remove();
-			}
-			return;
-		}
-		else {
-			wahl.push($($("#wahl" + i + ">td").children()[0]));
+	for (var i = 0; i < $("#wahlliste tbody>tr").length; i++) {
+		if ($("#wahlliste tbody>tr")[i].children[1].children.length == 0) {
+      if ($(".btn-group").children().length > 1) {
+			     $($(".btn-group").children()[1]).remove();
+      }
+      return;
 		}
 	}
-	if($(".btn-group").children().length < 2) {
+	if ($(".btn-group").children().length < 2) {
 		$(".btn-group").append($("<button class='btn btn-success' name='action' value='wahl'>Wahl abschicken</button>").on("click", function(e){
 			$("#wahlliste>form").empty();
-			for(var i = 0; i < wahl.length; i++) {
-				$("#wahlliste>form").append($("<input type='hidden' name='wahl[" + i + "]'>").val($(wahl[i].children()[0]).val()));
-				console.log("input angehängt");
-			}
+      $("#wahlliste tbody>tr").each(function (index, wahl) {
+				$("#wahlliste>form").append($("<input type='hidden' name='wahl[" + index + "]'>").val(wahl.children[1].children[0].children[0].value));
+				console.log("Wahl Nr. " + index + " angehängt");
+      })
 			$("#wahlliste>form").append($("<input type='hidden' name='action'>").val("wahl"));
 			$("#wahlliste>form").submit();
 		}));
@@ -185,18 +136,16 @@ function getInput() {
 	return;
 }
 
+function appendWahlliste(card) {
+  $($("#wahlliste tbody>tr").get().reverse()).each(function (index, value) {
+		if (value.children[1].children.length == 0) {
+			$(value.children[1]).append($(card));
+		}
+  });
+}
+
 function setupWahl() {
-	// html creation
-	createWahlTable(calcAnzahlProjekte(50, 70, 20));
-
-  function appendWahlliste(card) {
-  	for(var i = $("#wahlliste tbody>tr").length - 1; i >= 0; i--) {
-  		if($("#wahl" + i + ">td").children().length == 0) {
-  			$("#wahl" + i + ">td").append($(card));
-  		}
-  	}
-  }
-
+  /* Doku hier: http://interactjs.io/ */
   interact('body').dropzone({
     accept: '.card.projekt',
     overlap: 0.85,
@@ -206,6 +155,7 @@ function setupWahl() {
       if (draggableElement.parentNode != document.querySelector('#projektliste')) {
         $("#projektliste").append($(draggableElement));
       }
+      getInput();
     }
   });
   interact('#wahlliste').dropzone({
@@ -226,6 +176,7 @@ function setupWahl() {
           dropzoneElement = event.target;
       appendWahlliste(draggableElement);
       dropzoneElement.classList.remove('drop-active');
+      getInput();
     }
   });
   // -- Projekt-Cards
@@ -260,6 +211,7 @@ function setupWahl() {
         }
       }
       dropzoneElement.classList.remove('drag-over');
+      getInput();
     }
   }).draggable({
     onmove: function (event) {
