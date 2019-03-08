@@ -428,7 +428,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
 <div class="container-fluid">
   <div class="row">
   <!-- Spalte 1 -->
-    <div class="col-12 col-lg-4 col-xl-4" id="row1">
+    <div class="col-12 col-md-6 col-lg-4" id="row1">
       <div class="card-columns">
 
     		<div class="card text-white bg-dark p-3">
@@ -503,35 +503,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
     </div>
 
     <!-- Spalte 2 -->
-    <div class="col-12 col-lg-4 col-xl-4" id="row2">
-      <div class="card-columns">
-        <?php
-        if (empty($klassen)) {
-          ?>
-      		<div class="card text-white bg-dark p-3">
-      			<div class="card-body">
-      				<h5 class="card-title">Niemand</h5>
-      				<p class="card-text">hat bereits gewählt, hier würden alle Klassen aufgelistet werden von denen bereits Schüler gewählt haben.</p>
-      			</div>
-      		</div><?php
-        }
-        foreach ($klassen as $key => $klasse) {
-          ?>
-      		<div class="card text-white bg-dark p-3">
-      			<div class="card-body">
-      				<h5 class="card-title"><?php echo count($klasse) > 0 ? count($klasse) : "0"; ?></h5>
-      				<p class="card-text">Person<?php echo count($klasse) == 1 ? "" : "en"; ?> aus Klasse <?php echo $key; ?> ha<?php echo count($klasse) == 1 ? "t" : "ben"; ?> bereits gewählt</p>
-              <button onclick="javascript: window.open('printPDF.php?print=students&klasse=<?php echo $key; ?>');" type="button" class="btn btn-secondary">Drucken</button>
-      			</div>
-      		</div><?php
-        }
-        ?>
-
-      </div>
-    </div>
-
-    <!-- Spalte 3 -->
-    <div class="col-12 col-lg-4 col-xl-4" id="row3">
+    <div class="col-12 col-md-6 col-lg-8" id="row2">
     	<div class="card-columns">
 
     		<div class="card text-white bg-dark p-3">
@@ -585,6 +557,31 @@ foreach (dbRead("../data/projekte.csv") as $p) {
 
     	</div>
     </div>
+  </div>
+
+  <div class="card-columns" id="subrow">
+    <?php
+    if (empty($klassen)) {
+      ?>
+      <div class="card text-white bg-dark p-3">
+        <div class="card-body">
+          <h5 class="card-title">Niemand</h5>
+          <p class="card-text">hat bereits gewählt, hier würden alle Klassen aufgelistet werden von denen bereits Schüler gewählt haben.</p>
+        </div>
+      </div><?php
+    }
+    foreach ($klassen as $key => $klasse) {
+      ?>
+      <div class="card text-white bg-dark p-3">
+        <div class="card-body">
+          <h5 class="card-title"><?php echo count($klasse) > 0 ? count($klasse) : "0"; ?></h5>
+          <p class="card-text">Person<?php echo count($klasse) == 1 ? "" : "en"; ?> aus Klasse <?php echo $key; ?> ha<?php echo count($klasse) == 1 ? "t" : "ben"; ?> bereits gewählt</p>
+          <button onclick="javascript: window.open('printPDF.php?print=students&klasse=<?php echo $key; ?>');" type="button" class="btn btn-secondary">Drucken</button>
+        </div>
+      </div><?php
+    }
+    ?>
+
   </div>
 
 </div>

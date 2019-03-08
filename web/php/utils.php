@@ -134,4 +134,25 @@
 			"ergebnis"
 		]);
 	}
+
+	if (!file_exists("../data/zwangszuteilung.csv")) {
+		// define the header of the columns in the first row
+		dbCreateFile("../data/zwangszuteilung.csv", [
+			"uid",
+			"vorname",
+			"nachname",
+			"stufe",
+			"klasse",
+			"ergebnis"
+		]);
+	}
+
+	if (!file_exists("../data/klassen.csv")) {
+		// define the header of the columns in the first row
+		dbCreateFile("../data/klassen.csv", [
+			"stufe",
+			"klasse",
+			"schüler"
+		]);
+	}
 ?>

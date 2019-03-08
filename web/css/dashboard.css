@@ -5,22 +5,37 @@
 	#row1 .card-columns {
 		column-count: 2;
 	}
-	#row2 .card-columns, #row3 .card-columns {
+	#row2 .card-columns {
+		column-count: 2;
+	}
+	#subrow {
 		column-count: 2;
 	}
 }
 @media (min-width: 768px) {
-	#row2 .card-columns, #row3 .card-columns {
+	#row1 .card-columns, #row2 .card-columns {
+		column-count: 1;
+	}
+	#subrow {
 		column-count: 3;
 	}
 }
 @media (min-width: 992px) {
-	#row1 .card-columns, #row2 .card-columns, #row3 .card-columns {
+	#row1 .card-columns {
 		column-count: 1;
+	}
+	#row2 .card-columns {
+		column-count: 2;
+	}
+	#subrow {
+		column-count: 4;
 	}
 }
 @media (min-width: 1200px) {
-	#row2 .card-columns, #row3 .card-columns {
-		column-count: 2;
+	#row2 .card-columns {
+		column-count: 3;
+	}
+	#subrow {
+		column-count: 5;
 	}
 }
