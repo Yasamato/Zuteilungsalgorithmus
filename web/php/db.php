@@ -38,6 +38,7 @@
 			error_log("Die Datei " . $path . " konnte nicht angelegt werden");
 			die("Datei: " . $file . " konnte nicht angelegt werden, kontaktiere einen Admin damit dieser die Zugriffsberechtigungen überprüfen kann");
 		}
+		return true;
 	}
 
 	// hängt einen Eintrag ans Ende der Datei
@@ -125,7 +126,7 @@
 	}
 
 	// durchsucht die Datei nach passenden Datensätze
-	function dbSearch($path, $search, $searchNeedle, $strict = false){
+	function dbSearch($path, $search, $searchNeedle, $strict = false) {
 		$data = dbRead($path);
 		$found = [];
 		foreach ($data as $entry) {

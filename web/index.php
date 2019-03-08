@@ -13,10 +13,6 @@
 		<meta name="author" content="Fabian von der Warth">
 		<meta name="author" content="Jonas Dalchow">
 		<meta name="author" content="Leon Selig">
-		<!-- Credits:
-
-
-		-->
 
 		<meta name="description" content="Wahlseite der LMG8-Schule von Maxdorf">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
