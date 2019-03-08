@@ -51,7 +51,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
 }
 ?>
 <!-- Einstellungs-Modal -->
-<div class="modal fade bd-example-modal-lg1" id="configModal" tabindex="-1" role="dialog" aria-labelledby="configModalLabel" aria-hidden="true">
+<div class="modal fade" id="configModal" tabindex="-1" role="dialog" aria-labelledby="configModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content bg-dark">
 
@@ -265,7 +265,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
 </div>
 
 <!-- Projekte-Modal -->
-<div class="modal fade bd-example-modal-lg1" id="projekteModal" tabindex="-1" role="dialog" aria-labelledby="projekteModalLabel" aria-hidden="true">
+<div class="modal fade" id="projekteModal" tabindex="-1" role="dialog" aria-labelledby="projekteModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content bg-dark">
 
@@ -321,7 +321,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
 </div>
 
 <!-- Schüler-Modal -->
-<div class="modal fade bd-example-modal-lg1" id="schuelerModal" tabindex="-1" role="dialog" aria-labelledby="schuelerModalLabel" aria-hidden="true">
+<div class="modal fade" id="schuelerModal" tabindex="-1" role="dialog" aria-labelledby="schuelerModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content bg-dark">
 
@@ -423,6 +423,83 @@ foreach (dbRead("../data/projekte.csv") as $p) {
   </div>
 </div>
 
+<!-- Klassenauflistung-Modal -->
+<div class="modal fade" id="studentsInKlassen" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content bg-dark">
+      <form id="studentsInKlassenForm" method="post">
+
+      <div class="modal-header">
+        <h4 class="modal-title">Schüleranzahl in den Klassen</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span class="closebutton" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <table class="table table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th>Stufe</th>
+              <th>Klasse</th>
+              <th>Schüleranzahl</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            $studentsInKlassen = dbRead("../data/klassen.csv");
+        		array_multisort(array_column($studentsInKlassen, "klasse"), SORT_ASC, $studentsInKlassen);
+            foreach ($studentsInKlassen as $klasse) {
+              ?>
+            <tr>
+              <td>
+                <input type="text" class="form-control" placeholder="Bsp: 5" aria-label="Stufe" value="<?php echo $klasse['stufe']; ?>" name="stufe[]">
+              </td>
+              <td>
+                <input type="text" class="form-control" placeholder="Bsp: 5a" aria-label="Klasse" value="<?php echo $klasse['klasse']; ?>" name="klasse[]">
+              </td>
+              <td>
+                <input type="number" class="form-control" placeholder="0" aria-label="Schüleranzahl" value="<?php echo $klasse['schüler']; ?>" name="anzahl[]">
+              </td>
+            </tr>
+            <?php
+            }
+            ?>
+          </tbody>
+        </table>
+
+        <script>
+          function addStudentsInKlassenInput() {
+            //var node = document.querySelector('#studentsInKlassen tbody');
+            $("#studentsInKlassen tbody").append($(`
+            <tr>
+              <td>
+                <input type="text" class="form-control" placeholder="Bsp: 5" aria-label="Stufe" name="stufe[]">
+              </td>
+              <td>
+                <input type="text" class="form-control" placeholder="Bsp: 5a" aria-label="Klasse" name="klasse[]">
+              </td>
+              <td>
+                <input type="number" class="form-control" placeholder="0" aria-label="Schüleranzahl" name="anzahl[]">
+              </td>
+            </tr>`));
+          }
+          addStudentsInKlassenInput();
+        </script>
+        <button onclick="javascript: addStudentsInKlassenInput();" type="button" class="btn btn-success">Klasse hinzufügen</button>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button onclick="javascript: $('form#studentsInKlassenForm').submit();" type="submit" name="action" value="updateStudentsInKlassen" class="btn btn-primary">Speichere Änderungen</button>
+      </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+
 
 
 <div class="container-fluid">
@@ -437,16 +514,14 @@ foreach (dbRead("../data/projekte.csv") as $p) {
     				<p class="card-text">Übersicht über die Projektwahl-Datenbank</p>
     			</div>
           <div class="card-footer">
-            <div class="text-center">
-          		<div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <button type="button" class="btn btn-danger" onclick="logout()">
-                  Abmelden
-                </button>
-            		<!-- Button trigger modal -->
-            		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#configModal">
-            			Konfiguration
-            		</button>
-          		</div>
+        		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <button type="button" class="btn btn-danger" onclick="logout()">
+                Abmelden
+              </button>
+          		<!-- Button trigger modal -->
+          		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#configModal">
+          			Konfiguration
+          		</button>
             </div>
           </div>
     		</div>
@@ -470,17 +545,20 @@ foreach (dbRead("../data/projekte.csv") as $p) {
     			<div class="card-body">
     				<h5 class="card-title"><?php echo count($projekte); ?></h5>
     				<p class="card-text">Projekt<?php echo count($projekte) == 1 ? " wurde" : "e wurden"; ?> eingereicht</p>
-        		<!-- Button trigger modal -->
+    			</div>
+
+          <div class="card-footer">
+            <!-- Button trigger modal -->
             <div class="btn-group btn-group-toggle" data-toggle="buttons">
               <button onclick="javascript: window.open('printPDF.php?print=projekt&projekt=all');" type="button" class="btn btn-secondary">Drucken</button>
-          		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#projekteModal">
-          			Auflisten
-          		</button>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#projekteModal">
+                Auflisten
+              </button>
             </div>
             <button type="button" class="btn btn-success" onclick="window.location.href = '?site=create';">
               Neues Projekt erstellen
             </button>
-    			</div>
+          </div>
     		</div>
 
     		<div class="card text-white bg-dark p-3">
@@ -489,14 +567,17 @@ foreach (dbRead("../data/projekte.csv") as $p) {
     	  				<?php echo count($wahlen); ?> von <?php echo $config["Schüleranzahl"]; ?>
     				</h5>
     				<p class="card-text">Schüler haben schon gewählt</p>
+    			</div>
+
+          <div class="card-footer">
             <!-- Button trigger modal -->
             <div class="btn-group btn-group-toggle" data-toggle="buttons">
               <button onclick="javascript: window.open('printPDF.php?print=students&klasse=all');" type="button" class="btn btn-secondary">Drucken</button>
-          		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#schuelerModal">
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#schuelerModal">
                 Auflisten
               </button>
             </div>
-    			</div>
+          </div>
     		</div>
 
       </div>
@@ -559,28 +640,33 @@ foreach (dbRead("../data/projekte.csv") as $p) {
     </div>
   </div>
 
+  <!-- Klassenauflistung -->
   <div class="card-columns" id="subrow">
-    <?php
-    if (empty($klassen)) {
-      ?>
-      <div class="card text-white bg-dark p-3">
-        <div class="card-body">
-          <h5 class="card-title">Niemand</h5>
-          <p class="card-text">hat bereits gewählt, hier würden alle Klassen aufgelistet werden von denen bereits Schüler gewählt haben.</p>
-        </div>
-      </div><?php
-    }
-    else {
-      foreach ($klassen as $key => $klasse) {
-      ?>
-      <div class="card text-white bg-dark p-3">
-        <div class="card-body">
-          <h5 class="card-title"><?php echo count($klasse) > 0 ? count($klasse) : "0"; ?></h5>
-          <p class="card-text">Person<?php echo count($klasse) == 1 ? "" : "en"; ?> aus Klasse <?php echo $key; ?> ha<?php echo count($klasse) == 1 ? "t" : "ben"; ?> bereits gewählt</p>
-          <button onclick="javascript: window.open('printPDF.php?print=students&klasse=<?php echo $key; ?>');" type="button" class="btn btn-secondary">Drucken</button>
-        </div>
-      </div><?php
-      }
+    <div class="card text-white bg-dark p-3">
+      <div class="card-body">
+        <h5 class="card-title">Niemand</h5>
+        <p class="card-text">hat bereits gewählt, hier würden alle Klassen aufgelistet werden von denen bereits Schüler gewählt haben.</p>
+      </div>
+
+      <div class="card-footer">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#studentsInKlassen">
+          Einstellung
+        </button>
+      </div>
+    </div><?php
+    foreach ($klassen as $key => $klasse) {
+    ?>
+    <div class="card text-white bg-dark p-3">
+      <div class="card-body">
+        <h5 class="card-title"><?php echo count($klasse) > 0 ? count($klasse) : "0"; ?></h5>
+        <p class="card-text">Person<?php echo count($klasse) == 1 ? "" : "en"; ?> aus Klasse <?php echo $key; ?> ha<?php echo count($klasse) == 1 ? "t" : "ben"; ?> bereits gewählt</p>
+      </div>
+
+      <div class="card-footer">
+        <button onclick="javascript: window.open('printPDF.php?print=students&klasse=<?php echo $key; ?>');" type="button" class="btn btn-secondary">Drucken</button>
+      </div>
+    </div><?php
     }
     ?>
 
