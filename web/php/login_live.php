@@ -41,21 +41,27 @@
 		if ($loginResult) {
 			// extrahiere die Accountinformationen
 			$path = explode("/", $loginResult['homedirectory'][0]);
-			if ($path[2] != "students") {
-				$klasse = "";
-				$stufe = "";
-			}
-			else {
-				$klasse = $path[3];
-				$stufe = "";
-				for ($i = 0; $i < count($path); $i++) {
-					if (is_numeric($path[3][$i])) {
-						if ($path[3][$i] != "0") {
-							$stufe .= $path[3][$i];
+			switch ($path[2]) {
+				case "students":
+					$klasse = $path[3];
+					$stufe = "";
+					for ($i = 0; $i < count($path); $i++) {
+						if (is_numeric($path[3][$i])) {
+							if ($path[3][$i] != "0") {
+								$stufe .= $path[3][$i];
+							}
 						}
 					}
-				}
+					break;
+				case "teachers":
+					$klasse = "";
+					$stufe = "";
+					break;
+				default:
+					die("Unbekannter Login-typ: " . $path[2] . "\n<br>Falls dies doch ein gültiger Typ sein sollte, tragen sie dies als Admin in der Datei web/php/login_live.php als Fall ein");
+					break;
 			}
+
 			//speichern in der session
 			$_SESSION['benutzer'] = [
 				"uid" => $loginResult['uid'][0],

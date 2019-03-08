@@ -570,7 +570,8 @@ foreach (dbRead("../data/projekte.csv") as $p) {
         </div>
       </div><?php
     }
-    foreach ($klassen as $key => $klasse) {
+    else {
+      foreach ($klassen as $key => $klasse) {
       ?>
       <div class="card text-white bg-dark p-3">
         <div class="card-body">
@@ -579,6 +580,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
           <button onclick="javascript: window.open('printPDF.php?print=students&klasse=<?php echo $key; ?>');" type="button" class="btn btn-secondary">Drucken</button>
         </div>
       </div><?php
+      }
     }
     ?>
 
