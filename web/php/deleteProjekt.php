@@ -28,7 +28,7 @@ if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
         }
       }
       else {
-        error_log("Es ist ein unerwartetes Problem aufgetreten beim Löschen des Projekts mit der ID " . $_POST["projekt"]);
+        error_log("Löschen des Projekts mit der ID " . $_POST["projekt"] . " fehlgeschlagen.");
         alert("Es ist ein unerwartetes Problem aufgetreten beim Löschen des Projekts mit der ID " . $_POST["projekt"]);
       }
     }

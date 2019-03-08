@@ -81,90 +81,57 @@
       $h = 20;
       $this->SetFont('freeserif', 'B', 10);
       $this->Cell(27, 0, "Vormittag");
-      $this->Line(10, $y, 10, $y + $h);
-      $this->Line(10, $y + $h, 37, $y + $h);
-      $this->Line(37, $y, 37, $y + $h);
       $this->SetFont('freeserif', '', 10);
       $this->writeHTMLCell(50, 0, 37, $y, $projekt["moVor"]);
-      $this->Line(37, $y, 37, $y + $h);
-      $this->Line(37, $y + $h, 87, $y + $h);
-      $this->Line(87, $y, 87, $y + $h);
       $this->writeHTMLCell(50, 0, 87, $y, $projekt["diVor"]);
-      $this->Line(87, $y, 87, $y + $h);
-      $this->Line(87, $y + $h, 137, $y + $h);
-      $this->Line(137, $y, 137, $y + $h);
       $this->writeHTMLCell(50, 0, 137, $y, $projekt["miVor"]);
-      $this->Line(137, $y, 137, $y + $h);
-      $this->Line(137, $y + $h, 187, $y + $h);
-      $this->Line(187, $y, 187, $y + $h);
       $this->writeHTMLCell(50, 0, 187, $y, $projekt["doVor"]);
-      $this->Line(187, $y, 187, $y + $h);
-      $this->Line(187, $y + $h, 237, $y + $h);
-      $this->Line(237, $y, 237, $y + $h);
       $this->writeHTMLCell(50, 0, 237, $y, $projekt["frVor"]);
-      $this->Line(237, $y, 237, $y + $h);
-      $this->Line(237, $y + $h, 287, $y + $h);
-      $this->Line(287, $y, 287, $y + $h);
+			// Draw Borders
+			$this->Rect(10, $y, 27, $h);
+			$this->Rect(37, $y, 50, $h);
+			$this->Rect(87, $y, 50, $h);
+			$this->Rect(137, $y, 50, $h);
+			$this->Rect(187, $y, 50, $h);
+			$this->Rect(237, $y, 50, $h);
       $this->ln($h);
       //Zeile 7 Mensa
       $y = $this->getY();
       $h = 5;
       $this->SetFont('freeserif', 'B', 10);
       $this->Cell(27, 0, "Mensa");
-      $this->Line(10, $y, 10, $y + $h);
-      $this->Line(10, $y + $h, 37, $y + $h);
-      $this->Line(37, $y, 37, $y + $h);
       $this->SetFont('freeserif', '', 10);
       $this->writeHTMLCell(50, 0, 37, $y, $projekt["moMensa"] == "true" ? "Ja" : "Nein");
-      $this->Line(37, $y, 37, $y + $h);
-      $this->Line(37, $y + $h, 87, $y + $h);
-      $this->Line(87, $y, 87, $y + $h);
       $this->writeHTMLCell(50, 0, 87, $y, $projekt["diMensa"] == "true" ? "Ja" : "Nein");
-      $this->Line(87, $y, 87, $y + $h);
-      $this->Line(87, $y + $h, 137, $y + $h);
-      $this->Line(137, $y, 137, $y + $h);
       $this->writeHTMLCell(50, 0, 137, $y, $projekt["miMensa"] == "true" ? "Ja" : "Nein");
-      $this->Line(137, $y, 137, $y + $h);
-      $this->Line(137, $y + $h, 187, $y + $h);
-      $this->Line(187, $y, 187, $y + $h);
       $this->writeHTMLCell(50, 0, 187, $y, $projekt["doMensa"] == "true" ? "Ja" : "Nein");
-      $this->Line(187, $y, 187, $y + $h);
-      $this->Line(187, $y + $h, 237, $y + $h);
-      $this->Line(237, $y, 237, $y + $h);
       $this->writeHTMLCell(50, 0, 237, $y, $projekt["frMensa"] == "true" ? "Ja" : "Nein");
-      $this->Line(237, $y, 237, $y + $h);
-      $this->Line(237, $y + $h, 287, $y + $h);
-      $this->Line(287, $y, 287, $y + $h);
+			// Draw Borders
+			$this->Rect(10, $y, 27, $h);
+			$this->Rect(37, $y, 50, $h);
+			$this->Rect(87, $y, 50, $h);
+			$this->Rect(137, $y, 50, $h);
+			$this->Rect(187, $y, 50, $h);
+			$this->Rect(237, $y, 50, $h);
       $this->ln($h);
       //Zeile 7 Nachmittag
       $y = $this->getY();
       $h = 20;
       $this->SetFont('freeserif', 'B', 10);
       $this->Cell(27, 0, "Nachmittag");
-      $this->Line(10, $y, 10, $y + $h);
-      $this->Line(10, $y + $h, 37, $y + $h);
-      $this->Line(37, $y, 37, $y + $h);
       $this->SetFont('freeserif', '', 10);
       $this->writeHTMLCell(50, 0, 37, $y, $projekt["moNach"]);
-      $this->Line(37, $y, 37, $y + $h);
-      $this->Line(37, $y + $h, 87, $y + $h);
-      $this->Line(87, $y, 87, $y + $h);
       $this->writeHTMLCell(50, 0, 87, $y, $projekt["diNach"]);
-      $this->Line(87, $y, 87, $y + $h);
-      $this->Line(87, $y + $h, 137, $y + $h);
-      $this->Line(137, $y, 137, $y + $h);
       $this->writeHTMLCell(50, 0, 137, $y, $projekt["miNach"]);
-      $this->Line(137, $y, 137, $y + $h);
-      $this->Line(137, $y + $h, 187, $y + $h);
-      $this->Line(187, $y, 187, $y + $h);
       $this->writeHTMLCell(50, 0, 187, $y, $projekt["doNach"]);
-      $this->Line(187, $y, 187, $y + $h);
-      $this->Line(187, $y + $h, 237, $y + $h);
-      $this->Line(237, $y, 237, $y + $h);
       $this->writeHTMLCell(50, 0, 237, $y, $projekt["frNach"]);
-      $this->Line(237, $y, 237, $y + $h);
-      $this->Line(237, $y + $h, 287, $y + $h);
-      $this->Line(287, $y, 287, $y + $h);
+			// Draw Borders
+			$this->Rect(10, $y, 27, $h);
+			$this->Rect(37, $y, 50, $h);
+			$this->Rect(87, $y, 50, $h);
+			$this->Rect(137, $y, 50, $h);
+			$this->Rect(187, $y, 50, $h);
+			$this->Rect(237, $y, 50, $h);
       $this->ln($h);
     }
 
@@ -176,7 +143,7 @@
 
       // Zeile 1
       $this->SetFont('freeserif', 'B', 14);
-      $this->Cell(0, 0, 'Wahlergebnis - Klase ' . $klasse);
+      $this->Cell(0, 0, 'Wahlergebnis - Klasse ' . $klasse);
       $this->ln(6);
 
 			// Aufbereiten des Headers
