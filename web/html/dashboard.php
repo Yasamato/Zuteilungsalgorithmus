@@ -367,7 +367,6 @@ foreach (dbRead("../data/projekte.csv") as $p) {
               <td>' . $student["nachname"] . '</td>
               <td>
                 <ol>';
-
               foreach ($student["wahl"] as $key => $wahl) {
                 $p = null;
                 foreach ($projekte as $key => $projekt) {
@@ -448,7 +447,12 @@ foreach (dbRead("../data/projekte.csv") as $p) {
           <tbody>
             <?php
             $studentsInKlassen = dbRead("../data/klassen.csv");
-        		array_multisort(array_column($studentsInKlassen, "klasse"), SORT_ASC, $studentsInKlassen);
+          	uasort($studentsInKlassen, function ($a, $b) {
+          		if ($a["stufe"] == $b["stufe"]) {
+          			return $a["klasse"] < $b["klasse"] ? -1 : 1;
+          		}
+          		return intval($a["stufe"]) < intval($b["stufe"]) ? -1 : 1;
+          	});
             foreach ($studentsInKlassen as $klasse) {
               ?>
             <tr>

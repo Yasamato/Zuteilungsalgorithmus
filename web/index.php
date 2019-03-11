@@ -110,9 +110,23 @@
 		//print_r($loginResult);
 		print_r($_SESSION['benutzer']);
 	}*/
+	$wahlen = dbRead("../data/wahl.csv");
+	foreach ($wahlen as $key => $student) {
+		$wahlen[$key]["wahl"] = explode("§", $student["wahl"]);
+	}
+	usort($wahlen, function ($a, $b) {
+		if (strtolower($a["nachname"]) == strtolower($b["nachname"])) {
+			return strtolower($a["vorname"]) < strtolower($b["vorname"]) ? -1 : 1;
+		}
+		return strtolower($a["nachname"]) < strtolower($b["nachname"]) ? -1 : 1;
+	});
+
+	// aufteilung aller Schüler-Wahlen in Klassen
 	$klassen = [];
-	foreach (dbRead("../data/wahl.csv") as $key => $student) {
-		$student["wahl"] = explode("§", $student["wahl"]);
+	foreach ($wahlen as $key => $student) {
+		if (empty($student) || empty($student["uid"])) {
+			continue;
+		}
 		if (empty($klassen[$student["klasse"]])) {
 			$klassen[$student["klasse"]] = [$student];
 		}
@@ -120,14 +134,21 @@
 			array_push($klassen[$student["klasse"]], $student);
 		}
 	}
-	foreach ($klassen as $klasse => $studentlist) {
-		array_multisort(array_column($studentlist, "nachname"), SORT_ASC, $studentlist);
-	}
-	$wahlen = [];
-	foreach ($klassen as $klasse) {
-		foreach ($klasse as $student) {
-			array_push($wahlen, $student);
+	// sortieren der Klasse nach Stufe und Klasse
+	uasort($klassen, function ($a, $b) {
+		if ($a[0]["stufe"] == $b[0]["stufe"]) {
+			return $a[0]["klasse"] < $b[0]["klasse"] ? -1 : 1;
 		}
+		return intval($a[0]["stufe"]) < intval($b[0]["stufe"]) ? -1 : 1;
+	});
+	// sortieren der Schülerlisten nach Nachname und Name
+	foreach ($klassen as $studentlist) {
+		usort($studentlist, function ($a, $b) {
+			if (strtolower($a["nachname"]) == strtolower($b["nachname"])) {
+				return strtolower($a["vorname"]) < strtolower($b["vorname"]) ? -1 : 1;
+			}
+			return strtolower($a["nachname"]) < strtolower($b["nachname"]) ? -1 : 1;
+		});
 	}
 
 	$projekte = [];
@@ -159,7 +180,7 @@
 		?>
 			];
 
-			var user = "<?php echo $_SESSION['benutzer']['typ']; ?>";
+			var user = "<?php echo empty($_SESSION['benutzer']['typ']) ? "logged out" : $_SESSION['benutzer']['typ']; ?>";
 		</script>
 <?php
 	//--------------------------------------------------------
