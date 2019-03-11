@@ -136,7 +136,6 @@
     }
 
 		function printKlasse($klasse, $studentlist) {
-			array_multisort(array_column($studentlist, "nachname"), SORT_ASC, $studentlist);
       $this->AddPage("P", "A4");
       $this->setCellHeightRatio(1.1);
       $this->ln(13);
@@ -218,18 +217,8 @@
 		$pdf->SetCreator(PDF_CREATOR);
 		$pdf->SetAuthor('Lise-Meitner-Gymnasium Maxdorf G8GTS');
 
-		$klassen = [];
-		foreach (dbRead("../data/wahl.csv") as $key => $student) {
-			if (empty($klassen[$student["klasse"]])) {
-				$klassen[$student["klasse"]] = [$student];
-			}
-			else {
-				array_push($klassen[$student["klasse"]], $student);
-			}
-		}
-		ksort($klassen);
 		$bereitsAusgewertet = false;
-		foreach (dbRead("../data/wahl.csv") as $key => $student) {
+		foreach ($wahlen as $key => $student) {
 			if (!empty($student["ergebnis"])) {
 				$bereitsAusgewertet = true;
 			}
@@ -243,15 +232,21 @@
     if ($_GET['projekt'] == "all") {
 			$pdf->SetTitle("Projektwoche " . date("Y") . " - Projektliste");
 			$pdf->SetSubject('Projektliste');
-      foreach (dbRead("../data/projekte.csv") as $projekt) {
+      foreach ($projekte as $projekt) {
         $pdf->printProjekt($projekt);
 				if ($bereitsAusgewertet) {
 					$teilnehmer = [];
-					foreach (dbRead("../data/wahl.csv") as $key => $student) {
+					foreach ($wahlen as $key => $student) {
 						if ($student["ergebnis"] == $projekt["id"]) {
 							array_push($teilnehmer, $student);
 						}
 					}
+					usort($teilnehmer, function ($a, $b) {
+						if (strtolower($a["nachname"]) == strtolower($b["nachname"])) {
+							return strtolower($a["vorname"]) < strtolower($b["vorname"]) ? -1 : 1;
+						}
+						return strtolower($a["nachname"]) < strtolower($b["nachname"]) ? -1 : 1;
+					});
 					$pdf->printKlasse("Teilnehmer " . $projekt["name"], $teilnehmer);
 				}
       }
@@ -263,7 +258,7 @@
       $pdf->printProjekt($projekt);
 			if ($bereitsAusgewertet) {
 				$teilnehmer = [];
-				foreach (dbRead("../data/wahl.csv") as $key => $student) {
+				foreach ($wahlen as $key => $student) {
 					if ($student["ergebnis"] == $projekt["id"]) {
 						array_push($teilnehmer, $student);
 					}
@@ -276,16 +271,6 @@
 	  $pdf = new printPDF('P', 'mm', 'A4');
 		$pdf->SetCreator(PDF_CREATOR);
 		$pdf->SetAuthor('Lise-Meitner-Gymnasium Maxdorf G8GTS');
-		$klassen = [];
-		foreach (dbRead("../data/wahl.csv") as $key => $student) {
-			if (empty($klassen[$student["klasse"]])) {
-				$klassen[$student["klasse"]] = [$student];
-			}
-			else {
-				array_push($klassen[$student["klasse"]], $student);
-			}
-		}
-		ksort($klassen);
 
     if ($_GET['klasse'] == "all") {
 			$pdf->SetTitle("Projektwoche " . date("Y") . " - Wahlergebnis");

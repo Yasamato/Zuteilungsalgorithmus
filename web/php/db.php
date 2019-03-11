@@ -67,10 +67,10 @@
 
 		$parsedData = [];
 		$file = file_get_contents($path);
-		if (substr($file, 0, 1) == "\n") {
+		if (substr($file, 0, 1) == "\n" || substr($file, 0, 1) == "\r") {
 			$file = substr($file, 1, filesize($path));
 		}
-		if (substr($file, 0, -1) == "\n") {
+		if (substr($file, 0, -1) == "\n" || substr($file, 0, -1) == "\r") {
 			$file = substr($file, 0, filesize($path) - 1);
 		}
 
@@ -112,8 +112,11 @@
 				$parsedEntry = [];
 				$i = 0;
 				foreach ($line as $element) {
-					if ($i == 0 || $i == count($line) - 1) {
-						$element = str_replace("\n", "", $element);
+					if (substr($element, 0, 1) == "\n" || substr($element, 0, 1) == "\r") {
+						$element = substr($element, 1, strlen($element));
+					}
+					if (substr($element, 0, -1) == "\n" || substr($element, 0, -1) == "\r") {
+						$element = substr($element, 0, strlen($element) - 1);
 					}
 					$parsedEntry[$head[$i++]] = $element;
 				}

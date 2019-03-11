@@ -56,7 +56,7 @@
 					$x = $students / $platz;
 					if ($x < 0.6) return 4;
 					$t = (75.4745 * pow($x, 4) - 223.148 * pow($x, 3) + 246.143 * pow($x, 2) - 119.873 * $x + 21.8101) * $anzahlProjekte;
-					return ($t < 4 ? 4 : $t);
+					return intval($t < 4 ? 4 : $t);
 				}
 
 				$platz = 0;
@@ -66,7 +66,11 @@
 					$anzahlProjekte += 1;
 				}
 
-				for ($i = 0; $i < calcAnzahlProjekte($config["Schüleranzahl"], $platz, $anzahlProjekte); $i++) {
+				$gesamtanzahl = 0;
+				foreach ($klassenliste as $klasse) {
+					$gesamtanzahl += $klasse["anzahl"];
+				}
+				for ($i = 0; $i < calcAnzahlProjekte($gesamtanzahl, $platz, $anzahlProjekte); $i++) {
 					echo "
 					<tr>
 						<th>" . ($i + 1) . "</th>

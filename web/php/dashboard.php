@@ -7,7 +7,6 @@ if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
 		//prepare data
 		$values = [
 			$_POST["stage"],
-			$_POST["schuelerAnzahl"],
 			empty($_POST["dauer"]["montag"]["vormittag"]) ? "false" : "true",
 			empty($_POST["dauer"]["montag"]["vormittagHinweis"]) ? "" : $_POST["dauer"]["montag"]["vormittagHinweis"],
 			empty($_POST["dauer"]["montag"]["nachmittag"]) ? "false" : "true",
@@ -34,7 +33,6 @@ if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
 		// prepare data
 		$values = [
 			$_POST["stage"],
-			$_POST["schuelerAnzahl"],
 			$config['MontagVormittag'],
 			empty($_POST["dauer"]["montag"]["vormittagHinweis"]) ? "" : $_POST["dauer"]["montag"]["vormittagHinweis"],
 			$config['MontagNachmittag'],

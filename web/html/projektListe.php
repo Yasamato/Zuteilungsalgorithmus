@@ -42,25 +42,73 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "teachers") {
 
   <div class="container">
     <div class="card-columns">
-      <?php
-      if (empty($klassen)) {
-        ?>
-        <div class="card text-white bg-dark p-3">
-          <div class="card-body">
-            <h5 class="card-title">Niemand</h5>
-            <p class="card-text">hat bereits gewählt, hier würden alle Klassen aufgelistet werden von denen bereits Schüler gewählt haben.</p>
-          </div>
-        </div><?php
+
+      <div class="card text-white bg-dark p-3 border <?php
+      $gesamtanzahl = 0;
+      foreach ($klassenliste as $klasse) {
+        $gesamtanzahl += $klasse["anzahl"];
       }
-      foreach ($klassen as $key => $klasse) {
-        ?>
-        <div class="card text-white bg-dark p-3">
-          <div class="card-body">
-            <h5 class="card-title"><?php echo count($klasse) > 0 ? count($klasse) : "0"; ?></h5>
-            <p class="card-text">Person<?php echo count($klasse) == 1 ? "" : "en"; ?> aus Klasse <?php echo $key; ?> ha<?php echo count($klasse) == 1 ? "t" : "ben"; ?> bereits gewählt</p>
-            <button onclick="javascript: window.open('printPDF.php?print=students&klasse=<?php echo $key; ?>');" type="button" class="btn btn-secondary">Liste Drucken</button>
+      if ($gesamtanzahl == 0) {
+        echo " border-danger";
+      }
+      elseif ($gesamtanzahl == count($wahlen)) {
+        echo "text-success border-success";
+      }
+      else {
+        echo "border-warning";
+      } ?>">
+        <div class="card-body">
+          <h5 class="card-title"><?php echo count($wahlen); ?> von <?php echo $gesamtanzahl; ?>
+          </h5>
+          <p class="card-text">Schüler haben schon gewählt</p>
+        </div>
+
+        <div class="card-footer">
+          <!-- Button trigger modal -->
+          <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <button onclick="javascript: window.open('printPDF.php?print=students&klasse=all');" type="button" class="btn btn-secondary">Drucken</button>
           </div>
-        </div><?php
+        </div>
+      </div>
+
+      <?php
+      foreach ($klassen as $key => $klasse) {
+        $anzahl = 0;
+        $found = false;
+        foreach ($klassenliste as $liste) {
+          if (strtolower($liste["klasse"]) == strtolower($key)) {
+            $anzahl = $liste["anzahl"];
+            $found = true;
+            break;
+          }
+        }
+      ?>
+      <div class="card text-white bg-dark p-3 border <?php
+      if (!$found || $anzahl < count($klasse)) {
+        echo " border-danger";
+      }
+      elseif ($anzahl == count($klasse)) {
+        echo "text-success border-success";
+      }
+      else {
+        echo "border-warning";
+      } ?>">
+        <div class="card-body">
+          <?php
+          if (!$found) {
+            echo " <span class='text-danger'>Diese Klasse wurde nicht in den Datensätzen gefunden!!!</span>";
+          }
+          elseif ($anzahl < count($klasse)) {
+            echo " <span class='text-danger'>Diese Klasse hat scheinbar mehr Schüler als eingetragen!!!</span>";
+          }?>
+          <h5 class="card-title"><?php echo count($klasse) > 0 ? count($klasse) : "Keine"; ?> / <?php echo $anzahl; ?></h5>
+          <p class="card-text">Personen aus Klasse <?php echo $key; ?> haben bereits gewählt</p>
+        </div>
+
+        <div class="card-footer">
+          <button onclick="javascript: window.open('printPDF.php?print=students&klasse=<?php echo $key; ?>');" type="button" class="btn btn-secondary">Drucken</button>
+        </div>
+      </div><?php
       }
       ?>
 
