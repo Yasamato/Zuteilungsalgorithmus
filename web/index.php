@@ -42,33 +42,6 @@
   (include "../data/config.php") OR die("</head><body style='color: #000'>Der Webserver wurde noch nicht konfiguriert, kontaktiere einen Admin damit dieser setup.sh ausführt.</body></html>");
 	require "php/db.php";
 	require "php/utils.php";
-?>
-
-	<script>
-		var config = {<?php
-			end($config);
-			$last = key($config);
-			foreach ($config as $key => $v) {
-				echo "'" . $key . "': '" . $v . "'";
-				if ($key != $last) {
-					echo ",\n";
-				}
-			}
-		?>};
-		// convert the string into a bool
-		config["MontagVormittag"] = (config["MontagVormittag"] == 'true');
-		config["MontagNachmittag"] = (config["MontagNachmittag"] == 'true');
-		config["DienstagVormittag"] = (config["DienstagVormittag"] == 'true');
-		config["DienstagNachmittag"] = (config["DienstagNachmittag"] == 'true');
-		config["MittwochVormittag"] = (config["MittwochVormittag"] == 'true');
-		config["MittwochNachmittag"] = (config["MittwochNachmittag"] == 'true');
-		config["DonnerstagVormittag"] = (config["DonnerstagVormittag"] == 'true');
-		config["DonnerstagNachmittag"] = (config["DonnerstagNachmittag"] == 'true');
-		config["FreitagVormittag"] = (config["FreitagVormittag"] == 'true');
-		config["FreitagNachmittag"] = (config["FreitagNachmittag"] == 'true');
-	</script>
-
-<?php
 
 	// on form-submit
 	if (isset($_GET['logout'])) {
@@ -77,7 +50,19 @@
 	if (isset($_POST['action'])) {
 		switch ($_POST['action']) {
 			case "login":
-				require("php/login.php");
+				require("php/login.php"); // dummy-login
+				// require("php/login_live.php");
+				$projekte = [];
+				if ($_SESSION['benutzer']['typ'] == "teachers" || $_SESSION['benutzer']['typ'] == "admin") {
+					$projekte = dbRead("../data/projekte.csv");
+				}
+				else {
+					foreach (dbRead("../data/projekte.csv") as $p) {
+						if ($p['minKlasse'] <= $_SESSION['benutzer']['stufe'] && $p['maxKlasse'] >= $_SESSION['benutzer']['stufe']) {
+							array_push($projekte, $p);
+						}
+					}
+				}
 				break;
 			case "logout":
 				logout();
@@ -105,6 +90,33 @@
 				break;
 		}
 	}
+?>
+
+	<script>
+		var config = {<?php
+			end($config);
+			$last = key($config);
+			foreach ($config as $key => $v) {
+				echo "'" . $key . "': '" . $v . "'";
+				if ($key != $last) {
+					echo ",\n";
+				}
+			}
+		?>};
+		// convert the string into a bool
+		config["MontagVormittag"] = (config["MontagVormittag"] == 'true');
+		config["MontagNachmittag"] = (config["MontagNachmittag"] == 'true');
+		config["DienstagVormittag"] = (config["DienstagVormittag"] == 'true');
+		config["DienstagNachmittag"] = (config["DienstagNachmittag"] == 'true');
+		config["MittwochVormittag"] = (config["MittwochVormittag"] == 'true');
+		config["MittwochNachmittag"] = (config["MittwochNachmittag"] == 'true');
+		config["DonnerstagVormittag"] = (config["DonnerstagVormittag"] == 'true');
+		config["DonnerstagNachmittag"] = (config["DonnerstagNachmittag"] == 'true');
+		config["FreitagVormittag"] = (config["FreitagVormittag"] == 'true');
+		config["FreitagNachmittag"] = (config["FreitagNachmittag"] == 'true');
+	</script>
+
+<?php
 
 	// DEBUG
 	/*if(isset($loginResult)) {
