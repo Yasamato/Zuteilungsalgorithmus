@@ -432,6 +432,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
               <th>Stufe</th>
               <th>Klasse</th>
               <th>Schüleranzahl</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -455,6 +456,11 @@ foreach (dbRead("../data/projekte.csv") as $p) {
               <td>
                 <input type="number" class="form-control" placeholder="0" aria-label="Schüleranzahl" value="<?php echo $klasse['anzahl']; ?>" name="anzahl[]">
               </td>
+              <td>
+                <button type="button" class="close text-danger" aria-label="Close" onclick="javascript: removeLine(this);">
+                  <span class="closebutton" aria-hidden="true">&times;</span>
+                </button>
+              </td>
             </tr>
             <?php
             }
@@ -476,7 +482,18 @@ foreach (dbRead("../data/projekte.csv") as $p) {
               <td>
                 <input type="number" class="form-control" placeholder="0" aria-label="Schüleranzahl" name="anzahl[]">
               </td>
+              <td>
+                <button type="button" class="close text-danger" aria-label="Close" onclick="javascript: removeLine(this);">
+                  <span class="closebutton" aria-hidden="true">&times;</span>
+                </button>
+              </td>
             </tr>`));
+          }
+
+          function removeLine(element) {
+            // button -> td -> tr -> tbody
+            var row = element.parentNode.parentNode;
+            row.parentNode.removeChild(row);
           }
           addStudentsInKlassenInput();
         </script>

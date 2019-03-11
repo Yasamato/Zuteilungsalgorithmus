@@ -50,6 +50,7 @@ button {
 
 button.close {
 	color: white;
+	text-shadow: none;
 }
 
 table {
