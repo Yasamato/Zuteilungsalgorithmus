@@ -66,11 +66,8 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "teachers") {
         }
       ?>
       <div class="card text-white bg-dark p-3 border <?php
-      if (!$found || $anzahl < count($klasse) - 1 || count($klasse) - 1 <= 0) {
-        echo "border-danger";
-        if (count($klasse) - 1 < 1) {
-          echo " text-danger";
-        }
+      if (!$found || $anzahl < count($klasse) - 1) {
+        echo "border-danger text-danger";
       }
       elseif ($anzahl == count($klasse) - 1) {
         echo "text-success border-success";

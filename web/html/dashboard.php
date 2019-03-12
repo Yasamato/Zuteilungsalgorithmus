@@ -718,11 +718,8 @@ foreach (dbRead("../data/projekte.csv") as $p) {
       }
     ?>
     <div class="card text-white bg-dark p-3 border <?php
-    if (!$found || $anzahl < count($klasse) - 1 || count($klasse) - 1 <= 0) {
+    if (!$found || $anzahl < count($klasse) - 1) {
       echo "border-danger";
-      if (count($klasse) - 1 < 1) {
-        echo " text-danger";
-      }
     }
     elseif ($anzahl == count($klasse) - 1) {
       echo "text-success border-success";
