@@ -28,8 +28,7 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "teachers") {
             }
             ?>
           </div>
-				</div>
-        <div class="card-footer text-center">
+          
           <div class="btn-group btn-group-toggle" data-toggle="buttons">
             <button type="button" class="btn btn-danger" onclick="logout()">
               Abmelden
@@ -46,7 +45,7 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "teachers") {
               <?php
             } ?>
           </div>
-        </div>
+				</div>
 			</div>
 		</div>
   </div>
@@ -90,10 +89,7 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "teachers") {
           ?>
           <h5 class="card-title"><?php if (count($klasse) - 1 > 0) {echo count($klasse) - 1; ?> / <?php echo $anzahl; } else {echo  "Keine";} ?></h5>
           <p class="card-text">Person<?php echo count($klasse) - 1 > 0 ? "en" : ""; ?> aus Klasse <?php echo $key; ?> ha<?php echo count($klasse) - 1 > 1 ? "ben" : "t"; ?> bereits gewählt</p>
-        </div>
-
-        <div class="card-footer">
-          <button onclick="javascript: window.open('printPDF.php?print=students&klasse=<?php echo $key; ?>');" type="button" class="btn btn-primary">Auflisten</button>
+            <button onclick="javascript: window.open('printPDF.php?print=students&klasse=<?php echo $key; ?>');" type="button" class="btn btn-primary">Auflisten</button>
         </div>
       </div><?php
       }
