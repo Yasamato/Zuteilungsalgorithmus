@@ -4,7 +4,7 @@ if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
   if (!empty($_POST['action']) && $_POST['action'] == "deleteProjekt" && !empty($_POST["projekt"])) {
     $projekt = getProjektInfo($_POST["projekt"]);
     if (empty($projekt)) {
-      error_log("Das Projekt mit der ID " . $_POST["projekt"] . " konnte nicht gefunden werden und dementsprechend nicht gelöscht werden");
+      error_log("Das Projekt mit der ID " . $_POST["projekt"] . " konnte nicht gefunden werden und dementsprechend nicht gelöscht werden", 0, "../data/error.log");
       alert("Zu löschendes Projekt nicht gefunden");
     }
     else {
@@ -28,7 +28,7 @@ if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
         }
       }
       else {
-        error_log("Löschen des Projekts mit der ID " . $_POST["projekt"] . " fehlgeschlagen.");
+        error_log("Löschen des Projekts mit der ID " . $_POST["projekt"] . " fehlgeschlagen.", 0, "../data/error.log");
         alert("Es ist ein unerwartetes Problem aufgetreten beim Löschen des Projekts mit der ID " . $_POST["projekt"]);
       }
     }

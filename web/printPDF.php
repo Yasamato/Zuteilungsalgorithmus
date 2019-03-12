@@ -223,7 +223,7 @@
 				$bereitsAusgewertet = true;
 			}
 			elseif ($bereitsAusgewertet) {
-				error_log("Die Wahltabelle wurde nur teilweise ausgewertet!! Etwas ist schief gelaufen");
+				error_log("Die Wahltabelle wurde nur teilweise ausgewertet!! Etwas ist schief gelaufen", 0, "../data/error.log");
 				$bereitsAusgewertet = false;
 				break;
 			}

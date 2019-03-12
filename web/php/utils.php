@@ -23,7 +23,7 @@
 		if (!empty($result)) {
 	  	return $result[0];
 		}
-		error_log("Projekt mit der ID: " . $id . " konnte nicht gefunden werden");
+		error_log("Projekt mit der ID: " . $id . " konnte nicht gefunden werden", 0, "../data/error.log");
 		return null;
 	}
 

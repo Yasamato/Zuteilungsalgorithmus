@@ -62,7 +62,7 @@
 					break;
 			}
 
-			//speichern in der session
+			// Speichern der Nutzerdaten in der Session
 			$_SESSION['benutzer'] = [
 				"uid" => $loginResult['uid'][0],
 				"typ" => $path[2],
@@ -71,6 +71,9 @@
 				"vorname" => $loginResult['givenname'][0],
 				"nachname" => $loginResult['sn'][0]
 			];
+		}
+		else {
+			error_log("Anmeldung des Accounts '" . $_POST['user'] . "' fehlgeschlagen.", 0, "../data/error.log");
 		}
 	}
 ?>

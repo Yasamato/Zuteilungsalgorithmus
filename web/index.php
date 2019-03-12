@@ -71,7 +71,7 @@
 				require("php/projektErstellung.php");
 				break;
 			case "editProject":
-				require("php/editProject.php");
+				require("php/editProjekt.php");
 				break;
 			case "deleteProjekt":
 				require("php/deleteProjekt.php");
@@ -201,11 +201,11 @@
 						alert("Es können keine Projekte mehr eingereicht werden. Wenden sie sich hierfür bei Hilfe an den Administrator");
 					}
 ?>
-		<script>var site = "projektListe";</script>
+		<script>var site = "lehrerDashboard";</script>
 	</head>
 	<body>
 <?php
-					include "html/projektListe.php";
+					include "html/lehrerDashboard.php";
 				}
 			}
 			else {

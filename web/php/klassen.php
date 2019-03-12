@@ -1,7 +1,7 @@
 <?php
 if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
   if (empty($_POST["stufe"]) || empty($_POST["klasse"]) || empty($_POST["anzahl"]) || count($_POST["stufe"]) != count($_POST["klasse"]) || count($_POST["stufe"]) != count($_POST["anzahl"])) {
-    error_log("Datensatz fehlerhaft!! Änderung der Klassenlisten ist fehlgeschlagen. Die Anzahl an Datensätzen stimmen in den Spalten nicht überein");
+    error_log("Datensatz fehlerhaft!! Änderung der Klassenlisten ist fehlgeschlagen. Die Anzahl an Datensätzen stimmen in den Spalten nicht überein", 0, "../data/error.log");
     die("Datensatz fehlerhaft!! Änderung der Klassenlisten ist fehlgeschlagen. Die Anzahl an Datensätzen stimmen in den Spalten nicht überein");
   }
 
@@ -14,7 +14,7 @@ if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
     }
     // Validierung
     if ($_POST["stufe"][$i] < 5 || $_POST["stufe"][$i] > 12 || $_POST["anzahl"][$i] <= 0) {
-      error_log("Datensatz fehlerhaft!! Änderung der Klassenlisten ist fehlgeschlagen. Die Werte haben einen unrealistischen Betrag");
+      error_log("Datensatz fehlerhaft!! Änderung der Klassenlisten ist fehlgeschlagen. Die Werte haben einen unrealistischen Betrag", 0, "../data/error.log");
       die("Datensatz fehlerhaft!! Änderung der Klassenlisten ist fehlgeschlagen. Die Werte haben einen unrealistischen Betrag");
     }
 
@@ -38,7 +38,7 @@ if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
   	// write the data and check for success
   	dbWrite("../data/klassen.csv", $values);
   	if ($klassenliste == dbRead("../data/klassen.csv")) {
-  		error_log("Die Änderung der Einstellung in der Datei ../data/klassen.csv von '" . json_encode($klassenliste) . "' zu '" . json_encode($values) . "' ist fehlgeschlagen");
+  		error_log("Die Änderung der Einstellung in der Datei ../data/klassen.csv von '" . json_encode($klassenliste) . "' zu '" . json_encode($values) . "' ist fehlgeschlagen", 0, "../data/error.log");
   		die("Die Änderung der Einstellung in der Datei ../data/klassen.csv von '" . json_encode($klassenliste) . "' zu '" . json_encode($values) . "' ist fehlgeschlagen");
   	}
   	else {
