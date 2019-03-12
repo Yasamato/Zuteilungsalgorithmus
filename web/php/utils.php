@@ -167,6 +167,15 @@
 		return strtolower($a["nachname"]) < strtolower($b["nachname"]) ? -1 : 1;
 	});
 
+	// Klassenliste mit den Schüleranzahlen
+	$klassenliste = dbRead("../data/klassen.csv");
+	uasort($klassenliste, function ($a, $b) {
+		if ($a["stufe"] == $b["stufe"]) {
+			return $a["klasse"] < $b["klasse"] ? -1 : 1;
+		}
+		return intval($a["stufe"]) < intval($b["stufe"]) ? -1 : 1;
+	});
+
 	// aufteilung aller Schüler-Wahlen in Klassen
 	$klassen = [];
 	foreach ($wahlen as $key => $student) {
@@ -174,10 +183,20 @@
 			continue;
 		}
 		if (empty($klassen[$student["klasse"]])) {
-			$klassen[$student["klasse"]] = [$student];
+			$klassen[$student["klasse"]] = [[
+				"stufe" => $student["stufe"],
+				"klasse" => $student["klasse"]
+				]];
 		}
-		else {
-			array_push($klassen[$student["klasse"]], $student);
+		array_push($klassen[$student["klasse"]], $student);
+	}
+	// bereits vorhandene Datensätze mit den eingetragenen Datensätzen auffüllen
+	foreach ($klassenliste as $klasse) {
+		if (empty($klassen[$klasse["klasse"]])) {
+			$klassen[$klasse["klasse"]] = [[
+				"stufe" => $klasse["stufe"],
+				"klasse" => $klasse["klasse"]
+			]];
 		}
 	}
 	// sortieren der Klasse nach Stufe und Klasse
@@ -190,21 +209,17 @@
 	// sortieren der Schülerlisten nach Nachname und Name
 	foreach ($klassen as $studentlist) {
 		usort($studentlist, function ($a, $b) {
+			// dummy-Wert
+			if (empty($a["nachname"])) {
+				return 0;
+			}
+			
 			if (strtolower($a["nachname"]) == strtolower($b["nachname"])) {
 				return strtolower($a["vorname"]) < strtolower($b["vorname"]) ? -1 : 1;
 			}
 			return strtolower($a["nachname"]) < strtolower($b["nachname"]) ? -1 : 1;
 		});
 	}
-
-	// Klassenliste mit den Schüleranzahlen
-	$klassenliste = dbRead("../data/klassen.csv");
-	uasort($klassenliste, function ($a, $b) {
-		if ($a["stufe"] == $b["stufe"]) {
-			return $a["klasse"] < $b["klasse"] ? -1 : 1;
-		}
-		return intval($a["stufe"]) < intval($b["stufe"]) ? -1 : 1;
-	});
 
 	$projekte = [];
 	if (isLogin()) {

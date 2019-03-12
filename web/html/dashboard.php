@@ -542,7 +542,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
           foreach ($klassen as $klasse => $liste) {
             foreach ($klassenliste as $k) {
               if ($klasse == $k["klasse"]) {
-                if (count($liste) == $k["anzahl"]) {
+                if (count($liste) - 1 == $k["anzahl"]) {
                   $klassenFertig += 1;
                 }
                 break;
@@ -550,7 +550,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
             }
           }
         ?>
-        <div class="card text-white bg-dark p-3 <?php
+        <div class="card text-white bg-dark p-3 border <?php
         if (count($klassenliste) == 0) {
           echo " border-danger text-danger";
         }
@@ -558,7 +558,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
           echo "text-success border-success";
         }
         else {
-          echo "border-warning";
+          echo "border-warning text-warning";
         } ?>">
           <div class="card-body"><?php
           if (count($klassenliste) == 0) {
@@ -689,13 +689,13 @@ foreach (dbRead("../data/projekte.csv") as $p) {
       $gesamtanzahl += $klasse["anzahl"];
     }
     if ($gesamtanzahl == 0) {
-      echo " border-danger";
+      echo "border-danger text-danger";
     }
     elseif ($gesamtanzahl == count($wahlen)) {
       echo "text-success border-success";
     }
     else {
-      echo "border-warning";
+      echo "border-warning text-warning";
     } ?>">
       <div class="card-body">
         <h5 class="card-title"><?php echo count($wahlen); ?> von <?php echo $gesamtanzahl; ?>
@@ -727,29 +727,33 @@ foreach (dbRead("../data/projekte.csv") as $p) {
       }
     ?>
     <div class="card text-white bg-dark p-3 border <?php
-    if (!$found || $anzahl < count($klasse)) {
-      echo " border-danger";
+    if (!$found || $anzahl < count($klasse) - 1 || count($klasse) - 1 <= 0) {
+      echo "border-danger";
+      if (count($klasse) - 1 < 1) {
+        echo " text-danger";
+      }
     }
-    elseif ($anzahl == count($klasse)) {
+    elseif ($anzahl == count($klasse) - 1) {
       echo "text-success border-success";
     }
     else {
-      echo "border-warning";
+      echo "border-warning text-warning";
     } ?>">
       <div class="card-body">
         <?php
         if (!$found) {
           echo " <span class='text-danger'>Diese Klasse wurde nicht in den Datensätzen gefunden!!!</span>";
         }
-        elseif ($anzahl < count($klasse)) {
+        elseif ($anzahl < count($klasse) - 1) {
           echo " <span class='text-danger'>Diese Klasse hat scheinbar mehr Schüler als eingetragen!!!</span>";
-        }?>
-        <h5 class="card-title"><?php echo count($klasse) > 0 ? count($klasse) : "Keine"; ?> / <?php echo $anzahl; ?></h5>
-        <p class="card-text">Personen aus Klasse <?php echo $key; ?> haben bereits gewählt</p>
+        }
+        ?>
+        <h5 class="card-title"><?php if (count($klasse) - 1 > 0) {echo count($klasse) - 1; ?> / <?php echo $anzahl; } else {echo  "Keine";} ?></h5>
+        <p class="card-text">Person<?php echo count($klasse) - 1 > 0 ? "en" : ""; ?> aus Klasse <?php echo $key; ?> ha<?php echo count($klasse) - 1 > 0 ? "ben" : "t"; ?> bereits gewählt</p>
       </div>
 
       <div class="card-footer">
-        <button onclick="javascript: window.open('printPDF.php?print=students&klasse=<?php echo $key; ?>');" type="button" class="btn btn-secondary">Drucken</button>
+        <button onclick="javascript: window.open('printPDF.php?print=students&klasse=<?php echo $key; ?>');" type="button" class="btn btn-primary">Auflisten</button>
       </div>
     </div><?php
     }

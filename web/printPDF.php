@@ -135,14 +135,14 @@
       $this->ln($h);
     }
 
-		function printKlasse($klasse, $studentlist) {
+		function printKlasse($klasse, $studentlist, $klassenliste = false) {
       $this->AddPage("P", "A4");
       $this->setCellHeightRatio(1.1);
       $this->ln(13);
 
       // Zeile 1
       $this->SetFont('freeserif', 'B', 14);
-      $this->Cell(0, 0, 'Wahlergebnis - Klasse ' . $klasse);
+      $this->Cell(0, 0, empty($klassenliste) ? $klasse : 'Klasse ' . $klasse);
       $this->ln(6);
 
 			// Aufbereiten des Headers
@@ -150,16 +150,23 @@
 				"Klasse",
 				"Nachname",
 				"Vorname",
-				"Ergebnis"
+				$_SESSION['benutzer']['typ'] == "admin" ? "Ergebnis" : "Bereits gewählt"
 			];
 			// Aufbereiten der Daten für doe Schülertabelle
 			$dataToPrint = [];
+			$dummyWertVorhanden = 0;
 			foreach ($studentlist as $student) {
+				// dummy-Wert
+				if (empty($student["nachname"])) {
+					$dummyWertVorhanden += 1;
+					continue;
+				}
+
 				array_push($dataToPrint, [
 					$student["klasse"],
 					$student["nachname"],
 					$student["vorname"],
-					empty($student["ergebnis"]) ? "N/A" : $student["ergebnis"]
+					$_SESSION['benutzer']['typ'] == "admin" ? (empty($student["ergebnis"]) ? "N/A" : $student["ergebnis"]) : (empty($student["ergebnis"]) ? "Nein" : "Ja")
 				]);
 			}
 			// Aufbereiten der Breiten
@@ -168,7 +175,19 @@
 			];
 			// Tabelle
 			$this->ColoredTable($header, $dataToPrint, $widths);
-			$this->Cell(0, 6, count($studentlist) . " Schüler-Eintr" . (count($studentlist) > 1 ? "äge" : "ag") . " gefunden");
+			if (!empty($klassenliste)) {
+				$anzahl = 0;
+				foreach ($klassenliste as $listung) {
+					if ($listung["klasse"] == $klasse) {
+						$anzahl = $listung["anzahl"];
+						break;
+					}
+				}
+				$this->Cell(0, 6, count($studentlist) - $dummyWertVorhanden . " / " . $anzahl . " Schüler-Einträgen gefunden");
+			}
+			else {
+				$this->Cell(0, 6, count($studentlist) - $dummyWertVorhanden . " Teilnehmer");
+			}
 		}
 
     function Header() {
@@ -211,23 +230,27 @@
     }
   }
 
+
+
+
+
   // Anfrage verarbeiten
+	$bereitsAusgewertet = false;
+	foreach ($wahlen as $key => $student) {
+		if (!empty($student["ergebnis"])) {
+			$bereitsAusgewertet = true;
+		}
+		elseif ($bereitsAusgewertet) {
+			error_log("Die Wahltabelle wurde nur teilweise ausgewertet!! Etwas ist schief gelaufen", 0, "../data/error.log");
+			$bereitsAusgewertet = false;
+			break;
+		}
+	}
+	// Projekt(e) drucken
   if (!empty($_GET["print"]) && !empty($_GET["projekt"]) && $_GET["print"] == "projekt") {
 	  $pdf = new printPDF('L', 'mm', 'A4');
 		$pdf->SetCreator(PDF_CREATOR);
 		$pdf->SetAuthor('Lise-Meitner-Gymnasium Maxdorf G8GTS');
-
-		$bereitsAusgewertet = false;
-		foreach ($wahlen as $key => $student) {
-			if (!empty($student["ergebnis"])) {
-				$bereitsAusgewertet = true;
-			}
-			elseif ($bereitsAusgewertet) {
-				error_log("Die Wahltabelle wurde nur teilweise ausgewertet!! Etwas ist schief gelaufen", 0, "../data/error.log");
-				$bereitsAusgewertet = false;
-				break;
-			}
-		}
 
     if ($_GET['projekt'] == "all") {
 			$pdf->SetTitle("Projektwoche " . date("Y") . " - Projektliste");
@@ -243,6 +266,9 @@
 					}
 					usort($teilnehmer, function ($a, $b) {
 						if (strtolower($a["nachname"]) == strtolower($b["nachname"])) {
+							if (strtolower($a["vorname"]) == strtolower($b["vorname"])) {
+							return strtolower($a["klasse"]) < strtolower($b["klasse"]) ? -1 : 1;
+							}
 							return strtolower($a["vorname"]) < strtolower($b["vorname"]) ? -1 : 1;
 						}
 						return strtolower($a["nachname"]) < strtolower($b["nachname"]) ? -1 : 1;
@@ -263,26 +289,36 @@
 						array_push($teilnehmer, $student);
 					}
 				}
-				$pdf->printKlasse("Teilnehmer " . $projekt["name"], $teilnehmer);
+				usort($teilnehmer, function ($a, $b) {
+					if (strtolower($a["nachname"]) == strtolower($b["nachname"])) {
+						return strtolower($a["vorname"]) < strtolower($b["vorname"]) ? -1 : 1;
+					}
+					return strtolower($a["nachname"]) < strtolower($b["nachname"]) ? -1 : 1;
+				});
+				$pdf->printKlasse("Teilnehmer " . $projekt["name"], $teilnehmer, false);
 			}
     }
   }
-  elseif (!empty($_GET["print"]) && $_GET["print"] == "students") {
+	// Schülerlisten drucken
+  elseif (!empty($_GET["print"]) && !empty($_GET["klasse"]) && $_GET["print"] == "students") {
 	  $pdf = new printPDF('P', 'mm', 'A4');
 		$pdf->SetCreator(PDF_CREATOR);
 		$pdf->SetAuthor('Lise-Meitner-Gymnasium Maxdorf G8GTS');
 
     if ($_GET['klasse'] == "all") {
-			$pdf->SetTitle("Projektwoche " . date("Y") . " - Wahlergebnis");
-			$pdf->SetSubject('Wahlergebnis');
+			$pdf->SetTitle("Projektwoche " . date("Y"));
+			$pdf->SetSubject('Schülerlisten der Schule');
 			foreach ($klassen as $key => $klasse) {
-        $pdf->printKlasse($key, $klasse);
+        $pdf->printKlasse($key, $klasse, $klassenliste);
       }
     }
     else {
-			$pdf->SetTitle("Projektwoche " . date("Y") . " - Wahlergebnis Klasse " . $_GET['klasse']);
-			$pdf->SetSubject("Wahlergebnis Klasse " . $_GET['klasse']);
-      $pdf->printKlasse($_GET['klasse'], $klassen[$_GET['klasse']]);
+			$pdf->SetTitle("Projektwoche " . date("Y") . " - Klasse " . $_GET['klasse']);
+			$pdf->SetSubject("Schülerliste der Klasse " . $_GET['klasse']);
+			if (empty($klassen[$_GET['klasse']])) {
+				error_log("Klasse '" . $_GET["klasse"] . "' konnte nicht gefunden werden.", 0, "../data/error.log");
+			}
+      $pdf->printKlasse($_GET['klasse'], $klassen[$_GET['klasse']], $klassenliste);
     }
   }
   else {

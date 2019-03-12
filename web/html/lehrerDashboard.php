@@ -42,35 +42,6 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "teachers") {
 
   <div class="container">
     <div class="card-columns">
-
-      <div class="card text-white bg-dark p-3 border <?php
-      $gesamtanzahl = 0;
-      foreach ($klassenliste as $klasse) {
-        $gesamtanzahl += $klasse["anzahl"];
-      }
-      if ($gesamtanzahl == 0) {
-        echo " border-danger";
-      }
-      elseif ($gesamtanzahl == count($wahlen)) {
-        echo "text-success border-success";
-      }
-      else {
-        echo "border-warning";
-      } ?>">
-        <div class="card-body">
-          <h5 class="card-title"><?php echo count($wahlen); ?> von <?php echo $gesamtanzahl; ?>
-          </h5>
-          <p class="card-text">Schüler haben schon gewählt</p>
-        </div>
-
-        <div class="card-footer">
-          <!-- Button trigger modal -->
-          <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <button onclick="javascript: window.open('printPDF.php?print=students&klasse=all');" type="button" class="btn btn-secondary">Drucken</button>
-          </div>
-        </div>
-      </div>
-
       <?php
       foreach ($klassen as $key => $klasse) {
         $anzahl = 0;
@@ -84,66 +55,37 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "teachers") {
         }
       ?>
       <div class="card text-white bg-dark p-3 border <?php
-      if (!$found || $anzahl < count($klasse)) {
-        echo " border-danger";
+      if (!$found || $anzahl < count($klasse) - 1 || count($klasse) - 1 <= 0) {
+        echo "border-danger";
+        if (count($klasse) - 1 < 1) {
+          echo " text-danger";
+        }
       }
-      elseif ($anzahl == count($klasse)) {
+      elseif ($anzahl == count($klasse) - 1) {
         echo "text-success border-success";
       }
       else {
-        echo "border-warning";
+        echo "border-warning text-warning";
       } ?>">
         <div class="card-body">
           <?php
           if (!$found) {
             echo " <span class='text-danger'>Diese Klasse wurde nicht in den Datensätzen gefunden!!!</span>";
           }
-          elseif ($anzahl < count($klasse)) {
+          elseif ($anzahl < count($klasse) - 1) {
             echo " <span class='text-danger'>Diese Klasse hat scheinbar mehr Schüler als eingetragen!!!</span>";
-          }?>
-          <h5 class="card-title"><?php echo count($klasse) > 0 ? count($klasse) : "Keine"; ?> / <?php echo $anzahl; ?></h5>
-          <p class="card-text">Personen aus Klasse <?php echo $key; ?> haben bereits gewählt</p>
+          }
+          ?>
+          <h5 class="card-title"><?php if (count($klasse) - 1 > 0) {echo count($klasse) - 1; ?> / <?php echo $anzahl; } else {echo  "Keine";} ?></h5>
+          <p class="card-text">Person<?php echo count($klasse) - 1 > 0 ? "en" : ""; ?> aus Klasse <?php echo $key; ?> ha<?php echo count($klasse) - 1 > 0 ? "ben" : "t"; ?> bereits gewählt</p>
         </div>
 
         <div class="card-footer">
-          <button onclick="javascript: window.open('printPDF.php?print=students&klasse=<?php echo $key; ?>');" type="button" class="btn btn-secondary">Drucken</button>
+          <button onclick="javascript: window.open('printPDF.php?print=students&klasse=<?php echo $key; ?>');" type="button" class="btn btn-primary">Auflisten</button>
         </div>
       </div><?php
       }
       ?>
 
-    </div>
-
-    <table class="table table-dark table-striped table-hover" id="projekteTable">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Betreuer</th>
-          <th>Stufe</th>
-          <th>Platz</th>
-        </tr>
-      </thead>
-      <tbody><?php
-      if (empty($projekte)) {
-        echo "
-        <tr>
-          <td>
-            Bisher wurden keine Projekte eingereicht
-          </td>
-        </tr>";
-      }
-      foreach ($projekte as $key => $projekt) {
-        echo '
-        <tr>
-          <td><a href="#" class="btn btn-success" onclick="showProjektInfoModal(projekte[' . $key . ']);">Info</a> ' . $projekt["name"] . '</td>
-          <td>' . $projekt["betreuer"] . '</td>
-          <td>' . $projekt["minKlasse"] . '-' . $projekt["maxKlasse"] . '</td>
-          <td>' . $projekt["minPlatz"] . '-' . $projekt["maxPlatz"] . '</td>
-        </tr>';
-      }
-      ?>
-
-      </tbody>
-    </table>
   </div>
 </div>
