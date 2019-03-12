@@ -290,7 +290,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
           foreach ($projekte as $key => $projekt) {
             echo '
             <tr>
-              <td><a href="#" class="btn btn-success" onclick="showProjektInfoModal(projekte[' . $key . ']);">Info</a> ' . $projekt["name"] . '</td>
+              <td><a href="javascript:;" class="btn btn-success" onclick="showProjektInfoModal(projekte[' . $key . ']);">Info</a> ' . $projekt["name"] . '</td>
               <td>' . $projekt["betreuer"] . '</td>
               <td>' . $projekt["minKlasse"] . '-' . $projekt["maxKlasse"] . '</td>
               <td>' . $projekt["minPlatz"] . '-' . $projekt["maxPlatz"] . '</td>
@@ -367,7 +367,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
                 }
                 echo '
                   <li>
-                    <a href="#" onclick="showProjektInfoModal(projekte[' . $p . ']);">
+                    <a href="javascript:;" onclick="showProjektInfoModal(projekte[' . $p . ']);">
                       ' . getProjektInfo($wahl)["name"] . '
                     </a>
                   </li>';
@@ -390,7 +390,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
                   }
                 }
                 echo '
-                  <a href="#" onclick="showProjektInfoModal(projekte[' . $p . ']);">
+                  <a href="javascript:;" onclick="showProjektInfoModal(projekte[' . $p . ']);">
                     ' . getProjektInfo($student["ergebnis"])["name"] . '
                   </a>';
               }

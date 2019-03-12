@@ -21,6 +21,9 @@ body {
 	padding-top: 10px;
 	padding-bottom: 40px;
 }
+body.modal-open {
+	position: inherit;
+}
 
 ::-webkit-scrollbar {
 	width: 0px;
