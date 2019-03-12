@@ -5,11 +5,11 @@
 		if (file_exists($path)) {
 			error_log("Die Datei " . $path . " existiert bereits und wird ersetzt.");
 			if ($ignoreExistingFile) {
-				error_log("Die ursprüngliche Datei " . $path . " wurde endgültig überschrieben");
+				error_log("Die ursprüngliche Datei " . $path . " wurde endgültig überschrieben", 0, "../data/error.log");
 			}
 			else {
 				rename($path, $path . ".old");
-				error_log("Die ursprüngliche Datei " . $path . " wurde sicherheitshalber nach " . $path . ".old verschoben");
+				error_log("Die ursprüngliche Datei " . $path . " wurde sicherheitshalber nach " . $path . ".old verschoben", 0, "../data/error.log");
 			}
 		}
 		$result = dbWrite($path, null, $headers);
@@ -35,9 +35,10 @@
 			fclose($fh);
 		}
 		else {
-			error_log("Die Datei " . $path . " konnte nicht angelegt werden");
+			error_log("Die Datei " . $path . " konnte nicht angelegt werden", 0, "../data/error.log");
 			die("Datei: " . $file . " konnte nicht angelegt werden, kontaktiere einen Admin damit dieser die Zugriffsberechtigungen überprüfen kann");
 		}
+		return true;
 	}
 
 	// hängt einen Eintrag ans Ende der Datei
@@ -46,7 +47,7 @@
 			fwrite($fh, CONFIG["dbLineSeperator"] . "\n" . implode(CONFIG["dbElementSeperator"], newlineRemove($data)));
 		}
 		else {
-			error_log("Die Datei " . $path . " konnte nicht geöffnet werden");
+			error_log("Die Datei " . $path . " konnte nicht geöffnet werden", 0, "../data/error.log");
 			die("Datei: " . $file . " konnte nicht geöffnet werden, kontaktiere einen Admin damit dieser die Zugriffsberechtigungen überprüfen kann");
 		}
 		fclose($fh);
@@ -55,21 +56,21 @@
 	// liest eine Datei ein und parsed diese
 	function dbRead($path) {
 		if (!file_exists($path)) {
-			error_log("Die Datei " . $path . " konnte nicht gefunden werden");
+			error_log("Die Datei " . $path . " konnte nicht gefunden werden", 0, "../data/error.log");
 			return false;
 		}
 
 		if (($fh = fopen($path, "r")) === false) {
-			error_log("Die Datei " . $path . " konnte nicht geöffnet werden");
+			error_log("Die Datei " . $path . " konnte nicht geöffnet werden", 0, "../data/error.log");
 			die("Datei: " . $file . " konnte nicht geöffnet werden, kontaktiere einen Admin damit dieser die Zugriffsberechtigungen überprüfen kann");
 		}
 
 		$parsedData = [];
 		$file = file_get_contents($path);
-		if (substr($file, 0, 1) == "\n") {
+		if (substr($file, 0, 1) == "\n" || substr($file, 0, 1) == "\r") {
 			$file = substr($file, 1, filesize($path));
 		}
-		if (substr($file, 0, -1) == "\n") {
+		if (substr($file, 0, -1) == "\n" || substr($file, 0, -1) == "\r") {
 			$file = substr($file, 0, filesize($path) - 1);
 		}
 
@@ -98,7 +99,7 @@
 		foreach (explode(CONFIG["dbLineSeperator"] . "\n", $file) as $line) {
 			// das auskommentierte führt zu Fehlern bei leerem Text, welcher bsp. nur optional ist
 			/*if (empty($line)) {
-				error_log("Die Datei " . $path . " ist eventuell korrumpiert, enthält einen leeren Eintrag");
+				error_log("Die Datei " . $path . " ist eventuell korrumpiert, enthält einen leeren Eintrag", 0, "../data/error.log");
 				continue;
 			}*/
 
@@ -111,8 +112,11 @@
 				$parsedEntry = [];
 				$i = 0;
 				foreach ($line as $element) {
-					if ($i == 0 || $i == count($line) - 1) {
-						$element = str_replace("\n", "", $element);
+					if (substr($element, 0, 1) == "\n" || substr($element, 0, 1) == "\r") {
+						$element = substr($element, 1, strlen($element));
+					}
+					if (substr($element, 0, -1) == "\n" || substr($element, 0, -1) == "\r") {
+						$element = substr($element, 0, strlen($element) - 1);
 					}
 					$parsedEntry[$head[$i++]] = $element;
 				}
@@ -125,7 +129,7 @@
 	}
 
 	// durchsucht die Datei nach passenden Datensätze
-	function dbSearch($path, $search, $searchNeedle, $strict = false){
+	function dbSearch($path, $search, $searchNeedle, $strict = false) {
 		$data = dbRead($path);
 		$found = [];
 		foreach ($data as $entry) {
@@ -181,21 +185,21 @@
 		if ($removed) {
 			return dbWrite($path, $data);
 		}
-		error_log("Versuche nicht vorhandenen Eintrag " . $search . " = " . $searchNeedle . " in " . $path . " zu entfernen");
+		error_log("Versuche nicht vorhandenen Eintrag " . $search . " = " . $searchNeedle . " in " . $path . " zu entfernen", 0, "../data/error.log");
 		return false;
 	}
 
 	// löscht eine Datei
 	function dbDrop($path, $verifyDeletionOfFile = false) {
 		if (!file_exists($path)) {
-			error_log("Die Datei " . $path . " konnte nicht gefunden werden");
+			error_log("Die Datei " . $path . " konnte nicht gefunden werden", 0, "../data/error.log");
 			return false;
 		}
 
 		if ($verifyDeletionOfFile) {
 			return unlink($path);
 		}
-		error_log("Zum unwiderruflichen Löschen der Datei " . $path . " muss das Argument verifyDeletionOfFile auf true gesetzt werden");
+		error_log("Zum unwiderruflichen Löschen der Datei " . $path . " muss das Argument verifyDeletionOfFile auf true gesetzt werden", 0, "../data/error.log");
 		return false;
 	}
 ?>

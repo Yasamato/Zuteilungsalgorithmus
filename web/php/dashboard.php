@@ -7,7 +7,6 @@ if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
 		//prepare data
 		$values = [
 			$_POST["stage"],
-			$_POST["schuelerAnzahl"],
 			empty($_POST["dauer"]["montag"]["vormittag"]) ? "false" : "true",
 			empty($_POST["dauer"]["montag"]["vormittagHinweis"]) ? "" : $_POST["dauer"]["montag"]["vormittagHinweis"],
 			empty($_POST["dauer"]["montag"]["nachmittag"]) ? "false" : "true",
@@ -34,7 +33,6 @@ if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
 		// prepare data
 		$values = [
 			$_POST["stage"],
-			$_POST["schuelerAnzahl"],
 			$config['MontagVormittag'],
 			empty($_POST["dauer"]["montag"]["vormittagHinweis"]) ? "" : $_POST["dauer"]["montag"]["vormittagHinweis"],
 			$config['MontagNachmittag'],
@@ -61,7 +59,7 @@ if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
 	// write the data and check for success
 	dbSetRow("../data/config.csv", "Stage", $config["Stage"], $values);
 	if (dbRead("../data/config.csv") == $config) {
-		error_log("Die Änderung der Einstellung in der Datei ../data/config.csv von '" . json_encode($config) . "' zu '" . json_encode($values) . "' ist fehlgeschlagen");
+		error_log("Die Änderung der Einstellung in der Datei ../data/config.csv von '" . json_encode($config) . "' zu '" . json_encode($values) . "' ist fehlgeschlagen", 0, "../data/error.log");
 		die("Speichern der Konfiguration fehlgeschlagen.");
 	}
 	else {

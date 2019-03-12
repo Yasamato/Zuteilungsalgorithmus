@@ -81,102 +81,68 @@
       $h = 20;
       $this->SetFont('freeserif', 'B', 10);
       $this->Cell(27, 0, "Vormittag");
-      $this->Line(10, $y, 10, $y + $h);
-      $this->Line(10, $y + $h, 37, $y + $h);
-      $this->Line(37, $y, 37, $y + $h);
       $this->SetFont('freeserif', '', 10);
       $this->writeHTMLCell(50, 0, 37, $y, $projekt["moVor"]);
-      $this->Line(37, $y, 37, $y + $h);
-      $this->Line(37, $y + $h, 87, $y + $h);
-      $this->Line(87, $y, 87, $y + $h);
       $this->writeHTMLCell(50, 0, 87, $y, $projekt["diVor"]);
-      $this->Line(87, $y, 87, $y + $h);
-      $this->Line(87, $y + $h, 137, $y + $h);
-      $this->Line(137, $y, 137, $y + $h);
       $this->writeHTMLCell(50, 0, 137, $y, $projekt["miVor"]);
-      $this->Line(137, $y, 137, $y + $h);
-      $this->Line(137, $y + $h, 187, $y + $h);
-      $this->Line(187, $y, 187, $y + $h);
       $this->writeHTMLCell(50, 0, 187, $y, $projekt["doVor"]);
-      $this->Line(187, $y, 187, $y + $h);
-      $this->Line(187, $y + $h, 237, $y + $h);
-      $this->Line(237, $y, 237, $y + $h);
       $this->writeHTMLCell(50, 0, 237, $y, $projekt["frVor"]);
-      $this->Line(237, $y, 237, $y + $h);
-      $this->Line(237, $y + $h, 287, $y + $h);
-      $this->Line(287, $y, 287, $y + $h);
+			// Draw Borders
+			$this->Rect(10, $y, 27, $h);
+			$this->Rect(37, $y, 50, $h);
+			$this->Rect(87, $y, 50, $h);
+			$this->Rect(137, $y, 50, $h);
+			$this->Rect(187, $y, 50, $h);
+			$this->Rect(237, $y, 50, $h);
       $this->ln($h);
       //Zeile 7 Mensa
       $y = $this->getY();
       $h = 5;
       $this->SetFont('freeserif', 'B', 10);
       $this->Cell(27, 0, "Mensa");
-      $this->Line(10, $y, 10, $y + $h);
-      $this->Line(10, $y + $h, 37, $y + $h);
-      $this->Line(37, $y, 37, $y + $h);
       $this->SetFont('freeserif', '', 10);
       $this->writeHTMLCell(50, 0, 37, $y, $projekt["moMensa"] == "true" ? "Ja" : "Nein");
-      $this->Line(37, $y, 37, $y + $h);
-      $this->Line(37, $y + $h, 87, $y + $h);
-      $this->Line(87, $y, 87, $y + $h);
       $this->writeHTMLCell(50, 0, 87, $y, $projekt["diMensa"] == "true" ? "Ja" : "Nein");
-      $this->Line(87, $y, 87, $y + $h);
-      $this->Line(87, $y + $h, 137, $y + $h);
-      $this->Line(137, $y, 137, $y + $h);
       $this->writeHTMLCell(50, 0, 137, $y, $projekt["miMensa"] == "true" ? "Ja" : "Nein");
-      $this->Line(137, $y, 137, $y + $h);
-      $this->Line(137, $y + $h, 187, $y + $h);
-      $this->Line(187, $y, 187, $y + $h);
       $this->writeHTMLCell(50, 0, 187, $y, $projekt["doMensa"] == "true" ? "Ja" : "Nein");
-      $this->Line(187, $y, 187, $y + $h);
-      $this->Line(187, $y + $h, 237, $y + $h);
-      $this->Line(237, $y, 237, $y + $h);
       $this->writeHTMLCell(50, 0, 237, $y, $projekt["frMensa"] == "true" ? "Ja" : "Nein");
-      $this->Line(237, $y, 237, $y + $h);
-      $this->Line(237, $y + $h, 287, $y + $h);
-      $this->Line(287, $y, 287, $y + $h);
+			// Draw Borders
+			$this->Rect(10, $y, 27, $h);
+			$this->Rect(37, $y, 50, $h);
+			$this->Rect(87, $y, 50, $h);
+			$this->Rect(137, $y, 50, $h);
+			$this->Rect(187, $y, 50, $h);
+			$this->Rect(237, $y, 50, $h);
       $this->ln($h);
       //Zeile 7 Nachmittag
       $y = $this->getY();
       $h = 20;
       $this->SetFont('freeserif', 'B', 10);
       $this->Cell(27, 0, "Nachmittag");
-      $this->Line(10, $y, 10, $y + $h);
-      $this->Line(10, $y + $h, 37, $y + $h);
-      $this->Line(37, $y, 37, $y + $h);
       $this->SetFont('freeserif', '', 10);
       $this->writeHTMLCell(50, 0, 37, $y, $projekt["moNach"]);
-      $this->Line(37, $y, 37, $y + $h);
-      $this->Line(37, $y + $h, 87, $y + $h);
-      $this->Line(87, $y, 87, $y + $h);
       $this->writeHTMLCell(50, 0, 87, $y, $projekt["diNach"]);
-      $this->Line(87, $y, 87, $y + $h);
-      $this->Line(87, $y + $h, 137, $y + $h);
-      $this->Line(137, $y, 137, $y + $h);
       $this->writeHTMLCell(50, 0, 137, $y, $projekt["miNach"]);
-      $this->Line(137, $y, 137, $y + $h);
-      $this->Line(137, $y + $h, 187, $y + $h);
-      $this->Line(187, $y, 187, $y + $h);
       $this->writeHTMLCell(50, 0, 187, $y, $projekt["doNach"]);
-      $this->Line(187, $y, 187, $y + $h);
-      $this->Line(187, $y + $h, 237, $y + $h);
-      $this->Line(237, $y, 237, $y + $h);
       $this->writeHTMLCell(50, 0, 237, $y, $projekt["frNach"]);
-      $this->Line(237, $y, 237, $y + $h);
-      $this->Line(237, $y + $h, 287, $y + $h);
-      $this->Line(287, $y, 287, $y + $h);
+			// Draw Borders
+			$this->Rect(10, $y, 27, $h);
+			$this->Rect(37, $y, 50, $h);
+			$this->Rect(87, $y, 50, $h);
+			$this->Rect(137, $y, 50, $h);
+			$this->Rect(187, $y, 50, $h);
+			$this->Rect(237, $y, 50, $h);
       $this->ln($h);
     }
 
-		function printKlasse($klasse, $studentlist) {
-			array_multisort(array_column($studentlist, "nachname"), SORT_ASC, $studentlist);
+		function printKlasse($klasse, $studentlist, $klassenliste = false) {
       $this->AddPage("P", "A4");
       $this->setCellHeightRatio(1.1);
       $this->ln(13);
 
       // Zeile 1
       $this->SetFont('freeserif', 'B', 14);
-      $this->Cell(0, 0, 'Wahlergebnis - Klase ' . $klasse);
+      $this->Cell(0, 0, empty($klassenliste) ? $klasse : 'Klasse ' . $klasse);
       $this->ln(6);
 
 			// Aufbereiten des Headers
@@ -184,16 +150,23 @@
 				"Klasse",
 				"Nachname",
 				"Vorname",
-				"Ergebnis"
+				$_SESSION['benutzer']['typ'] == "admin" ? "Ergebnis" : "Bereits gewählt"
 			];
 			// Aufbereiten der Daten für doe Schülertabelle
 			$dataToPrint = [];
+			$dummyWertVorhanden = 0;
 			foreach ($studentlist as $student) {
+				// dummy-Wert
+				if (empty($student["nachname"])) {
+					$dummyWertVorhanden += 1;
+					continue;
+				}
+
 				array_push($dataToPrint, [
 					$student["klasse"],
 					$student["nachname"],
 					$student["vorname"],
-					empty($student["ergebnis"]) ? "N/A" : $student["ergebnis"]
+					$_SESSION['benutzer']['typ'] == "admin" ? (empty($student["ergebnis"]) ? "N/A" : $student["ergebnis"]) : (empty($student["wahl"]) ? "Nein" : "Ja")
 				]);
 			}
 			// Aufbereiten der Breiten
@@ -202,7 +175,19 @@
 			];
 			// Tabelle
 			$this->ColoredTable($header, $dataToPrint, $widths);
-			$this->Cell(0, 6, count($studentlist) . " Schüler-Eintr" . (count($studentlist) > 1 ? "äge" : "ag") . " gefunden");
+			if (!empty($klassenliste)) {
+				$anzahl = 0;
+				foreach ($klassenliste as $listung) {
+					if ($listung["klasse"] == $klasse) {
+						$anzahl = $listung["anzahl"];
+						break;
+					}
+				}
+				$this->Cell(0, 6, count($studentlist) - $dummyWertVorhanden . " / " . $anzahl . " Schüler-Einträgen gefunden");
+			}
+			else {
+				$this->Cell(0, 6, count($studentlist) - $dummyWertVorhanden . " Teilnehmer");
+			}
 		}
 
     function Header() {
@@ -245,46 +230,49 @@
     }
   }
 
+
+
+
+
   // Anfrage verarbeiten
+	$bereitsAusgewertet = false;
+	foreach ($wahlen as $key => $student) {
+		if (!empty($student["ergebnis"])) {
+			$bereitsAusgewertet = true;
+		}
+		elseif ($bereitsAusgewertet) {
+			error_log("Die Wahltabelle wurde nur teilweise ausgewertet!! Etwas ist schief gelaufen", 0, "../data/error.log");
+			$bereitsAusgewertet = false;
+			break;
+		}
+	}
+	// Projekt(e) drucken
   if (!empty($_GET["print"]) && !empty($_GET["projekt"]) && $_GET["print"] == "projekt") {
 	  $pdf = new printPDF('L', 'mm', 'A4');
 		$pdf->SetCreator(PDF_CREATOR);
 		$pdf->SetAuthor('Lise-Meitner-Gymnasium Maxdorf G8GTS');
 
-		$klassen = [];
-		foreach (dbRead("../data/wahl.csv") as $key => $student) {
-			if (empty($klassen[$student["klasse"]])) {
-				$klassen[$student["klasse"]] = [$student];
-			}
-			else {
-				array_push($klassen[$student["klasse"]], $student);
-			}
-		}
-		ksort($klassen);
-		$bereitsAusgewertet = false;
-		foreach (dbRead("../data/wahl.csv") as $key => $student) {
-			if (!empty($student["ergebnis"])) {
-				$bereitsAusgewertet = true;
-			}
-			elseif ($bereitsAusgewertet) {
-				error_log("Die Wahltabelle wurde nur teilweise ausgewertet!! Etwas ist schief gelaufen");
-				$bereitsAusgewertet = false;
-				break;
-			}
-		}
-
     if ($_GET['projekt'] == "all") {
 			$pdf->SetTitle("Projektwoche " . date("Y") . " - Projektliste");
 			$pdf->SetSubject('Projektliste');
-      foreach (dbRead("../data/projekte.csv") as $projekt) {
+      foreach ($projekte as $projekt) {
         $pdf->printProjekt($projekt);
 				if ($bereitsAusgewertet) {
 					$teilnehmer = [];
-					foreach (dbRead("../data/wahl.csv") as $key => $student) {
+					foreach ($wahlen as $key => $student) {
 						if ($student["ergebnis"] == $projekt["id"]) {
 							array_push($teilnehmer, $student);
 						}
 					}
+					usort($teilnehmer, function ($a, $b) {
+						if (strtolower($a["nachname"]) == strtolower($b["nachname"])) {
+							if (strtolower($a["vorname"]) == strtolower($b["vorname"])) {
+							return strtolower($a["klasse"]) < strtolower($b["klasse"]) ? -1 : 1;
+							}
+							return strtolower($a["vorname"]) < strtolower($b["vorname"]) ? -1 : 1;
+						}
+						return strtolower($a["nachname"]) < strtolower($b["nachname"]) ? -1 : 1;
+					});
 					$pdf->printKlasse("Teilnehmer " . $projekt["name"], $teilnehmer);
 				}
       }
@@ -296,41 +284,41 @@
       $pdf->printProjekt($projekt);
 			if ($bereitsAusgewertet) {
 				$teilnehmer = [];
-				foreach (dbRead("../data/wahl.csv") as $key => $student) {
+				foreach ($wahlen as $key => $student) {
 					if ($student["ergebnis"] == $projekt["id"]) {
 						array_push($teilnehmer, $student);
 					}
 				}
-				$pdf->printKlasse("Teilnehmer " . $projekt["name"], $teilnehmer);
+				usort($teilnehmer, function ($a, $b) {
+					if (strtolower($a["nachname"]) == strtolower($b["nachname"])) {
+						return strtolower($a["vorname"]) < strtolower($b["vorname"]) ? -1 : 1;
+					}
+					return strtolower($a["nachname"]) < strtolower($b["nachname"]) ? -1 : 1;
+				});
+				$pdf->printKlasse("Teilnehmer " . $projekt["name"], $teilnehmer, false);
 			}
     }
   }
-  elseif (!empty($_GET["print"]) && $_GET["print"] == "students") {
+	// Schülerlisten drucken
+  elseif (!empty($_GET["print"]) && !empty($_GET["klasse"]) && $_GET["print"] == "students") {
 	  $pdf = new printPDF('P', 'mm', 'A4');
 		$pdf->SetCreator(PDF_CREATOR);
 		$pdf->SetAuthor('Lise-Meitner-Gymnasium Maxdorf G8GTS');
-		$klassen = [];
-		foreach (dbRead("../data/wahl.csv") as $key => $student) {
-			if (empty($klassen[$student["klasse"]])) {
-				$klassen[$student["klasse"]] = [$student];
-			}
-			else {
-				array_push($klassen[$student["klasse"]], $student);
-			}
-		}
-		ksort($klassen);
 
     if ($_GET['klasse'] == "all") {
-			$pdf->SetTitle("Projektwoche " . date("Y") . " - Wahlergebnis");
-			$pdf->SetSubject('Wahlergebnis');
+			$pdf->SetTitle("Projektwoche " . date("Y"));
+			$pdf->SetSubject('Schülerlisten der Schule');
 			foreach ($klassen as $key => $klasse) {
-        $pdf->printKlasse($key, $klasse);
+        $pdf->printKlasse($key, $klasse, $klassenliste);
       }
     }
     else {
-			$pdf->SetTitle("Projektwoche " . date("Y") . " - Wahlergebnis Klasse " . $_GET['klasse']);
-			$pdf->SetSubject("Wahlergebnis Klasse " . $_GET['klasse']);
-      $pdf->printKlasse($_GET['klasse'], $klassen[$_GET['klasse']]);
+			$pdf->SetTitle("Projektwoche " . date("Y") . " - Klasse " . $_GET['klasse']);
+			$pdf->SetSubject("Schülerliste der Klasse " . $_GET['klasse']);
+			if (empty($klassen[$_GET['klasse']])) {
+				error_log("Klasse '" . $_GET["klasse"] . "' konnte nicht gefunden werden.", 0, "../data/error.log");
+			}
+      $pdf->printKlasse($_GET['klasse'], $klassen[$_GET['klasse']], $klassenliste);
     }
   }
   else {

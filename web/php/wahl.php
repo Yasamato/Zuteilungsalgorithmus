@@ -33,7 +33,7 @@ if (isLogin()) {// hard gecoded für präsi
 		}
 		else {
 			// Petze :)
-			error_log("Invalide Stufenlimitierung! Der Schüler " .  $_SESSION['benutzer']['vorname'] . ", " . $_SESSION['benutzer']['nachname'] . " aus der " . $_SESSION['benutzer']['stufe'] . " " . $_SESSION['benutzer']['klasse'] . " versuchte eine ungültige Wahl einzureichen.");
+			error_log("Invalide Stufenlimitierung! Der Schüler " .  $_SESSION['benutzer']['vorname'] . ", " . $_SESSION['benutzer']['nachname'] . " aus der " . $_SESSION['benutzer']['stufe'] . " " . $_SESSION['benutzer']['klasse'] . " versuchte eine ungültige Wahl einzureichen.", 0, "../data/error.log");
 			alert("Ungültige Wahl");
 		}
 	}

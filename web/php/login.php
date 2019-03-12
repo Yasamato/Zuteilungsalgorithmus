@@ -57,37 +57,8 @@
 			"nachname" => "chüler"
 		];
 	}
-	else{
-		die("Die Fake-Accounts...........");
-		//login
-		$loginResult = ldap_authenticate();
-		if($loginResult){
-			// extrahiere die Accountinformationen
-			$path = explode("/", $loginResult['homedirectory'][0]);
-			if($path[2] != "students"){
-				$klasse = "";
-				$stufe = "";
-			}
-			else{
-				$klasse = $path[3];
-				$stufe = "";
-				for($i = 0; $i < count($path); $i++){
-					if(is_numeric($path[3][$i])){
-						if($path[3][$i] != "0"){
-							$stufe .= $path[3][$i];
-						}
-					}
-				}
-			}
-			//speichern in der session
-			$_SESSION['benutzer'] = [
-				"uid" => $loginResult['uid'][0],
-				"typ" => $path[2],
-				"klasse" => $klasse,
-				"stufe" => $stufe,
-				"vorname" => $loginResult['givenname'][0],
-				"nachname" => $loginResult['sn'][0]
-			];
-		}
+	else {
+		alert("Anmeldedaten ungültig");
+		error_log("Anmeldung des Accounts '" . $_POST['user'] . "' fehlgeschlagen.", 0, "../data/error.log");
 	}
 ?>

@@ -328,7 +328,7 @@ if (!isLogin() || ($_SESSION['benutzer']['typ'] != "admin" && $_SESSION['benutze
         </div>
 
         <div class="form-check col">
-          <input class="form-check-input" type="checkbox" id="frMensa" name="frMensa"<?php //echo $projekt["frMensa"] == "true" ? " checked" : ""; ?> disabled>
+          <input class="form-check-input" type="checkbox" id="frMensa" name="frMensa" disabled>
           <label class="form-check-label">
             Mensaessen möglich
           </label>

@@ -13,10 +13,6 @@
 		<meta name="author" content="Fabian von der Warth">
 		<meta name="author" content="Jonas Dalchow">
 		<meta name="author" content="Leon Selig">
-		<!-- Credits:
-
-
-		-->
 
 		<meta name="description" content="Wahlseite der LMG8-Schule von Maxdorf">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
@@ -46,6 +42,54 @@
   (include "../data/config.php") OR die("</head><body style='color: #000'>Der Webserver wurde noch nicht konfiguriert, kontaktiere einen Admin damit dieser setup.sh ausführt.</body></html>");
 	require "php/db.php";
 	require "php/utils.php";
+
+	// on form-submit
+	if (isset($_GET['logout'])) {
+		logout();
+	}
+	if (isset($_POST['action'])) {
+		switch ($_POST['action']) {
+			case "login":
+				require("php/login.php"); // dummy-login
+				// require("php/login_live.php");
+				$projekte = [];
+				if ($_SESSION['benutzer']['typ'] == "teachers" || $_SESSION['benutzer']['typ'] == "admin") {
+					$projekte = dbRead("../data/projekte.csv");
+				}
+				else {
+					foreach (dbRead("../data/projekte.csv") as $p) {
+						if ($p['minKlasse'] <= $_SESSION['benutzer']['stufe'] && $p['maxKlasse'] >= $_SESSION['benutzer']['stufe']) {
+							array_push($projekte, $p);
+						}
+					}
+				}
+				break;
+			case "logout":
+				logout();
+				break;
+			case "addProject":
+				require("php/projektErstellung.php");
+				break;
+			case "editProject":
+				require("php/editProjekt.php");
+				break;
+			case "deleteProjekt":
+				require("php/deleteProjekt.php");
+				break;
+			case "wahl":
+				require("php/wahl.php");
+				break;
+			case "updateConfiguration":
+				require("php/dashboard.php");
+				break;
+			case "updateStudentsInKlassen":
+				require("php/klassen.php");
+				break;
+			default:
+				die("Unbekannter Befehl!");
+				break;
+		}
+	}
 ?>
 
 	<script>
@@ -74,39 +118,6 @@
 
 <?php
 
-	// on form-submit
-	if (isset($_GET['logout'])) {
-		logout();
-	}
-	if (isset($_POST['action'])) {
-		switch ($_POST['action']) {
-			case "login":
-				require("php/login.php");
-				break;
-			case "logout":
-				logout();
-				break;
-			case "addProject":
-				require("php/projektErstellung.php");
-				break;
-			case "editProject":
-				require("php/editProject.php");
-				break;
-			case "deleteProjekt":
-				require("php/deleteProjekt.php");
-				break;
-			case "wahl":
-				require("php/wahl.php");
-				break;
-			case "updateConfiguration":
-				require("php/dashboard.php");
-				break;
-			default:
-				die("Unbekannter Befehl!");
-				break;
-		}
-	}
-
 	// DEBUG
 	/*if(isset($loginResult)) {
 		//print_r(array_keys($loginResult)[30]);
@@ -114,39 +125,6 @@
 		//print_r($loginResult);
 		print_r($_SESSION['benutzer']);
 	}*/
-	$klassen = [];
-	foreach (dbRead("../data/wahl.csv") as $key => $student) {
-		$student["wahl"] = explode("§", $student["wahl"]);
-		if (empty($klassen[$student["klasse"]])) {
-			$klassen[$student["klasse"]] = [$student];
-		}
-		else {
-			array_push($klassen[$student["klasse"]], $student);
-		}
-	}
-	foreach ($klassen as $klasse => $studentlist) {
-		array_multisort(array_column($studentlist, "nachname"), SORT_ASC, $studentlist);
-	}
-	$wahlen = [];
-	foreach ($klassen as $klasse) {
-		foreach ($klasse as $student) {
-			array_push($wahlen, $student);
-		}
-	}
-
-	$projekte = [];
-	if (isLogin()) {
-		if ($_SESSION['benutzer']['typ'] == "teachers" || $_SESSION['benutzer']['typ'] == "admin") {
-			$projekte = dbRead("../data/projekte.csv");
-		}
-		else {
-			foreach (dbRead("../data/projekte.csv") as $p) {
-				if ($p['minKlasse'] <= $_SESSION['benutzer']['stufe'] && $p['maxKlasse'] >= $_SESSION['benutzer']['stufe']) {
-					array_push($projekte, $p);
-				}
-			}
-		}
-	}
 ?>
 		<script>
 			var projekte = [<?php
@@ -163,7 +141,7 @@
 		?>
 			];
 
-			var user = "<?php echo $_SESSION['benutzer']['typ']; ?>";
+			var user = "<?php echo empty($_SESSION['benutzer']['typ']) ? "logged out" : $_SESSION['benutzer']['typ']; ?>";
 		</script>
 <?php
 	//--------------------------------------------------------
@@ -223,11 +201,11 @@
 						alert("Es können keine Projekte mehr eingereicht werden. Wenden sie sich hierfür bei Hilfe an den Administrator");
 					}
 ?>
-		<script>var site = "projektListe";</script>
+		<script>var site = "lehrerDashboard";</script>
 	</head>
 	<body>
 <?php
-					include "html/projektListe.php";
+					include "html/lehrerDashboard.php";
 				}
 			}
 			else {
@@ -299,7 +277,7 @@
 		<footer class="footer">
 			<div class="container text-center">
 				<small class="text-muted">
-					(c) 2018-2019 Leo Jung, Fabian von der Warth, Jan Pfenning, Tim Schneider, Lukas Fausten, Tobias Palzer, Leon Selig, Jonas Dalchow
+					&copy; 2018-2019 Leo Jung, Fabian von der Warth, Jan Pfenning, Tim Schneider, Lukas Fausten, Tobias Palzer, Leon Selig, Jonas Dalchow
 				</small>
 			</div>
 		</footer>
