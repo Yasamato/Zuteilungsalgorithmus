@@ -52,7 +52,7 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "teachers") {
 
   <div class="container">
     <?php if ($config["Stage"] > 1) { ?>
-    <div class="card-columns">
+    <div class="row klassenauflistung">
       <?php
       foreach ($klassen as $key => $klasse) {
         $anzahl = 0;
@@ -65,28 +65,30 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "teachers") {
           }
         }
       ?>
-      <div class="card bg-dark p-3 border <?php
-      if (!$found || $anzahl < count($klasse) - 1) {
-        echo "border-danger text-danger";
-      }
-      elseif ($anzahl == count($klasse) - 1) {
-        echo "text-success border-success";
-      }
-      else {
-        echo "border-warning text-warning";
-      } ?>">
-        <div class="card-body">
-          <?php
-          if (!$found) {
-            echo " <span>Diese Klasse wurde nicht in den Datensätzen gefunden!!!</span>";
-          }
-          elseif ($anzahl < count($klasse) - 1) {
-            echo " <span>Diese Klasse hat scheinbar mehr Schüler als eingetragen!!!</span>";
-          }
-          ?>
-          <h5 class="card-title"><?php if (count($klasse) - 1 > 0) {echo count($klasse) - 1; ?> / <?php echo $anzahl; } else {echo  "Keine";} ?></h5>
-          <p class="card-text">Person<?php echo count($klasse) - 1 > 0 ? "en" : ""; ?> aus Klasse <?php echo $key; ?> ha<?php echo count($klasse) - 1 > 1 ? "ben" : "t"; ?> bereits gewählt</p>
-            <button onclick="javascript: window.open('printPDF.php?print=students&klasse=<?php echo $key; ?>');" type="button" class="btn btn-primary">Auflisten</button>
+      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+        <div class="card bg-dark p-3 border <?php
+        if (!$found || $anzahl < count($klasse) - 1) {
+          echo "border-danger text-danger";
+        }
+        elseif ($anzahl == count($klasse) - 1) {
+          echo "text-success border-success";
+        }
+        else {
+          echo "border-warning text-warning";
+        } ?>">
+          <div class="card-body">
+            <?php
+            if (!$found) {
+              echo " <span>Diese Klasse wurde nicht in den Datensätzen gefunden!!!</span>";
+            }
+            elseif ($anzahl < count($klasse) - 1) {
+              echo " <span>Diese Klasse hat scheinbar mehr Schüler als eingetragen!!!</span>";
+            }
+            ?>
+            <h5 class="card-title"><?php if (count($klasse) - 1 > 0) {echo count($klasse) - 1; ?> / <?php echo $anzahl; } else {echo  "Keine";} ?></h5>
+            <p class="card-text">Person<?php echo count($klasse) - 1 > 0 ? "en" : ""; ?> aus Klasse <?php echo $key; ?> ha<?php echo count($klasse) - 1 > 1 ? "ben" : "t"; ?> bereits gewählt</p>
+              <button onclick="javascript: window.open('printPDF.php?print=students&klasse=<?php echo $key; ?>');" type="button" class="btn btn-primary">Auflisten</button>
+          </div>
         </div>
       </div><?php
       }

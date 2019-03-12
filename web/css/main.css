@@ -88,3 +88,16 @@ table {
 	height: 40px;
 	line-height: 60px;
 }
+
+.row.klassenauflistung > div {
+	display: flex;
+	flex: 1 0 auto;
+}
+@media (max-width: 576px) {
+	.row.klassenauflistung > div {
+		display: block;
+	}
+}
+.row.klassenauflistung > div > div.card {
+	margin-bottom: 12px;
+}
