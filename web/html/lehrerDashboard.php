@@ -28,7 +28,7 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "teachers") {
             }
             ?>
           </div>
-          
+
           <div class="btn-group btn-group-toggle" data-toggle="buttons">
             <button type="button" class="btn btn-danger" onclick="logout()">
               Abmelden

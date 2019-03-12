@@ -166,7 +166,7 @@
 					$student["klasse"],
 					$student["nachname"],
 					$student["vorname"],
-					$_SESSION['benutzer']['typ'] == "admin" ? (empty($student["ergebnis"]) ? "N/A" : $student["ergebnis"]) : (empty($student["ergebnis"]) ? "Nein" : "Ja")
+					$_SESSION['benutzer']['typ'] == "admin" ? (empty($student["ergebnis"]) ? "N/A" : $student["ergebnis"]) : (empty($student["wahl"]) ? "Nein" : "Ja")
 				]);
 			}
 			// Aufbereiten der Breiten
