@@ -58,7 +58,7 @@
 		];
 	}
 	else {
+		alert("Anmeldedaten ungültig");
 		error_log("Anmeldung des Accounts '" . $_POST['user'] . "' fehlgeschlagen.", 0, "../data/error.log");
-		die("Die Fake-Accounts...........");
 	}
 ?>

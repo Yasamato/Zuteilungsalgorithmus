@@ -65,7 +65,7 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "teachers") {
           }
         }
       ?>
-      <div class="card text-white bg-dark p-3 border <?php
+      <div class="card bg-dark p-3 border <?php
       if (!$found || $anzahl < count($klasse) - 1) {
         echo "border-danger text-danger";
       }
@@ -78,10 +78,10 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "teachers") {
         <div class="card-body">
           <?php
           if (!$found) {
-            echo " <span class='text-danger'>Diese Klasse wurde nicht in den Datensätzen gefunden!!!</span>";
+            echo " <span>Diese Klasse wurde nicht in den Datensätzen gefunden!!!</span>";
           }
           elseif ($anzahl < count($klasse) - 1) {
-            echo " <span class='text-danger'>Diese Klasse hat scheinbar mehr Schüler als eingetragen!!!</span>";
+            echo " <span>Diese Klasse hat scheinbar mehr Schüler als eingetragen!!!</span>";
           }
           ?>
           <h5 class="card-title"><?php if (count($klasse) - 1 > 0) {echo count($klasse) - 1; ?> / <?php echo $anzahl; } else {echo  "Keine";} ?></h5>
