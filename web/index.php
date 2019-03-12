@@ -277,7 +277,7 @@
 		<footer class="footer">
 			<div class="container text-center">
 				<small class="text-muted">
-					(c) 2018-2019 Leo Jung, Fabian von der Warth, Jan Pfenning, Tim Schneider, Lukas Fausten, Tobias Palzer, Leon Selig, Jonas Dalchow
+					&copy; 2018-2019 Leo Jung, Fabian von der Warth, Jan Pfenning, Tim Schneider, Lukas Fausten, Tobias Palzer, Leon Selig, Jonas Dalchow
 				</small>
 			</div>
 		</footer>

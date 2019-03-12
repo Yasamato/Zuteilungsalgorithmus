@@ -497,7 +497,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
           }
           addStudentsInKlassenInput();
         </script>
-        <button onclick="javascript: addStudentsInKlassenInput();" type="button" class="btn btn-success">Klasse hinzufügen</button>
+        <button onclick="javascript: addStudentsInKlassenInput();" type="button" class="btn btn-success">Klasse hinzufügen &#10010;</button>
       </div>
 
       <div class="modal-footer">

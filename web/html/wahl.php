@@ -20,7 +20,7 @@
 				<input type="hidden" value="<?php echo $projekt["id"]; ?>">
 				<div class="card-body">
 					<h5><?php echo $projekt["name"]; ?></h5>
-					<a href="#" class="btn btn-primary" onclick="showProjektInfoModal(projekte[<?php echo $key; ?>]);">Info</a>
+					<a href="javascript:;" class="btn btn-primary" onclick="showProjektInfoModal(projekte[<?php echo $key; ?>]);">Info</a>
 				</div>
 			</div>
 			<?php
@@ -82,7 +82,7 @@
 							<input type="hidden" value="<?php echo $projekt["id"]; ?>">
 							<div class="card-body">
 								<h5><?php echo $projekt["name"]; ?></h5>
-								<a href="#" class="btn btn-primary" onclick="showProjektInfoModal(projekte[<?php echo $vorherigeWahlKey[$i]; ?>]);">Info</a>
+								<a href="javascript:;" class="btn btn-primary" onclick="showProjektInfoModal(projekte[<?php echo $vorherigeWahlKey[$i]; ?>]);">Info</a>
 							</div>
 						</div>
 						<?php
