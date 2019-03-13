@@ -8,15 +8,15 @@ if (!isLogin() || ($_SESSION['benutzer']['typ'] != "admin" && $_SESSION['benutze
 <!-- overflow field with blured background -->
 <div id="bg-blur" class="container">
 
-	<button type="button" class="btn btn-primary" onclick="window.location.href = '?';">
+	<button type="button" class="btn btn-primary" onclick="window.location.href = '/';">
 		Zurück
 	</button>
 	<!-- Formularüberschrift -->
 	<div align="center">
 		<h1>Projekt-Einschreibe-Formular</h1>
-		<p>Hier können sie ihre Projekte eintragen
-			<br> Bitte achten sie auf die Richtigkeit ihrer Eingaben, da sie im Nachhinein <b class="text-danger">NICHT</b> mehr geändert werden können</p>
-		<p></p>
+		<p>
+      Hier können sie ihr Projekt einreichen.
+    </p>
 	</div>
 
 	<!-- Hier ist das Formular -->
