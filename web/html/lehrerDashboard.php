@@ -52,7 +52,7 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "teachers") {
 
   <div class="container">
     <?php if ($config["Stage"] > 1) { ?>
-    <div class="row klassenauflistung">
+    <div class="row flex">
       <?php
       foreach ($klassen as $key => $klasse) {
         $anzahl = 0;
@@ -66,7 +66,7 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "teachers") {
         }
       ?>
       <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-        <div class="card bg-dark p-3 border <?php
+        <div class="card w-100 bg-dark p-3 border <?php
         if (!$found || $anzahl < count($klasse) - 1) {
           echo "border-danger text-danger";
         }

@@ -515,158 +515,182 @@ foreach (dbRead("../data/projekte.csv") as $p) {
 
 <div class="container-fluid">
   <div class="row">
-  <!-- Spalte 1 -->
-    <div class="col-12 col-md-6 col-lg-4" id="row1">
-      <div class="card-columns">
+    <!-- Spalte 1 -->
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="row flex">
 
-    		<div class="card text-white bg-dark p-3">
-    			<div class="card-body">
-    				<h5 class="card-title">Dashboard Projektwahl</h5>
-    				<p class="card-text">Übersicht über die Projektwahl-Datenbank</p>
+        <div class="col-md-12 col-sm-6 col-xs-12">
+      		<div class="card w-100 text-white bg-dark p-3">
+      			<div class="card-body">
+      				<h5 class="card-title">Dashboard Projektwahl</h5>
+      				<p class="card-text">Übersicht über die Projektwahl-Datenbank</p>
 
-        		<div class="btn-group btn-group-toggle" data-toggle="buttons">
-              <button type="button" class="btn btn-danger" onclick="logout()">
-                Abmelden
-              </button>
-          		<!-- Button trigger modal -->
-          		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#configModal">
-          			Konfiguration
-          		</button>
-            </div>
-    			</div>
-    		</div>
+          		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <button type="button" class="btn btn-danger" onclick="logout()">
+                  Abmelden
+                </button>
+            		<!-- Button trigger modal -->
+            		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#configModal">
+            			Konfiguration
+            		</button>
+              </div>
+      			</div>
+      		</div>
+        </div>
 
-        <?php
-          $klassenFertig = 0;
-          foreach ($klassen as $klasse => $liste) {
-            foreach ($klassenliste as $k) {
-              if ($klasse == $k["klasse"]) {
-                if (count($liste) - 1 == $k["anzahl"]) {
-                  $klassenFertig += 1;
+        <div class="col-md-12 col-sm-6 col-xs-12">
+          <?php
+            $klassenFertig = 0;
+            foreach ($klassen as $klasse => $liste) {
+              foreach ($klassenliste as $k) {
+                if ($klasse == $k["klasse"]) {
+                  if (count($liste) - 1 == $k["anzahl"]) {
+                    $klassenFertig += 1;
+                  }
+                  break;
                 }
-                break;
               }
             }
-          }
-        ?>
-        <div class="card text-white bg-dark p-3 border <?php
-        if (count($klassenliste) == 0) {
-          echo " border-danger text-danger";
-        }
-        elseif ($klassenFertig == count($klassenliste)) {
-          echo "text-success border-success";
-        }
-        else {
-          echo "border-warning text-warning";
-        } ?>">
-          <div class="card-body"><?php
+          ?>
+          <div class="card w-100 text-white bg-dark p-3 border <?php
           if (count($klassenliste) == 0) {
-            ?>
-            <h5 class="card-title">Keine</h5>
-            <p class="card-text">Klasse wurde bisher im System eingetragen.</p>
-            <?php
+            echo " border-danger text-danger";
+          }
+          elseif ($klassenFertig == count($klassenliste)) {
+            echo "text-success border-success";
           }
           else {
+            echo "border-warning text-warning";
+          } ?>">
+            <div class="card-body"><?php
+            if (count($klassenliste) == 0) {
+              ?>
+              <h5 class="card-title">Keine</h5>
+              <p class="card-text">Klasse wurde bisher im System eingetragen.</p>
+              <?php
+            }
+            else {
+              ?>
+              <h5 class="card-title"><?php echo $klassenFertig; ?> von <?php echo count($klassenliste); ?></h5>
+              <p class="card-text">Klassen haben bereits vollständig gewählt.</p>
+              <?php
+            }
             ?>
-            <h5 class="card-title"><?php echo $klassenFertig; ?> von <?php echo count($klassenliste); ?></h5>
-            <p class="card-text">Klassen haben bereits vollständig gewählt.</p>
-            <?php
-          }
-          ?>
-          <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#studentsInKlassen">
-            Einstellung
-          </button>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#studentsInKlassen">
+              Einstellung
+            </button>
+            </div>
           </div>
         </div>
 
-    		<div class="card text-white bg-dark p-3">
-    			<div class="card-body">
-    				<h5 class="card-title"><?php
-    					$min = 0;
-              $max = 0;
-    					foreach (dbRead("../data/projekte.csv") as $p) {
-    						$min += $p["minPlatz"];
-    						$max += $p["maxPlatz"];
-    					}
-    				 	echo $min . " - " . $max;
-    				?></h5>
-    				<p class="card-text">Plätze sind insgesamt verfügbar</p></p>
-    			</div>
-    		</div>
+        <div class="col-md-12 col-sm-6 col-xs-12">
+      		<div class="card w-100 text-white bg-dark p-3">
+      			<div class="card-body">
+      				<h5 class="card-title"><?php
+      					$min = 0;
+                $max = 0;
+      					foreach (dbRead("../data/projekte.csv") as $p) {
+      						$min += $p["minPlatz"];
+      						$max += $p["maxPlatz"];
+      					}
+      				 	echo $min . " - " . $max;
+      				?></h5>
+      				<p class="card-text">Plätze sind insgesamt verfügbar</p></p>
+      			</div>
+      		</div>
+        </div>
 
-    		<div class="card text-white bg-dark p-3">
-    			<div class="card-body">
-    				<h5 class="card-title"><?php echo count($projekte); ?></h5>
-    				<p class="card-text">Projekt<?php echo count($projekte) == 1 ? " wurde" : "e wurden"; ?> eingereicht</p>
-            <!-- Button trigger modal -->
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-              <button onclick="javascript: window.open('printPDF.php?print=projekt&projekt=all');" type="button" class="btn btn-secondary">Drucken</button>
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#projekteModal">
-                Auflisten
+        <div class="col-md-12 col-sm-6 col-xs-12">
+      		<div class="card w-100 text-white bg-dark p-3">
+      			<div class="card-body">
+      				<h5 class="card-title"><?php echo count($projekte); ?></h5>
+      				<p class="card-text">Projekt<?php echo count($projekte) == 1 ? " wurde" : "e wurden"; ?> eingereicht</p>
+              <!-- Button trigger modal -->
+              <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <button onclick="javascript: window.open('printPDF.php?print=projekt&projekt=all');" type="button" class="btn btn-secondary">Drucken</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#projekteModal">
+                  Auflisten
+                </button>
+              </div>
+              <button type="button" class="btn btn-success" onclick="window.location.href = '?site=create';">
+                Neues Projekt erstellen
               </button>
-            </div>
-            <button type="button" class="btn btn-success" onclick="window.location.href = '?site=create';">
-              Neues Projekt erstellen
-            </button>
-    			</div>
-    		</div>
+      			</div>
+      		</div>
+        </div>
 
       </div>
     </div>
 
     <!-- Spalte 2 -->
-    <div class="col-12 col-md-6 col-lg-8" id="row2">
-    	<div class="card-columns">
+    <div class="col-12 col-md-6 col-lg-8">
+      <div class="row flex">
 
-    		<div class="card text-white bg-dark p-3">
-    			<div class="card-body">
-    				<h5 class="card-title"><?php echo $stufen[5]["min"] . " - " . $stufen[5]["max"]; ?></h5>
-    				<p class="card-text">Plätze sind verfügbar für Klassenstufe 5</p>
-    			</div>
-    		</div>
-    	 	<div class="card text-white bg-dark p-3">
-    			<div class="card-body">
-    				<h5 class="card-title"><?php echo $stufen[6]["min"] . " - " . $stufen[6]["max"]; ?></h5>
-    				<p class="card-text">Plätze sind verfügbar für Klassenstufe 6</p>
-    			</div>
-    		</div>
-    		<div class="card text-white bg-dark p-3">
-    			<div class="card-body">
-    				<h5 class="card-title"><?php echo $stufen[7]["min"] . " - " . $stufen[7]["max"]; ?></h5>
-    				<p class="card-text">Plätze sind verfügbar für Klassenstufe 7</p>
-    			</div>
-    		</div>
-    		<div class="card text-white bg-dark p-3">
-    			<div class="card-body">
-    				<h5 class="card-title"><?php echo $stufen[8]["min"] . " - " . $stufen[8]["max"]; ?></h5>
-    				<p class="card-text">Plätze sind verfügbar für Klassenstufe 8</p>
-    			</div>
-    		</div>
-    		<div class="card text-white bg-dark p-3">
-    			<div class="card-body">
-    				<h5 class="card-title"><?php echo $stufen[9]["min"] . " - " . $stufen[9]["max"]; ?></h5>
-    				<p class="card-text">Plätze sind verfügbar für Klassenstufe 9</p>
-    			</div>
-    		</div>
-    		<div class="card text-white bg-dark p-3">
-    			<div class="card-body">
-    				<h5 class="card-title"><?php echo $stufen[10]["min"] . " - " . $stufen[10]["max"]; ?></h5>
-    				<p class="card-text">Plätze sind verfügbar für Klassenstufe 10</p>
-    			</div>
-    		</div>
-    		<div class="card text-white bg-dark p-3">
-    			<div class="card-body">
-    				<h5 class="card-title"><?php echo $stufen[11]["min"] . " - " . $stufen[11]["max"]; ?></h5>
-    				<p class="card-text">Plätze sind verfügbar für Klassenstufe 11</p>
-    			</div>
-    		</div>
-    		<div class="card text-white bg-dark p-3">
-    			<div class="card-body">
-    				<h5 class="card-title"><?php echo $stufen[12]["min"] . " - " . $stufen[12]["max"]; ?></h5>
-    				<p class="card-text">Plätze sind verfügbar für Klassenstufe 12</p>
-    			</div>
-    		</div>
+        <div class="col-xl-4 col-lg-6 col-md-12 col-sm-6 col-xs-12">
+      		<div class="card w-100 text-white bg-dark p-3">
+      			<div class="card-body">
+      				<h5 class="card-title"><?php echo $stufen[5]["min"] . " - " . $stufen[5]["max"]; ?></h5>
+      				<p class="card-text">Plätze sind verfügbar für Klassenstufe 5</p>
+      			</div>
+      		</div>
+        </div>
+        <div class="col-xl-4 col-lg-6 col-md-12 col-sm-6 col-xs-12">
+      	 	<div class="card w-100 text-white bg-dark p-3">
+      			<div class="card-body">
+      				<h5 class="card-title"><?php echo $stufen[6]["min"] . " - " . $stufen[6]["max"]; ?></h5>
+      				<p class="card-text">Plätze sind verfügbar für Klassenstufe 6</p>
+      			</div>
+      		</div>
+        </div>
+        <div class="col-xl-4 col-lg-6 col-md-12 col-sm-6 col-xs-12">
+      		<div class="card w-100 text-white bg-dark p-3">
+      			<div class="card-body">
+      				<h5 class="card-title"><?php echo $stufen[7]["min"] . " - " . $stufen[7]["max"]; ?></h5>
+      				<p class="card-text">Plätze sind verfügbar für Klassenstufe 7</p>
+      			</div>
+      		</div>
+        </div>
+        <div class="col-xl-4 col-lg-6 col-md-12 col-sm-6 col-xs-12">
+      		<div class="card w-100 text-white bg-dark p-3">
+      			<div class="card-body">
+      				<h5 class="card-title"><?php echo $stufen[8]["min"] . " - " . $stufen[8]["max"]; ?></h5>
+      				<p class="card-text">Plätze sind verfügbar für Klassenstufe 8</p>
+      			</div>
+      		</div>
+        </div>
+        <div class="col-xl-4 col-lg-6 col-md-12 col-sm-6 col-xs-12">
+      		<div class="card w-100 text-white bg-dark p-3">
+      			<div class="card-body">
+      				<h5 class="card-title"><?php echo $stufen[9]["min"] . " - " . $stufen[9]["max"]; ?></h5>
+      				<p class="card-text">Plätze sind verfügbar für Klassenstufe 9</p>
+      			</div>
+      		</div>
+        </div>
+        <div class="col-xl-4 col-lg-6 col-md-12 col-sm-6 col-xs-12">
+      		<div class="card w-100 text-white bg-dark p-3">
+      			<div class="card-body">
+      				<h5 class="card-title"><?php echo $stufen[10]["min"] . " - " . $stufen[10]["max"]; ?></h5>
+      				<p class="card-text">Plätze sind verfügbar für Klassenstufe 10</p>
+      			</div>
+      		</div>
+        </div>
+        <div class="col-xl-4 col-lg-6 col-md-12 col-sm-6 col-xs-12">
+      		<div class="card w-100 text-white bg-dark p-3">
+      			<div class="card-body">
+      				<h5 class="card-title"><?php echo $stufen[11]["min"] . " - " . $stufen[11]["max"]; ?></h5>
+      				<p class="card-text">Plätze sind verfügbar für Klassenstufe 11</p>
+      			</div>
+      		</div>
+        </div>
+        <div class="col-xl-4 col-lg-6 col-md-12 col-sm-6 col-xs-12">
+      		<div class="card w-100 text-white bg-dark p-3">
+      			<div class="card-body">
+      				<h5 class="card-title"><?php echo $stufen[12]["min"] . " - " . $stufen[12]["max"]; ?></h5>
+      				<p class="card-text">Plätze sind verfügbar für Klassenstufe 12</p>
+      			</div>
+      		</div>
+        </div>
 
     	</div>
     </div>
@@ -674,7 +698,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
 
 
   <!-- Klassenauflistung -->
-  <div class="row klassenauflistung">
+  <div class="row flex">
 
     <div class="col-xl-25 col-lg-3 col-md-4 col-sm-6 col-xs-12">
       <div class="card bg-dark p-3 w-100 border <?php
