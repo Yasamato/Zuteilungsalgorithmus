@@ -6,6 +6,7 @@ Dieses Projekt bietet eine vollständige Weboberfläche samt Back-End Serverprog
 Neben der mühseligen Aufgabe der Datensammlung, beherscht die Software eine automatische Datenanalyse und kann ein sehr gutes Optimum für die gewählten Projekte ermitteln, welches nahezu allen manuellen Auswertungen überlegen ist.
 
 # Verwendete externe Bibliotheken
-- Bootstrap v.4.3.1(CSS und JS-Framework) [offizielle Webseite](https://getbootstrap.com/)
-- jQuery v.3.3.1(JS-Framework) [offizielle Webseite](https://jquery.com/)
-- TCPDF v.6.2.26(PHP-Libary) [offizielle Webseite](https://tcpdf.org/)
+- Bootstrap v.4.3.1 (CSS und JS-Framework) [offizielle Webseite](https://getbootstrap.com/)
+- jQuery v.3.3.1 (JS-Framework) [offizielle Webseite](https://jquery.com/)
+- TCPDF v.6.2.26 (PHP-Libary) [offizielle Webseite](https://tcpdf.org/)
+- interact.js v.1.4.0-beta.4 (JS-Libary) [offizielle Webseite](http://interactjs.io/)
