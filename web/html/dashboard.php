@@ -578,7 +578,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
             ?>
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#studentsInKlassen">
-              Einstellung
+              Klassendatensätze ändern
             </button>
             </div>
           </div>
