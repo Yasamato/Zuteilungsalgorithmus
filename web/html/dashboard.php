@@ -108,7 +108,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
             Durch das Auswählen der Checkboxen wird festgelegt, ob Projekte an dem jeweiligem Vor-/Nachmittag statt finden.
           </small>
           <br>
-          <table class="table table-striped">
+          <table class="table table-dark table-striped">
             <thead class="thead-dark">
               <tr>
                 <th>

@@ -33,9 +33,8 @@ body.modal-open {
 	background: #098C38;
 }
 
-.ghost {
-	position: absolute;
-	opacity: 0.5;
+.text-muted {
+	color: #7a828a!important;
 }
 
 .modal {

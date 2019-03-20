@@ -18,6 +18,15 @@
 #wahlliste.drop-active {
 	border-color: #098C38;
 }
+#wahlliste .card.projekt a {
+	display: none !important;
+}
+#wahlliste .card.projekt .card-body {
+	padding: 0.7rem !important;
+}
+#wahlliste .card.projekt .card-body h5 {
+	font-size: 1rem !important;
+}
 
 #tiltPhone img {
 	-webkit-animation:spin 4s linear infinite;
