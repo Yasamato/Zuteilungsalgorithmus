@@ -17,24 +17,15 @@
 		<meta name="description" content="Wahlseite der LMG8-Schule von Maxdorf">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
 
-		<!-- css-frameworks -->
-		<!--<link rel="stylesheet" href="bootstrap-4.0.0/css/bootstrap.min.css">-->
-		<!-- replace local with remote if needed...-->
+		<!-- bootstrap-frameworks -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
 		<link rel="stylesheet" href="css/main.css">
 
 		<!-- JS-Libs -->
-		<!-- es gilt als good practice die js ganz unten als letztes einzubinden im body.... -->
-		<!--<script src="js/jquery-3.3.1.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-		<script src="bootstrap-4.0.0/js/bootstrap.min.js"></script>-->
-
-		<!-- replace local with remote if needed...-->
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-		<script src="https://cdn.jsdelivr.net/npm/interactjs@1.3.4/dist/interact.min.js"></script>
 
 		<script src="js/main.js"></script>
 <?php
@@ -150,7 +141,6 @@
 		if ($_SESSION['benutzer']['typ'] == "admin") {
 			if (!empty($_GET['site']) && $_GET['site'] == "create") {
 ?>
-	<script>var site = "projektErstellung";</script>
 	<link rel="stylesheet" href="css/projektErstellung.css">
 </head>
 <body>
@@ -159,7 +149,6 @@
 			}
 			elseif (!empty($_GET['site']) && $_GET['site'] == "edit") {
 ?>
-	<script>var site = "projektEdit";</script>
 	<link rel="stylesheet" href="css/projektErstellung.css">
 </head>
 <body>
@@ -168,7 +157,6 @@
 			}
 			else {
 ?>
-		<script>var site = "dashboard";</script>
 	</head>
 	<body>
 <?php
@@ -179,7 +167,6 @@
 			if ($config["Stage"] > 0) {
 				if (!empty($_GET['site']) && $_GET['site'] == "create" && $config["Stage"] == 1) {
 ?>
-		<script>var site = "projektErstellung";</script>
 		<link rel="stylesheet" href="css/projektErstellung.css">
 	</head>
 	<body>
@@ -188,7 +175,6 @@
 				}
 				elseif (!empty($_GET['site']) && $_GET['site'] == "edit") {
 ?>
-		<script>var site = "projektEdit";</script>
 		<link rel="stylesheet" href="css/projektErstellung.css">
 	</head>
 	<body>
@@ -200,7 +186,6 @@
 						alert("Es können keine Projekte mehr eingereicht werden. Wenden sie sich hierfür bei Hilfe an den Administrator");
 					}
 ?>
-		<script>var site = "lehrerDashboard";</script>
 	</head>
 	<body>
 <?php
@@ -209,7 +194,6 @@
 			}
 			else {
 ?>
-		<script>var site = "closed";</script>
 	</head>
 	<body>
 <?php
@@ -220,7 +204,6 @@
 		else {
 			if ($config["Stage"] == 3) {
 ?>
-		<script>var site = "wahl";</script>
 		<link rel="stylesheet" href="css/wahl.css">
 	</head>
 	<body>
@@ -229,7 +212,6 @@
 			}
 			else {
 ?>
-		<script>var site = "closed";</script>
 	</head>
 	<body>
 <?php
@@ -240,7 +222,6 @@
 	}
 	else {
 ?>
-		<script>var site = "login";</script>
 		<link rel="stylesheet" href="css/login.css">
 	</head>
 	<body>
