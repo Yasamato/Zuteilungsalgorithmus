@@ -85,6 +85,14 @@ window.onload = function() {
 	  ondrop: function (event) {
 	    var draggableElement = event.relatedTarget,
 	        dropzoneElement = event.target;
+			if (dropzoneElement.childElementCount > 0) {
+				if (draggableElement.parentNode.parentNode.parentNode == document.querySelector('#wahlliste tbody')) {
+					$(draggableElement.parentNode).append($(dropzoneElement.children[0]));
+				}
+				else {
+					$("#projektliste").append($(dropzoneElement.children[0]));
+				}
+			}
       $(dropzoneElement).append($(draggableElement));
 	    dropzoneElement.classList.remove('drop-active');
 	    getInput();

@@ -12,7 +12,7 @@
 	</div>
 	<div class="container-fluid row" id="wahlpage">
 
-		<div class="col-sm-6 col-md-7 col-lg-8 col-xl-9 d-flex flex-wrap align-content-start" id="projektliste">
+		<div class="col-sm-7 col-md-7 col-lg-8 col-xl-9 d-flex flex-wrap align-content-start" id="projektliste">
 				<?php
 				$vorherigeWahl = null;
 				$vorherigeWahlKey = array();
@@ -40,7 +40,7 @@
 				?>
 		</div>
 
-		<div class="col-sm-6 col-md-5 col-lg-4 col-xl-3">
+		<div class="col-sm-5 col-md-5 col-lg-4 col-xl-3">
 			<div class="card" id="wahlliste">
 				<form method="post"></form>
 				<div class="card-body">
