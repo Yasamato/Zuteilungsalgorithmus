@@ -70,6 +70,27 @@ window.onload = function() {
 	  }
 	});
 
+	interact('#wahlliste tbody td').dropzone({
+	  accept: '.card.projekt',
+	  ondragenter: function (event) {
+	    var draggableElement = event.relatedTarget,
+	        dropzoneElement = event.target;
+	    dropzoneElement.classList.add('drop-active');
+	  },
+	  ondragleave: function (event) {
+	    var draggableElement = event.relatedTarget,
+	        dropzoneElement = event.target;
+	    dropzoneElement.classList.remove('drop-active');
+	  },
+	  ondrop: function (event) {
+	    var draggableElement = event.relatedTarget,
+	        dropzoneElement = event.target;
+      $(dropzoneElement).append($(draggableElement));
+	    dropzoneElement.classList.remove('drop-active');
+	    getInput();
+	  }
+	});
+
 	// -- Projekt-Cards
 	interact('.card.projekt').dropzone({
 	  accept: '.card.projekt',
@@ -92,12 +113,13 @@ window.onload = function() {
 	    // tbody>tr>td>card
 	    else if (dropzoneElement.parentNode.parentNode.parentNode == document.querySelector('#wahlliste tbody')) {
 	      if (draggableElement.parentNode.parentNode.parentNode == document.querySelector('#wahlliste tbody')) {
+					let dropParent = dropzoneElement.parentNode;
 	        draggableElement.parentNode.appendChild(dropzoneElement);
-	        appendWahlliste(draggableElement);
+					$(dropParent).append($(draggableElement));
 	      }
 	      else {
+					$(dropzoneElement.parentNode).append($(draggableElement));
 	        $("#projektliste").append($(dropzoneElement));
-	        appendWahlliste(draggableElement);
 	      }
 	    }
 	    dropzoneElement.classList.remove('drag-over');

@@ -1,31 +1,22 @@
 .card.projekt {
-	border: 2px dashed transparent;
 	max-width: 300px;
 	margin: 0.3rem;
 	touch-action: none;
 }
-.card.projekt.drag-over {
-	border-color: #098C38;
-}
 .card.projekt.dragged {
 	z-index: 100;
-	border-color: #DC3545;
+	border: 2px dashed #DC3545;
 }
 
-#wahlliste {
-	border: 2px dashed transparent;
+.drag-over {
+	border: 2px dashed #098C38 !important;
 }
-#wahlliste.drop-active {
-	border-color: #098C38;
+.drop-active {
+	border: 2px dashed #098C38 !important;
 }
+
 #wahlliste .card.projekt a {
 	display: none !important;
-}
-#wahlliste .card.projekt .card-body {
-	padding: 0.7rem !important;
-}
-#wahlliste .card.projekt .card-body h5 {
-	font-size: 1rem !important;
 }
 
 #tiltPhone img {
@@ -72,9 +63,15 @@
 
 @media (max-width: 750px) {
 	.card.projekt .card-body {
-		padding: 0.7rem !important;
+		padding: 0.3rem !important;
 	}
 	.card.projekt .card-body h5 {
-		font-size: 1rem !important;
+		font-size: 0.7rem !important;
+	}
+	.card.projekt .card-body a{
+		padding: 0.188rem 0.45rem !important;
+	}
+	.card.projekt .card-body a {
+		font-size: 0.7rem !important;
 	}
 }
