@@ -52,7 +52,7 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "teachers") {
 
   <div class="container">
     <?php if ($config["Stage"] > 1) { ?>
-    <div class="row klassenauflistung">
+    <div class="row flex">
       <?php
       foreach ($klassen as $key => $klasse) {
         $anzahl = 0;
@@ -66,7 +66,7 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "teachers") {
         }
       ?>
       <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-        <div class="card bg-dark p-3 border <?php
+        <div class="card w-100 bg-dark p-3 border <?php
         if (!$found || $anzahl < count($klasse) - 1) {
           echo "border-danger text-danger";
         }
@@ -97,37 +97,42 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "teachers") {
     </div>
     <?php } ?>
 
-    <table class="table table-dark table-striped table-hover" id="projekteTable">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Betreuer</th>
-          <th>Stufe</th>
-          <th>Platz</th>
-        </tr>
-      </thead>
-      <tbody><?php
-      if (empty($projekte)) {
-        echo "
-        <tr>
-          <td>
-            Bisher wurden keine Projekte eingereicht
-          </td>
-        </tr>";
-      }
-      foreach ($projekte as $key => $projekt) {
-        echo '
-        <tr>
-          <td><a href="javascript:;" class="btn btn-success" onclick="showProjektInfoModal(projekte[' . $key . ']);">Info</a> ' . $projekt["name"] . '</td>
-          <td>' . $projekt["betreuer"] . '</td>
-          <td>' . $projekt["minKlasse"] . '-' . $projekt["maxKlasse"] . '</td>
-          <td>' . $projekt["minPlatz"] . '-' . $projekt["maxPlatz"] . '</td>
-        </tr>';
-      }
-      ?>
+    <div class="card w-100 bg-dark p-3">
+      <div class="card-body">
+        <h5 class="card-title">Liste aller eingereichten Projekte</h5>
+        <table class="table table-dark table-striped table-hover text-left">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Betreuer</th>
+              <th>Stufe</th>
+              <th>Platz</th>
+            </tr>
+          </thead>
+          <tbody><?php
+          if (empty($projekte)) {
+            echo "
+            <tr>
+              <td>
+                Bisher wurden keine Projekte eingereicht
+              </td>
+            </tr>";
+          }
+          foreach ($projekte as $key => $projekt) {
+            echo '
+            <tr>
+              <td><a href="javascript:;" class="btn btn-success" onclick="showProjektInfoModal(projekte[' . $key . ']);">Info</a> ' . $projekt["name"] . '</td>
+              <td>' . $projekt["betreuer"] . '</td>
+              <td>' . $projekt["minKlasse"] . '-' . $projekt["maxKlasse"] . '</td>
+              <td>' . $projekt["minPlatz"] . '-' . $projekt["maxPlatz"] . '</td>
+            </tr>';
+          }
+          ?>
 
-      </tbody>
-    </table>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
   </div>
 

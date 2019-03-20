@@ -1,22 +1,89 @@
-.card {
-	color: #000;
-}
 .card.projekt {
-	border: 2px dashed transparent;
-	max-width: 300px;
 	margin: 0.3rem;
+	touch-action: none;
 }
-.card.projekt.drag-over {
-	border-color: #098C38;
+#projektliste .card.projekt {
+	max-width: calc(50% - 10px);
 }
 .card.projekt.dragged {
-	z-index: 100;
-	border-color: #DC3545;
+	z-index: 1100;
+	border: 2px dashed #DC3545;
 }
 
-#wahlliste {
-	border: 2px dashed transparent;
+.drag-over {
+	border: 2px dashed #098C38 !important;
 }
-#wahlliste.drop-active {
-	border-color: #098C38;
+.drop-active {
+	border: 2px dashed #098C38 !important;
+}
+
+
+#wahlliste {
+	touch-action: none;
+}
+#wahlliste .card.projekt a {
+	display: none !important;
+}
+
+#tiltPhone img {
+	-webkit-animation:spin 4s linear infinite;
+	-moz-animation:spin 4s linear infinite;
+	animation:spin 4s linear infinite;
+}
+@-moz-keyframes spin {
+	0%, 30% {
+		-moz-transform: rotate(0);
+	}
+	60%, 90% {
+		-moz-transform: rotate(-90deg);
+	}
+}
+@-webkit-keyframes spin {
+	0%, 30% {
+		-webkit-transform: rotate(0);
+	}
+	60%, 90% {
+		-webkit-transform: rotate(-90deg);
+	}
+}
+@keyframes spin {
+	0%, 30% {
+		-webkit-transform: rotate(0);
+		transform: rotate(0);
+	}
+	60%, 90% {
+		-webkit-transform: rotate(-90deg);
+		transform: rotate(-90deg);
+	}
+}
+@media (max-width: 576px) {
+	#tiltPhone {
+		display: block !important;
+		visibility: visible !important;
+	}
+	#wahlpage {
+		display: none !important;
+		visibility: hidden !important;
+	}
+}
+
+@media (max-width: 750px) {
+	.card.projekt .card-body {
+		padding: 0.3rem !important;
+	}
+	.card.projekt .card-body h5 {
+		font-size: 0.7rem !important;
+	}
+	.card.projekt .card-body a{
+		padding: 0.188rem 0.45rem !important;
+	}
+	.card.projekt .card-body a {
+		font-size: 0.7rem !important;
+	}
+	#wahlliste .btn-group .btn {
+		padding: 0.188rem 0.45rem !important;
+	}
+	#wahlliste .btn-group .btn {
+		font-size: 0.7rem !important;
+	}
 }

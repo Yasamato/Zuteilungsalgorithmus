@@ -1,18 +1,9 @@
-html, body {
-	height: auto;
-}
-
-::placeholder {
-	color:red;
-	opacity: 1;
-}
-
 textarea {
     resize: none;
 }
 
 #bg-blur {
-	background-color: rgba(0 ,0 ,0 ,0.4);
+	background-color: rgba(0 ,0 ,0 ,0.6);
 	padding: 2rem;
 	border-radius: 2rem;
 	margin: 2rem;

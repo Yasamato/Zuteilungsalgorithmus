@@ -33,13 +33,13 @@ body.modal-open {
 	background: #098C38;
 }
 
-.ghost {
-	position: absolute;
-	opacity: 0.5;
+.text-muted {
+	color: #7a828a!important;
 }
 
 .modal {
 	overflow-y: scroll !important;
+	-webkit-overflow-scrolling: touch;
 	color: #fff;
 }
 
@@ -89,15 +89,15 @@ table {
 	line-height: 60px;
 }
 
-.row.klassenauflistung > div {
+.row.flex > div {
 	display: flex;
 	flex: 1 0 auto;
 }
 @media (max-width: 576px) {
-	.row.klassenauflistung > div {
+	.row.flex > div {
 		display: block;
 	}
 }
-.row.klassenauflistung > div > div.card {
+.row.flex > div > div.card {
 	margin-bottom: 12px;
 }
