@@ -69,3 +69,12 @@
 		visibility: hidden !important;
 	}
 }
+
+@media (max-width: 750px) {
+	.card.projekt .card-body {
+		padding: 0.7rem !important;
+	}
+	.card.projekt .card-body h5 {
+		font-size: 1rem !important;
+	}
+}

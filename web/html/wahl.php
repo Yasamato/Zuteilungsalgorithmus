@@ -46,7 +46,7 @@
 				<div class="card-body">
 					<h5 class="text-dark">Projektwahl <small>hier hinein ziehen</small></h5><?php
 					if (!empty($vorherigeWahl["wahl"])) {
-						?><small class="text-muted">Ihre Wahl wurde bereits gespeichert, sie können diese jedoch weiterhin während der Wahlphase editieren.</small><?php
+						?><small class="text-muted">Ihre Wahl wurde bereits gespeichert, Sie können diese jedoch weiterhin während der Wahlphase editieren.</small><?php
 					} ?>
 					<div class="btn-group" role="group" aria-label="Button Kontrolle">
 						<button class="btn btn-danger" onclick="logout()">Abmelden</button>
