@@ -43,7 +43,7 @@
 		<div class="col-sm-6 col-md-5 col-lg-4 col-xl-3 card" id="wahlliste">
 			<form method="post"></form>
 			<div class="card-body">
-				<h5>Projektwahl <small>hier hinein ziehen</small></h5><?php
+				<h5 class="text-dark">Projektwahl <small>hier hinein ziehen</small></h5><?php
 				if (!empty($vorherigeWahl["wahl"])) {
 					?><small class="text-muted">Ihre Wahl wurde bereits gespeichert, sie können diese jedoch weiterhin während der Wahlphase editieren.</small><?php
 				} ?>
