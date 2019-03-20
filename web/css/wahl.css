@@ -1,10 +1,12 @@
 .card.projekt {
-	max-width: 300px;
 	margin: 0.3rem;
 	touch-action: none;
 }
+#projektliste .card.projekt {
+	max-width: calc(50% - 10px);
+}
 .card.projekt.dragged {
-	z-index: 100;
+	z-index: 1100;
 	border: 2px dashed #DC3545;
 }
 
@@ -14,6 +16,7 @@
 .drop-active {
 	border: 2px dashed #098C38 !important;
 }
+
 
 #wahlliste .card.projekt a {
 	display: none !important;
@@ -72,6 +75,12 @@
 		padding: 0.188rem 0.45rem !important;
 	}
 	.card.projekt .card-body a {
+		font-size: 0.7rem !important;
+	}
+	#wahlliste .btn-group .btn {
+		padding: 0.188rem 0.45rem !important;
+	}
+	#wahlliste .btn-group .btn {
 		font-size: 0.7rem !important;
 	}
 }

@@ -41,7 +41,7 @@
 		</div>
 
 		<div class="col-sm-5 col-md-5 col-lg-4 col-xl-3">
-			<div class="card" id="wahlliste">
+			<div class="card sticky-top" id="wahlliste">
 				<form method="post"></form>
 				<div class="card-body">
 					<h5 class="text-dark">Projektwahl <small>hier hinein ziehen</small></h5><?php
