@@ -18,6 +18,9 @@
 }
 
 
+#wahlliste {
+	touch-action: none;
+}
 #wahlliste .card.projekt a {
 	display: none !important;
 }

@@ -162,4 +162,20 @@ window.onload = function() {
 	    target.removeAttribute('data-y');
 	  }
 	});
+	interact('#wahlliste').draggable({
+	  onmove: function (event) {
+	    var target = event.target,
+	      // keep the dragged position in the data-x/data-y attributes
+	      y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+	    target.classList.add('dragged');
+	    // translate the element
+	    target.style.webkitTransform =
+	    target.style.transform =
+	      'translate(0px, ' + y + 'px)';
+
+	    // update the posiion attributes
+	    target.setAttribute('data-y', y);
+	  }
+	});
 }
