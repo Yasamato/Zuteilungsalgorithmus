@@ -16,7 +16,7 @@
 					continue;
 				}
 			?>
-			<div class="card projekt shadow list-group-item-dark p-3">
+			<div class="card projekt text-black shadow list-group-item-dark p-3">
 				<input type="hidden" value="<?php echo $projekt["id"]; ?>">
 				<div class="card-body">
 					<h5><?php echo $projekt["name"]; ?></h5>
@@ -78,7 +78,7 @@
 						if (!empty($vorherigeWahl["wahl"])) {
 							$projekt = getProjektInfo($vorherigeWahl["wahl"][$i]);
 						?>
-						<div class="card projekt shadow list-group-item-dark p-3">
+						<div class="card projekt text-black shadow list-group-item-dark p-3">
 							<input type="hidden" value="<?php echo $projekt["id"]; ?>">
 							<div class="card-body">
 								<h5><?php echo $projekt["name"]; ?></h5>
@@ -97,5 +97,6 @@
 	</div>
 
 </div>
+<script src="https://cdn.jsdelivr.net/npm/interactjs@next/dist/interact.min.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/interactjs@1.3.4/dist/interact.min.js"></script>-->
 <script src="js/wahl.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/interactjs@1.3.4/dist/interact.min.js"></script>

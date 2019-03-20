@@ -1,10 +1,8 @@
-.card {
-	color: #000;
-}
 .card.projekt {
 	border: 2px dashed transparent;
 	max-width: 300px;
 	margin: 0.3rem;
+	touch-action: none;
 }
 .card.projekt.drag-over {
 	border-color: #098C38;
