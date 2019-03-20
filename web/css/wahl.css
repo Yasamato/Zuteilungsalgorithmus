@@ -18,3 +18,45 @@
 #wahlliste.drop-active {
 	border-color: #098C38;
 }
+
+#tiltPhone img {
+	-webkit-animation:spin 4s linear infinite;
+	-moz-animation:spin 4s linear infinite;
+	animation:spin 4s linear infinite;
+}
+@-moz-keyframes spin {
+	0%, 30% {
+		-moz-transform: rotate(0);
+	}
+	60%, 90% {
+		-moz-transform: rotate(-90deg);
+	}
+}
+@-webkit-keyframes spin {
+	0%, 30% {
+		-webkit-transform: rotate(0);
+	}
+	60%, 90% {
+		-webkit-transform: rotate(-90deg);
+	}
+}
+@keyframes spin {
+	0%, 30% {
+		-webkit-transform: rotate(0);
+		transform: rotate(0);
+	}
+	60%, 90% {
+		-webkit-transform: rotate(-90deg);
+		transform: rotate(-90deg);
+	}
+}
+@media (max-width: 576px) {
+	#tiltPhone {
+		display: block !important;
+		visibility: visible !important;
+	}
+	#wahlpage {
+		display: none !important;
+		visibility: hidden !important;
+	}
+}
