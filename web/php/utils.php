@@ -9,7 +9,7 @@
 	}
 
 	function alert($msg) {
-		echo "<script>alert('" . $msg . "');</script>";
+		echo "<script>alert(`" . $msg . "`);</script>";
 	}
 
 	function newlineBack($txt) {
@@ -213,7 +213,7 @@
 			if (empty($a["nachname"])) {
 				return 0;
 			}
-			
+
 			if (strtolower($a["nachname"]) == strtolower($b["nachname"])) {
 				return strtolower($a["vorname"]) < strtolower($b["vorname"]) ? -1 : 1;
 			}

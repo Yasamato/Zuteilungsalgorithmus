@@ -24,12 +24,13 @@ if (isLogin()) {// hard gecoded für präsi
 			// Überschreiben des vorigen Eintrags
 			if (count(dbSearch("../data/wahl.csv", "uid", $_SESSION['benutzer']['uid'])) > 0) {
 				dbSetRow("../data/wahl.csv", "uid", $_SESSION['benutzer']['uid'], $wahl);
-				alert("Eintrag erfolgreich aktualisiert");
+				alert("Deine Wahl wurde erfolgreich aktualisiert");
 			}
 			else {
 				dbAdd("../data/wahl.csv", $wahl);
-				alert("Erfolgreich eingetragen");
+				alert("Deine Wahl wurde erfolgreich eingetragen");
 			}
+			logout();
 		}
 		else {
 			// Petze :)

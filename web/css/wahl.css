@@ -26,9 +26,18 @@
 }
 
 #tiltPhone img {
-	-webkit-animation:spin 4s linear infinite;
-	-moz-animation:spin 4s linear infinite;
-	animation:spin 4s linear infinite;
+	margin-left: -61.5px !important;
+	/*
+	Bei Bild-Größe von 192 x 192
+	x: 62 von rechts -> 192 - 62 = 130	y: 81 von unten 192 - 81 = 111
+	transform-origin: 130px 111px;
+	Bei Bild-Größe von 150 x 150
+	x: 130 * 150 / 192 = ~ 101	y: 111 * 150 / 192 = ~ 86.7
+	*/
+	transform-origin: 101px 86.7px;
+	-webkit-animation: spin 4s linear infinite;
+	-moz-animation: spin 4s linear infinite;
+	animation: spin 4s linear infinite;
 }
 @-moz-keyframes spin {
 	0%, 30% {

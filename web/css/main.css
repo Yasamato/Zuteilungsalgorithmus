@@ -18,17 +18,12 @@ body {
 	-webkit-box-align: baseline;
 	-webkit-box-pack: center;
 	justify-content: center;
-	padding-top: 10px;
-	padding-bottom: 40px;
+	padding: 10px;
 }
 body.modal-open {
 	position: inherit;
 }
 
-::-webkit-scrollbar {
-	width: 0px;
-	background: transparent;
-}
 ::-webkit-scrollbar-thumb {
 	background: #098C38;
 }

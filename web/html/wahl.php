@@ -3,7 +3,7 @@
 		<h4>
 			Handybildschirm bitte drehen
 		</h4>
-		<img class="m-4" src="pictures/tiltPhone.svg" alt="Smartphone drehen" width="144" height="144">
+		<img src="pictures/tiltPhone.svg" alt="Smartphone drehen" width="150" height="150">
 		<p>
 			<small class="text-muted">
 				Icon by <a href="https://icons8.com/icon/8566/tilt-filled">Icons8</a>
@@ -12,7 +12,8 @@
 	</div>
 	<div class="container-fluid row" id="wahlpage">
 
-		<div class="col-sm-7 col-md-7 col-lg-8 col-xl-9 d-flex flex-wrap align-content-start" id="projektliste">
+		<div class="col-sm-7 col-md-7 col-lg-8 col-xl-9">
+			<div class="d-flex flex-wrap align-content-start sticky-top" id="projektliste">
 				<?php
 				$vorherigeWahl = null;
 				$vorherigeWahlKey = array();
@@ -38,10 +39,11 @@
 				<?php
 				}
 				?>
+			</div>
 		</div>
 
 		<div class="col-sm-5 col-md-5 col-lg-4 col-xl-3">
-			<div class="card sticky-top" id="wahlliste">
+			<div class="card" id="wahlliste">
 				<form method="post"></form>
 				<div class="card-body">
 					<h5 class="text-dark">Projektwahl <small>hier hinein ziehen</small></h5><?php
@@ -109,6 +111,5 @@
 		</div>
 	</div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/interactjs@next/dist/interact.min.js"></script>
-<!--<script src="https://cdn.jsdelivr.net/npm/interactjs@1.3.4/dist/interact.min.js"></script>-->
+<script src="js/interact-1.3.4.min.js"></script>
 <script src="js/wahl.js"></script>
