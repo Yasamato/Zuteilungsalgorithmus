@@ -715,9 +715,9 @@ foreach (dbRead("../data/projekte.csv") as $p) {
             echo " <span>Diese Klasse hat scheinbar mehr Schüler als eingetragen!!!</span>";
           }
           ?>
-          <h5 class="card-title"><?php if (count($klasse) - 1 > 0) {echo count($klasse) - 1; ?> / <?php echo $anzahl; } else {echo  $key;} ?></h5>
-          <p class="card-text"><?php echo count($klasse) - 1 > 0 ? "Personen aus Klasse " . $key . " haben bereits gewählt" : "Keine Person hat gewählt"; ?></p>
-            <button onclick="javascript: window.open('printPDF.php?print=students&klasse=<?php echo $key; ?>');" type="button" class="btn btn-primary">Auflisten</button>
+          <h5 class="card-title"><?php echo $key ?></h5>
+          <p class="card-text"><?php echo count($klasse) - 1 > 0 ? count($klasse) - 1 . "/" . $anzahl . " Personen ha" . (count($klasse) - 1 > 1 ? "ben" : "t") . " bereits gewählt" : "Keine Person hat gewählt"; ?></p>
+          <button onclick="javascript: window.open('printPDF.php?print=students&klasse=<?php echo $key; ?>');" type="button" class="btn btn-primary">Auflisten</button>
         </div>
       </div>
     </div><?php

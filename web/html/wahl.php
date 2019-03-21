@@ -3,7 +3,7 @@
 		<h4>
 			Handybildschirm bitte drehen
 		</h4>
-		<img class="m-4" src="pictures/tiltPhone.svg" alt="Smartphone drehen" width="144" height="144">
+		<img src="pictures/tiltPhone.svg" alt="Smartphone drehen" width="150" height="150">
 		<p>
 			<small class="text-muted">
 				Icon by <a href="https://icons8.com/icon/8566/tilt-filled">Icons8</a>
