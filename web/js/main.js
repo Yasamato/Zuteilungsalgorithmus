@@ -71,7 +71,7 @@ function showProjektInfoModal(p) {
       			<input type="hidden" name="action" value="deleteProjekt">
       			<input type="hidden" name="projekt" value="` + p.id + `">
       		</form>
-          <button type="button" class="btn btn-danger" onclick="javascript: $('#delete` + p.id + `').submit();">Löschen</button>
+          <button type="button" class="btn btn-danger" onclick="javascript: confirmDeleteProjekt('` + p.id + `', '` + p.name + `');">Löschen</button>
 					` : "") + `
 					` + (window.user == "admin" || window.user == "teachers" ? `
           <button type="button" class="btn btn-danger" onclick="javascript: window.location.href = '?site=edit&projekt=` + p.id + `';">Bearbeiten</button>
@@ -83,4 +83,13 @@ function showProjektInfoModal(p) {
 		</div>
 	</div>`);
   $("#tmp-modal").modal("show");
+}
+
+function confirmDeleteProjekt(id, name) {
+	if (confirm("Wollen sie wirklich das Projekt '" + name + "' löschen?")) {
+		$('#delete' + id).submit();
+	}
+	else {
+		alert("Löschvorgang abgebrochen");
+	}
 }
