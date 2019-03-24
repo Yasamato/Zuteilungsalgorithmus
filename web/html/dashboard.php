@@ -555,26 +555,33 @@ $showErrorModal = false;
               <td>' . $student["klasse"] . '</td>
               <td>' . $student["vorname"] . '</td>
               <td>' . $student["nachname"] . '</td>
-              <td>
-                <ol>';
-                foreach ($student["wahl"] as $wahl) {
-                  $p = null;
-                  foreach ($projekte as $key => $projekt) {
-                    if ($projekt["id"] == $wahl) {
-                      $p = $key;
-                      break;
-                    }
-                  }
+              <td>';
+                if (!empty($student["wahl"])) {
                   echo '
+                <ol>';
+                  foreach ($student["wahl"] as $wahl) {
+                    $p = null;
+                    foreach ($projekte as $key => $projekt) {
+                      if ($projekt["id"] == $wahl) {
+                        $p = $key;
+                        break;
+                      }
+                    }
+                    echo '
                   <li>
                     <a href="javascript:;" onclick="showProjektInfoModal(projekte[' . $p . ']);">
                       ' . getProjektInfo($wahl)["name"] . '
                     </a>
                   </li>';
+                  }
+                  echo '
+                </ol>';
+                }
+                else {
+                  echo "Zugeteilt";
                 }
 
                 echo '
-                </ol>
               </td>
               <td>';
 

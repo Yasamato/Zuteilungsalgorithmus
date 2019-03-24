@@ -3,6 +3,7 @@
   (include "../data/config.php") OR die("</head><body style='color: #000'>Der Webserver wurde noch nicht konfiguriert, kontaktiere einen Admin damit dieser setup.sh ausführt.</body></html>");
 	require "php/db.php";
 	require 'php/utils.php';
+	require 'php/setup.php';
   require 'php/TCPDF-6.2.26/tcpdf.php';
 
   if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin" && $_SESSION['benutzer']['typ'] != "teachers") {
@@ -162,11 +163,19 @@
 					continue;
 				}
 
+				$zugeteilt = false;
+				foreach ($zwangszuteilung as $key => $zuteilung) {
+					if ($student["uid"] == $zuteilung["uid"]) {
+						$zugeteilt = true;
+						break;
+					}
+				}
+
 				array_push($dataToPrint, [
 					$student["klasse"],
 					$student["nachname"],
 					$student["vorname"],
-					$_SESSION['benutzer']['typ'] == "admin" ? (empty($student["ergebnis"]) ? "N/A" : $student["ergebnis"]) : (empty($student["wahl"]) ? "Nein" : "Ja")
+					$_SESSION['benutzer']['typ'] == "admin" ? empty($student["ergebnis"]) ? "N/A" : $student["ergebnis"] : $zugeteilt ? "Zugeteilt" : empty($student["wahl"]) ? "Nein" : "Ja"
 				]);
 			}
 			// Aufbereiten der Breiten

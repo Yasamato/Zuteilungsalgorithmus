@@ -118,10 +118,29 @@ if (!file_exists("../data/klassen.csv")) {
 }
 
 
+$zwangszuteilung = dbRead("../data/zwangszuteilung.csv");
+usort($zwangszuteilung, function ($a, $b) {
+  if (strtolower($a["nachname"]) == strtolower($b["nachname"])) {
+    return strtolower($a["vorname"]) < strtolower($b["vorname"]) ? -1 : 1;
+  }
+  return strtolower($a["nachname"]) < strtolower($b["nachname"]) ? -1 : 1;
+});
+
 // Einlesen der Tabellen
 $wahlen = dbRead("../data/wahl.csv");
 foreach ($wahlen as $key => $student) {
   $wahlen[$key]["wahl"] = explode("§", $student["wahl"]);
+}
+foreach ($zwangszuteilung as $key => $zuteilung) {
+  array_push($wahlen, [
+    "uid" => $zuteilung["uid"],
+    "vorname" => $zuteilung["vorname"],
+    "nachname" => $zuteilung["nachname"],
+    "stufe" => $zuteilung["stufe"],
+    "klasse" => $zuteilung["klasse"],
+    "wahl" => array(),
+    "ergebnis" => $zuteilung["projekt"]
+  ]);
 }
 usort($wahlen, function ($a, $b) {
   if (strtolower($a["nachname"]) == strtolower($b["nachname"])) {
@@ -197,52 +216,4 @@ if (isLogin()) {
     }
   }
 }
-
-$zwangszuteilung = dbRead("../data/zwangszuteilung.csv");
-usort($zwangszuteilung, function ($a, $b) {
-  if (strtolower($a["nachname"]) == strtolower($b["nachname"])) {
-    return strtolower($a["vorname"]) < strtolower($b["vorname"]) ? -1 : 1;
-  }
-  return strtolower($a["nachname"]) < strtolower($b["nachname"]) ? -1 : 1;
-});
-
 ?>
-<script>
-  var config = {<?php
-    end($config);
-    $last = key($config);
-    foreach ($config as $key => $v) {
-      echo "'" . $key . "': '" . $v . "'";
-      if ($key != $last) {
-        echo ",\n";
-      }
-    }
-  ?>};
-  // convert the string into a bool
-  config["MontagVormittag"] = (config["MontagVormittag"] == 'true');
-  config["MontagNachmittag"] = (config["MontagNachmittag"] == 'true');
-  config["DienstagVormittag"] = (config["DienstagVormittag"] == 'true');
-  config["DienstagNachmittag"] = (config["DienstagNachmittag"] == 'true');
-  config["MittwochVormittag"] = (config["MittwochVormittag"] == 'true');
-  config["MittwochNachmittag"] = (config["MittwochNachmittag"] == 'true');
-  config["DonnerstagVormittag"] = (config["DonnerstagVormittag"] == 'true');
-  config["DonnerstagNachmittag"] = (config["DonnerstagNachmittag"] == 'true');
-  config["FreitagVormittag"] = (config["FreitagVormittag"] == 'true');
-  config["FreitagNachmittag"] = (config["FreitagNachmittag"] == 'true');
-
-	var projekte = [<?php
-	foreach ($projekte as $p) {
-    echo "{";
-    foreach ($p as $key => $v) {
-      echo "'" . $key . "': `" . $v . "`,";
-    }
-    echo "}";
-		if ($p != $projekte[sizeof($projekte) - 1]) {
-			echo ",\n";
-		}
-	}
-?>
-	];
-
-	var user = "<?php echo empty($_SESSION['benutzer']['typ']) ? "logged out" : $_SESSION['benutzer']['typ']; ?>";
-</script>
