@@ -355,8 +355,12 @@ foreach (dbRead("../data/projekte.csv") as $p) {
               </td>
             </tr>";
           }
-          foreach ($wahlen as $key => $student) {
-            echo '
+          foreach ($klassen as $klasse) {
+            foreach ($klasse as $key => $student) {
+              if ($key == 0) {
+                continue;
+              }
+              echo '
             <tr>
               <td>' . $student["stufe"] . '</td>
               <td>' . $student["klasse"] . '</td>
@@ -364,23 +368,23 @@ foreach (dbRead("../data/projekte.csv") as $p) {
               <td>' . $student["nachname"] . '</td>
               <td>
                 <ol>';
-              foreach ($student["wahl"] as $key => $wahl) {
-                $p = null;
-                foreach ($projekte as $key => $projekt) {
-                  if ($projekt["id"] == $wahl) {
-                    $p = $key;
-                    break;
+                foreach ($student["wahl"] as $wahl) {
+                  $p = null;
+                  foreach ($projekte as $key => $projekt) {
+                    if ($projekt["id"] == $wahl) {
+                      $p = $key;
+                      break;
+                    }
                   }
-                }
-                echo '
+                  echo '
                   <li>
                     <a href="javascript:;" onclick="showProjektInfoModal(projekte[' . $p . ']);">
                       ' . getProjektInfo($wahl)["name"] . '
                     </a>
                   </li>';
-              }
+                }
 
-              echo '
+                echo '
                 </ol>
               </td>
               <td>';
@@ -397,13 +401,14 @@ foreach (dbRead("../data/projekte.csv") as $p) {
                   }
                 }
                 echo '
-                  <a href="javascript:;" onclick="showProjektInfoModal(projekte[' . $p . ']);">
-                    ' . getProjektInfo($student["ergebnis"])["name"] . '
-                  </a>';
+                <a href="javascript:;" onclick="showProjektInfoModal(projekte[' . $p . ']);">
+                  ' . getProjektInfo($student["ergebnis"])["name"] . '
+                </a>';
               }
               echo '
               </td>
             </tr>';
+            }
           }
           ?>
 
