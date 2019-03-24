@@ -1,5 +1,5 @@
 <?php
-if (isLogin()) {// hard gecoded für präsi
+if (isLogin()) {
 	if (!empty($_POST['wahl']) && count($_POST['wahl']) == 4 && $_SESSION['benutzer']['typ'] != "teachers") {
 		$projekte = dbRead("../data/projekte.csv");
 		$valid = true;

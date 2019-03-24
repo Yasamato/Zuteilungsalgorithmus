@@ -35,6 +35,14 @@ if (isLogin() && ($_SESSION['benutzer']['typ'] == "teachers" && $config["Stage"]
 		alert("Ungültige Angabe: die Mindestanzahl an benötigten Teilnehmern ist größer wie die Maximale");
 		$error = true;
 	}
+	if ($_POST["minPlatz"] > 50) {
+		alert("Ungültige Angabe: absurd hohe Mindestanzahl an benötigten Teilnehmern");
+		$error = true;
+	}
+	if ($_POST["maxPlatz"] > 500) {
+		alert("Ungültige Angabe: absurd hohe Maximalanzahl an benötigten Teilnehmern");
+		$error = true;
+	}
 
 	foreach (dbRead("../data/projekte.csv") as $projekt) {
 		if (strtolower($projekt["name"]) == strtolower($_POST["pName"])) {

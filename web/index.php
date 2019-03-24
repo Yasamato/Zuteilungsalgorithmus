@@ -37,76 +37,54 @@
 	if (isset($_GET['logout'])) {
 		logout();
 	}
+	require 'php/setup.php';
 	if (isset($_POST['action'])) {
 		switch ($_POST['action']) {
 			case "login":
 				require("php/login.php"); // dummy-login
 				// require("php/login_live.php");
-				$projekte = [];
-				if ($_SESSION['benutzer']['typ'] == "teachers" || $_SESSION['benutzer']['typ'] == "admin") {
-					$projekte = dbRead("../data/projekte.csv");
-				}
-				else {
-					foreach (dbRead("../data/projekte.csv") as $p) {
-						if ($p['minKlasse'] <= $_SESSION['benutzer']['stufe'] && $p['maxKlasse'] >= $_SESSION['benutzer']['stufe']) {
-							array_push($projekte, $p);
-						}
-					}
-				}
+				require 'php/setup.php';
 				break;
 			case "logout":
 				logout();
+				require 'php/setup.php';
 				break;
 			case "addProject":
 				require("php/projektErstellung.php");
+				require 'php/setup.php';
 				break;
 			case "editProject":
 				require("php/editProjekt.php");
+				require 'php/setup.php';
 				break;
 			case "deleteProjekt":
 				require("php/deleteProjekt.php");
+				require 'php/setup.php';
 				break;
 			case "wahl":
 				require("php/wahl.php");
+				require 'php/setup.php';
 				break;
 			case "updateConfiguration":
 				require("php/dashboard.php");
+				require 'php/setup.php';
 				break;
 			case "updateStudentsInKlassen":
 				require("php/klassen.php");
+				require 'php/setup.php';
+				break;
+			case "updateZwangszuteilung":
+				require("php/zwangszuteilung.php");
+				require 'php/setup.php';
+				break;
+			case "runZuteilungsalgorithmus":
+				require("php/run.php");
 				break;
 			default:
 				die("Unbekannter Befehl!");
 				break;
 		}
 	}
-?>
-
-	<script>
-		var config = {<?php
-			end($config);
-			$last = key($config);
-			foreach ($config as $key => $v) {
-				echo "'" . $key . "': '" . $v . "'";
-				if ($key != $last) {
-					echo ",\n";
-				}
-			}
-		?>};
-		// convert the string into a bool
-		config["MontagVormittag"] = (config["MontagVormittag"] == 'true');
-		config["MontagNachmittag"] = (config["MontagNachmittag"] == 'true');
-		config["DienstagVormittag"] = (config["DienstagVormittag"] == 'true');
-		config["DienstagNachmittag"] = (config["DienstagNachmittag"] == 'true');
-		config["MittwochVormittag"] = (config["MittwochVormittag"] == 'true');
-		config["MittwochNachmittag"] = (config["MittwochNachmittag"] == 'true');
-		config["DonnerstagVormittag"] = (config["DonnerstagVormittag"] == 'true');
-		config["DonnerstagNachmittag"] = (config["DonnerstagNachmittag"] == 'true');
-		config["FreitagVormittag"] = (config["FreitagVormittag"] == 'true');
-		config["FreitagNachmittag"] = (config["FreitagNachmittag"] == 'true');
-	</script>
-
-<?php
 
 	// DEBUG
 	/*if(isset($loginResult)) {
@@ -115,24 +93,47 @@
 		//print_r($loginResult);
 		print_r($_SESSION['benutzer']);
 	}*/
-?>
-		<script>
-			var projekte = [<?php
-			foreach ($projekte as $p) {
-		    echo "{";
-		    foreach ($p as $key => $v) {
-		      echo "'" . $key . "': `" . $v . "`,";
-		    }
-		    echo "}";
-				if ($p != $projekte[sizeof($projekte) - 1]) {
-					echo ",\n";
-				}
-			}
-		?>
-			];
 
-			var user = "<?php echo empty($_SESSION['benutzer']['typ']) ? "logged out" : $_SESSION['benutzer']['typ']; ?>";
-		</script>
+?>
+<script>
+  var config = {<?php
+    end($config);
+    $last = key($config);
+    foreach ($config as $key => $v) {
+      echo "'" . $key . "': '" . $v . "'";
+      if ($key != $last) {
+        echo ",\n";
+      }
+    }
+  ?>};
+  // convert the string into a bool
+  config["MontagVormittag"] = (config["MontagVormittag"] == 'true');
+  config["MontagNachmittag"] = (config["MontagNachmittag"] == 'true');
+  config["DienstagVormittag"] = (config["DienstagVormittag"] == 'true');
+  config["DienstagNachmittag"] = (config["DienstagNachmittag"] == 'true');
+  config["MittwochVormittag"] = (config["MittwochVormittag"] == 'true');
+  config["MittwochNachmittag"] = (config["MittwochNachmittag"] == 'true');
+  config["DonnerstagVormittag"] = (config["DonnerstagVormittag"] == 'true');
+  config["DonnerstagNachmittag"] = (config["DonnerstagNachmittag"] == 'true');
+  config["FreitagVormittag"] = (config["FreitagVormittag"] == 'true');
+  config["FreitagNachmittag"] = (config["FreitagNachmittag"] == 'true');
+
+	var projekte = [<?php
+	foreach ($projekte as $p) {
+    echo "{";
+    foreach ($p as $key => $v) {
+      echo "'" . $key . "': `" . $v . "`,";
+    }
+    echo "}";
+		if ($p != $projekte[sizeof($projekte) - 1]) {
+			echo ",\n";
+		}
+	}
+?>
+	];
+
+	var user = "<?php echo empty($_SESSION['benutzer']['typ']) ? "logged out" : $_SESSION['benutzer']['typ']; ?>";
+</script>
 <?php
 	//--------------------------------------------------------
 	//html-teil
@@ -201,7 +202,14 @@
 			}
 		}
 		else {
-			if ($config["Stage"] == 3) {
+			$zwangszugeteilt = false;
+			foreach ($zwangszuteilung as $key => $zuteilung) {
+				if ($_SESSION["benutzer"]["uid"] == $zuteilung["uid"]) {
+					$zwangszugeteilt = true;
+					break;
+				}
+			}
+			if ($config["Stage"] == 3 && !$zwangszugeteilt) {
 ?>
 		<link rel="stylesheet" href="css/wahl.css">
 	</head>
@@ -215,7 +223,12 @@
 	<body>
 <?php
 				logout();
-				include "html/wahlGeschlossen.html";
+				if ($zwangszugeteilt) {
+					include "html/zwangszuteilung.php";
+				}
+				else {
+					include "html/wahlGeschlossen.html";
+				}
 			}
 		}
 	}
