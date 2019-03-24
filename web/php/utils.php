@@ -141,7 +141,7 @@
 			"nachname",
 			"stufe",
 			"klasse",
-			"ergebnis"
+			"projekt"
 		]);
 	}
 
@@ -234,4 +234,12 @@
 			}
 		}
 	}
+
+	$zwangszuteilung = dbRead("../data/zwangszuteilung.csv");
+	usort($zwangszuteilung, function ($a, $b) {
+		if (strtolower($a["nachname"]) == strtolower($b["nachname"])) {
+			return strtolower($a["vorname"]) < strtolower($b["vorname"]) ? -1 : 1;
+		}
+		return strtolower($a["nachname"]) < strtolower($b["nachname"]) ? -1 : 1;
+	});
 ?>

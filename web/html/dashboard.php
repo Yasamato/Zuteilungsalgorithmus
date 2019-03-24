@@ -56,10 +56,10 @@ foreach (dbRead("../data/projekte.csv") as $p) {
 		if ($p["minKlasse"] <= $i && $p["maxKlasse"] >= $i) {
 			$stufen[$i]["min"] += $p["minPlatz"];
 			$stufen[$i]["max"] += $p["maxPlatz"];
-      $pMin += $p["minPlatz"];
-      $pMax += $p["maxPlatz"];
 		}
 	}
+  $pMin += $p["minPlatz"];
+  $pMax += $p["maxPlatz"];
 }
 
 // Gesamtanzahl der Schüler
@@ -97,8 +97,9 @@ foreach ($klassen as $klasse => $liste) {
 
 $showErrorModal = false;
 ?>
-<!-- Warnungen -->
-<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="configModalLabel" aria-hidden="true">
+
+<!-- Fehldermeldungs-Modal -->
+<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content bg-dark">
 
@@ -198,16 +199,17 @@ $showErrorModal = false;
   </div>
 </div>
 
+<!-- Fehldermeldungen -->
 <div class="container">
-<?php
-if ($showErrorModal) {
-  ?>
-  <div class="alert alert-danger" role="alert">
-    Es sind Fehler aufgetreten. <a href="javascript: $('#errorModal').modal('show');" class="alert-link">Details</a>.
-  </div>
   <?php
-}
-if ($config["Stage"] == 4) {
+  if ($showErrorModal) {
+    ?>
+    <div class="alert alert-danger" role="alert">
+      Es sind Fehler aufgetreten. <a href="javascript: $('#errorModal').modal('show');" class="alert-link">Details</a>.
+    </div>
+    <?php
+  }
+  if ($config["Stage"] == 4) {
   ?>
   <div class="alert alert-<?php echo $showErrorModal ? "danger" : "success"; ?>" role="alert">
     <?php
@@ -233,13 +235,13 @@ if ($config["Stage"] == 4) {
     ?>
   </div>
   <?php
-}
-?>
+  }
+  ?>
 </div>
 
 
 <!-- Einstellungs-Modal -->
-<div class="modal fade" id="configModal" tabindex="-1" role="dialog" aria-labelledby="configModalLabel" aria-hidden="true">
+<div class="modal fade" id="configModal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content bg-dark">
 
@@ -450,7 +452,7 @@ if ($config["Stage"] == 4) {
 </div>
 
 <!-- Projekte-Modal -->
-<div class="modal fade" id="projekteModal" tabindex="-1" role="dialog" aria-labelledby="projekteModalLabel" aria-hidden="true">
+<div class="modal fade" id="projekteModal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content bg-dark">
 
@@ -462,8 +464,8 @@ if ($config["Stage"] == 4) {
       </div>
 
       <div class="modal-body">
-        <button onclick="javascript: window.open('printPDF.php?print=projekt&projekt=all');" type="button" class="btn btn-secondary">Liste drucken</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
+        <button onclick="javascript: window.open('printPDF.php?print=projekt&projekt=all');" type="button" class="btn btn-secondary">Liste drucken</button>
         <table class="table table-dark table-striped table-hover">
           <thead>
             <tr>
@@ -518,8 +520,9 @@ if ($config["Stage"] == 4) {
       </div>
 
       <div class="modal-body">
-        <button onclick="javascript: window.open('printPDF.php?print=students&klasse=all');" type="button" class="btn btn-secondary">Liste drucken</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
+        <button onclick="javascript: window.open('printPDF.php?print=students&klasse=all');" type="button" class="btn btn-secondary">Liste drucken</button>
+        <button onclick="javascript: $('#zwangszuteilungModal').modal('show');" type="button" class="btn btn-success">Zwangszuteilungen</button>
         <br>
         <small class="text-muted">Das Ergebnis der Auswertung ist erst verfügbar sobald die Auswertung durch den Admin durchgeführt wurde. Die Auswertung kann erst im Admin-Panel durchgeführt werden, sobald die Wahlen geschlossen sind.</small>
 
@@ -607,6 +610,186 @@ if ($config["Stage"] == 4) {
       <div class="modal-footer">
         <button onclick="javascript: window.open('printPDF.php?print=students&klasse=all');" type="button" class="btn btn-secondary">Liste drucken</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Zwangszuteilungs-Modal -->
+<div class="modal fade" id="zwangszuteilungModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content bg-dark">
+
+      <div class="modal-header">
+        <h4 class="modal-title">Zwangszuteilungen</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span class="closebutton" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
+        <br>
+        <small class="text-muted">Das Ergebnis der Auswertung ist erst verfügbar sobald die Auswertung durch den Admin durchgeführt wurde. Die Auswertung kann erst im Admin-Panel durchgeführt werden, sobald die Wahlen geschlossen sind.</small>
+
+        <form method="post" id="zwangszuteilungForm">
+          <table class="table table-dark table-striped table-hover">
+            <thead class="thead-dark">
+              <tr>
+                <th>U-ID</th>
+                <th>Stufe</th>
+                <th>Klasse</th>
+                <th>Vorname</th>
+                <th>Nachname</th>
+                <th>Projekt</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody><?php
+            foreach ($zwangszuteilung as $student) {
+              ?>
+              <tr>
+                <td>
+                  <input type="text" class="form-control" placeholder="U-ID" aria-label="U-ID" value="<?php echo $student['uid']; ?>" name="uid[]">
+                </td>
+                <td>
+                  <input type="number" class="form-control" placeholder="5" aria-label="Stufe" value="<?php echo $student['stufe']; ?>" name="stufe[]">
+                </td>
+                <td>
+                  <input type="text" class="form-control" placeholder="5a" aria-label="Klasse" value="<?php echo $student['klasse']; ?>" name="klasse[]">
+                </td>
+                <td>
+                  <input type="text" class="form-control" placeholder="Max" aria-label="Vorname" value="<?php echo $student['vorname']; ?>" name="vorname[]">
+                </td>
+                <td>
+                  <input type="text" class="form-control" placeholder="Mustermann" aria-label="Nachname" value="<?php echo $student['nachname']; ?>" name="nachname[]">
+                </td>
+                <td>
+                  <input type="hidden" class="form-control" value="<?php echo $student['projekt']; ?>" name="projekt[]">
+                  <button type="button" class="btn btn-primary" onclick="javascript: changeZwangszuteilungProjekt(this, this.parentNode.children[0]);">Projekt</button>
+                </td>
+                <td>
+                  <button type="button" class="close text-danger" aria-label="Close" onclick="javascript: removeLine(this);">
+                    <span class="closebutton" aria-hidden="true">&times;</span>
+                  </button>
+                </td>
+              </tr>
+            <?php
+            }
+            /*
+                if (empty($student["ergebnis"])) {
+                  echo "N/A";
+                }
+                else {
+                  $p = null;
+                  foreach ($projekte as $key => $projekt) {
+                    if ($projekt["id"] == $student["ergebnis"]) {
+                      $p = $key;
+                      break;
+                    }
+                  }
+                  echo '
+                  <a href="javascript:;" onclick="showProjektInfoModal(projekte[' . $p . ']);">
+                    ' . getProjektInfo($student["ergebnis"])["name"] . '
+                  </a>';
+                }*/
+            ?>
+
+            </tbody>
+          </table>
+        </form>
+        <script>
+          function addStudentsInZwangszuteilungInput() {
+            //var node = document.querySelector('#studentsInKlassen tbody');
+            $("#zwangszuteilungModal tbody").append($(`
+            <tr>
+              <td>
+                <input type="text" class="form-control" placeholder="U-ID" aria-label="U-ID" name="uid[]">
+              </td>
+              <td>
+                <input type="number" class="form-control" placeholder="5" aria-label="Stufe" name="stufe[]">
+              </td>
+              <td>
+                <input type="text" class="form-control" placeholder="5a" aria-label="Klasse" name="klasse[]">
+              </td>
+              <td>
+                <input type="text" class="form-control" placeholder="Max" aria-label="Vorname" name="vorname[]">
+              </td>
+              <td>
+                <input type="text" class="form-control" placeholder="Mustermann" aria-label="Nachname" name="nachname[]">
+              </td>
+              <td>
+                <input type="hidden" class="form-control" name="projekt[]">
+                <button type="button" class="btn btn-primary" onclick="javascript: changeZwangszuteilungProjekt(this, this.parentNode.children[0]);">Projekt</button>
+              </td>
+              <td>
+                <button type="button" class="close text-danger" aria-label="Close" onclick="javascript: removeLine(this);">
+                  <span class="closebutton" aria-hidden="true">&times;</span>
+                </button>
+              </td>
+            </tr>`));
+          }
+
+          function setZwangszuteilungProjekt(student, projekt) {
+            $("#zwangszuteilungProjektModal").modal("hide");
+
+            $("#zwangszuteilungProjektModal tbody").html("");
+          }
+
+          function changeZwangszuteilungProjekt(student, currentProjekt) {
+            for (var i = 0; i < projekte.length; i++) {
+              $("#zwangszuteilungProjektModal tbody").append(`
+              <tr>
+                <td>
+                  <input type="hidden" value="` + projekt[i]["id"] + `">
+                  ` + projekt[i]["name"] + `
+                </td>
+                <td>` + projekt[i]["betreuer"] + `</td>
+                <td>
+                  <
+              </tr>`);
+              if (projekte[i]["id"] == currentProjekt) {
+
+              }
+            }
+            $("#zwangszuteilungProjektModal").modal("show");
+          }
+
+          addStudentsInZwangszuteilungInput();
+        </script>
+        <button onclick="javascript: addStudentsInZwangszuteilungInput();" type="button" class="btn btn-success">Schüler hinzufügen &#10010;</button>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Zwangszuteilungs-Modal -->
+<div class="modal fade" id="zwangszuteilungProjektModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content bg-dark">
+
+      <div class="modal-header">
+        <h4 class="modal-title">Projekte der Zwangszuteilung</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span class="closebutton" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <table class="table table-striped table-hover table-dark">
+          <thead class="thead-dark">
+            <tr>
+              <th>Projektname</th>
+              <th>Betreuer</th>
+              <th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -711,7 +894,7 @@ if ($config["Stage"] == 4) {
 </div>
 
 
-
+<!-- eigentlicher Seiteninhalt -->
 <div class="container-fluid">
   <div class="row">
     <!-- Spalte 1 -->
@@ -796,8 +979,8 @@ if ($config["Stage"] == 4) {
   <div class="row flex">
 
 
-    <div class="col-xl-25 col-lg-3 col-md-4 col-sm-6 col-xs-12">
-      <div class="card w-100 text-white bg-dark p-3 border <?php
+    <div class="col-12 col-sm-6 col-md-4 offset-md-2 col-lg-3 offset-lg-3">
+      <div class="card shadow bg-dark w-100 p-3 border <?php
       if (count($klassenliste) == 0) {
         echo " border-danger text-danger";
       }
@@ -806,7 +989,7 @@ if ($config["Stage"] == 4) {
       }
       else {
         echo "border-warning text-warning";
-      } ?>">
+      } ?>" style="border: 3px solid !important;">
         <div class="card-body"><?php
         if (count($klassenliste) == 0) {
           ?>
@@ -825,8 +1008,8 @@ if ($config["Stage"] == 4) {
       </div>
     </div>
 
-    <div class="col-xl-25 col-lg-3 col-md-4 col-sm-6 col-xs-12">
-      <div class="card bg-dark p-3 w-100 border <?php
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+      <div class="card shadow bg-dark p-3 w-100 border <?php
       if ($gesamtanzahl == 0) {
         echo "border-danger text-danger";
       }
@@ -835,7 +1018,7 @@ if ($config["Stage"] == 4) {
       }
       else {
         echo "border-warning text-warning";
-      } ?>">
+      } ?>" style="border: 3px solid !important;">
         <div class="card-body">
           <h5 class="card-title"><?php echo count($wahlen); ?> von <?php echo $gesamtanzahl; ?>
           </h5>
@@ -849,6 +1032,9 @@ if ($config["Stage"] == 4) {
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="row flex">
 
     <?php
     foreach ($klassen as $key => $klasse) {
@@ -863,7 +1049,7 @@ if ($config["Stage"] == 4) {
       }
     ?>
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-      <div class="card bg-dark p-3 w-100 border <?php
+      <div class="card shadow bg-dark p-3 w-100 border <?php
       if (!$found || $anzahl < count($klasse) - 1) {
         echo "border-danger text-danger";
       }

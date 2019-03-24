@@ -129,7 +129,8 @@ else {
       return false;
   }
 
-  $cmd = "sh ../FinishedAlgorithm/startAlgorithmus.sh";
-  //exec(sprintf("%s > %s 2>&1 & echo $! >> %s", $cmd, $outputfile, $pidfile));
+  // threadsNum nRuns studentsFile projekteFile
+  $cmd = "java -jar ../FinishedAlgorithm/Algorithmus.jar 4 100000 '../FinishedAlgorithm/students.csv' '../FinishedAlgorithm/projekte.csv'";
+  // exec(sprintf("%s > %s 2>&1 & echo $! >> %s", $cmd, $outputfile, $pidfile));
 }
 ?>

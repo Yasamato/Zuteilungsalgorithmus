@@ -63,25 +63,25 @@ if (!isLogin() || ($_SESSION['benutzer']['typ'] != "admin" && $_SESSION['benutze
       <div class="col-md-3 col-sm-6">
   			<!-- Eingabefeld für die min. Klassenstufe -->
 				<label>min. Klassenstufe</label>
-				<input type="number" class="form-control" placeholder="5" required min="5" max="12" name="minKlasse" value="<?php echo empty($_POST["minKlasse"]) ? "": $_POST["minKlasse"]; ?>">
+				<input type="number" class="form-control" placeholder="Bsp: 5" required min="5" max="12" name="minKlasse" value="<?php echo empty($_POST["minKlasse"]) ? "": $_POST["minKlasse"]; ?>">
       </div>
 
       <div class="col-md-3 col-sm-6">
   			<!-- Eingabefeld für die max. Klassenstufe -->
 				<label>max. Klassenstufe</label>
-				<input type="number" class="form-control" placeholder="12" required min="5" max="12" name="maxKlasse" value="<?php echo empty($_POST["maxKlasse"]) ? "": $_POST["maxKlasse"]; ?>">
+				<input type="number" class="form-control" placeholder="Bsp: 12" required min="5" max="12" name="maxKlasse" value="<?php echo empty($_POST["maxKlasse"]) ? "": $_POST["maxKlasse"]; ?>">
       </div>
 
       <div class="col-md-3 col-sm-6">
   			<!-- Eingabefeld für die min. Teilnehmeranzahl -->
 				<label>min. Anzahl Teilnehmer</label>
-				<input type="number" class="form-control" placeholder="10" required min="1" name="minPlatz" value="<?php echo empty($_POST["minPlatz"]) ? "": $_POST["minPlatz"]; ?>">
+				<input type="number" class="form-control" placeholder="Bsp: 10" required min="1" name="minPlatz" value="<?php echo empty($_POST["minPlatz"]) ? "": $_POST["minPlatz"]; ?>">
       </div>
 
       <div class="col-md-3 col-sm-6">
   			<!-- Eingabefeld für die max. Teilnehmeranzahl -->
 				<label>max. Anzahl Teilnehmer</label>
-				<input type="number" class="form-control" placeholder="30" required min="1" name="maxPlatz" value="<?php echo empty($_POST["maxPlatz"]) ? "": $_POST["maxPlatz"]; ?>">
+				<input type="number" class="form-control" placeholder="Bsp: 30" required min="1" name="maxPlatz" value="<?php echo empty($_POST["maxPlatz"]) ? "": $_POST["maxPlatz"]; ?>">
       </div>
 		</div>
     <p>

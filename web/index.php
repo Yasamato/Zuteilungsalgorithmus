@@ -75,6 +75,9 @@
 			case "updateStudentsInKlassen":
 				require("php/klassen.php");
 				break;
+			case "zwangszuteilung":
+				require("php/zwangszuteilung");
+				break;
 			case "runZuteilungsalgorithmus":
 				require("php/run.php");
 				break;
