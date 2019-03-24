@@ -1,5 +1,4 @@
 <?php
-var_dump($_POST);
 if (isLogin() && $_SESSION["benutzer"]["typ"] == "admin") {
   if (!empty($_POST["uid"]) && !empty($_POST["stufe"])
     && !empty($_POST["klasse"]) && !empty($_POST["vorname"])
@@ -11,7 +10,7 @@ if (isLogin() && $_SESSION["benutzer"]["typ"] == "admin") {
       && count($_POST["nachname"]) == count($_POST["projekt"])) {
       $data = [];
       for ($i = 0; $i < count($_POST["uid"]); $i++) {
-        if (empty($_POST["uid"])) {
+        if (empty($_POST["uid"][$i])) {
           continue;
         }
         foreach ($wahlen as $key => $student) {

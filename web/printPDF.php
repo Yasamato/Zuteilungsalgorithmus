@@ -136,7 +136,7 @@
       $this->ln($h);
     }
 
-		function printKlasse($klasse, $studentlist, $klassenliste = false) {
+		function printKlasse($klasse, $studentlist, $zwangszuteilung, $klassenliste = false) {
       $this->AddPage("P", "A4");
       $this->setCellHeightRatio(1.1);
       $this->ln(13);
@@ -153,7 +153,7 @@
 				"Vorname",
 				$_SESSION['benutzer']['typ'] == "admin" ? "Ergebnis" : "Bereits gewählt"
 			];
-			// Aufbereiten der Daten für doe Schülertabelle
+			// Aufbereiten der Daten für die Schülertabelle
 			$dataToPrint = [];
 			$dummyWertVorhanden = 0;
 			foreach ($studentlist as $student) {
@@ -175,7 +175,7 @@
 					$student["klasse"],
 					$student["nachname"],
 					$student["vorname"],
-					$_SESSION['benutzer']['typ'] == "admin" ? empty($student["ergebnis"]) ? "N/A" : $student["ergebnis"] : $zugeteilt ? "Zugeteilt" : empty($student["wahl"]) ? "Nein" : "Ja"
+					$_SESSION['benutzer']['typ'] == "admin" ? (empty($student["ergebnis"]) ? "N/A" : getProjektInfo($student["ergebnis"])["name"]) : ($zugeteilt ? "Zugeteilt" : (empty($student["wahl"]) ? "Nein" : "Ja"))
 				]);
 			}
 			// Aufbereiten der Breiten
@@ -282,7 +282,7 @@
 						}
 						return strtolower($a["nachname"]) < strtolower($b["nachname"]) ? -1 : 1;
 					});
-					$pdf->printKlasse("Teilnehmer " . $projekt["name"], $teilnehmer);
+					$pdf->printKlasse("Teilnehmer " . $projekt["name"], $teilnehmer, $zwangszuteilung);
 				}
       }
     }
@@ -304,7 +304,7 @@
 					}
 					return strtolower($a["nachname"]) < strtolower($b["nachname"]) ? -1 : 1;
 				});
-				$pdf->printKlasse("Teilnehmer " . $projekt["name"], $teilnehmer, false);
+				$pdf->printKlasse("Teilnehmer " . $projekt["name"], $teilnehmer, $zwangszuteilung, false);
 			}
     }
   }
@@ -318,7 +318,7 @@
 			$pdf->SetTitle("Projektwoche " . date("Y"));
 			$pdf->SetSubject('Schülerlisten der Schule');
 			foreach ($klassen as $key => $klasse) {
-        $pdf->printKlasse($key, $klasse, $klassenliste);
+        $pdf->printKlasse($key, $klasse, $zwangszuteilung, $klassenliste);
       }
     }
     else {
@@ -327,7 +327,7 @@
 			if (empty($klassen[$_GET['klasse']])) {
 				error_log("Klasse '" . $_GET["klasse"] . "' konnte nicht gefunden werden.", 0, "../data/error.log");
 			}
-      $pdf->printKlasse($_GET['klasse'], $klassen[$_GET['klasse']], $klassenliste);
+      $pdf->printKlasse($_GET['klasse'], $klassen[$_GET['klasse']], $zwangszuteilung, $klassenliste);
     }
   }
   else {
