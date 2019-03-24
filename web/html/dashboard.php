@@ -209,7 +209,7 @@ if ($showErrorModal) {
 }
 if ($config["Stage"] == 4) {
   ?>
-  <div class="alert alert-<?php echo $showErrorModal ? "danger" : "success"; ?> role="alert">
+  <div class="alert alert-<?php echo $showErrorModal ? "danger" : "success"; ?>" role="alert">
     <?php
     if ($showErrorModal) {
       ?>
@@ -220,8 +220,14 @@ if ($config["Stage"] == 4) {
     ?>
     <h4 class="alert-heading">Bereit zur Auswertung</h4>
     <p>
-      Da die Wahlphase nun geschlossen wurde, kann die Auswertung durch den Zuteilungsalgorithmus initialisiert werden.
+      Die Wahlphase wurde erflogreich abgeschlossen und somit kann die Auswertung durch den Zuteilungsalgorithmus vom Admin initialisiert werden.
     </p>
+    <form method="post">
+      <input type="hidden" name="action" value="runZuteilungsalgorithmus">
+      <button type="submit" class="btn btn-primary">
+        Starten
+      </a>
+    </form>
     <?php
     }
     ?>

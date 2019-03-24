@@ -75,6 +75,9 @@
 			case "updateStudentsInKlassen":
 				require("php/klassen.php");
 				break;
+			case "runZuteilungsalgorithmus":
+				require("php/run.php");
+				break;
 			default:
 				die("Unbekannter Befehl!");
 				break;

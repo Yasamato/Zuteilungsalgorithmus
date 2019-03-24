@@ -115,20 +115,21 @@ if ($error
   || $klassenFertig != count($klassenliste)
   || $pMax < $gesamtanzahl
   || $pMin > $gesamtanzahl) {
-    die("Die Bedinungen zur Ausführung des Zuteilungsalgorithmus sind nicht erfüllt.");
+    alert("Die Bedinungen zur Ausführung des Zuteilungsalgorithmus sind nicht erfüllt.");
 }
+else {
+  // only linux.... drop win support
+  function isRunning($pid){
+      try {
+          $result = shell_exec(sprintf("ps %d", $pid));
+          return count(preg_split("/\n/", $result)) > 2;
+      } catch(Exception $e) {
+        var_dump($e);
+      }
+      return false;
+  }
 
-// only linux.... drop win support
-function isRunning($pid){
-    try{
-        $result = shell_exec(sprintf("ps %d", $pid));
-        return count(preg_split("/\n/", $result)) > 2;
-    } catch(Exception $e){
-      var_dump($e);
-    }
-
-    return false;
+  $cmd = "sh ../FinishedAlgorithm/startAlgorithmus.sh";
+  //exec(sprintf("%s > %s 2>&1 & echo $! >> %s", $cmd, $outputfile, $pidfile));
 }
-
-//exec(sprintf("%s > %s 2>&1 & echo $! >> %s", $cmd, $outputfile, $pidfile));
 ?>
