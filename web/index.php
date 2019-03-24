@@ -32,12 +32,12 @@
   (include "../data/config.php") OR die("</head><body style='color: #000'>Der Webserver wurde noch nicht konfiguriert, kontaktiere einen Admin damit dieser setup.sh ausführt.</body></html>");
 	require "php/db.php";
 	require "php/utils.php";
-	require 'php/setup.php';
 
 	// on form-submit
 	if (isset($_GET['logout'])) {
 		logout();
 	}
+	require 'php/setup.php';
 	if (isset($_POST['action'])) {
 		switch ($_POST['action']) {
 			case "login":
@@ -47,6 +47,7 @@
 				break;
 			case "logout":
 				logout();
+				require 'php/setup.php';
 				break;
 			case "addProject":
 				require("php/projektErstellung.php");
@@ -92,25 +93,8 @@
 		//print_r($loginResult);
 		print_r($_SESSION['benutzer']);
 	}*/
-?>
-		<script>
-			var projekte = [<?php
-			foreach ($projekte as $p) {
-		    echo "{";
-		    foreach ($p as $key => $v) {
-		      echo "'" . $key . "': `" . $v . "`,";
-		    }
-		    echo "}";
-				if ($p != $projekte[sizeof($projekte) - 1]) {
-					echo ",\n";
-				}
-			}
-		?>
-			];
 
-			var user = "<?php echo empty($_SESSION['benutzer']['typ']) ? "logged out" : $_SESSION['benutzer']['typ']; ?>";
-		</script>
-<?php
+
 	//--------------------------------------------------------
 	//html-teil
 	if (isLogin()) {
@@ -178,7 +162,14 @@
 			}
 		}
 		else {
-			if ($config["Stage"] == 3) {
+			$zwangszugeteilt = false;
+			foreach ($zwangszuteilung as $key => $zuteilung) {
+				if ($_SESSION["benutzer"]["uid"] == $zuteilung["uid"]) {
+					$zwangszugeteilt = true;
+					break;
+				}
+			}
+			if ($config["Stage"] == 3 && !$zwangszugeteilt) {
 ?>
 		<link rel="stylesheet" href="css/wahl.css">
 	</head>
@@ -192,7 +183,12 @@
 	<body>
 <?php
 				logout();
-				include "html/wahlGeschlossen.html";
+				if ($zwangszugeteilt) {
+					include "html/zwangszuteilung.php";
+				}
+				else {
+					include "html/wahlGeschlossen.html";
+				}
 			}
 		}
 	}

@@ -49,32 +49,7 @@ if (!file_exists("../data/config.csv")) {
   ]);
 }
 $config = dbRead("../data/config.csv")[0];
-?>
-<script>
-  var config = {<?php
-    end($config);
-    $last = key($config);
-    foreach ($config as $key => $v) {
-      echo "'" . $key . "': '" . $v . "'";
-      if ($key != $last) {
-        echo ",\n";
-      }
-    }
-  ?>};
-  // convert the string into a bool
-  config["MontagVormittag"] = (config["MontagVormittag"] == 'true');
-  config["MontagNachmittag"] = (config["MontagNachmittag"] == 'true');
-  config["DienstagVormittag"] = (config["DienstagVormittag"] == 'true');
-  config["DienstagNachmittag"] = (config["DienstagNachmittag"] == 'true');
-  config["MittwochVormittag"] = (config["MittwochVormittag"] == 'true');
-  config["MittwochNachmittag"] = (config["MittwochNachmittag"] == 'true');
-  config["DonnerstagVormittag"] = (config["DonnerstagVormittag"] == 'true');
-  config["DonnerstagNachmittag"] = (config["DonnerstagNachmittag"] == 'true');
-  config["FreitagVormittag"] = (config["FreitagVormittag"] == 'true');
-  config["FreitagNachmittag"] = (config["FreitagNachmittag"] == 'true');
-</script>
 
-<?php
 if (!file_exists("../data/projekte.csv")) {
   // define the header of the columns in the first row
   dbCreateFile("../data/projekte.csv", [
@@ -230,4 +205,44 @@ usort($zwangszuteilung, function ($a, $b) {
   }
   return strtolower($a["nachname"]) < strtolower($b["nachname"]) ? -1 : 1;
 });
+
 ?>
+<script>
+  var config = {<?php
+    end($config);
+    $last = key($config);
+    foreach ($config as $key => $v) {
+      echo "'" . $key . "': '" . $v . "'";
+      if ($key != $last) {
+        echo ",\n";
+      }
+    }
+  ?>};
+  // convert the string into a bool
+  config["MontagVormittag"] = (config["MontagVormittag"] == 'true');
+  config["MontagNachmittag"] = (config["MontagNachmittag"] == 'true');
+  config["DienstagVormittag"] = (config["DienstagVormittag"] == 'true');
+  config["DienstagNachmittag"] = (config["DienstagNachmittag"] == 'true');
+  config["MittwochVormittag"] = (config["MittwochVormittag"] == 'true');
+  config["MittwochNachmittag"] = (config["MittwochNachmittag"] == 'true');
+  config["DonnerstagVormittag"] = (config["DonnerstagVormittag"] == 'true');
+  config["DonnerstagNachmittag"] = (config["DonnerstagNachmittag"] == 'true');
+  config["FreitagVormittag"] = (config["FreitagVormittag"] == 'true');
+  config["FreitagNachmittag"] = (config["FreitagNachmittag"] == 'true');
+
+	var projekte = [<?php
+	foreach ($projekte as $p) {
+    echo "{";
+    foreach ($p as $key => $v) {
+      echo "'" . $key . "': `" . $v . "`,";
+    }
+    echo "}";
+		if ($p != $projekte[sizeof($projekte) - 1]) {
+			echo ",\n";
+		}
+	}
+?>
+	];
+
+	var user = "<?php echo empty($_SESSION['benutzer']['typ']) ? "logged out" : $_SESSION['benutzer']['typ']; ?>";
+</script>
