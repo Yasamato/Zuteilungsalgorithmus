@@ -200,9 +200,9 @@ public class Projekt {
     @Override
     public String toString() {
         String s = "-------------------------------------------------------------\n";
-        s += "Projekt Nr. " + id + " Min. Teilnehmer: " + minTeilnehmer + " Max.Teilnehmer: " + maxTeilnehmer + " Anzahl Teilnehmer: " + this.teilnehmer.size() + " Std: " + this.getStd() + "\n";
+        s += "Projekt Nr. " + id + " Min. Teilnehmer: " + minTeilnehmer + " Max.Teilnehmer: " + maxTeilnehmer + " Anzahl Teilnehmer: " + this.teilnehmer.size() + ",Mittlere Klassenstufe: "+getDurchschnittKlasse() +" Std: " + this.getStd() + "\n";
         for (Schueler sch : this.teilnehmer) {
-            s += "Schueler " + sch.getName() + "(" + sch.getWahlPosition(this) + ") Wahl" + " , " + sch.getIntKlasse() + "\n";
+            s += "Schueler " + sch.getName() + "(" + sch.getWahlPosition(this) + ") Wahl" + " , Klasse:  " + sch.getIntKlasse() + "\n";
         }
         return s;
     }

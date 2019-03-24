@@ -19,6 +19,26 @@ public class ProjectFileReader {
     private String regex;
 
     /**
+     * Trennzeichen der CSV-Datei
+     */
+    private String delimiter;
+
+    /**
+     * Spaltenindex in der CSV-Datei, der angibt, welche ID ein Projekt hat
+     */
+    private int idIndex;
+
+    /**
+     * Spaltenindex in der CSV-Datei, der angibt, welche Mindestanzahl an Schülern ein Projekt hat
+     */
+    private int minIndex;
+
+    /**
+     * Spaltenindex in der CSV-Datei, der angibt, welche Maximalanzahl an Schülern ein Projekt hat
+     */
+    private int maxIndex;
+
+    /**
      * Klasse zum Auslesen einer CSV-Datei nach Projekten
      * Initialisiert BufferedReader
      *
@@ -28,10 +48,39 @@ public class ProjectFileReader {
     public ProjectFileReader(String source, String regex) {
         try {
             this.regex = regex;
+            this.validateRegex();
             this.reader = new BufferedReader(new FileReader(source));
         } catch (Exception e) {
             this.reader = null;
-            System.out.println(e.getMessage());
+            e.printStackTrace();
+            System.exit(0);
+        }
+    }
+
+    /**
+     * Validiert die Beschreibung der CSV-Datei
+     */
+    public void validateRegex() {
+        if (this.regex.length() == 0) {
+            System.out.println("Ungültige Beschreibung der CSV-Datei, zu wenig Zeichen");
+            System.exit(0);
+        }
+        this.delimiter = this.regex.charAt(0) + "";
+        this.regex = this.regex.substring(1, this.regex.length());
+        this.idIndex = this.regex.indexOf("I");
+        if (this.idIndex < 0) {
+            System.out.println("Falsche oder fehlende Eingabe für die Indexspalte");
+            System.exit(0);
+        }
+        this.maxIndex = this.regex.indexOf("M");
+        if (this.maxIndex < 0) {
+            System.out.println("Falsche oder fehlende Eingabe für die Maximalspalte");
+            System.exit(0);
+        }
+        this.minIndex = this.regex.indexOf("m");
+        if (this.minIndex < 0) {
+            System.out.println("Falsche oder fehlende Eingabe für die Minimalspalte");
+            System.exit(0);
         }
     }
 
@@ -54,36 +103,18 @@ public class ProjectFileReader {
      * Liest alle Projekte und initialisiert die Objekte
      */
     private void loadProjekte() {
-        projektList = new ArrayList<Projekt>();
+        projektList = new ArrayList<>();
         String line;
         Projekt aktProjekt;
 
         try {
-            reader = new BufferedReader(new FileReader("projekte.csv"));
-        } catch (Exception e) {
-            reader = null;
-            System.out.println(e.getMessage());
-            System.exit(0);
-            return;
-        }
-
-
-        try {
-            //Indizes
-            int id_index = this.regex.indexOf("I");
-            int max_index = this.regex.indexOf("M");
-            int min_index = this.regex.indexOf("m");
-            if(id_index==-1 || max_index ==-1||min_index==-1){
-            	System.out.println("Falsche Eingabe");
-            	System.exit(0);
-            }
             //Auslesen der Datei
             while ((line = reader.readLine()) != null) {
-                String[] elements = line.split(",");
+                String[] elements = line.split(this.delimiter);
 
-                int id = Integer.parseInt(elements[id_index]);
-                int max = Integer.parseInt(elements[max_index]);
-                int min = Integer.parseInt(elements[min_index]);
+                int id = Integer.parseInt(elements[this.idIndex]);
+                int max = Integer.parseInt(elements[this.maxIndex]);
+                int min = Integer.parseInt(elements[this.minIndex]);
                 //Erstellen des Objektes und hinzufuegen zur Liste
                 aktProjekt = new Projekt(id, min, max);
                 projektList.add(aktProjekt);
