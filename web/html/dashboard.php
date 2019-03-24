@@ -8,48 +8,230 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
 $stufen = [
   5 => [
     "min" => 0,
-    "max" => 0
+    "max" => 0,
+    "students" => 0
   ],
   6 => [
     "min" => 0,
-    "max" => 0
+    "max" => 0,
+    "students" => 0
   ],
   7 => [
     "min" => 0,
-    "max" => 0
+    "max" => 0,
+    "students" => 0
   ],
   8 => [
     "min" => 0,
-    "max" => 0
+    "max" => 0,
+    "students" => 0
   ],
   9 => [
     "min" => 0,
-    "max" => 0
+    "max" => 0,
+    "students" => 0
   ],
   10 => [
     "min" => 0,
-    "max" => 0
+    "max" => 0,
+    "students" => 0
   ],
   11 => [
     "min" => 0,
-    "max" => 0
+    "max" => 0,
+    "students" => 0
   ],
   12 => [
     "min" => 0,
-    "max" => 0
+    "max" => 0,
+    "students" => 0
   ]
 ];
 
 // read each project and add the max members to the affected classes
+$pMin = 0;
+$pMax = 0;
 foreach (dbRead("../data/projekte.csv") as $p) {
   for ($i = 5; $i <= 12; $i++) {
 		if ($p["minKlasse"] <= $i && $p["maxKlasse"] >= $i) {
 			$stufen[$i]["min"] += $p["minPlatz"];
 			$stufen[$i]["max"] += $p["maxPlatz"];
+      $pMin += $p["minPlatz"];
+      $pMax += $p["maxPlatz"];
 		}
 	}
 }
+
+// Gesamtanzahl der Schüler
+$gesamtanzahl = 0;
+foreach ($klassenliste as $klasse) {
+  $gesamtanzahl += $klasse["anzahl"];
+
+  // für die einzelnen Stufen
+  for ($i = 5; $i <= 12; $i++) {
+    if ($i == $klasse["stufe"]) {
+			$stufen[$i]["students"] += $klasse["anzahl"];
+			$stufen[$i]["students"] += $klasse["anzahl"];
+    }
+  }
+}
+
+// Zählen der bereits gewählten Schüler
+$klassenFertig = 0;
+$nichtEingetrageneKlassen = [];
+foreach ($klassen as $klasse => $liste) {
+  $found = false;
+  foreach ($klassenliste as $k) {
+    if ($klasse == $k["klasse"]) {
+      if (count($liste) - 1 == $k["anzahl"]) {
+        $klassenFertig += 1;
+      }
+      $found = true;
+      break;
+    }
+  }
+  if (!$found) {
+    array_push($nichtEingetrageneKlassen, $klasse);
+  }
+}
+
+$showErrorModal = false;
 ?>
+<!-- Warnungen -->
+<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="configModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content bg-dark">
+
+      <div class="modal-header">
+        <h4 class="modal-title">Warnungen und Fehlermeldungen</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span class="closebutton" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+      <?php
+      // Fehlende Klassseneinträge
+      foreach ($nichtEingetrageneKlassen as $klasse) {
+        $showErrorModal = true;
+        ?>
+        <div class="alert alert-danger" role="alert">
+          Die <strong>Klasse <?php echo $klasse; ?></strong> konnte nicht gefunden werden. Korrigieren Sie bitte die Klassseneinträge entsprechend <a href="javascript: $('#studentsInKlassen').modal('show');" class="alert-link">hier</a>.
+        </div><?php
+      }
+
+      // Mehr Schüler als eingetragen
+      foreach ($klassenliste as $klasse) {
+        if (count($klassen[$klasse["klasse"]]) - 1 > $klasse["anzahl"]) {
+          $showErrorModal = true;
+          ?>
+        <div class="alert alert-danger" role="alert">
+          Die <strong>Klasse <?php echo $klasse["klasse"]; ?></strong> hat mehr Schüler als eingetragen. Korrigieren Sie bitte die Klassseneinträge entsprechend <a href="javascript: $('#studentsInKlassen').modal('show');" class="alert-link">hier</a>.
+        </div><?php
+        }
+      }
+
+      // Wahlfortschritt nach Schülern
+      if ($config["Stage"] > 2 && $gesamtanzahl != count($wahlen)) {
+        $showErrorModal = true;
+        ?>
+        <div class="alert alert-<?php echo $config["Stage"] < 4 ? "primary alert-dismissible fade show" : "danger"; ?>" role="alert">
+          Es ha<?php echo $gesamtanzahl > 1 ? "ben" : "t" ?> nur <?php echo count($wahlen) . " von " . $gesamtanzahl; ?> Schülern bereits gewählt.
+          <?php if ($config["Stage"] < 4) { ?>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        <?php } ?>
+        </div>
+        <?php
+      }
+      // Wahlfortschritt nach Klassen
+      if ($config["Stage"] > 2 && $klassenFertig != count($klassenliste)) {
+        $showErrorModal = true;
+        ?>
+        <div class="alert alert-<?php echo $config["Stage"] < 4 ? "primary alert-dismissible fade show" : "danger"; ?>" role="alert">
+          Es ha<?php echo $klassenFertig > 1 ? "ben" : "t" ?> nur <?php echo $klassenFertig . " von " . count($klassenliste); ?> Klassen vollständig gewählt.
+          <?php if ($config["Stage"] < 4) { ?>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        <?php } ?>
+        </div>
+        <?php
+      }
+
+      // Ausreichend Plätze für Schüler
+      if ($pMin > $gesamtanzahl) {
+        ?>
+        <div class="alert alert-danger" role="alert">
+          Die von allen Projekten summierte Mindestteilnehmeranzahl ist größer der Gesamtschülerzahl. Falls nicht Projekte nicht stattfinden sollen, passen Sie bitte die Mindestteilnehmeranzahl an.
+        </div><?php
+      }
+      if ($pMax < $gesamtanzahl) {
+        ?>
+        <div class="alert alert-danger" role="alert">
+          Die von allen Projekten summierte Maximalteilnehmeranzahl ist kleiner der Gesamtschülerzahl. Bitte erweitern sie die Maximalzahl bestehender Projekte oder fügen sie weitere Projekte hinzu.
+        </div><?php
+      }
+
+      // Platz pro Stufe
+      for ($i = 5; $i <= 12; $i++) {
+        if ($stufen[$i]["min"] > $stufen[$i]["students"]) {
+          ?>
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            Die von allen Projekten summierte Mindestteilnehmeranzahl für die <strong>Klassenstufe <?php echo $i; ?></strong> ist größer der Schüleranzahl der Stufe. Dies kann zu Problemen führen.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div><?php
+        }
+        if ($stufen[$i]["max"] < $stufen[$i]["students"]) {
+          ?>
+          <div class="alert alert-danger" role="alert">
+            Die von allen Projekten summierte Maximalteilnehmeranzahl für die <strong>Klassenstufe <?php echo $i; ?></strong> ist kleiner der Schüleranzahl der Stufe. Bitte erweitern sie die Maximalzahl bestehender Projekte oder fügen sie weitere Projekte hinzu.
+          </div><?php
+        }
+      }
+      ?>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+<?php
+if ($showErrorModal) {
+  ?>
+  <div class="alert alert-danger" role="alert">
+    Es sind Fehler aufgetreten. <a href="javascript: $('#errorModal').modal('show');" class="alert-link">Details</a>.
+  </div>
+  <?php
+}
+if ($config["Stage"] == 4) {
+  ?>
+  <div class="alert alert-<?php echo $showErrorModal ? "danger" : "success"; ?> role="alert">
+    <?php
+    if ($showErrorModal) {
+      ?>
+    Aufgrund der obigen Fehler kann momentan keine Auswertung durchgeführt werden. Bitte korrigieren sie evtl. fehlende oder inkorrekte Angaben.
+      <?php
+    }
+    else {
+    ?>
+    <h4 class="alert-heading">Bereit zur Auswertung</h4>
+    <p>
+      Da die Wahlphase nun geschlossen wurde, kann die Auswertung durch den Zuteilungsalgorithmus initialisiert werden.
+    </p>
+    <?php
+    }
+    ?>
+  </div>
+  <?php
+}
+?>
+</div>
+
+
 <!-- Einstellungs-Modal -->
 <div class="modal fade" id="configModal" tabindex="-1" role="dialog" aria-labelledby="configModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
@@ -524,7 +706,6 @@ foreach (dbRead("../data/projekte.csv") as $p) {
 
 
 
-
 <div class="container-fluid">
   <div class="row">
     <!-- Spalte 1 -->
@@ -579,15 +760,7 @@ foreach (dbRead("../data/projekte.csv") as $p) {
         <div class="col-xl-4 col-sm-6 col-xs-12">
           <div class="card w-100 text-white bg-dark p-3">
             <div class="card-body">
-              <h5 class="card-title"><?php
-                $min = 0;
-                $max = 0;
-                foreach (dbRead("../data/projekte.csv") as $p) {
-                  $min += $p["minPlatz"];
-                  $max += $p["maxPlatz"];
-                }
-                echo $min . " - " . $max;
-              ?></h5>
+              <h5 class="card-title"><?php echo $pMin . " - " . $pMax; ?></h5>
               <p class="card-text">Plätze sind insgesamt verfügbar</p></p>
             </div>
           </div>
@@ -618,19 +791,6 @@ foreach (dbRead("../data/projekte.csv") as $p) {
 
 
     <div class="col-xl-25 col-lg-3 col-md-4 col-sm-6 col-xs-12">
-      <?php
-        $klassenFertig = 0;
-        foreach ($klassen as $klasse => $liste) {
-          foreach ($klassenliste as $k) {
-            if ($klasse == $k["klasse"]) {
-              if (count($liste) - 1 == $k["anzahl"]) {
-                $klassenFertig += 1;
-              }
-              break;
-            }
-          }
-        }
-      ?>
       <div class="card w-100 text-white bg-dark p-3 border <?php
       if (count($klassenliste) == 0) {
         echo " border-danger text-danger";
@@ -661,10 +821,6 @@ foreach (dbRead("../data/projekte.csv") as $p) {
 
     <div class="col-xl-25 col-lg-3 col-md-4 col-sm-6 col-xs-12">
       <div class="card bg-dark p-3 w-100 border <?php
-      $gesamtanzahl = 0;
-      foreach ($klassenliste as $klasse) {
-        $gesamtanzahl += $klasse["anzahl"];
-      }
       if ($gesamtanzahl == 0) {
         echo "border-danger text-danger";
       }
