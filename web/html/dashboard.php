@@ -252,9 +252,8 @@ $showErrorModal = false;
         </button>
       </div>
 
-      <div class="modal-body">
-        <form id="configForm" method="post">
-
+      <form id="configForm" method="post">
+        <div class="modal-body">
           <h5>Allgemeine Einstellungen</h5>
 
           <div class="form-group row">
@@ -439,14 +438,13 @@ $showErrorModal = false;
               </tr>
             </tbody>
           </table>
+        </div>
 
-          <div id="configurebuttons">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button onclick="javascript: $('form#configForm').submit();" type="submit" name="action" value="updateConfiguration" class="btn btn-primary">Speichere Änderungen</button>
-          </div>
-        </form>
-      </div>
-
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Zurück</button>
+          <button type="submit" name="action" value="updateConfiguration" class="btn btn-primary">Speichere Änderungen</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
@@ -627,12 +625,12 @@ $showErrorModal = false;
         </button>
       </div>
 
-      <div class="modal-body">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
-        <br>
-        <small class="text-muted">Das Ergebnis der Auswertung ist erst verfügbar sobald die Auswertung durch den Admin durchgeführt wurde. Die Auswertung kann erst im Admin-Panel durchgeführt werden, sobald die Wahlen geschlossen sind.</small>
-
-        <form method="post" id="zwangszuteilungForm">
+      <form method="post" id="zwangszuteilungForm">
+        <div class="modal-body">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Zurück</button>
+          <button type="submit" name="action" value="updateZwangszuteilung" class="btn btn-primary">Änderung speichern</button>
+          <br>
+          <small class="text-muted">Um Schüler Zwangszuzuteilen tragen Sie bitte die U-ID (Login-Name des Schülers) korrekt ein und wählen sie das entsprechende Projekt aus.</small>
           <table class="table table-dark table-striped table-hover">
             <thead class="thead-dark">
               <tr>
@@ -653,20 +651,20 @@ $showErrorModal = false;
                   <input type="text" class="form-control" placeholder="U-ID" aria-label="U-ID" value="<?php echo $student['uid']; ?>" name="uid[]">
                 </td>
                 <td>
-                  <input type="number" class="form-control" placeholder="5" aria-label="Stufe" value="<?php echo $student['stufe']; ?>" name="stufe[]">
+                  <input type="number" class="form-control" placeholder="Bsp: 5" aria-label="Stufe" value="<?php echo $student['stufe']; ?>" name="stufe[]">
                 </td>
                 <td>
-                  <input type="text" class="form-control" placeholder="5a" aria-label="Klasse" value="<?php echo $student['klasse']; ?>" name="klasse[]">
+                  <input type="text" class="form-control" placeholder="Bsp: 5a" aria-label="Klasse" value="<?php echo $student['klasse']; ?>" name="klasse[]">
                 </td>
                 <td>
-                  <input type="text" class="form-control" placeholder="Max" aria-label="Vorname" value="<?php echo $student['vorname']; ?>" name="vorname[]">
+                  <input type="text" class="form-control" placeholder="Bsp: Max" aria-label="Vorname" value="<?php echo $student['vorname']; ?>" name="vorname[]">
                 </td>
                 <td>
-                  <input type="text" class="form-control" placeholder="Mustermann" aria-label="Nachname" value="<?php echo $student['nachname']; ?>" name="nachname[]">
+                  <input type="text" class="form-control" placeholder="Bsp: Mustermann" aria-label="Nachname" value="<?php echo $student['nachname']; ?>" name="nachname[]">
                 </td>
                 <td>
                   <input type="hidden" class="form-control" value="<?php echo $student['projekt']; ?>" name="projekt[]">
-                  <button type="button" class="btn btn-primary" onclick="javascript: changeZwangszuteilungProjekt(this, this.parentNode.children[0]);">Projekt</button>
+                  <button type="button" class="btn btn-success" onclick="javascript: changeZwangszuteilungProjekt(this);">Ändern</button>
                 </td>
                 <td>
                   <button type="button" class="close text-danger" aria-label="Close" onclick="javascript: removeLine(this);">
@@ -680,74 +678,87 @@ $showErrorModal = false;
 
             </tbody>
           </table>
-        </form>
-        <script>
-          function addStudentsInZwangszuteilungInput() {
-            //var node = document.querySelector('#studentsInKlassen tbody');
-            $("#zwangszuteilungModal tbody").append($(`
-            <tr>
-              <td>
-                <input type="text" class="form-control" placeholder="U-ID" aria-label="U-ID" name="uid[]">
-              </td>
-              <td>
-                <input type="number" class="form-control" placeholder="5" aria-label="Stufe" name="stufe[]">
-              </td>
-              <td>
-                <input type="text" class="form-control" placeholder="5a" aria-label="Klasse" name="klasse[]">
-              </td>
-              <td>
-                <input type="text" class="form-control" placeholder="Max" aria-label="Vorname" name="vorname[]">
-              </td>
-              <td>
-                <input type="text" class="form-control" placeholder="Mustermann" aria-label="Nachname" name="nachname[]">
-              </td>
-              <td>
-                <input type="hidden" class="form-control" name="projekt[]">
-                <button type="button" class="btn btn-primary" onclick="javascript: changeZwangszuteilungProjekt(this, this.parentNode.children[0]);">Projekt</button>
-              </td>
-              <td>
-                <button type="button" class="close text-danger" aria-label="Close" onclick="javascript: removeLine(this);">
-                  <span class="closebutton" aria-hidden="true">&times;</span>
-                </button>
-              </td>
-            </tr>`));
-          }
-
-          function setZwangszuteilungProjekt(student, projekt) {
-            $("#zwangszuteilungProjektModal").modal("hide");
-
-            $("#zwangszuteilungProjektModal tbody").html("");
-          }
-
-          function changeZwangszuteilungProjekt(student, currentProjekt) {
-            for (var i = 0; i < projekte.length; i++) {
-              $("#zwangszuteilungProjektModal tbody").append(`
+          <script>
+            function addStudentsInZwangszuteilungInput() {
+              //var node = document.querySelector('#studentsInKlassen tbody');
+              $("#zwangszuteilungModal tbody").append($(`
               <tr>
                 <td>
-                  <input type="hidden" value="` + projekte[i]["id"] + `">
-                  ` + projekte[i]["name"] + `
+                  <input type="text" class="form-control" placeholder="U-ID" aria-label="U-ID" name="uid[]">
                 </td>
-                <td>` + projekte[i]["betreuer"] + `</td>
                 <td>
-                  <
-              </tr>`);
+                  <input type="number" class="form-control" placeholder="Bsp: 5" aria-label="Stufe" name="stufe[]">
+                </td>
+                <td>
+                  <input type="text" class="form-control" placeholder="Bsp: 5a" aria-label="Klasse" name="klasse[]">
+                </td>
+                <td>
+                  <input type="text" class="form-control" placeholder="Bsp: Max" aria-label="Vorname" name="vorname[]">
+                </td>
+                <td>
+                  <input type="text" class="form-control" placeholder="Bsp: Mustermann" aria-label="Nachname" name="nachname[]">
+                </td>
+                <td>
+                  <input type="hidden" class="form-control" name="projekt[]">
+                  <button type="button" class="btn btn-danger" onclick="javascript: changeZwangszuteilungProjekt(this);">Projekt wählen</button>
+                </td>
+                <td>
+                  <button type="button" class="close text-danger" aria-label="Close" onclick="javascript: removeLine(this);">
+                    <span class="closebutton" aria-hidden="true">&times;</span>
+                  </button>
+                </td>
+              </tr>`));
             }
-            $("#zwangszuteilungProjektModal").modal("show");
-          }
 
-          addStudentsInZwangszuteilungInput();
-        </script>
-        <button onclick="javascript: addStudentsInZwangszuteilungInput();" type="button" class="btn btn-success">Schüler hinzufügen &#10010;</button>
-      </div>
+            function setZwangszuteilungProjekt(projekt) {
+              projekt = projekt.parentNode.parentNode.children[0].children[0].value;
+              $("#zwangszuteilungProjektModal").modal("hide");
+              var button = $("#zwangszuteilungModal .current-open").children()[5];
+              button.children[0].value = projekt;
+              button.children[1].innerHTML = "Ändern";
+              button.children[1].classList.remove("btn-danger");
+              button.children[1].classList.add("btn-success");
+              $("#zwangszuteilungModal .current-open").removeClass(".current-open");
+              $("#zwangszuteilungProjektModal tbody").html("");
+            }
 
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
-      </div>
+            function changeZwangszuteilungProjekt(student, currentProjekt) {
+              student.parentNode.parentNode.classList.add("current-open");
+              for (var i = 0; i < projekte.length; i++) {
+                $("#zwangszuteilungProjektModal tbody").append(`
+                <tr` + (projekte[i]["id"] == student.parentNode.children[0].value ? " class='bg-success'" : "") + `>
+                  <td>
+                    <input type="hidden" value="` + projekte[i]["id"] + `">
+                    ` + projekte[i]["name"] + `
+                  </td>
+                  <td>` + projekte[i]["betreuer"] + `</td>
+                  <td>
+                    <button type="button" onclick="javascript: setZwangszuteilungProjekt(this);" class="btn btn-`
+                    + (projekte[i]["id"] == student.parentNode.children[0].value ? `primary">
+                      OK` : `success">
+                      Setzen`) + `
+                    </button>
+                  </td>
+                </tr>`);
+              }
+              $("#zwangszuteilungProjektModal").modal("show");
+            }
+
+            addStudentsInZwangszuteilungInput();
+          </script>
+          <button onclick="javascript: addStudentsInZwangszuteilungInput();" type="button" class="btn btn-success">Schüler hinzufügen &#10010;</button>
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" name="action" value="updateZwangszuteilung" class="btn btn-primary">Änderung speichern</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Zurück</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
 
-<!-- Zwangszuteilungs-Modal -->
+<!-- Projekt-Zwangszuteilungs-Modal -->
 <div class="modal fade" id="zwangszuteilungProjektModal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content bg-dark">
@@ -760,6 +771,7 @@ $showErrorModal = false;
       </div>
 
       <div class="modal-body">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Zurück</button>
         <table class="table table-striped table-hover table-dark">
           <thead class="thead-dark">
             <tr>
@@ -770,6 +782,7 @@ $showErrorModal = false;
           </thead>
           <tbody></tbody>
         </table>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Zurück</button>
       </div>
     </div>
   </div>
@@ -779,7 +792,6 @@ $showErrorModal = false;
 <div class="modal fade" id="studentsInKlassen" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content bg-dark">
-      <form id="studentsInKlassenForm" method="post">
 
       <div class="modal-header">
         <h4 class="modal-title">Schüleranzahl in den Klassen</h4>
@@ -788,85 +800,88 @@ $showErrorModal = false;
         </button>
       </div>
 
-      <div class="modal-body">
-        <table class="table table-striped">
-          <thead class="thead-dark">
-            <tr>
-              <th class="sticky-top">Stufe</th>
-              <th class="sticky-top">Klasse</th>
-              <th class="sticky-top">Schüleranzahl</th>
-              <th class="sticky-top"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php
-            $studentsInKlassen = dbRead("../data/klassen.csv");
-          	uasort($studentsInKlassen, function ($a, $b) {
-          		if ($a["stufe"] == $b["stufe"]) {
-          			return $a["klasse"] < $b["klasse"] ? -1 : 1;
-          		}
-          		return intval($a["stufe"]) < intval($b["stufe"]) ? -1 : 1;
-          	});
-            foreach ($studentsInKlassen as $klasse) {
+      <form id="studentsInKlassenForm" method="post">
+        <div class="modal-body">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Zurück</button>
+          <button type="submit" name="action" value="updateStudentsInKlassen" class="btn btn-primary">Änderung speichern</button>
+          <table class="table table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th class="sticky-top">Stufe</th>
+                <th class="sticky-top">Klasse</th>
+                <th class="sticky-top">Schüleranzahl</th>
+                <th class="sticky-top"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+              $studentsInKlassen = dbRead("../data/klassen.csv");
+            	uasort($studentsInKlassen, function ($a, $b) {
+            		if ($a["stufe"] == $b["stufe"]) {
+            			return $a["klasse"] < $b["klasse"] ? -1 : 1;
+            		}
+            		return intval($a["stufe"]) < intval($b["stufe"]) ? -1 : 1;
+            	});
+              foreach ($studentsInKlassen as $klasse) {
+                ?>
+              <tr>
+                <td>
+                  <input type="text" class="form-control" placeholder="Bsp: 5" aria-label="Stufe" value="<?php echo $klasse['stufe']; ?>" name="stufe[]">
+                </td>
+                <td>
+                  <input type="text" class="form-control" placeholder="Bsp: 5a" aria-label="Klasse" value="<?php echo $klasse['klasse']; ?>" name="klasse[]">
+                </td>
+                <td>
+                  <input type="number" class="form-control" aria-label="Schüleranzahl" value="<?php echo $klasse['anzahl']; ?>" name="anzahl[]">
+                </td>
+                <td>
+                  <button type="button" class="close text-danger" aria-label="Close" onclick="javascript: removeLine(this);">
+                    <span class="closebutton" aria-hidden="true">&times;</span>
+                  </button>
+                </td>
+              </tr>
+              <?php
+              }
               ?>
-            <tr>
-              <td>
-                <input type="text" class="form-control" placeholder="Bsp: 5" aria-label="Stufe" value="<?php echo $klasse['stufe']; ?>" name="stufe[]">
-              </td>
-              <td>
-                <input type="text" class="form-control" placeholder="Bsp: 5a" aria-label="Klasse" value="<?php echo $klasse['klasse']; ?>" name="klasse[]">
-              </td>
-              <td>
-                <input type="number" class="form-control" aria-label="Schüleranzahl" value="<?php echo $klasse['anzahl']; ?>" name="anzahl[]">
-              </td>
-              <td>
-                <button type="button" class="close text-danger" aria-label="Close" onclick="javascript: removeLine(this);">
-                  <span class="closebutton" aria-hidden="true">&times;</span>
-                </button>
-              </td>
-            </tr>
-            <?php
+            </tbody>
+          </table>
+
+          <script>
+            function addStudentsInKlassenInput() {
+              //var node = document.querySelector('#studentsInKlassen tbody');
+              $("#studentsInKlassen tbody").append($(`
+              <tr>
+                <td>
+                  <input type="text" class="form-control" placeholder="Bsp: 5" aria-label="Stufe" name="stufe[]">
+                </td>
+                <td>
+                  <input type="text" class="form-control" placeholder="Bsp: 5a" aria-label="Klasse" name="klasse[]">
+                </td>
+                <td>
+                  <input type="number" class="form-control" aria-label="Schüleranzahl" name="anzahl[]">
+                </td>
+                <td>
+                  <button type="button" class="close text-danger" aria-label="Close" onclick="javascript: removeLine(this);">
+                    <span class="closebutton" aria-hidden="true">&times;</span>
+                  </button>
+                </td>
+              </tr>`));
             }
-            ?>
-          </tbody>
-        </table>
 
-        <script>
-          function addStudentsInKlassenInput() {
-            //var node = document.querySelector('#studentsInKlassen tbody');
-            $("#studentsInKlassen tbody").append($(`
-            <tr>
-              <td>
-                <input type="text" class="form-control" placeholder="Bsp: 5" aria-label="Stufe" name="stufe[]">
-              </td>
-              <td>
-                <input type="text" class="form-control" placeholder="Bsp: 5a" aria-label="Klasse" name="klasse[]">
-              </td>
-              <td>
-                <input type="number" class="form-control" aria-label="Schüleranzahl" name="anzahl[]">
-              </td>
-              <td>
-                <button type="button" class="close text-danger" aria-label="Close" onclick="javascript: removeLine(this);">
-                  <span class="closebutton" aria-hidden="true">&times;</span>
-                </button>
-              </td>
-            </tr>`));
-          }
+            function removeLine(element) {
+              // button -> td -> tr -> tbody
+              var row = element.parentNode.parentNode;
+              row.parentNode.removeChild(row);
+            }
+            addStudentsInKlassenInput();
+          </script>
+          <button onclick="javascript: addStudentsInKlassenInput();" type="button" class="btn btn-success">Klasse hinzufügen &#10010;</button>
+        </div>
 
-          function removeLine(element) {
-            // button -> td -> tr -> tbody
-            var row = element.parentNode.parentNode;
-            row.parentNode.removeChild(row);
-          }
-          addStudentsInKlassenInput();
-        </script>
-        <button onclick="javascript: addStudentsInKlassenInput();" type="button" class="btn btn-success">Klasse hinzufügen &#10010;</button>
-      </div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button onclick="javascript: $('form#studentsInKlassenForm').submit();" type="submit" name="action" value="updateStudentsInKlassen" class="btn btn-primary">Speichere Änderungen</button>
-      </div>
+        <div class="modal-footer">
+          <button type="submit" name="action" value="updateStudentsInKlassen" class="btn btn-primary">Änderung speichern</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Zurück</button>
+        </div>
 
       </form>
     </div>

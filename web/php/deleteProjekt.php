@@ -14,8 +14,7 @@ if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
         foreach ($wahlen as $key => $wahl) {
           if (in_array($_POST["projekt"], $wahl["wahl"])) {
             array_push($entrysModified, $wahl);
-            unset($wahl["wahl"][array_search($_POST["projekt"], $wahl["wahl"])]);
-            dbSet("../data/wahl.csv", "id", $wahl["id"], "wahl", implode("§", $wahl["wahl"]));
+            dbRemove("../data/wahl.csv", "uid", $wahl["id"]);
           }
         }
 

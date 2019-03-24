@@ -41,17 +41,7 @@ if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
   		error_log("Die Änderung der Einstellung in der Datei ../data/klassen.csv von '" . json_encode($klassenliste) . "' zu '" . json_encode($values) . "' ist fehlgeschlagen", 0, "../data/error.log");
   		die("Die Änderung der Einstellung in der Datei ../data/klassen.csv von '" . json_encode($klassenliste) . "' zu '" . json_encode($values) . "' ist fehlgeschlagen");
   	}
-  	else {
-      // aktualisere die Einträge
-    	$klassenliste = dbRead("../data/klassen.csv");
-    	usort($klassenliste, function ($a, $b) {
-    		if ($a["stufe"] == $b["stufe"]) {
-    			return $a["klasse"] < $b["klasse"] ? -1 : 1;
-    		}
-    		return intval($a["stufe"]) < intval($b["stufe"]) ? -1 : 1;
-    	});
-      alert("Die Klassenlisten wurden erfolgreich aktualisiert");
-  	}
+    alert("Die Klassenlisten wurden erfolgreich aktualisiert");
   }
 }
 else {
