@@ -103,10 +103,10 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "teachers") {
         <table class="table table-dark table-striped table-hover text-left">
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Betreuer</th>
-              <th>Stufe</th>
-              <th>Platz</th>
+              <th class="sticky-top">Name</th>
+              <th class="sticky-top">Betreuer</th>
+              <th class="sticky-top">Stufe</th>
+              <th class="sticky-top">Platz</th>
             </tr>
           </thead>
           <tbody><?php

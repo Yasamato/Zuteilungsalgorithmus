@@ -467,12 +467,12 @@ $showErrorModal = false;
         <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
         <button onclick="javascript: window.open('printPDF.php?print=projekt&projekt=all');" type="button" class="btn btn-secondary">Liste drucken</button>
         <table class="table table-dark table-striped table-hover">
-          <thead>
+          <thead class="thead-dark">
             <tr>
-              <th>Name</th>
-              <th>Betreuer</th>
-              <th>Stufe</th>
-              <th>Platz</th>
+              <th class="sticky-top">Name</th>
+              <th class="sticky-top">Betreuer</th>
+              <th class="sticky-top">Stufe</th>
+              <th class="sticky-top">Platz</th>
             </tr>
           </thead>
           <tbody><?php
@@ -529,12 +529,12 @@ $showErrorModal = false;
         <table class="table table-dark table-striped table-hover">
           <thead class="thead-dark">
             <tr>
-              <th>Stufe</th>
-              <th>Klasse</th>
-              <th>Vorname</th>
-              <th>Nachname</th>
-              <th>Wahl</th>
-              <th>Ergebnis</th>
+              <th class="sticky-top">Stufe</th>
+              <th class="sticky-top">Klasse</th>
+              <th class="sticky-top">Vorname</th>
+              <th class="sticky-top">Nachname</th>
+              <th class="sticky-top">Wahl</th>
+              <th class="sticky-top">Ergebnis</th>
             </tr>
           </thead>
           <tbody><?php
@@ -636,13 +636,13 @@ $showErrorModal = false;
           <table class="table table-dark table-striped table-hover">
             <thead class="thead-dark">
               <tr>
-                <th>U-ID</th>
-                <th>Stufe</th>
-                <th>Klasse</th>
-                <th>Vorname</th>
-                <th>Nachname</th>
-                <th>Projekt</th>
-                <th></th>
+                <th class="sticky-top">U-ID</th>
+                <th class="sticky-top">Stufe</th>
+                <th class="sticky-top">Klasse</th>
+                <th class="sticky-top">Vorname</th>
+                <th class="sticky-top">Nachname</th>
+                <th class="sticky-top">Projekt</th>
+                <th class="sticky-top"></th>
               </tr>
             </thead>
             <tbody><?php
@@ -676,23 +676,6 @@ $showErrorModal = false;
               </tr>
             <?php
             }
-            /*
-                if (empty($student["ergebnis"])) {
-                  echo "N/A";
-                }
-                else {
-                  $p = null;
-                  foreach ($projekte as $key => $projekt) {
-                    if ($projekt["id"] == $student["ergebnis"]) {
-                      $p = $key;
-                      break;
-                    }
-                  }
-                  echo '
-                  <a href="javascript:;" onclick="showProjektInfoModal(projekte[' . $p . ']);">
-                    ' . getProjektInfo($student["ergebnis"])["name"] . '
-                  </a>';
-                }*/
             ?>
 
             </tbody>
@@ -741,16 +724,13 @@ $showErrorModal = false;
               $("#zwangszuteilungProjektModal tbody").append(`
               <tr>
                 <td>
-                  <input type="hidden" value="` + projekt[i]["id"] + `">
-                  ` + projekt[i]["name"] + `
+                  <input type="hidden" value="` + projekte[i]["id"] + `">
+                  ` + projekte[i]["name"] + `
                 </td>
-                <td>` + projekt[i]["betreuer"] + `</td>
+                <td>` + projekte[i]["betreuer"] + `</td>
                 <td>
                   <
               </tr>`);
-              if (projekte[i]["id"] == currentProjekt) {
-
-              }
             }
             $("#zwangszuteilungProjektModal").modal("show");
           }
@@ -783,9 +763,9 @@ $showErrorModal = false;
         <table class="table table-striped table-hover table-dark">
           <thead class="thead-dark">
             <tr>
-              <th>Projektname</th>
-              <th>Betreuer</th>
-              <th>
+              <th class="sticky-top">Projektname</th>
+              <th class="sticky-top">Betreuer</th>
+              <th class="sticky-top"></th>
             </tr>
           </thead>
           <tbody></tbody>
@@ -812,10 +792,10 @@ $showErrorModal = false;
         <table class="table table-striped">
           <thead class="thead-dark">
             <tr>
-              <th>Stufe</th>
-              <th>Klasse</th>
-              <th>Schüleranzahl</th>
-              <th></th>
+              <th class="sticky-top">Stufe</th>
+              <th class="sticky-top">Klasse</th>
+              <th class="sticky-top">Schüleranzahl</th>
+              <th class="sticky-top"></th>
             </tr>
           </thead>
           <tbody>
