@@ -21,6 +21,31 @@ public class SchuelerFileReader {
     private String regex;
 
     /**
+     * Trennzeichen der CSV-Datei
+     */
+    private String delimiter;
+
+    /**
+     * Spaltenindex in der CSV-Datei, der angibt, in welcher Klasse ein Schüler ist
+     */
+    private int klassenIndex;
+
+    /**
+     * Spaltenindex in der CSV-Datei, der den Nachnamen eines Schülers angibt
+     */
+    private int namenIndex;
+
+    /**
+     * Spaltenindex in der CSV-Datei, der den Vornamen eines Schülers angibt
+     */
+    private int vornamenIndex;
+
+    /**
+     * Spalteindizes in der CSV-Datei, die die Wünsche eines Schülers angeben
+     */
+    private ArrayList<Integer> wunschIndizes;
+
+    /**
      * Klasse zum auslesen einer CSV-Datei nach Schuelern.
      * Initialisiert alle Attribute
      *
@@ -31,16 +56,51 @@ public class SchuelerFileReader {
     public SchuelerFileReader(String source, String regex, ArrayList<Projekt> projektListe) {
         this.projektListe = projektListe;
         this.regex = regex;
+        this.validateRegex();
         try {
             reader = new BufferedReader(new FileReader(source));
-            String line = null;
-
         } catch (Exception e) {
             reader = null;
             e.printStackTrace();
             System.exit(0);
         }
-        schuelerList = null;
+    }
+
+    /**
+     * Validiert die Beschreibung der CSV-Datei
+     */
+    public void validateRegex() {
+        if (this.regex.length() == 0) {
+            System.out.println("Ungültige Beschreibung der CSV-Datei, zu wenig Zeichen");
+            System.exit(0);
+        }
+        this.delimiter = this.regex.charAt(0) + "";
+        this.regex = this.regex.substring(1, this.regex.length());
+        this.klassenIndex = this.regex.indexOf("K");
+        if (this.klassenIndex < 0) {
+            System.out.println("Falsche oder fehlende Eingabe für die Klassenspalte");
+            System.exit(0);
+        }
+        this.namenIndex = this.regex.indexOf("N");
+        if (this.namenIndex < 0) {
+            System.out.println("Falsche oder fehlende Eingabe für die Namenspalte");
+            System.exit(0);
+        }
+        this.vornamenIndex = this.regex.indexOf("V");
+        if (this.vornamenIndex < 0) {
+            System.out.println("Falsche oder fehlende Eingabe für die Vornamenspalte");
+            System.exit(0);
+        }
+        this.wunschIndizes = new ArrayList<>();
+        int num = 1;
+        while (this.regex.contains("" + num)) {
+            this.wunschIndizes.add(this.regex.indexOf("" + num));
+            num++;
+        }
+        if (num == 1) {
+            System.out.println("Falsche oder fehlende Eingabe für die Projektwünsche. Mindestens ein Wunsch wird benötigt!");
+            System.exit(0);
+        }
     }
 
     /**
@@ -80,38 +140,24 @@ public class SchuelerFileReader {
      * Liest alle Schueler ein
      */
     private void loadSchueler() {
-        schuelerList = new ArrayList<Schueler>();
+        schuelerList = new ArrayList<>();
         String line;
         Schueler aktSchueler;
         // int i = 0;
         int count = 0;
         try {
-            //Indizes
-            int klasse_i = this.regex.indexOf("K");
-            int name_i = this.regex.indexOf("N");
-            int vorname_i = this.regex.indexOf("V");
-            ArrayList<Integer> wunsch_i = new ArrayList<Integer>();
-            int num = 1;
-            if(klasse_i ==-1 || name_i ==-1 || vorname_i==-1){
-            	System.out.println("Falsche Eingabe");
-            	System.exit(0);
-            }
-            while (this.regex.contains("" + num)) {
-                wunsch_i.add(this.regex.indexOf("" + num));
-                num++;
-            }
             A:
             while ((line = reader.readLine()) != null) {
                 count++;
-                String[] elemente = line.split(",");
-                String klasse = elemente[klasse_i];
-                String name = elemente[name_i];
-                String vorname = elemente[vorname_i];
-                String[] strWuensche = new String[wunsch_i.size()];
+                String[] elemente = line.split(this.delimiter);
+                String klasse = elemente[this.klassenIndex];
+                String name = elemente[this.namenIndex];
+                String vorname = elemente[this.vornamenIndex];
+                String[] strWuensche = new String[this.wunschIndizes.size()];
                 //System.out.println("Klasse: "+klasse);
                 //System.out.println("Name: "+name);
                 for (int i = 0; i < strWuensche.length; i++) {
-                    strWuensche[i] = elemente[wunsch_i.get(i)];
+                    strWuensche[i] = elemente[this.wunschIndizes.get(i)];
                     //System.out.println("Wunsch "+strWuensche[i]);
                 }
                 int intKlasse = -1;
@@ -124,11 +170,12 @@ public class SchuelerFileReader {
                     }
                     for (Projekt p : wuensche) {
                         if (p == null) {
+                            System.out.println("Skip Invalid Wunsch in Zeile " + count);
                             continue A;
                         }
                     }
-                    if (klasse == "Austausch") {
-                        intKlasse = 10;
+                    if (klasse.equalsIgnoreCase("X")) {
+                        intKlasse = 99;
                     } else {
                         intKlasse = Integer.parseInt(klasse.toLowerCase()
                                 .replaceAll("[a-z]*", ""));
@@ -138,9 +185,9 @@ public class SchuelerFileReader {
                     schuelerList.add(aktSchueler);
 
                 } catch (Exception e) {
-                    // System.out.println("Fehler bei int-cast in Zeile " +
-                    // count);
-                    // e.printStackTrace();
+                    System.out.println("Fehler bei int-cast in Zeile " +
+                            count);
+                    //e.printStackTrace();
                 }
 
             }
