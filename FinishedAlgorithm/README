@@ -1,4 +1,18 @@
-Einfach startAlgorithmus.sh ausführen und sicherstellen, dass die dazugehörigen CSV-Dateien der Projekte und Schueler im gleichen Ordner wie die Algorithmus.jar liegen.
-Wenn der Algorithmus nicht multithreaden soll, dann in dem Startskript nach "-m" die Anzahl der Cores auf die gewünschte Anzahl setzen, oder ganz "-m Anzahl" weglassen.
+Usage des Programmes:
+startAlgorithmus.sh doppelklicken.
 
-Wenn der Algorithmus eine andere Anzahl an Verteilungen berechnen soll, in dem Startskript die Anzahl verändern.
+Anzupassen sind die 6 Parameter des Programmes.
+1.Parameter: Anzahl der Prozessoren, die das Programm benutzen soll
+2.Parameter: Anzahl der Durchgänge, die das Programm berechnen soll
+3.Parameter: Path zu der CSV-Datei der Projekte
+4.Parameter: Beschreibung der Projekte.csv (spaltentechnisch):
+		Erstes Zeichen ist das Trennzeichen der CSV-Datei!
+		Danach in Spaltenreihenfolge:
+		I fuer ID, m fuer minimale Anzahl der Teilnehmer, M fuer maximale Anzahl der Teilnehmer, ';' fuer alle anderen Spalten
+		Bsp: ,ImM dafuer, dass in der ersten Spalte die Id steht, in der zweiten die min Anzahl usw. und das Trennzeichen ',' verwendet wird.
+5.Parameter: Path zu der CSV-Datei der Schueler
+6.Parameter: Beschreibung der Schueler.csv (spaltentechnisch):
+		Erstes Zeichen ist das Trennzeichen der CSV-Datei!
+		Danach in Spaltenreihenfolge:
+		K fuer Klasse, N fuer Name, V fuer Vorname, 1 fuer 1.Wahl, 2 fuer 2.Wahl usw., ';' fuer Leerspalte
+		Bsp: ,KNV12345 dafuer, dass in der ersten Spalte die Klassen stehen in der zweiten die Nachname usw. und alle Spalten durch ein Komma getrennt sind!
