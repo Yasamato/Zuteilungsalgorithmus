@@ -30,40 +30,43 @@ function showProjektInfoModal(p) {
 						<thead>
 							<tr>
   							<th scope="col">Zeit</th>
-  							<th>Montag</th>
-								<th>Dienstag</th>
-								<th>Mittwoch</th>
-								<th>Donnerstag</th>
-								<th>Freitag</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<th scope="row">Vormittag</th>
-									<td>` + (config["MontagVormittag"] ? p.moVor : config["MontagVormittagHinweis"]) + `</td>
-									<td>` + (config["DienstagVormittag"] ? p.diVor : config["DienstagVormittagHinweis"]) + `</td>
-									<td>` + (config["MittwochVormittag"] ? p.miVor : config["MittwochVormittagHinweis"]) + `</td>
-									<td>` + (config["DonnerstagVormittag"] ? p.doVor : config["DonnerstagVormittagHinweis"]) + `</td>
-									<td>` + (config["FreitagVormittag"] ? p.frVor : config["FreitagVormittagHinweis"]) + `</td>
-								</tr>
-								<tr>
-									<th scope="row">Mensa-Essen</th>
-									<td>` + (p.moMensa == "true" ? "Ja" : "Nein") + `</td>
-									<td>` + (p.diMensa == "true" ? "Ja" : "Nein") + `</td>
-									<td>` + (p.miMensa == "true" ? "Ja" : "Nein") + `</td>
-									<td>` + (p.doMensa == "true" ? "Ja" : "Nein") + `</td>
-									<td>Nein</td>
-								</tr>
-								<tr>
-									<th scope="row">Nachmittag</th>
-									<td>` + (config["MontagNachmittag"] ? p.moNach : config["MontagNachmittagHinweis"]) + `</td>
-									<td>` + (config["DienstagNachmittag"] ? p.diNach : config["DienstagNachmittagHinweis"]) + `</td>
-									<td>` + (config["MittwochNachmittag"] ? p.miNach : config["MittwochNachmittagHinweis"]) + `</td>
-									<td>` + (config["DonnerstagNachmittag"] ? p.doNach : config["DonnerstagNachmittagHinweis"]) + `</td>
-									<td>` + (config["FreitagNachmittag"] ? p.frNach : config["FreitagNachmittagHinweis"]) + `</td>
-								</tr>
-							</tbody>
-						</table>
+								` + (config["MontagVormittag"] || config["MontagNachmittag"] ? "<th>Montag</th>" : "") + `
+								` + (config["DienstagVormittag"] || config["DienstagNachmittag"] ? "<th>Dienstag</th>" : "") + `
+								` + (config["MittwochVormittag"] || config["MittwochNachmittag"] ? "<th>Mittwoch</th>" : "") + `
+								` + (config["DonnerstagVormittag"] || config["DonnerstagNachmittag"] ? "<th>Donnerstag</th>" : "") + `
+								` + (config["FreitagVormittag"] || config["FreitagNachmittag"] ? "<th>Freitag</th>" : "") + `
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row">Vormittag</th>
+								` + (config["MontagVormittag"] || config["MontagNachmittag"] ? "<td" + (config["MontagVormittag"] ? ">" + p.moVor : " class='bg-primary'>" + config["MontagVormittagHinweis"]) + "</td>" : "") + `
+								` + (config["DienstagVormittag"] || config["DienstagNachmittag"] ? "<td" + (config["DienstagVormittag"] ? ">" + p.diVor : " class='bg-primary'>" + config["DienstagVormittagHinweis"]) + "</td>" : "") + `
+								` + (config["MittwochVormittag"] || config["MittwochNachmittag"] ? "<td" + (config["MittwochVormittag"] ? ">" + p.miVor : " class='bg-primary'>" + config["MittwochVormittagHinweis"]) + "</td>" : "") + `
+								` + (config["DonnerstagVormittag"] || config["DonnerstagNachmittag"] ? "<td" + (config["DonnerstagVormittag"] ? ">" + p.doVor : " class='bg-primary'>" + config["DonnerstagVormittagHinweis"]) + "</td>" : "") + `
+								` + (config["FreitagVormittag"] || config["FreitagNachmittag"] ? "<td" + (config["FreitagVormittag"] ? ">" + p.frVor : " class='bg-primary'>" + config["FreitagVormittagHinweis"]) + "</td>" : "") + `
+							</tr>
+							<tr>
+								<th scope="row">Mensa-Essen</th>
+								` + (config["MontagVormittag"] || config["MontagNachmittag"] ? "<td class='text-" + (p.moMensa == "true" ? "success'>&#10004;" : "danger'>&#10006;") + "</td>" : "") + `
+								` + (config["DienstagVormittag"] || config["DienstagNachmittag"] ? "<td class='text-" + (p.diMensa == "true" ? "success'>&#10004;" : "danger'>&#10006;") + "</td>" : "") + `
+								` + (config["MittwochVormittag"] || config["MittwochNachmittag"] ? "<td class='text-" + (p.miMensa == "true" ? "success'>&#10004;" : "danger'>&#10006;") + "</td>" : "") + `
+								` + (config["DonnerstagVormittag"] || config["DonnerstagNachmittag"] ? "<td class='text-" + (p.doMensa == "true" ? "success'>&#10004;" : "danger'>&#10006;") + "</td>" : "") + `
+								` + (config["FreitagVormittag"] || config["FreitagNachmittag"] ? "<td class='text-" + (p.frMensa == "true" ? "success'>&#10004;" : "danger'>&#10006;") + "</td>" : "") + `
+							</tr>
+							<tr>
+								<th scope="row">Nachmittag</th>
+								` + (config["MontagVormittag"] || config["MontagNachmittag"] ? "<td" + (config["MontagNachmittag"] ? ">" + p.moNach : " class='bg-primary'>" + config["MontagNachmittagHinweis"]) + "</td>" : "") + `
+								` + (config["DienstagVormittag"] || config["DienstagNachmittag"] ? "<td" + (config["DienstagNachmittag"] ? ">" + p.diNach : " class='bg-primary'>" + config["DienstagNachmittagHinweis"]) + "</td>" : "") + `
+								` + (config["MittwochVormittag"] || config["MittwochNachmittag"] ? "<td" + (config["MittwochNachmittag"] ? ">" + p.miNach : " class='bg-primary'>" + config["MittwochNachmittagHinweis"]) + "</td>" : "") + `
+								` + (config["DonnerstagVormittag"] || config["DonnerstagNachmittag"] ? "<td" + (config["DonnerstagNachmittag"] ? ">" + p.doNach : " class='bg-primary'>" + config["DonnerstagNachmittagHinweis"]) + "</td>" : "") + `
+								` + (config["FreitagVormittag"] || config["FreitagNachmittag"] ? "<td" + (config["FreitagNachmittag"] ? ">" + p.frNach : " class='bg-primary'>" + config["FreitagNachmittagHinweis"]) + "</td>" : "") + `
+							</tr>
+						</tbody>
+					</table>
+					<small class="text-muted">
+						Blau hinterlegte Tabelleneinträge kennzeichnen, dass dort kein Projekt stattfindet sondern beispielsweise regulärer Unterricht stattfindet.
+					</small>
 				</div>
 				<div class="modal-footer">
 					` + (window.user == "admin" ? `

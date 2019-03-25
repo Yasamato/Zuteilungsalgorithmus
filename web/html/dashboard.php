@@ -62,6 +62,7 @@ foreach ($klassen as $klasse => $liste) {
 }
 
 $showErrorModal = false;
+$errorIncluded = false;
 ?>
 
 <!-- Fehldermeldungs-Modal -->
@@ -81,6 +82,7 @@ $showErrorModal = false;
       // Fehlende Klassseneinträge
       foreach ($nichtEingetrageneKlassen as $klasse) {
         $showErrorModal = true;
+        $errorIncluded = true;
         ?>
         <div class="alert alert-danger" role="alert">
           Die <strong>Klasse <?php echo $klasse; ?></strong> konnte nicht gefunden werden. Korrigieren Sie bitte die Klassseneinträge entsprechend <a href="javascript: $('#studentsInKlassen').modal('show');" class="alert-link">hier</a>.
@@ -91,6 +93,7 @@ $showErrorModal = false;
       foreach ($klassenliste as $klasse) {
         if (count($klassen[$klasse["klasse"]]) - 1 > $klasse["anzahl"]) {
           $showErrorModal = true;
+          $errorIncluded = true;
           ?>
         <div class="alert alert-danger" role="alert">
           Die <strong>Klasse <?php echo $klasse["klasse"]; ?></strong> hat mehr Schüler als eingetragen. Korrigieren Sie bitte die Klassseneinträge entsprechend <a href="javascript: $('#studentsInKlassen').modal('show');" class="alert-link">hier</a>.
@@ -101,6 +104,9 @@ $showErrorModal = false;
       // Wahlfortschritt nach Schülern
       if ($config["Stage"] > 2 && $gesamtanzahl != count($wahlen)) {
         $showErrorModal = true;
+        if ($config["Stage"] > 3) {
+          $errorIncluded = true;
+        }
         ?>
         <div class="alert alert-<?php echo $config["Stage"] < 4 ? "primary alert-dismissible fade show" : "danger"; ?>" role="alert">
           Es ha<?php echo $gesamtanzahl > 1 ? "ben" : "t" ?> nur <?php echo count($wahlen) . " von " . $gesamtanzahl; ?> Schülern gewählt.
@@ -115,6 +121,9 @@ $showErrorModal = false;
       // Wahlfortschritt nach Klassen
       if ($config["Stage"] > 2 && $klassenFertig != count($klassenliste)) {
         $showErrorModal = true;
+        if ($config["Stage"] > 3) {
+          $errorIncluded = true;
+        }
         ?>
         <div class="alert alert-<?php echo $config["Stage"] < 4 ? "primary alert-dismissible fade show" : "danger"; ?>" role="alert">
           Es ha<?php echo $klassenFertig > 1 ? "ben" : "t" ?> nur <?php echo $klassenFertig . " von " . count($klassenliste); ?> Klassen vollständig gewählt.
@@ -137,6 +146,7 @@ $showErrorModal = false;
       }
       if ($pMax < $gesamtanzahl) {
         $showErrorModal = true;
+        $errorIncluded = true;
         ?>
         <div class="alert alert-danger" role="alert">
           Die von allen Projekten summierte Maximalteilnehmeranzahl ist kleiner der Gesamtschülerzahl. Bitte erweitern sie die Maximalzahl bestehender Projekte oder fügen sie weitere Projekte hinzu.
@@ -155,6 +165,7 @@ $showErrorModal = false;
           </div><?php
         }
         if ($stufen[$i]["max"] < $stufen[$i]["students"]) {
+          $errorIncluded = true;
           ?>
           <div class="alert alert-danger" role="alert">
             Die von allen Projekten summierte Maximalteilnehmeranzahl für die <strong>Klassenstufe <?php echo $i; ?></strong> ist kleiner der Schüleranzahl der Stufe. Bitte erweitern sie die Maximalzahl bestehender Projekte oder fügen sie weitere Projekte hinzu.
@@ -170,10 +181,17 @@ $showErrorModal = false;
 <!-- Fehldermeldungen -->
 <div class="container">
   <?php
-  if ($showErrorModal) {
+  if ($showErrorModal && $errorIncluded) {
     ?>
     <div class="alert alert-danger" role="alert">
       Es sind Fehler aufgetreten. <a href="javascript: $('#errorModal').modal('show');" class="alert-link">Details</a>.
+    </div>
+    <?php
+  }
+  elseif ($showErrorModal) {
+    ?>
+    <div class="alert alert-warning" role="alert">
+      Es sind Warnmeldungen und Hinweise aufgetreten. <a href="javascript: $('#errorModal').modal('show');" class="alert-link">Details</a>.
     </div>
     <?php
   }
@@ -1015,10 +1033,12 @@ $showErrorModal = false;
       <div class="row flex">
 
         <div class="col-xl-4 col-sm-6 col-xs-12">
-          <div class="card w-100 text-white bg-dark p-3">
+          <div class="card w-100 text-white bg-dark p-3<?php if ($pMax < $gesamtanzahl) {echo " border border-danger"; } elseif ($pMin > $gesamtanzahl) {echo " border border-warning"; } ?>">
             <div class="card-body">
-              <h5 class="card-title"><?php echo $pMin . " - " . $pMax; ?></h5>
-              <p class="card-text">Plätze sind insgesamt verfügbar</p></p>
+              <h5 class="card-title">
+                <span<?php if ($pMin > $gesamtanzahl) {echo " class='text-warning'"; } echo ">" . $pMin; ?></span> - <span<?php if ($pMax < $gesamtanzahl) {echo " class='text-danger'"; } echo ">" . $pMax; ?></span>
+              </h5>
+              <p class="card-text">Plätze sind laut Projektangaben insgesamt verfügbar</p></p>
             </div>
           </div>
         </div>
@@ -1027,10 +1047,12 @@ $showErrorModal = false;
           for ($i = CONFIG["minStufe"]; $i <= CONFIG["maxStufe"]; $i++) {
           ?>
         <div class="col-xl-4 col-sm-6 col-xs-12">
-      		<div class="card w-100 text-white bg-dark p-3">
+      		<div class="card w-100 text-white bg-dark p-3<?php if ($stufen[$i]["max"] < $stufen[$i]["students"]) {echo " border border-danger"; } elseif ($stufen[$i]["min"] > $stufen[$i]["students"]) {echo " border border-warning"; } ?>">
       			<div class="card-body">
-      				<h5 class="card-title"><?php echo $stufen[$i]["min"] . " - " . $stufen[$i]["max"]; ?></h5>
-      				<p class="card-text">Plätze sind verfügbar für Klassenstufe <?php echo $i; ?></p>
+              <h5 class="card-title">
+                <span<?php if ($stufen[$i]["min"] > $stufen[$i]["students"]) {echo " class='text-warning'"; } echo ">" . $stufen[$i]["min"]; ?></span> - <span<?php if ($stufen[$i]["max"] < $stufen[$i]["students"]) {echo " class='text-danger'"; } echo ">" . $stufen[$i]["max"]; ?></span>
+              </h5>
+      				<p class="card-text">Plätze sind laut Projektangaben verfügbar für Klassenstufe <?php echo $i; ?></p>
       			</div>
       		</div>
         </div>
