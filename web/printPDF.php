@@ -201,7 +201,7 @@
 
     function Header() {
       $this->Image("pictures/Logo_Farbe.jpg", 10, 6, 30); // pfad ,x ,y , size
-      $this->SetFont('freeserif', 'B', 15);
+      $this->SetFont('freeserif', 'B', 24);
       $this->Ln(11);
       $this->Cell(30);
       $this->Cell(66, 10, 'Projektwoche ' . date("Y"));
