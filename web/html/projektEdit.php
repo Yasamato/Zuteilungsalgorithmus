@@ -78,7 +78,7 @@ $projekt = getProjektInfo($_GET["projekt"]);
   			<!-- Eingabefeld für die min. Klassenstufe -->
   			<div class="col">
   				<label for="inputMinKlasse">min. Klassenstufe</label>
-  				<input type="number" class="form-control" id="inputMinKlasse" placeholder="5" required min="5" max="12" name="minKlasse" value="<?php echo $projekt["minKlasse"]; ?>">
+  				<input type="number" class="form-control" id="inputMinKlasse" placeholder="5" required min="<?php echo CONFIG["minStufe"]; ?>" max="<?php echo CONFIG["maxStufe"]; ?>" name="minKlasse" value="<?php echo $projekt["minKlasse"]; ?>">
   				<div class="invalid-feedback">
   					Ungültige Eingabe
   				</div>
@@ -87,7 +87,7 @@ $projekt = getProjektInfo($_GET["projekt"]);
   			<!-- Eingabefeld für die max. Klassenstufe -->
   			<div class="col">
   				<label for="inputMaxKlasse">max. Klassenstufe</label>
-  				<input type="number" class="form-control" id="inputMaxKlasse" placeholder="12" required min="5" max="12" name="maxKlasse" value="<?php echo $projekt["maxKlasse"]; ?>">
+  				<input type="number" class="form-control" id="inputMaxKlasse" placeholder="12" required min="<?php echo CONFIG["minStufe"]; ?>" max="<?php echo CONFIG["maxStufe"]; ?>" name="maxKlasse" value="<?php echo $projekt["maxKlasse"]; ?>">
   				<div class="invalid-feedback">
   					Ungültige Eingabe
   				</div>

@@ -5,61 +5,27 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] == "admin") {
 
 // generate the statistics how many places are available in each class
 // initialize the data array
-$stufen = [
-  5 => [
+$stufen = [];
+for ($i = CONFIG["minStufe"]; $i <= CONFIG["maxStufe"]; $i++) {
+  $stufen[$i] = [
     "min" => 0,
     "max" => 0,
     "students" => 0
-  ],
-  6 => [
-    "min" => 0,
-    "max" => 0,
-    "students" => 0
-  ],
-  7 => [
-    "min" => 0,
-    "max" => 0,
-    "students" => 0
-  ],
-  8 => [
-    "min" => 0,
-    "max" => 0,
-    "students" => 0
-  ],
-  9 => [
-    "min" => 0,
-    "max" => 0,
-    "students" => 0
-  ],
-  10 => [
-    "min" => 0,
-    "max" => 0,
-    "students" => 0
-  ],
-  11 => [
-    "min" => 0,
-    "max" => 0,
-    "students" => 0
-  ],
-  12 => [
-    "min" => 0,
-    "max" => 0,
-    "students" => 0
-  ]
-];
+  ];
+}
 
 // read each project and add the max members to the affected classes
 $pMin = 0;
 $pMax = 0;
 foreach (dbRead("../data/projekte.csv") as $p) {
-  for ($i = 5; $i <= 12; $i++) {
+  for ($i = CONFIG["minStufe"]; $i <= CONFIG["maxStufe"]; $i++) {
 		if ($p["minKlasse"] <= $i && $p["maxKlasse"] >= $i) {
 			$stufen[$i]["min"] += $p["minPlatz"];
 			$stufen[$i]["max"] += $p["maxPlatz"];
-      $pMin += $p["minPlatz"];
-      $pMax += $p["maxPlatz"];
 		}
 	}
+  $pMin += $p["minPlatz"];
+  $pMax += $p["maxPlatz"];
 }
 
 // Gesamtanzahl der Schüler
@@ -68,7 +34,7 @@ foreach ($klassenliste as $klasse) {
   $gesamtanzahl += $klasse["anzahl"];
 
   // für die einzelnen Stufen
-  for ($i = 5; $i <= 12; $i++) {
+  for ($i = CONFIG["minStufe"]; $i <= CONFIG["maxStufe"]; $i++) {
     if ($i == $klasse["stufe"]) {
 			$stufen[$i]["students"] += $klasse["anzahl"];
 			$stufen[$i]["students"] += $klasse["anzahl"];
@@ -102,7 +68,7 @@ foreach ($klassenliste as $klasse) {
     break;
   }
 }
-for ($i = 5; $i <= 12; $i++) {
+for ($i = CONFIG["minStufe"]; $i <= CONFIG["maxStufe"]; $i++) {
   if ($stufen[$i]["max"] < $stufen[$i]["students"]) {
     $error = true;
     break;

@@ -25,6 +25,12 @@ if (isLogin() && $_SESSION["benutzer"]["typ"] == "admin") {
         if ($doppelt) {
           continue;
         }
+
+        if ($_POST["stufe"][$i] < CONFIG["minStufe"] || $_POST["stufe"][$i] > CONFIG["maxStufe"]) {
+          alert("Der Schüler " . $_POST["vorname"][$i] . " " . $_POST["nachname"][$i] . " aus der Klasse " . $_POST["klasse"][$i] . " hat eine ungültige Stufe " . $_POST["stufe"][$i] . " und wird ignoriert.");
+          continue;
+        }
+
         foreach ($wahlen as $key => $student) {
           if ($student["uid"] == $_POST["uid"][$i]) {
             dbRemove("../data/wahl.csv", "uid", $_POST["uid"][$i]);

@@ -63,13 +63,13 @@ if (!isLogin() || ($_SESSION['benutzer']['typ'] != "admin" && $_SESSION['benutze
       <div class="col-md-3 col-sm-6">
   			<!-- Eingabefeld für die min. Klassenstufe -->
 				<label>min. Klassenstufe</label>
-				<input type="number" class="form-control" placeholder="Bsp: 5" required min="5" max="12" name="minKlasse" value="<?php echo empty($_POST["minKlasse"]) ? "": $_POST["minKlasse"]; ?>">
+				<input type="number" class="form-control" placeholder="Bsp: 5" required min="<?php echo CONFIG["minStufe"]; ?>" max="<?php echo CONFIG["maxStufe"]; ?>" name="minKlasse" value="<?php echo empty($_POST["minKlasse"]) ? "": $_POST["minKlasse"]; ?>">
       </div>
 
       <div class="col-md-3 col-sm-6">
   			<!-- Eingabefeld für die max. Klassenstufe -->
 				<label>max. Klassenstufe</label>
-				<input type="number" class="form-control" placeholder="Bsp: 12" required min="5" max="12" name="maxKlasse" value="<?php echo empty($_POST["maxKlasse"]) ? "": $_POST["maxKlasse"]; ?>">
+				<input type="number" class="form-control" placeholder="Bsp: 12" required min="<?php echo CONFIG["minStufe"]; ?>" max="<?php echo CONFIG["maxStufe"]; ?>" name="maxKlasse" value="<?php echo empty($_POST["maxKlasse"]) ? "": $_POST["maxKlasse"]; ?>">
       </div>
 
       <div class="col-md-3 col-sm-6">
