@@ -16,6 +16,9 @@
 
 		<meta name="description" content="Wahlseite der LMG8-Schule von Maxdorf">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
+		<meta http-equiv='cache-control' content='no-cache'>
+		<meta http-equiv='expires' content='0'>
+		<meta http-equiv='pragma' content='no-cache'>
 
 		<!-- bootstrap-frameworks -->
 		<link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.min.css">
@@ -43,39 +46,30 @@
 			case "login":
 				require("php/login.php"); // dummy-login
 				// require("php/login_live.php");
-				require 'php/setup.php';
 				break;
 			case "logout":
 				logout();
-				require 'php/setup.php';
 				break;
 			case "addProject":
 				require("php/projektErstellung.php");
-				require 'php/setup.php';
 				break;
 			case "editProject":
 				require("php/editProjekt.php");
-				require 'php/setup.php';
 				break;
 			case "deleteProjekt":
 				require("php/deleteProjekt.php");
-				require 'php/setup.php';
 				break;
 			case "wahl":
 				require("php/wahl.php");
-				require 'php/setup.php';
 				break;
 			case "updateConfiguration":
 				require("php/dashboard.php");
-				require 'php/setup.php';
 				break;
 			case "updateStudentsInKlassen":
 				require("php/klassen.php");
-				require 'php/setup.php';
 				break;
 			case "updateZwangszuteilung":
 				require("php/zwangszuteilung.php");
-				require 'php/setup.php';
 				break;
 			case "runZuteilungsalgorithmus":
 				require("php/run.php");
@@ -84,6 +78,12 @@
 				die("Unbekannter Befehl!");
 				break;
 		}
+		?>
+		<meta http-equiv="refresh" content="0">
+	</head>
+</html>
+		<?php
+		die("");
 	}
 
 	// DEBUG
