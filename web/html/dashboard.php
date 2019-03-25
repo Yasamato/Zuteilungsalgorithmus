@@ -131,7 +131,7 @@ $showErrorModal = false;
       if ($pMin > $gesamtanzahl) {
         $showErrorModal = true;
         ?>
-        <div class="alert alert-danger" role="alert">
+        <div class="alert alert-warning" role="alert">
           Die von allen Projekten summierte Mindestteilnehmeranzahl ist größer der Gesamtschülerzahl. Falls nicht Projekte nicht stattfinden sollen, passen Sie bitte die Mindestteilnehmeranzahl an.
         </div><?php
       }
