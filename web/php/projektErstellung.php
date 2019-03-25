@@ -98,8 +98,8 @@ if (isLogin() && ($_SESSION['benutzer']['typ'] == "teachers" && $config["Stage"]
 							mit dem Betreuer <kbd><?php echo $_POST["betreuer"]; ?></kbd>
 							für <kbd><?php echo $_POST["minPlatz"]; ?></kbd>
 							bis <kbd><?php echo $_POST["maxPlatz"]; ?></kbd>
-							Schüler der Klassenstufe <kbd><?php echo $_POST["minPlatz"]; ?></kbd>
-							bis <kbd><?php echo $_POST["maxPlatz"]; ?></kbd> wurde erstellt.
+							Schüler der Klassenstufe <kbd><?php echo $_POST["minKlasse"]; ?></kbd>
+							bis <kbd><?php echo $_POST["maxKlasse"]; ?></kbd> wurde erstellt.
 							Die Daten sind nun auf dem Server gespeichert.
 						</p>
 	        </div>

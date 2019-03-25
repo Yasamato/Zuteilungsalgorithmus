@@ -40,11 +40,11 @@ function showProjektInfoModal(p) {
 							<tbody>
 								<tr>
 									<th scope="row">Vormittag</th>
-									<td>` + p.moVor + `</td>
-									<td>` + p.diVor + `</td>
-									<td>` + p.miVor + `</td>
-									<td>` + p.doVor + `</td>
-									<td>` + p.frVor + `</td>
+									<td>` + (config["MontagVormittag"] ? p.moVor : config["MontagVormittagHinweis"]) + `</td>
+									<td>` + (config["DienstagVormittag"] ? p.diVor : config["DienstagVormittagHinweis"]) + `</td>
+									<td>` + (config["MittwochVormittag"] ? p.miVor : config["MittwochVormittagHinweis"]) + `</td>
+									<td>` + (config["DonnerstagVormittag"] ? p.doVor : config["DonnerstagVormittagHinweis"]) + `</td>
+									<td>` + (config["FreitagVormittag"] ? p.frVor : config["FreitagVormittagHinweis"]) + `</td>
 								</tr>
 								<tr>
 									<th scope="row">Mensa-Essen</th>
@@ -56,11 +56,11 @@ function showProjektInfoModal(p) {
 								</tr>
 								<tr>
 									<th scope="row">Nachmittag</th>
-									<td>` + p.moNach + `</td>
-									<td>` + p.diNach + `</td>
-									<td>` + p.miNach + `</td>
-									<td>` + p.doNach + `</td>
-									<td>` + p.frNach + `</td>
+									<td>` + (config["MontagNachmittag"] ? p.moNach : config["MontagNachmittagHinweis"]) + `</td>
+									<td>` + (config["DienstagNachmittag"] ? p.diNach : config["DienstagNachmittagHinweis"]) + `</td>
+									<td>` + (config["MittwochNachmittag"] ? p.miNach : config["MittwochNachmittagHinweis"]) + `</td>
+									<td>` + (config["DonnerstagNachmittag"] ? p.doNach : config["DonnerstagNachmittagHinweis"]) + `</td>
+									<td>` + (config["FreitagNachmittag"] ? p.frNach : config["FreitagNachmittagHinweis"]) + `</td>
 								</tr>
 							</tbody>
 						</table>
@@ -74,10 +74,10 @@ function showProjektInfoModal(p) {
           <button type="button" class="btn btn-danger" onclick="javascript: confirmDeleteProjekt('` + p.id + `', '` + p.name + `');">Löschen</button>
 					` : "") + `
 					` + (window.user == "admin" || window.user == "teachers" ? `
-          <button type="button" class="btn btn-danger" onclick="javascript: window.location.href = '?site=edit&projekt=` + p.id + `';">Bearbeiten</button>
+          <button type="button" class="btn btn-warning" onclick="javascript: window.location.href = '?site=edit&projekt=` + p.id + `';">Bearbeiten</button>
           <button type="button" class="btn btn-secondary" onclick="javascript: window.open('printPDF.php?print=projekt&projekt=` + p.id + `');">Drucken</button>
 					` : "") + `
-					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
 				</div>
 			</div>
 		</div>

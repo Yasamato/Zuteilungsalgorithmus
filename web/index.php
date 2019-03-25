@@ -41,6 +41,7 @@
 		logout();
 	}
 	require 'php/setup.php';
+	$waittime = 0;
 	if (isset($_POST['action'])) {
 		switch ($_POST['action']) {
 			case "login":
@@ -52,24 +53,31 @@
 				break;
 			case "addProject":
 				require("php/projektErstellung.php");
+				$waittime = 5;
 				break;
 			case "editProject":
 				require("php/editProjekt.php");
+				$waittime = 5;
 				break;
 			case "deleteProjekt":
 				require("php/deleteProjekt.php");
+				$waittime = 5;
 				break;
 			case "wahl":
 				require("php/wahl.php");
+				$waittime = 5;
 				break;
 			case "updateConfiguration":
 				require("php/dashboard.php");
+				$waittime = 3;
 				break;
 			case "updateStudentsInKlassen":
 				require("php/klassen.php");
+				$waittime = 3;
 				break;
 			case "updateZwangszuteilung":
 				require("php/zwangszuteilung.php");
+				$waittime = 3;
 				break;
 			case "runZuteilungsalgorithmus":
 				require("php/run.php");
@@ -78,9 +86,26 @@
 				die("Unbekannter Befehl!");
 				break;
 		}
+		// verhindern vom erneuten Senden von Formular-Daten beim Refreshen durch den Browser
 		?>
-		<meta http-equiv="refresh" content="0">
+		<meta http-equiv="refresh" content="<?php echo $waittime; ?>; url=?">
 	</head>
+	<body>
+		<div class="container">
+			<div class="card bg-dark">
+				<div class="card-body text-center">
+					<p>
+						Sie werden in <span id="timer"><?php echo $waittime; ?></span>s <a href="?">hierhin</a> automatisch weitergeleitet.
+					</p>
+				</div>
+			</div>
+		</div>
+		<script>
+			window.setInterval(function () {
+				$("#timer").html(parseInt($("#timer").html()) - 1);
+			}, 1000);
+		</script>
+	</body>
 </html>
 		<?php
 		die("");
@@ -139,7 +164,7 @@
 	//html-teil
 	if (isLogin()) {
 		if ($_SESSION['benutzer']['typ'] == "admin") {
-			if (!empty($_GET['site']) && $_GET['site'] == "create") {
+			if (!empty($_GET['site']) && ($_GET['site'] == "create" || $_GET["site"] == "edit")) {
 ?>
 	<link rel="stylesheet" href="css/projektErstellung.css">
 </head>
@@ -147,16 +172,9 @@
 <?php
 				include "html/projektErstellung.php";
 			}
-			elseif (!empty($_GET['site']) && $_GET['site'] == "edit") {
-?>
-	<link rel="stylesheet" href="css/projektErstellung.css">
-</head>
-<body>
-<?php
-				include "html/projektEdit.php";
-			}
 			else {
 ?>
+		<link rel="stylesheet" href="css/dashboard.css">
 	</head>
 	<body>
 <?php
@@ -165,21 +183,13 @@
 		}
 		elseif ($_SESSION['benutzer']['typ'] == "teachers") {
 			if ($config["Stage"] > 0) {
-				if (!empty($_GET['site']) && $_GET['site'] == "create" && $config["Stage"] == 1) {
+				if (!empty($_GET['site']) && ($_GET['site'] == "create" && $config["Stage"] == 1 || $_GET['site'] == "edit")) {
 ?>
 		<link rel="stylesheet" href="css/projektErstellung.css">
 	</head>
 	<body>
 <?php
 					include "html/projektErstellung.php";
-				}
-				elseif (!empty($_GET['site']) && $_GET['site'] == "edit") {
-?>
-		<link rel="stylesheet" href="css/projektErstellung.css">
-	</head>
-	<body>
-<?php
-					include "html/projektEdit.php";
 				}
 				else {
 					if (!empty($_GET['site']) && $_GET['site'] == "create") {

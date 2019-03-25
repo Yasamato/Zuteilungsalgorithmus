@@ -1,0 +1,5 @@
+@media (max-width: 1300px) {
+  #configModal table {
+    display: block !important;
+  }
+}
