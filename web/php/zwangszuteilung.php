@@ -13,6 +13,18 @@ if (isLogin() && $_SESSION["benutzer"]["typ"] == "admin") {
         if (empty($_POST["uid"][$i])) {
           continue;
         }
+
+        $doppelt = false;
+        foreach ($data as $key => $value) {
+          if ($value["uid"] == $_POST["uid"][$i]) {
+            alert("Der Schüler " . $value["vorname"] . " " . $value["nachname"] . " aus der Klasse " . $value["klasse"] . " wurde mehrfach eingetragen. Der erste Wert für den Schüler wird hierbei übernommen.");
+            $doppelt = true;
+            break;
+          }
+        }
+        if ($doppelt) {
+          continue;
+        }
         foreach ($wahlen as $key => $student) {
           if ($student["uid"] == $_POST["uid"][$i]) {
             dbRemove("../data/wahl.csv", "uid", $_POST["uid"][$i]);
