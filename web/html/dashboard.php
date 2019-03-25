@@ -637,7 +637,48 @@ $showErrorModal = false;
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Zurück</button>
           <button type="submit" name="action" value="updateZwangszuteilung" class="btn btn-primary">Änderung speichern</button>
           <br>
-          <small class="text-muted">Um Schüler Zwangszuzuteilen tragen Sie bitte die U-ID (Login-Name des Schülers) korrekt ein und wählen sie das entsprechende Projekt aus.</small>
+          <small class="text-muted">
+            Um Schüler Zwangszuzuteilen tragen Sie bitte die U-ID (Login-Name des Schülers) korrekt ein und wählen sie das entsprechende Projekt aus.
+            Falls sie bereits ein Projekt ausgewählt haben, färbt sich der Knopf zur Projektauswahl grün und die Beschriftung ändert sich zu "Ändern".
+            Es kann jedoch weiterhin jederzeit das ausgewwählte Projekt geändert werden.
+            Unten sehen sie einen beispielhaften Eintrag.
+            Um einen weiteres Eingabefeld hinzuzufügen, klicken Sie auf den grünen Knopf links unten mit der Beschriftung "Schüler hinzufügen &#10010;".
+            Um einen Eintrag zu entfernen betätigen sie das rote Kreuz rechts vom Eintrag.
+            Bitte beachten Sie, dass unvolständige Einträge beim Speichern gelöscht werden.
+          </small>
+
+          <table class="table table-dark">
+            <tbody>
+              <tr>
+                <td>
+                  <input type="text" class="form-control" aria-label="U-ID" value="mustmax" readonly>
+                </td>
+                <td>
+                  <input type="number" class="form-control" aria-label="Stufe" value="5" readonly>
+                </td>
+                <td>
+                  <input type="text" class="form-control" aria-label="Klasse" value="5a" readonly>
+                </td>
+                <td>
+                  <input type="text" class="form-control" aria-label="Vorname" value="Max" readonly>
+                </td>
+                <td>
+                  <input type="text" class="form-control" aria-label="Nachname" value="Mustermann" readonly>
+                </td>
+                <td>
+                  <button type="button" class="btn btn-success" disabled>Ändern</button>
+                </td>
+                <td>
+                  <button type="button" class="close text-danger" aria-label="Close" disabled>
+                    <span class="closebutton" aria-hidden="true">&times;</span>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <small class="text-muted">
+            Tragen Sie die echten Werte bitte in der nachfolgenden Tabelle ein.
+          </small>
           <table class="table table-dark table-striped table-hover">
             <thead class="thead-dark">
               <tr>
@@ -655,19 +696,19 @@ $showErrorModal = false;
               ?>
               <tr>
                 <td>
-                  <input type="text" class="form-control" placeholder="U-ID" aria-label="U-ID" value="<?php echo $student['uid']; ?>" name="uid[]">
+                  <input type="text" class="form-control" aria-label="U-ID" value="<?php echo $student['uid']; ?>" name="uid[]">
                 </td>
                 <td>
-                  <input type="number" class="form-control" placeholder="Bsp: 5" aria-label="Stufe" value="<?php echo $student['stufe']; ?>" name="stufe[]">
+                  <input type="number" class="form-control" aria-label="Stufe" value="<?php echo $student['stufe']; ?>" name="stufe[]">
                 </td>
                 <td>
-                  <input type="text" class="form-control" placeholder="Bsp: 5a" aria-label="Klasse" value="<?php echo $student['klasse']; ?>" name="klasse[]">
+                  <input type="text" class="form-control" aria-label="Klasse" value="<?php echo $student['klasse']; ?>" name="klasse[]">
                 </td>
                 <td>
-                  <input type="text" class="form-control" placeholder="Bsp: Max" aria-label="Vorname" value="<?php echo $student['vorname']; ?>" name="vorname[]">
+                  <input type="text" class="form-control" aria-label="Vorname" value="<?php echo $student['vorname']; ?>" name="vorname[]">
                 </td>
                 <td>
-                  <input type="text" class="form-control" placeholder="Bsp: Mustermann" aria-label="Nachname" value="<?php echo $student['nachname']; ?>" name="nachname[]">
+                  <input type="text" class="form-control" aria-label="Nachname" value="<?php echo $student['nachname']; ?>" name="nachname[]">
                 </td>
                 <td>
                   <input type="hidden" class="form-control" value="<?php echo $student['projekt']; ?>" name="projekt[]">
@@ -688,26 +729,26 @@ $showErrorModal = false;
           <script>
             function addStudentsInZwangszuteilungInput() {
               //var node = document.querySelector('#studentsInKlassen tbody');
-              $("#zwangszuteilungModal tbody").append($(`
+              $($("#zwangszuteilungModal tbody")[1]).append($(`
               <tr>
                 <td>
-                  <input type="text" class="form-control" placeholder="U-ID" aria-label="U-ID" name="uid[]">
+                  <input type="text" class="form-control" aria-label="U-ID" name="uid[]">
                 </td>
                 <td>
-                  <input type="number" class="form-control" placeholder="Bsp: 5" aria-label="Stufe" name="stufe[]">
+                  <input type="number" class="form-control" aria-label="Stufe" name="stufe[]">
                 </td>
                 <td>
-                  <input type="text" class="form-control" placeholder="Bsp: 5a" aria-label="Klasse" name="klasse[]">
+                  <input type="text" class="form-control" aria-label="Klasse" name="klasse[]">
                 </td>
                 <td>
-                  <input type="text" class="form-control" placeholder="Bsp: Max" aria-label="Vorname" name="vorname[]">
+                  <input type="text" class="form-control" aria-label="Vorname" name="vorname[]">
                 </td>
                 <td>
-                  <input type="text" class="form-control" placeholder="Bsp: Mustermann" aria-label="Nachname" name="nachname[]">
+                  <input type="text" class="form-control" aria-label="Nachname" name="nachname[]">
                 </td>
                 <td>
                   <input type="hidden" class="form-control" name="projekt[]">
-                  <button type="button" class="btn btn-danger" onclick="javascript: changeZwangszuteilungProjekt(this);">Projekt wählen</button>
+                  <button type="button" class="btn btn-warning" onclick="javascript: changeZwangszuteilungProjekt(this);">Projekt wählen</button>
                 </td>
                 <td>
                   <button type="button" class="close text-danger" aria-label="Close" onclick="javascript: removeLine(this);">
@@ -736,7 +777,7 @@ $showErrorModal = false;
                 <tr` + (projekte[i]["id"] == student.parentNode.children[0].value ? " class='bg-success'" : "") + `>
                   <td>
                     <input type="hidden" value="` + projekte[i]["id"] + `">
-                    ` + projekte[i]["name"] + `
+                    <a href="javascript: showProjektInfoModal(projekte[` + i + `]);">` + projekte[i]["name"] + `</a>
                   </td>
                   <td>` + projekte[i]["betreuer"] + `</td>
                   <td>
@@ -811,6 +852,38 @@ $showErrorModal = false;
         <div class="modal-body">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Zurück</button>
           <button type="submit" name="action" value="updateStudentsInKlassen" class="btn btn-primary">Änderung speichern</button>
+          <small>
+            Hier können Sie die ganzen verschiedenen Klassen eintragen mit ihrer Schüleranzahl.
+            Dadurch kann eine Überprüfung der Vollständigkeit durchgeführt werden.
+            Um einen weiteres Eingabefeld hinzuzufügen, klicken Sie auf den grünen Knopf links unten mit der Beschriftung "Klasse hinzufügen &#10010;".
+            Um einen Eintrag zu entfernen betätigen sie das rote Kreuz rechts vom Eintrag.
+            Bitte beachten Sie, dass unvolständige Einträge beim Speichern gelöscht werden.
+            Im Nachfolgenden sehen Sie einen beispielhaften Eintrag einer 5. Klasse mit 28 Schülern.
+          </small>
+
+          <table class="table table-dark">
+            <tbody>
+              <tr>
+                <td>
+                  <input type="text" class="form-control" aria-label="Stufe" value="5" readonly>
+                </td>
+                <td>
+                  <input type="text" class="form-control" aria-label="Klasse" value="5a" readonly>
+                </td>
+                <td>
+                  <input type="number" class="form-control" value="28" readonly>
+                </td>
+                <td>
+                  <button type="button" class="close text-danger" aria-label="Close" disabled>
+                    <span class="closebutton" aria-hidden="true">&times;</span>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <small class="text-muted">
+            Tragen Sie die echten Werte bitte in der nachfolgenden Tabelle ein.
+          </small>
           <table class="table table-striped">
             <thead class="thead-dark">
               <tr>
@@ -856,7 +929,7 @@ $showErrorModal = false;
           <script>
             function addStudentsInKlassenInput() {
               //var node = document.querySelector('#studentsInKlassen tbody');
-              $("#studentsInKlassen tbody").append($(`
+              $($("#studentsInKlassen tbody")[1]).append($(`
               <tr>
                 <td>
                   <input type="text" class="form-control" placeholder="Bsp: 5" aria-label="Stufe" name="stufe[]">
