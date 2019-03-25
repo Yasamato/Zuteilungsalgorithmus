@@ -18,6 +18,18 @@ if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
       die("Datensatz fehlerhaft!! Änderung der Klassenlisten ist fehlgeschlagen. Die Werte haben einen unrealistischen Betrag");
     }
 
+    $doppelt = false;
+    foreach ($values as $key => $value) {
+      if ($value["stufe"] == $_POST["stufe"][$i] && $value["klasse"] == $_POST["klasse"][$i]) {
+        alert("Die Klasse " . $value["klasse"] . " aus der " . $value["stufe"] . ". Stufe wurde mehrfach eingetragen. Der erste Wert für die Schüleranzahl wird hierbei übernommen.");
+        $doppelt = true;
+        break;
+      }
+    }
+    if ($doppelt) {
+      continue;
+    }
+
     array_push($values, array(
       "stufe" => $_POST["stufe"][$i],
       "klasse" => $_POST["klasse"][$i],
