@@ -129,12 +129,14 @@ $showErrorModal = false;
 
       // Ausreichend Plätze für Schüler
       if ($pMin > $gesamtanzahl) {
+        $showErrorModal = true;
         ?>
         <div class="alert alert-danger" role="alert">
           Die von allen Projekten summierte Mindestteilnehmeranzahl ist größer der Gesamtschülerzahl. Falls nicht Projekte nicht stattfinden sollen, passen Sie bitte die Mindestteilnehmeranzahl an.
         </div><?php
       }
       if ($pMax < $gesamtanzahl) {
+        $showErrorModal = true;
         ?>
         <div class="alert alert-danger" role="alert">
           Die von allen Projekten summierte Maximalteilnehmeranzahl ist kleiner der Gesamtschülerzahl. Bitte erweitern sie die Maximalzahl bestehender Projekte oder fügen sie weitere Projekte hinzu.
