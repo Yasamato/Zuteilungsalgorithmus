@@ -696,19 +696,19 @@ $showErrorModal = false;
               ?>
               <tr>
                 <td>
-                  <input type="text" class="form-control" aria-label="U-ID" value="<?php echo $student['uid']; ?>" name="uid[]">
+                  <input type="text" class="form-control" aria-label="U-ID" value="<?php echo $student['uid']; ?>" name="uid[]" oninput="javascript: zwangszuteilungAppend();">
                 </td>
                 <td>
-                  <input type="number" class="form-control" aria-label="Stufe" value="<?php echo $student['stufe']; ?>" name="stufe[]">
+                  <input type="number" class="form-control" aria-label="Stufe" value="<?php echo $student['stufe']; ?>" name="stufe[]" oninput="javascript: zwangszuteilungAppend();">
                 </td>
                 <td>
-                  <input type="text" class="form-control" aria-label="Klasse" value="<?php echo $student['klasse']; ?>" name="klasse[]">
+                  <input type="text" class="form-control" aria-label="Klasse" value="<?php echo $student['klasse']; ?>" name="klasse[]" oninput="javascript: zwangszuteilungAppend();">
                 </td>
                 <td>
-                  <input type="text" class="form-control" aria-label="Vorname" value="<?php echo $student['vorname']; ?>" name="vorname[]">
+                  <input type="text" class="form-control" aria-label="Vorname" value="<?php echo $student['vorname']; ?>" name="vorname[]" oninput="javascript: zwangszuteilungAppend();">
                 </td>
                 <td>
-                  <input type="text" class="form-control" aria-label="Nachname" value="<?php echo $student['nachname']; ?>" name="nachname[]">
+                  <input type="text" class="form-control" aria-label="Nachname" value="<?php echo $student['nachname']; ?>" name="nachname[]" oninput="javascript: zwangszuteilungAppend();">
                 </td>
                 <td>
                   <input type="hidden" class="form-control" value="<?php echo $student['projekt']; ?>" name="projekt[]">
@@ -727,24 +727,36 @@ $showErrorModal = false;
             </tbody>
           </table>
           <script>
+            function zwangszuteilungAppend() {
+              let inputs = $("#zwangszuteilungModal tbody")[1].querySelectorAll("input");
+              for (var input of inputs) {
+                if (!input.value.replace(/\s+/, '').length) {
+                  console.log(input);
+                  console.log("found empty");
+                  return;
+                }
+              }
+              addStudentsInZwangszuteilungInput();
+            }
+
             function addStudentsInZwangszuteilungInput() {
               //var node = document.querySelector('#studentsInKlassen tbody');
               $($("#zwangszuteilungModal tbody")[1]).append($(`
               <tr>
                 <td>
-                  <input type="text" class="form-control" aria-label="U-ID" name="uid[]">
+                  <input type="text" class="form-control" aria-label="U-ID" name="uid[]" oninput="javascript: zwangszuteilungAppend();">
                 </td>
                 <td>
-                  <input type="number" class="form-control" aria-label="Stufe" name="stufe[]">
+                  <input type="number" class="form-control" aria-label="Stufe" name="stufe[]" oninput="javascript: zwangszuteilungAppend();">
                 </td>
                 <td>
-                  <input type="text" class="form-control" aria-label="Klasse" name="klasse[]">
+                  <input type="text" class="form-control" aria-label="Klasse" name="klasse[]" oninput="javascript: zwangszuteilungAppend();">
                 </td>
                 <td>
-                  <input type="text" class="form-control" aria-label="Vorname" name="vorname[]">
+                  <input type="text" class="form-control" aria-label="Vorname" name="vorname[]" oninput="javascript: zwangszuteilungAppend();">
                 </td>
                 <td>
-                  <input type="text" class="form-control" aria-label="Nachname" name="nachname[]">
+                  <input type="text" class="form-control" aria-label="Nachname" name="nachname[]" oninput="javascript: zwangszuteilungAppend();">
                 </td>
                 <td>
                   <input type="hidden" class="form-control" name="projekt[]">
@@ -764,10 +776,11 @@ $showErrorModal = false;
               var button = $("#zwangszuteilungModal .current-open").children()[5];
               button.children[0].value = projekt;
               button.children[1].innerHTML = "Ändern";
-              button.children[1].classList.remove("btn-danger");
+              button.children[1].classList.remove("btn-warning");
               button.children[1].classList.add("btn-success");
-              $("#zwangszuteilungModal .current-open").removeClass(".current-open");
+              $("#zwangszuteilungModal tr.current-open").removeClass("current-open");
               $("#zwangszuteilungProjektModal tbody").html("");
+              zwangszuteilungAppend();
             }
 
             function changeZwangszuteilungProjekt(student, currentProjekt) {
@@ -871,7 +884,7 @@ $showErrorModal = false;
                   <input type="text" class="form-control" aria-label="Klasse" value="5a" readonly>
                 </td>
                 <td>
-                  <input type="number" class="form-control" value="28" readonly>
+                  <input type="number" class="form-control" aria-label="Schüleranzahl" value="28" readonly>
                 </td>
                 <td>
                   <button type="button" class="close text-danger" aria-label="Close" disabled>
@@ -906,13 +919,13 @@ $showErrorModal = false;
                 ?>
               <tr>
                 <td>
-                  <input type="text" class="form-control" placeholder="Bsp: 5" aria-label="Stufe" value="<?php echo $klasse['stufe']; ?>" name="stufe[]">
+                  <input type="text" class="form-control" aria-label="Stufe" value="<?php echo $klasse['stufe']; ?>" name="stufe[]" oninput="javascript: studentsInKlassenAppend();">
                 </td>
                 <td>
-                  <input type="text" class="form-control" placeholder="Bsp: 5a" aria-label="Klasse" value="<?php echo $klasse['klasse']; ?>" name="klasse[]">
+                  <input type="text" class="form-control" aria-label="Klasse" value="<?php echo $klasse['klasse']; ?>" name="klasse[]" oninput="javascript: studentsInKlassenAppend();">
                 </td>
                 <td>
-                  <input type="number" class="form-control" aria-label="Schüleranzahl" value="<?php echo $klasse['anzahl']; ?>" name="anzahl[]">
+                  <input type="number" class="form-control" aria-label="Schüleranzahl" value="<?php echo $klasse['anzahl']; ?>" name="anzahl[]" oninput="javascript: studentsInKlassenAppend();">
                 </td>
                 <td>
                   <button type="button" class="close text-danger" aria-label="Close" onclick="javascript: removeLine(this);">
@@ -927,18 +940,30 @@ $showErrorModal = false;
           </table>
 
           <script>
+            function studentsInKlassenAppend() {
+              let inputs = $("#studentsInKlassen tbody")[1].querySelectorAll("input");
+              for (var input of inputs) {
+                if (!input.value.replace(/\s+/, '').length) {
+                  console.log(input);
+                  console.log("found empty");
+                  return;
+                }
+              }
+              addStudentsInKlassenInput();
+            }
+
             function addStudentsInKlassenInput() {
               //var node = document.querySelector('#studentsInKlassen tbody');
               $($("#studentsInKlassen tbody")[1]).append($(`
               <tr>
                 <td>
-                  <input type="text" class="form-control" placeholder="Bsp: 5" aria-label="Stufe" name="stufe[]">
+                  <input type="text" class="form-control" placeholder="Bsp: 5" aria-label="Stufe" name="stufe[]" oninput="javascript: studentsInKlassenAppend();">
                 </td>
                 <td>
-                  <input type="text" class="form-control" placeholder="Bsp: 5a" aria-label="Klasse" name="klasse[]">
+                  <input type="text" class="form-control" placeholder="Bsp: 5a" aria-label="Klasse" name="klasse[]" oninput="javascript: studentsInKlassenAppend();">
                 </td>
                 <td>
-                  <input type="number" class="form-control" aria-label="Schüleranzahl" name="anzahl[]">
+                  <input type="number" class="form-control" aria-label="Schüleranzahl" name="anzahl[]" oninput="javascript: studentsInKlassenAppend();">
                 </td>
                 <td>
                   <button type="button" class="close text-danger" aria-label="Close" onclick="javascript: removeLine(this);">
