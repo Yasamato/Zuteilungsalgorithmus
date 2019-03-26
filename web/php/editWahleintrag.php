@@ -10,7 +10,7 @@ if (isLogin() && $_SESSION["benutzer"]["typ"] == "admin") {
       $gewaehlt = "";
       foreach ($wahlen as $wahl) {
         if ($wahl["uid"] == $_POST["uid"]) {
-          $gewaehlt = $wahl["wahl"];
+          $gewaehlt = implode("§", $wahl["wahl"]);
           break;
         }
       }
