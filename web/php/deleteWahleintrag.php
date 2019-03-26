@@ -17,8 +17,8 @@ if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
       }
     }
     if (empty($student)) {
-      error_log("Der Schüler mit der ID " . $_POST["studentID"] . " konnte nicht gefunden werden und dementsprechend nicht gelöscht werden", 0, "../data/error.log");
-      alert("Zu löschenden Schüler nicht gefunden");
+      error_log("Der Schüler mit der ID " . $_POST["studentID"] . " konnte nicht gefunden werden und wurde dementsprechend nicht gelöscht werden", 0, "../data/error.log");
+      alert("Der Schüler mit der ID " . $_POST["studentID"] . " konnte nicht gefunden werden und wurde dementsprechend nicht gelöscht werden");
     }
     else {
       if (dbRemove("../data/" . ($zwangszugeteilt ? "zwangszuteilung.csv" : "wahl.csv"), "uid", $_POST["studentID"])) {
