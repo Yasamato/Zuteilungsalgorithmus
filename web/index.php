@@ -65,27 +65,27 @@
 				break;
 			case "wahl":
 				require("php/wahl.php");
-				$waittime = 2;
+				$waittime = 1;
 				break;
 			case "editWahleintrag":
 				require("php/editWahleintrag.php");
-				$waittime = 2;
+				$waittime = 1;
 				break;
 			case "deleteWahleintrag":
 				require("php/deleteWahleintrag.php");
-				$waittime = 2;
+				$waittime = 1;
 				break;
 			case "updateConfiguration":
 				require("php/dashboard.php");
-				$waittime = 2;
+				$waittime = 1;
 				break;
 			case "updateStudentsInKlassen":
 				require("php/klassen.php");
-				$waittime = 2;
+				$waittime = 1;
 				break;
 			case "updateZwangszuteilung":
 				require("php/zwangszuteilung.php");
-				$waittime = 2;
+				$waittime = 1;
 				break;
 			case "runZuteilungsalgorithmus":
 				require("php/run.php");
@@ -155,6 +155,9 @@
 	foreach ($projekte as $p) {
     echo "{";
     foreach ($p as $key => $v) {
+			if ($key == "teilnehmer") {
+				continue;
+			}
       echo "'" . $key . "': `" . $v . "`,";
     }
     echo "}";

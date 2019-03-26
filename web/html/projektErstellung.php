@@ -8,7 +8,7 @@ if (!empty($_GET["projekt"]) && $_SESSION['benutzer']['typ'] == "teachers" && $c
   die("Zugriff verweigert");
 }
 elseif (!empty($_GET["projekt"])) {
-  $projekt = getProjektInfo($_GET["projekt"]);
+  $projekt = getProjektInfo($projekte, $_GET["projekt"]);
 }
 ?>
 

@@ -557,7 +557,7 @@ $errorIncluded = false;
                     echo '
                   <li>
                     <a href="javascript:;" onclick="showProjektInfoModal(projekte[' . $p . ']);">
-                      ' . getProjektInfo($wahl)["name"] . '
+                      ' . getProjektInfo($projekte, $wahl)["name"] . '
                     </a>
                   </li>';
                   }
@@ -586,7 +586,7 @@ $errorIncluded = false;
                 echo '
                 <input type="hidden" value="' . $student["ergebnis"] . '">
                 <a href="javascript: showProjektInfoModal(projekte[' . $p . ']);">
-                  ' . getProjektInfo($student["ergebnis"])["name"] . '
+                  ' . getProjektInfo($projekte, $student["ergebnis"])["name"] . '
                 </a>';
               }
               echo '</td>

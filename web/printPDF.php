@@ -175,7 +175,7 @@
 					$student["klasse"],
 					$student["nachname"],
 					$student["vorname"],
-					$_SESSION['benutzer']['typ'] == "admin" ? (empty($student["ergebnis"]) ? "N/A" : getProjektInfo($student["ergebnis"])["name"]) : ($zugeteilt ? "Zugeteilt" : (empty($student["wahl"]) ? "Nein" : "Ja"))
+					$_SESSION['benutzer']['typ'] == "admin" ? (empty($student["ergebnis"]) ? "N/A" : getProjektInfo($projekte, $student["ergebnis"])["name"]) : ($zugeteilt ? "Zugeteilt" : (empty($student["wahl"]) ? "Nein" : "Ja"))
 				]);
 			}
 			// Aufbereiten der Breiten
@@ -244,17 +244,6 @@
 
 
   // Anfrage verarbeiten
-	$bereitsAusgewertet = false;
-	foreach ($wahlen as $key => $student) {
-		if (!empty($student["ergebnis"])) {
-			$bereitsAusgewertet = true;
-		}
-		elseif ($bereitsAusgewertet) {
-			error_log("Die Wahltabelle wurde nur teilweise ausgewertet!! Etwas ist schief gelaufen", 0, "../data/error.log");
-			$bereitsAusgewertet = false;
-			break;
-		}
-	}
 	// Projekt(e) drucken
   if (!empty($_GET["print"]) && !empty($_GET["projekt"]) && $_GET["print"] == "projekt") {
 	  $pdf = new printPDF('L', 'mm', 'A4');
@@ -266,45 +255,18 @@
 			$pdf->SetSubject('Projektliste');
       foreach ($projekte as $projekt) {
         $pdf->printProjekt($projekt);
-				if ($bereitsAusgewertet) {
-					$teilnehmer = [];
-					foreach ($wahlen as $key => $student) {
-						if ($student["ergebnis"] == $projekt["id"]) {
-							array_push($teilnehmer, $student);
-						}
-					}
-					usort($teilnehmer, function ($a, $b) {
-						if (strtolower($a["nachname"]) == strtolower($b["nachname"])) {
-							if (strtolower($a["vorname"]) == strtolower($b["vorname"])) {
-							return strtolower($a["klasse"]) < strtolower($b["klasse"]) ? -1 : 1;
-							}
-							return strtolower($a["vorname"]) < strtolower($b["vorname"]) ? -1 : 1;
-						}
-						return strtolower($a["nachname"]) < strtolower($b["nachname"]) ? -1 : 1;
-					});
-					$pdf->printKlasse("Teilnehmer " . $projekt["name"], $teilnehmer, $zwangszuteilung);
+				if (!empty($projekt["teilnehmer"])) {
+					$pdf->printKlasse("Teilnehmerliste " . $projekt["name"], $projekt["teilnehmer"], $zwangszuteilung);
 				}
       }
     }
     else {
-      $projekt = getProjektInfo($_GET['projekt']);
+      $projekt = getProjektInfo($projekte, $_GET['projekt']);
 			$pdf->SetTitle("Projektwoche " . date("Y") . " - Projekt " . $projekt["name"]);
 			$pdf->SetSubject("Projekt " . $projekt["name"]);
       $pdf->printProjekt($projekt);
-			if ($bereitsAusgewertet) {
-				$teilnehmer = [];
-				foreach ($wahlen as $key => $student) {
-					if ($student["ergebnis"] == $projekt["id"]) {
-						array_push($teilnehmer, $student);
-					}
-				}
-				usort($teilnehmer, function ($a, $b) {
-					if (strtolower($a["nachname"]) == strtolower($b["nachname"])) {
-						return strtolower($a["vorname"]) < strtolower($b["vorname"]) ? -1 : 1;
-					}
-					return strtolower($a["nachname"]) < strtolower($b["nachname"]) ? -1 : 1;
-				});
-				$pdf->printKlasse("Teilnehmer " . $projekt["name"], $teilnehmer, $zwangszuteilung, false);
+			if (!empty($projekt["teilnehmer"])) {
+				$pdf->printKlasse("Teilnehmerliste " . $projekt["name"], $projekt["teilnehmer"], $zwangszuteilung, false);
 			}
     }
   }

@@ -207,6 +207,21 @@ $projekte = [];
 if (isLogin()) {
   if ($_SESSION['benutzer']['typ'] == "teachers" || $_SESSION['benutzer']['typ'] == "admin") {
     $projekte = dbRead("../data/projekte.csv");
+    foreach ($projekte as $key => $projekt) {
+      $teilnehmer = [];
+      foreach ($wahlen as $student) {
+        if (!empty($student["ergebnis"]) && $student["ergebnis"] == $projekt["id"]) {
+          array_push($teilnehmer, $student);
+        }
+      }
+      usort($teilnehmer, function ($a, $b) {
+        if (strtolower($a["nachname"]) == strtolower($b["nachname"])) {
+          return strtolower($a["vorname"]) < strtolower($b["vorname"]) ? -1 : 1;
+        }
+        return strtolower($a["nachname"]) < strtolower($b["nachname"]) ? -1 : 1;
+      });
+      $projekte[$key]["teilnehmer"] = $teilnehmer;
+    }
   }
   else {
     foreach (dbRead("../data/projekte.csv") as $p) {
