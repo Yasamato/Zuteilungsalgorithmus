@@ -72,7 +72,7 @@ $errorIncluded = false;
     <div class="modal-content bg-dark">
 
       <div class="modal-header">
-        <h4 class="modal-title"><?php echo $errorIncluded ? "Warnungen und Fehlermeldungen" : "Hinweise"; ?></h4>
+        <h4 class="modal-title">Hinweise</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span class="closebutton" aria-hidden="true">&times;</span>
         </button>
@@ -86,7 +86,7 @@ $errorIncluded = false;
         $errorIncluded = true;
         ?>
         <div class="alert alert-danger" role="alert">
-          Die <strong>Klasse <?php echo $klasse; ?></strong> konnte nicht gefunden werden. Korrigieren Sie bitte die Klassseneinträge entsprechend <a href="javascript: $('#studentsInKlassen').modal('show');" class="alert-link">hier</a>.
+          Die <strong>Klasse <?php echo $klasse; ?></strong> konnte nicht gefunden werden. Korrigieren Sie bitte die Klassseneinträge entsprechend <a href="javascript: $('#studentsInKlassen').modal('show');" class="alert-link">hier</a> oder bearbeiten sie den Schülereintrag <a href="javascript: $('#schuelerModal').modal('show');" class="alert-link">hier</a>.
         </div><?php
       }
 
@@ -97,7 +97,7 @@ $errorIncluded = false;
           $errorIncluded = true;
           ?>
         <div class="alert alert-danger" role="alert">
-          Die <strong>Klasse <?php echo $klasse["klasse"]; ?></strong> hat mehr Schüler als eingetragen. Korrigieren Sie bitte die Klassseneinträge entsprechend <a href="javascript: $('#studentsInKlassen').modal('show');" class="alert-link">hier</a>.
+          Die <strong>Klasse <?php echo $klasse["klasse"]; ?></strong> hat mehr Schüler als eingetragen. Korrigieren Sie bitte die Klassseneinträge entsprechend <a href="javascript: $('#studentsInKlassen').modal('show');" class="alert-link">hier</a> oder bearbeiten sie den Schülereintrag <a href="javascript: $('#schuelerModal').modal('show');" class="alert-link">hier</a>.
         </div><?php
         }
       }
@@ -110,7 +110,7 @@ $errorIncluded = false;
         }
         ?>
         <div class="alert alert-<?php echo $config["Stage"] < 4 ? "primary alert-dismissible fade show" : "danger"; ?>" role="alert">
-          Es ha<?php echo $gesamtanzahl > 1 ? "ben" : "t" ?> nur <?php echo count($wahlen) . " von " . $gesamtanzahl; ?> Schülern gewählt. Einträge <a href="javascript: $('#schuelerModal').modal('show');" class="alert-link">Auflisten</a>.
+          Es ha<?php echo $gesamtanzahl > 1 ? "ben" : "t" ?> nur <?php echo count($wahlen) . " von " . $gesamtanzahl; ?> Schülern gewählt. Einträge <a href="javascript: $('#schuelerModal').modal('show');" class="alert-link">auflisten</a>.
           <?php if ($config["Stage"] < 4) { ?>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -127,7 +127,7 @@ $errorIncluded = false;
         }
         ?>
         <div class="alert alert-<?php echo $config["Stage"] < 4 ? "primary alert-dismissible fade show" : "danger"; ?>" role="alert">
-          Es ha<?php echo $klassenFertig > 1 ? "ben" : "t" ?> nur <?php echo $klassenFertig . " von " . count($klassenliste); ?> Klassen vollständig gewählt.
+          Es ha<?php echo $klassenFertig > 1 ? "ben" : "t" ?> nur <?php echo $klassenFertig . " von " . count($klassenliste); ?> Klassen vollständig gewählt. Einträge <a href="javascript: $('#studentsInKlassen').modal('show');" class="alert-link">auflisten</a>
           <?php if ($config["Stage"] < 4) { ?>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -142,7 +142,7 @@ $errorIncluded = false;
         $showErrorModal = true;
         ?>
         <div class="alert alert-warning" role="alert">
-          Die von allen Projekten summierte Mindestteilnehmeranzahl ist zu groß für die Gesamtschülerzahl. Falls nicht Projekte nicht stattfinden sollen, passen Sie bitte die Mindestteilnehmeranzahl an. Einträge <a href="javascript: $('#projekteModal').modal('show');" class="alert-link">Auflisten</a>.
+          Die von allen Projekten summierte Mindestteilnehmeranzahl ist zu groß für die Gesamtschülerzahl. Falls nicht Projekte nicht stattfinden sollen, passen Sie bitte <a href="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> ggf. die Mindestteilnehmeranzahl an.
         </div><?php
       }
       if ($pMax < $gesamtanzahl * (1 + $buffer)) {
@@ -150,7 +150,7 @@ $errorIncluded = false;
         $errorIncluded = true;
         ?>
         <div class="alert alert-danger" role="alert">
-          Die von allen Projekten summierte Maximalteilnehmeranzahl ist zu klein für die Gesamtschülerzahl. Bitte erweitern sie die Maximalzahl bestehender Projekte oder fügen sie weitere Projekte hinzu. Einträge <a href="javascript: $('#projekteModal').modal('show');" class="alert-link">Auflisten</a>.
+          Die von allen Projekten summierte Maximalteilnehmeranzahl ist zu klein für die Gesamtschülerzahl. Bitte erweitern sie die Maximalzahl bestehender Projekte <a href="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> oder fügen sie weitere Projekte <a href="javascript: window.location.href = '?site=create';" class="alert-link">hier</a> hinzu.
         </div><?php
       }
 
@@ -159,7 +159,7 @@ $errorIncluded = false;
         if ($stufen[$i]["min"] > $stufen[$i]["students"] * (1 - $buffer)) {
           ?>
           <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            Die von allen Projekten summierte Mindestteilnehmeranzahl für die <strong>Klassenstufe <?php echo $i; ?></strong> ist zu groß für die Schüleranzahl der Stufe. Dies kann zu Problemen führen. Einträge <a href="javascript: $('#projekteModal').modal('show');" class="alert-link">Auflisten</a>.
+            Die von allen Projekten summierte Mindestteilnehmeranzahl für die <strong>Klassenstufe <?php echo $i; ?></strong> ist zu groß für die Schüleranzahl der Stufe. Dies kann zu Problemen führen und kann <a href="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> bearbeitet werden.
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -169,7 +169,7 @@ $errorIncluded = false;
           $errorIncluded = true;
           ?>
           <div class="alert alert-danger" role="alert">
-            Die von allen Projekten summierte Maximalteilnehmeranzahl für die <strong>Klassenstufe <?php echo $i; ?></strong> ist zu klein für die Schüleranzahl der Stufe. Bitte erweitern sie die Maximalzahl bestehender Projekte oder fügen sie weitere Projekte hinzu. Einträge <a href="javascript: $('#projekteModal').modal('show');" class="alert-link">Auflisten</a>.
+            Die von allen Projekten summierte Maximalteilnehmeranzahl für die <strong>Klassenstufe <?php echo $i; ?></strong> ist zu klein für die Schüleranzahl der Stufe. Bitte erweitern sie die Maximalzahl bestehender Projekte <a href="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> oder fügen sie weitere Projekte <a href="javascript: window.location.href = '?site=create';" class="alert-link">hier</a> hinzu.
           </div><?php
         }
       }
