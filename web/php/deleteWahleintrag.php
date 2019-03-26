@@ -1,7 +1,7 @@
 <?php
 //authentication
 if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
-  if (!empty($_POST['action']) && $_POST['action'] == "deleteProjekt" && !empty($_POST["studentID"])) {
+  if (!empty($_POST["studentID"])) {
     $student = [];
     foreach ($wahlen as $wahl) {
       if ($wahl["uid"] == $_POST["studentID"]) {
@@ -21,7 +21,7 @@ if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
       alert("Zu löschenden Schüler nicht gefunden");
     }
     else {
-      if (dbRemove("../data/" . $zwangszugeteilt ? "zwangszuteilung.csv" : "wahlen.csv", "uid", $_POST["studentID"])) {
+      if (dbRemove("../data/" . ($zwangszugeteilt ? "zwangszuteilung.csv" : "wahlen.csv"), "uid", $_POST["studentID"])) {
         alert("Der Schüler '" . $student["name"] . "' mit der ID " . $_POST["studentID"] . " wurde erfolgreich gelöscht");
       }
       else {
@@ -29,6 +29,9 @@ if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
         alert("Löschen des Schülereintrags mit der ID " . $_POST["studentID"] . " ist fehlgeschlagen.");
       }
     }
+  }
+  else {
+    die("Ungültige Anfrage");
   }
 }
 ?>
