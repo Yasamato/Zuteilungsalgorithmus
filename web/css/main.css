@@ -88,3 +88,7 @@ table {
 .row.flex > div > div.card {
 	margin-bottom: 12px;
 }
+
+input {
+	min-width: 100px;
+}

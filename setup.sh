@@ -63,7 +63,9 @@ cat > data/config.php <<EOF
     "dbElementSeperator" => "__#__",
     "dbFilesPermission" => $level, // see https://www.w3schools.com/php/func_filesystem_chmod.asp
     "adminUser" => "$adminUser",
-    "adminPassword" => "$adminPassword"
+    "adminPassword" => "$adminPassword",
+    "minStufe" => 5,
+    "maxStufe" => 12
   ]);
 ?>
 EOF

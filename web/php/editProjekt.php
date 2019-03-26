@@ -51,25 +51,25 @@ if (isLogin() && ($_SESSION['benutzer']['typ'] == "teachers" && $config["Stage"]
 				$_POST["maxKlasse"],
 				$_POST["minPlatz"],
 				$_POST["maxPlatz"],
-				$_POST["sonstiges"],
 				$_POST["vorraussetzungen"],
+				$_POST["sonstiges"],
 				$_POST["raum"],
 				$_POST["material"],
-				newlineRemove($_POST["moVor"]),
+				empty($_POST["moVor"]) ? "" : newlineRemove($_POST["moVor"]),
 				checkBox("moMensa"),
-				newlineRemove($_POST["moNach"]),
-				newlineRemove($_POST["diVor"]),
+				empty($_POST["moNach"]) ? "" : newlineRemove($_POST["moNach"]),
+				empty($_POST["diVor"]) ? "" : newlineRemove($_POST["diVor"]),
 				checkBox("diMensa"),
-				newlineRemove($_POST["diNach"]),
-				newlineRemove($_POST["miVor"]),
+				empty($_POST["diNach"]) ? "" : newlineRemove($_POST["diNach"]),
+				empty($_POST["miVor"]) ? "" : newlineRemove($_POST["miVor"]),
 				checkBox("miMensa"),
-				newlineRemove($_POST["miNach"]),
-				newlineRemove($_POST["doVor"]),
+				empty($_POST["miNach"]) ? "" : newlineRemove($_POST["miNach"]),
+				empty($_POST["doVor"]) ? "" : newlineRemove($_POST["doVor"]),
 				checkBox("doMensa"),
-				newlineRemove($_POST["doNach"]),
-				newlineRemove($_POST["frVor"]),
+				empty($_POST["doNach"]) ? "" : newlineRemove($_POST["doNach"]),
+				empty($_POST["frVor"]) ? "" : newlineRemove($_POST["frVor"]),
 				checkBox("frMensa"),
-				newlineRemove($_POST["frNach"])
+				empty($_POST["frNach"]) ? "" : newlineRemove($_POST["frNach"])
 		]);
 		?>
 		<div class="modal fade" role="dialog" id="successModal">
@@ -88,8 +88,8 @@ if (isLogin() && ($_SESSION['benutzer']['typ'] == "teachers" && $config["Stage"]
 							mit dem Betreuer <kbd><?php echo $_POST["betreuer"]; ?></kbd>
 							für <kbd><?php echo $_POST["minPlatz"]; ?></kbd>
 							bis <kbd><?php echo $_POST["maxPlatz"]; ?></kbd>
-							Schüler der Klassenstufe <kbd><?php echo $_POST["minPlatz"]; ?></kbd>
-							bis <kbd><?php echo $_POST["maxPlatz"]; ?></kbd> wurde aktualisiert.
+							Schüler der Klassenstufe <kbd><?php echo $_POST["minKlasse"]; ?></kbd>
+							bis <kbd><?php echo $_POST["maxKlasse"]; ?></kbd> wurde aktualisiert.
 							Die Daten sind nun auf dem Server gespeichert.
 						</p>
 	        </div>

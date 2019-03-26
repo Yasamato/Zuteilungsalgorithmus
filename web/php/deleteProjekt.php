@@ -17,6 +17,12 @@ if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
             dbRemove("../data/wahl.csv", "uid", $wahl["id"]);
           }
         }
+        foreach ($zwangszuteilung as $key => $zuteilung) {
+          if ($_POST["projekt"] == $zuteilung["ergebnis"]) {
+            array_push($entrysModified, $zuteilung);
+            dbRemove("../data/zwangszuteilung", "uid", $zuteilung["uid"]);
+          }
+        }
 
         if (count($entrysModified) > 0) {
           $stringToPrint = "Aufgrund des Löschvorgangs, wurden bei " . count($entrysModified) . " Schülern die Wahlen bearbeitet. Folgende Schüler müssen ihre Wahl erneut abgeben:\r\n";

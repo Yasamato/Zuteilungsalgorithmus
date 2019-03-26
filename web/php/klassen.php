@@ -13,9 +13,22 @@ if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
       continue;
     }
     // Validierung
-    if ($_POST["stufe"][$i] < 5 || $_POST["stufe"][$i] > 12 || $_POST["anzahl"][$i] <= 0) {
-      error_log("Datensatz fehlerhaft!! Änderung der Klassenlisten ist fehlgeschlagen. Die Werte haben einen unrealistischen Betrag", 0, "../data/error.log");
-      die("Datensatz fehlerhaft!! Änderung der Klassenlisten ist fehlgeschlagen. Die Werte haben einen unrealistischen Betrag");
+    if ($_POST["stufe"][$i] < CONFIG["minStufe"] || $_POST["stufe"][$i] > CONFIG["maxStufe"] || $_POST["anzahl"][$i] <= 0 || $_POST["anzahl"][$i] > 100) {
+      error_log("Dateneintrag der Klasse " . $_POST["klasse"][$i] . " mit " . $_POST["anzahl"][$i] . " Schülern hat einen unrealistischen Betrag und wird ignoriert.", 0, "../data/error.log");
+      alert("Dateneintrag der Klasse " . $_POST["klasse"][$i] . " mit " . $_POST["anzahl"][$i] . " Schülern hat einen unrealistischen Betrag und wird ignoriert.");
+      continue;
+    }
+
+    $doppelt = false;
+    foreach ($values as $key => $value) {
+      if ($value["stufe"] == $_POST["stufe"][$i] && $value["klasse"] == $_POST["klasse"][$i]) {
+        alert("Die Klasse " . $value["klasse"] . " aus der " . $value["stufe"] . ". Stufe wurde mehrfach eingetragen. Der erste Wert für die Schüleranzahl wird hierbei übernommen.");
+        $doppelt = true;
+        break;
+      }
+    }
+    if ($doppelt) {
+      continue;
     }
 
     array_push($values, array(
@@ -39,7 +52,7 @@ if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
   	dbWrite("../data/klassen.csv", $values);
   	if ($klassenliste == dbRead("../data/klassen.csv")) {
   		error_log("Die Änderung der Einstellung in der Datei ../data/klassen.csv von '" . json_encode($klassenliste) . "' zu '" . json_encode($values) . "' ist fehlgeschlagen", 0, "../data/error.log");
-  		die("Die Änderung der Einstellung in der Datei ../data/klassen.csv von '" . json_encode($klassenliste) . "' zu '" . json_encode($values) . "' ist fehlgeschlagen");
+  		alert("Die Änderung der Einstellung in der Datei ../data/klassen.csv von '" . json_encode($klassenliste) . "' zu '" . json_encode($values) . "' ist fehlgeschlagen. Bitte kontaktiere einen Admin damit dieser die Berechtigungen überprüft.");
   	}
     alert("Die Klassenlisten wurden erfolgreich aktualisiert");
   }

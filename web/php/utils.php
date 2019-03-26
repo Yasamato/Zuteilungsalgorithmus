@@ -19,13 +19,21 @@
 	  return str_replace("<br />", "\n", $txt);
 	}
 
-	function getProjektInfo($id) {
+	function getProjektInfo($projekte, $id) {
+	/*
 		$result = dbSearch("../data/projekte.csv", "id", $id, true);
 		if (!empty($result)) {
 	  	return $result[0];
 		}
 		error_log("Projekt mit der ID: " . $id . " konnte nicht gefunden werden", 0, "../data/error.log");
 		return null;
+		*/
+		foreach ($projekte as $projekt) {
+			if ($id == $projekt["id"]) {
+				return $projekt;
+			}
+		}
+		return [];
 	}
 
 	function checkBox($v) {
