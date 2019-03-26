@@ -55,21 +55,21 @@ if (isLogin() && ($_SESSION['benutzer']['typ'] == "teachers" && $config["Stage"]
 				$_POST["sonstiges"],
 				$_POST["raum"],
 				$_POST["material"],
-				newlineRemove($_POST["moVor"]),
+				empty($_POST["moVor"]) ? "" : newlineRemove($_POST["moVor"]),
 				checkBox("moMensa"),
-				newlineRemove($_POST["moNach"]),
-				newlineRemove($_POST["diVor"]),
+				empty($_POST["moNach"]) ? "" : newlineRemove($_POST["moNach"]),
+				empty($_POST["diVor"]) ? "" : newlineRemove($_POST["diVor"]),
 				checkBox("diMensa"),
-				newlineRemove($_POST["diNach"]),
-				newlineRemove($_POST["miVor"]),
+				empty($_POST["diNach"]) ? "" : newlineRemove($_POST["diNach"]),
+				empty($_POST["miVor"]) ? "" : newlineRemove($_POST["miVor"]),
 				checkBox("miMensa"),
-				newlineRemove($_POST["miNach"]),
-				newlineRemove($_POST["doVor"]),
+				empty($_POST["miNach"]) ? "" : newlineRemove($_POST["miNach"]),
+				empty($_POST["doVor"]) ? "" : newlineRemove($_POST["doVor"]),
 				checkBox("doMensa"),
-				newlineRemove($_POST["doNach"]),
-				newlineRemove($_POST["frVor"]),
+				empty($_POST["doNach"]) ? "" : newlineRemove($_POST["doNach"]),
+				empty($_POST["frVor"]) ? "" : newlineRemove($_POST["frVor"]),
 				checkBox("frMensa"),
-				newlineRemove($_POST["frNach"])
+				empty($_POST["frNach"]) ? "" : newlineRemove($_POST["frNach"])
 		]);
 		?>
 		<div class="modal fade" role="dialog" id="successModal">
