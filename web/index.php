@@ -65,7 +65,7 @@
 				break;
 			case "wahl":
 				require("php/wahl.php");
-				$waittime = 5;
+				$waittime = 1;
 				break;
 			case "updateConfiguration":
 				require("php/dashboard.php");

@@ -37,7 +37,7 @@
 		];
 	}
 	// DEBUG fake-accounts
-	elseif($_POST['user'] == "lehrer" && $_POST['pw'] == "lehrer"){
+	elseif ($_POST['user'] == "lehrer" && $_POST['pw'] == "lehrer") {
 		$_SESSION['benutzer'] = [
 			"uid" => "test-" . uniqid(),
 			"typ" => "teachers",
@@ -47,12 +47,20 @@
 			"nachname" => "eherer"
 		];
 	}
-	elseif($_POST['user'] == "schüler"){
+	elseif ($_POST['user'] == "schüler") {
+		// or failsafe strlen($_POST["pw"])
+		$a = strlen($_POST["pw"]);
+		for ($i = 0; $i < $a; $i++) {
+			if (!is_numeric($_POST["pw"][$i])) {
+				$a = $i;
+				break;
+			}
+		}
 		$_SESSION['benutzer'] = [
 			"uid" => "test-" . uniqid(),
 			"typ" => "students",
-			"klasse" => $_POST['pw'] . "test",
-			"stufe" => $_POST['pw'],
+			"klasse" => $_POST['pw'],
+			"stufe" => substr($_POST['pw'], 0, $a),
 			"vorname" => "S",
 			"nachname" => "chüler"
 		];
