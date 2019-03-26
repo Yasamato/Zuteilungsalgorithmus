@@ -61,6 +61,7 @@ foreach ($klassen as $klasse => $liste) {
   }
 }
 
+$buffer = 0.05;
 $showErrorModal = false;
 $errorIncluded = false;
 ?>
@@ -137,38 +138,38 @@ $errorIncluded = false;
       }
 
       // Ausreichend Plätze für Schüler
-      if ($pMin > $gesamtanzahl) {
+      if ($pMin > $gesamtanzahl * (1 - $buffer)) {
         $showErrorModal = true;
         ?>
         <div class="alert alert-warning" role="alert">
-          Die von allen Projekten summierte Mindestteilnehmeranzahl ist größer der Gesamtschülerzahl. Falls nicht Projekte nicht stattfinden sollen, passen Sie bitte die Mindestteilnehmeranzahl an. Einträge <a href="javascript: $('#projekteModal').modal('show');" class="alert-link">Auflisten</a>.
+          Die von allen Projekten summierte Mindestteilnehmeranzahl ist zu groß für die Gesamtschülerzahl. Falls nicht Projekte nicht stattfinden sollen, passen Sie bitte die Mindestteilnehmeranzahl an. Einträge <a href="javascript: $('#projekteModal').modal('show');" class="alert-link">Auflisten</a>.
         </div><?php
       }
-      if ($pMax < $gesamtanzahl) {
+      if ($pMax < $gesamtanzahl * (1 + $buffer)) {
         $showErrorModal = true;
         $errorIncluded = true;
         ?>
         <div class="alert alert-danger" role="alert">
-          Die von allen Projekten summierte Maximalteilnehmeranzahl ist kleiner der Gesamtschülerzahl. Bitte erweitern sie die Maximalzahl bestehender Projekte oder fügen sie weitere Projekte hinzu. Einträge <a href="javascript: $('#projekteModal').modal('show');" class="alert-link">Auflisten</a>.
+          Die von allen Projekten summierte Maximalteilnehmeranzahl ist zu klein für die Gesamtschülerzahl. Bitte erweitern sie die Maximalzahl bestehender Projekte oder fügen sie weitere Projekte hinzu. Einträge <a href="javascript: $('#projekteModal').modal('show');" class="alert-link">Auflisten</a>.
         </div><?php
       }
 
       // Platz pro Stufe
       for ($i = 5; $i <= 12; $i++) {
-        if ($stufen[$i]["min"] > $stufen[$i]["students"]) {
+        if ($stufen[$i]["min"] > $stufen[$i]["students"] * (1 - $buffer)) {
           ?>
           <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            Die von allen Projekten summierte Mindestteilnehmeranzahl für die <strong>Klassenstufe <?php echo $i; ?></strong> ist größer der Schüleranzahl der Stufe. Dies kann zu Problemen führen. Einträge <a href="javascript: $('#projekteModal').modal('show');" class="alert-link">Auflisten</a>.
+            Die von allen Projekten summierte Mindestteilnehmeranzahl für die <strong>Klassenstufe <?php echo $i; ?></strong> ist zu groß für die Schüleranzahl der Stufe. Dies kann zu Problemen führen. Einträge <a href="javascript: $('#projekteModal').modal('show');" class="alert-link">Auflisten</a>.
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div><?php
         }
-        if ($stufen[$i]["max"] < $stufen[$i]["students"]) {
+        if ($stufen[$i]["max"] < $stufen[$i]["students"] * (1 + $buffer)) {
           $errorIncluded = true;
           ?>
           <div class="alert alert-danger" role="alert">
-            Die von allen Projekten summierte Maximalteilnehmeranzahl für die <strong>Klassenstufe <?php echo $i; ?></strong> ist kleiner der Schüleranzahl der Stufe. Bitte erweitern sie die Maximalzahl bestehender Projekte oder fügen sie weitere Projekte hinzu. Einträge <a href="javascript: $('#projekteModal').modal('show');" class="alert-link">Auflisten</a>.
+            Die von allen Projekten summierte Maximalteilnehmeranzahl für die <strong>Klassenstufe <?php echo $i; ?></strong> ist zu klein für die Schüleranzahl der Stufe. Bitte erweitern sie die Maximalzahl bestehender Projekte oder fügen sie weitere Projekte hinzu. Einträge <a href="javascript: $('#projekteModal').modal('show');" class="alert-link">Auflisten</a>.
           </div><?php
         }
       }
@@ -1121,10 +1122,10 @@ $errorIncluded = false;
       <div class="row flex">
 
         <div class="col-xl-4 col-sm-6 col-xs-12">
-          <div class="card w-100 text-white bg-dark p-3<?php if ($pMax < $gesamtanzahl) {echo " border border-danger"; } elseif ($pMin > $gesamtanzahl) {echo " border border-warning"; } ?>">
+          <div class="card w-100 text-white bg-dark p-3<?php if ($pMax < $gesamtanzahl * (1 + $buffer)) {echo " border border-danger"; } elseif ($pMin > $gesamtanzahl * (1 - $buffer)) {echo " border border-warning"; } ?>">
             <div class="card-body">
               <h5 class="card-title">
-                <span<?php if ($pMin > $gesamtanzahl) {echo " class='text-warning'"; } echo ">" . $pMin; ?></span> - <span<?php if ($pMax < $gesamtanzahl) {echo " class='text-danger'"; } echo ">" . $pMax; ?></span>
+                <span<?php if ($pMin > $gesamtanzahl * (1 - $buffer)) {echo " class='text-warning'"; } echo ">" . $pMin; ?></span> - <span<?php if ($pMax < $gesamtanzahl * (1 + $buffer)) {echo " class='text-danger'"; } echo ">" . $pMax; ?></span>
               </h5>
               <p class="card-text">Plätze sind laut Projektangaben insgesamt verfügbar</p></p>
             </div>
@@ -1135,10 +1136,10 @@ $errorIncluded = false;
           for ($i = CONFIG["minStufe"]; $i <= CONFIG["maxStufe"]; $i++) {
           ?>
         <div class="col-xl-4 col-sm-6 col-xs-12">
-      		<div class="card w-100 text-white bg-dark p-3<?php if ($stufen[$i]["max"] < $stufen[$i]["students"]) {echo " border border-danger"; } elseif ($stufen[$i]["min"] > $stufen[$i]["students"]) {echo " border border-warning"; } ?>">
+      		<div class="card w-100 text-white bg-dark p-3<?php if ($stufen[$i]["max"] < $stufen[$i]["students"] * (1 + $buffer)) {echo " border border-danger"; } elseif ($stufen[$i]["min"] > $stufen[$i]["students"] * (1 - $buffer)) {echo " border border-warning"; } ?>">
       			<div class="card-body">
               <h5 class="card-title">
-                <span<?php if ($stufen[$i]["min"] > $stufen[$i]["students"]) {echo " class='text-warning'"; } echo ">" . $stufen[$i]["min"]; ?></span> - <span<?php if ($stufen[$i]["max"] < $stufen[$i]["students"]) {echo " class='text-danger'"; } echo ">" . $stufen[$i]["max"]; ?></span>
+                <span<?php if ($stufen[$i]["min"] > $stufen[$i]["students"] * (1 - $buffer)) {echo " class='text-warning'"; } echo ">" . $stufen[$i]["min"]; ?></span> - <span<?php if ($stufen[$i]["max"] < $stufen[$i]["students"] * (1 + $buffer)) {echo " class='text-danger'"; } echo ">" . $stufen[$i]["max"]; ?></span>
               </h5>
       				<p class="card-text">Plätze sind laut Projektangaben verfügbar für Klassenstufe <?php echo $i; ?></p>
       			</div>
