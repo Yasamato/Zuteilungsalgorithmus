@@ -71,7 +71,7 @@ $errorIncluded = false;
     <div class="modal-content bg-dark">
 
       <div class="modal-header">
-        <h4 class="modal-title">Warnungen und Fehlermeldungen</h4>
+        <h4 class="modal-title"><?php echo $errorIncluded ? "Warnungen und Fehlermeldungen" : "Hinweise"; ?></h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span class="closebutton" aria-hidden="true">&times;</span>
         </button>
@@ -109,7 +109,7 @@ $errorIncluded = false;
         }
         ?>
         <div class="alert alert-<?php echo $config["Stage"] < 4 ? "primary alert-dismissible fade show" : "danger"; ?>" role="alert">
-          Es ha<?php echo $gesamtanzahl > 1 ? "ben" : "t" ?> nur <?php echo count($wahlen) . " von " . $gesamtanzahl; ?> Schülern gewählt.
+          Es ha<?php echo $gesamtanzahl > 1 ? "ben" : "t" ?> nur <?php echo count($wahlen) . " von " . $gesamtanzahl; ?> Schülern gewählt. Einträge <a href="javascript: $('#schuelerModal').modal('show');" class="alert-link">Auflisten</a>.
           <?php if ($config["Stage"] < 4) { ?>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -141,7 +141,7 @@ $errorIncluded = false;
         $showErrorModal = true;
         ?>
         <div class="alert alert-warning" role="alert">
-          Die von allen Projekten summierte Mindestteilnehmeranzahl ist größer der Gesamtschülerzahl. Falls nicht Projekte nicht stattfinden sollen, passen Sie bitte die Mindestteilnehmeranzahl an.
+          Die von allen Projekten summierte Mindestteilnehmeranzahl ist größer der Gesamtschülerzahl. Falls nicht Projekte nicht stattfinden sollen, passen Sie bitte die Mindestteilnehmeranzahl an. Einträge <a href="javascript: $('#projekteModal').modal('show');" class="alert-link">Auflisten</a>.
         </div><?php
       }
       if ($pMax < $gesamtanzahl) {
@@ -149,7 +149,7 @@ $errorIncluded = false;
         $errorIncluded = true;
         ?>
         <div class="alert alert-danger" role="alert">
-          Die von allen Projekten summierte Maximalteilnehmeranzahl ist kleiner der Gesamtschülerzahl. Bitte erweitern sie die Maximalzahl bestehender Projekte oder fügen sie weitere Projekte hinzu.
+          Die von allen Projekten summierte Maximalteilnehmeranzahl ist kleiner der Gesamtschülerzahl. Bitte erweitern sie die Maximalzahl bestehender Projekte oder fügen sie weitere Projekte hinzu. Einträge <a href="javascript: $('#projekteModal').modal('show');" class="alert-link">Auflisten</a>.
         </div><?php
       }
 
@@ -158,7 +158,7 @@ $errorIncluded = false;
         if ($stufen[$i]["min"] > $stufen[$i]["students"]) {
           ?>
           <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            Die von allen Projekten summierte Mindestteilnehmeranzahl für die <strong>Klassenstufe <?php echo $i; ?></strong> ist größer der Schüleranzahl der Stufe. Dies kann zu Problemen führen.
+            Die von allen Projekten summierte Mindestteilnehmeranzahl für die <strong>Klassenstufe <?php echo $i; ?></strong> ist größer der Schüleranzahl der Stufe. Dies kann zu Problemen führen. Einträge <a href="javascript: $('#projekteModal').modal('show');" class="alert-link">Auflisten</a>.
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -168,7 +168,7 @@ $errorIncluded = false;
           $errorIncluded = true;
           ?>
           <div class="alert alert-danger" role="alert">
-            Die von allen Projekten summierte Maximalteilnehmeranzahl für die <strong>Klassenstufe <?php echo $i; ?></strong> ist kleiner der Schüleranzahl der Stufe. Bitte erweitern sie die Maximalzahl bestehender Projekte oder fügen sie weitere Projekte hinzu.
+            Die von allen Projekten summierte Maximalteilnehmeranzahl für die <strong>Klassenstufe <?php echo $i; ?></strong> ist kleiner der Schüleranzahl der Stufe. Bitte erweitern sie die Maximalzahl bestehender Projekte oder fügen sie weitere Projekte hinzu. Einträge <a href="javascript: $('#projekteModal').modal('show');" class="alert-link">Auflisten</a>.
           </div><?php
         }
       }
