@@ -3,3 +3,12 @@
     display: block !important;
   }
 }
+
+@media (max-width: 1100px) {
+  #schuelerModal table {
+    display: block !important;
+  }
+}
+#schuelerModal table {
+  max-height: 60vh;
+}

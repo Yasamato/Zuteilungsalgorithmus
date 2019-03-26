@@ -492,7 +492,7 @@ $errorIncluded = false;
 </div>
 
 <!-- Schüler-Modal -->
-<div class="modal fade" id="schuelerModal" tabindex="-1" role="dialog" aria-labelledby="schuelerModalLabel" aria-hidden="true">
+<div class="modal fade" id="schuelerModal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content bg-dark">
 
@@ -519,6 +519,7 @@ $errorIncluded = false;
               <th class="sticky-top">Nachname</th>
               <th class="sticky-top">Wahl</th>
               <th class="sticky-top">Ergebnis</th>
+              <th class="sticky-top">Bearbeiten</th>
             </tr>
           </thead>
           <tbody><?php
@@ -536,7 +537,7 @@ $errorIncluded = false;
                 continue;
               }
               echo '
-            <tr>
+            <tr uid="' . $student["uid"] . '">
               <td>' . $student["stufe"] . '</td>
               <td>' . $student["klasse"] . '</td>
               <td>' . $student["vorname"] . '</td>
@@ -583,16 +584,42 @@ $errorIncluded = false;
                   }
                 }
                 echo '
-                <a href="javascript:;" onclick="showProjektInfoModal(projekte[' . $p . ']);">
+                <input type="hidden" value="' . $student["ergebnis"] . '">
+                <a href="javascript: showProjektInfoModal(projekte[' . $p . ']);">
                   ' . getProjektInfo($student["ergebnis"])["name"] . '
                 </a>';
               }
-              echo '
+              echo '</td>
+              <td class="navbar-dark">
+                <button class="navbar-toggler" type="button" onclick="javascript: editStudentModal(this);">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
               </td>
             </tr>';
             }
           }
           ?>
+          <script>
+            function editStudentModal(student) {
+              // button -> td -> tr
+              var student = student.parentNode.parentNode;
+              $("#schuelerEditForm").children("div.form-group")[0].children[1].value = $(student).attr("uid"); //uid
+              $("#schuelerEditForm").children("div.form-group")[1].children[1].value = $(student).children()[0].innerHTML; //stufe
+              $("#schuelerEditForm").children("div.form-group")[2].children[1].value = $(student).children()[1].innerHTML; //klasse
+              $("#schuelerEditForm").children("div.form-group")[3].children[1].value = $(student).children()[2].innerHTML; //vorname
+              $("#schuelerEditForm").children("div.form-group")[4].children[1].value = $(student).children()[3].innerHTML; //nachname
+              if ($(student).children()[5].innerHTML == "N/A") {
+                $("#schuelerEditForm").children("div.form-group")[5].appendChild($("<small class='form-text text-muted'>Nicht verfügbar</small>")[0]);
+              }
+              else {
+                console.log($(student).children()[5]);
+                $("#schuelerEditForm").children("div.form-group")[5].children[1].value = $(student).children()[5].children[0].value; //ergebnis
+                $("#schuelerEditForm").children("div.form-group")[5].appendChild($("<a href='javascript: ;' class='btn btn-primary'>Nicht verfügbar</a>")[0]);
+              }
+              $("#schuelerDeleteForm").children()[1].value = $(student).attr("uid");
+              $("#schuelerEditModal").modal("show");
+            }
+          </script>
 
           </tbody>
         </table>
@@ -600,6 +627,67 @@ $errorIncluded = false;
 
       <div class="modal-footer">
         <button onclick="javascript: window.open('printPDF.php?print=students&klasse=all');" type="button" class="btn btn-secondary">Liste drucken</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Schüler-Edit-Modal -->
+<div class="modal fade" id="schuelerEditModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content bg-dark">
+
+      <div class="modal-header">
+        <h4 class="modal-title">Schülereintrag bearbeiten</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span class="closebutton" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
+        <br>
+        <small class="text-muted">
+          Schülereinträge können hier editiert werden, wobei die Wahl selbst nicht beeinflusst werden kann.
+          Um die Wahl zu ändern, lassen sie den Schüler bitte erneut wählen oder tragen diesen direkt in der Zwangszuteilungs-Tabelle ein.
+        </small>
+        <form method="post" id="schuelerEditForm">
+          <div class="form-group">
+            <label>U-ID</label>
+            <input type="text" class="form-control" name="uid" placeholder="U-ID" required>
+          </div>
+          <div class="form-group">
+            <label>Stufe</label>
+            <input type="number" class="form-control" min="<?php echo CONFIG["minStufe"]; ?>" max="<?php echo CONFIG["maxStufe"]; ?>" name="stufe" placeholder="Stufe" required>
+          </div>
+          <div class="form-group">
+            <label>Klasse</label>
+            <input type="text" class="form-control" name="klasse" placeholder="Klasse" required>
+          </div>
+          <div class="form-group">
+            <label>Vorname</label>
+            <input type="text" class="form-control" name="vorname" placeholder="Vorname" required>
+          </div>
+          <div class="form-group">
+            <label>Nachname</label>
+            <input type="text" class="form-control" name="nachname" placeholder="Nachname" required>
+          </div>
+          <div class="form-group">
+            <label>Ergebnis</label>
+            <input type="hidden" name="ergebnis" required>
+          </div>
+          <input type="hidden" name="action" value="editWahleintrag">
+        </form>
+      </div>
+
+      <form method="post" id="schuelerDeleteForm">
+        <input type="hidden" name="action" value="deleteWahleintrag">
+        <input type="hidden" name="studentID">
+      </form>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" onclick="javascript: $('#schuelerDeleteForm').submit();">Löschen</button>
+        <button type="button" class="btn btn-success" onclick="javascript: $('#schuelerEditForm').submit();">Änderung speichern</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
       </div>
     </div>

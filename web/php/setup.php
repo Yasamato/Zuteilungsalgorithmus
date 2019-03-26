@@ -192,7 +192,7 @@ uasort($klassen, function ($a, $b) {
 foreach ($klassen as $studentlist) {
   usort($studentlist, function ($a, $b) {
     // dummy-Wert
-    if (empty($a["nachname"])) {
+    if (empty($a["nachname"]) || empty($b["nachname"])) {
       return 0;
     }
 
