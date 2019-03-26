@@ -65,27 +65,27 @@
 				break;
 			case "wahl":
 				require("php/wahl.php");
-				$waittime = 1;
+				$waittime = 2;
 				break;
 			case "editWahleintrag":
 				require("php/editWahleintrag.php");
-				$waittime = 3;
+				$waittime = 2;
 				break;
 			case "deleteWahleintrag":
 				require("php/deleteWahleintrag.php");
-				$waittime = 3;
+				$waittime = 2;
 				break;
 			case "updateConfiguration":
 				require("php/dashboard.php");
-				$waittime = 3;
+				$waittime = 2;
 				break;
 			case "updateStudentsInKlassen":
 				require("php/klassen.php");
-				$waittime = 3;
+				$waittime = 2;
 				break;
 			case "updateZwangszuteilung":
 				require("php/zwangszuteilung.php");
-				$waittime = 3;
+				$waittime = 2;
 				break;
 			case "runZuteilungsalgorithmus":
 				require("php/run.php");

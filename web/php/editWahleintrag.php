@@ -22,16 +22,28 @@ if (isLogin() && $_SESSION["benutzer"]["typ"] == "admin") {
             break;
           }
         }
-        $data = [
-          $_POST["uid"],
-          $_POST["stufe"],
-          $_POST["klasse"],
-          $_POST["vorname"],
-          $_POST["nachname"],
-          $gewaehlt,
-          $_POST["ergebnis"]
-        ];
-        if (dbSetRow("../data/wahl.csv", "uid", $_POST["uid"], $data) === false) {
+        if ($zugeteilt) {
+          $data = [
+            $_POST["uid"],
+            $_POST["vorname"],
+            $_POST["nachname"],
+            $_POST["stufe"],
+            $_POST["klasse"],
+            $_POST["ergebnis"]
+          ];
+        }
+        else {
+          $data = [
+            $_POST["uid"],
+            $_POST["vorname"],
+            $_POST["nachname"],
+            $_POST["stufe"],
+            $_POST["klasse"],
+            $gewaehlt,
+            $_POST["ergebnis"]
+          ];
+        }
+        if ((dbSetRow("../data/" . ($zugeteilt ? "zwangszuteilung.csv" : "wahl.csv"), "uid", $_POST["uid"], $data)) === false) {
           alert("Die Daten konnten nicht gespeichert werden: '" . json_encode($data) . "'");
         }
         else {
