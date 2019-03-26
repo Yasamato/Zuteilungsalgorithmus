@@ -67,6 +67,10 @@
 				require("php/wahl.php");
 				$waittime = 1;
 				break;
+			case "editWahleintrag":
+				require("php/editWahleintrag.php");
+				$waittime = 3;
+				break;
 			case "deleteWahleintrag":
 				require("php/deleteWahleintrag.php");
 				$waittime = 3;

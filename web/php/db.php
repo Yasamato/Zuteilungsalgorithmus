@@ -161,7 +161,6 @@
 	// ersetzt einen kompletten Eintrag
 	function dbSetRow($path, $search, $searchNeedle, $newRow) {
 		$data = dbRead($path);
-		$newRow = newlineRemove($newRow);
 
 		foreach ($data as $key => $entry) {
 			if ($entry[$search] == $searchNeedle) {

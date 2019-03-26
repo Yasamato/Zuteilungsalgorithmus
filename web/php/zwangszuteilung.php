@@ -46,7 +46,12 @@ if (isLogin() && $_SESSION["benutzer"]["typ"] == "admin") {
           "projekt" => $_POST["projekt"][$i]
         ]);
       }
-      dbWrite("../data/zwangszuteilung.csv", $data);
+      if (dbWrite("../data/zwangszuteilung.csv", $data) === false) {
+        alert("Die Daten konnten nicht gespeichert werden: '" . json_encode($data) . "'");
+      }
+      else {
+        alert("Änderungen erfolgreich gespeichert");
+      }
     }
     else {
       alert("Ungültige Angaben: Anzahl der Angaben stimmen nicht überein!");
