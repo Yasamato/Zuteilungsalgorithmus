@@ -22,7 +22,7 @@
 		if (($fh = fopen($path, "w")) !== false) {
 			if ($head == "") {
 				$head = [];
-				foreach ($data[0] as $key => $value) {
+				foreach ((empty($data[0]) ? $data[1] : $data[0]) as $key => $value) {
 					array_push($head, $key);
 				}
 			}
@@ -57,6 +57,7 @@
 	function dbRead($path) {
 		if (!file_exists($path)) {
 			error_log("Die Datei " . $path . " konnte nicht gefunden werden", 0, "../data/error.log");
+			die("Die Datei " . $path . " konnte nicht gefunden werden, kontaktiere einen Admin damit dieser das Dateisystem überprüfen kann.");
 			return false;
 		}
 
@@ -109,6 +110,10 @@
 			}
 			else {
 				$line = explode(CONFIG["dbElementSeperator"], $line);
+				if (count($line) != count($head)) {
+					error_log("Korrumpierte Zeile in der Datei " . $path . " gefunde. ignoriere...", 0, "../data/error.log");
+					continue;
+				}
 				$parsedEntry = [];
 				$i = 0;
 				foreach ($line as $element) {
@@ -172,13 +177,16 @@
 
 	// entfernt einen ganzen Eintrag
 	function dbRemove($path, $search, $searchNeedle) {
-		$data = dbRead($path);
+		if (($data = dbRead($path)) === false) {
+			return false;
+		}
 
 		$removed = false;
 		foreach ($data as $key => $entry) {
 			if ($entry[$search] == $searchNeedle) {
 				unset($data[$key]);
 				$removed = true;
+				break;
 			}
 		}
 

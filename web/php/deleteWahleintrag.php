@@ -21,8 +21,8 @@ if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
       alert("Zu löschenden Schüler nicht gefunden");
     }
     else {
-      if (dbRemove("../data/" . ($zwangszugeteilt ? "zwangszuteilung.csv" : "wahlen.csv"), "uid", $_POST["studentID"])) {
-        alert("Der Schüler '" . $student["name"] . "' mit der ID " . $_POST["studentID"] . " wurde erfolgreich gelöscht");
+      if (dbRemove("../data/" . ($zwangszugeteilt ? "zwangszuteilung.csv" : "wahl.csv"), "uid", $_POST["studentID"])) {
+        alert("Der Schüler '" . $student["vorname"] . " " . $student["nachname"] . "' mit der ID " . $_POST["studentID"] . " wurde erfolgreich gelöscht");
       }
       else {
         error_log("Löschen des Schülereintrags mit der ID " . $_POST["studentID"] . " ist fehlgeschlagen.", 0, "../data/error.log");
