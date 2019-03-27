@@ -180,7 +180,7 @@
 			}
 			// Aufbereiten der Breiten
 			$widths = [
-				10, 40, 40, 100
+				12, 39, 39, 100
 			];
 			// Tabelle
 			$this->ColoredTable($header, $dataToPrint, $widths);
