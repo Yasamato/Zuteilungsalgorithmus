@@ -76,14 +76,14 @@
 	}
 }
 
-@media (max-width: 750px) {
+@media (max-width: 840px) {
 	.card .card-body {
 		padding: 0.3rem !important;
 	}
 	.card .card-body h5 {
 		font-size: 0.7rem !important;
 	}
-	.card .card-body a{
+	.card .card-body a {
 		padding: 0.188rem 0.45rem !important;
 	}
 	.card.projekt .card-body a {
@@ -91,12 +91,10 @@
 	}
 	#wahlliste th, #wahlliste td {
 		font-size: 0.7rem !important;
-		padding: 0.188rem 0.45rem !important;
-	}
-	#wahlliste .btn-group .btn {
-		padding: 0.188rem 0.45rem !important;
+		padding: 0.1rem 0.2rem !important;
 	}
 	#wahlliste .btn-group .btn {
 		font-size: 0.7rem !important;
+		padding: 0.1rem 0.25rem !important;
 	}
 }
