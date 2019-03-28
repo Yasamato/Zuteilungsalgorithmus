@@ -14,21 +14,21 @@ if (isLogin() && $_SESSION["benutzer"]["typ"] == "admin") {
           break;
         }
       }
-      if (!empty($gewaehlt)) {
-        $zugeteilt = false;
-        foreach ($zwangszuteilung as $zuteilung) {
-          if ($zuteilung["uid"] == $_POST["uid"]) {
-            $zugeteilt = true;
-            break;
-          }
+      $zugeteilt = false;
+      foreach ($zwangszuteilung as $zuteilung) {
+        if ($zuteilung["uid"] == $_POST["uid"]) {
+          $zugeteilt = true;
+          break;
         }
+      }
+      if (!empty($gewaehlt) || $zugeteilt) {
         if ($zugeteilt) {
           $data = [
             $_POST["uid"],
-            $_POST["vorname"],
-            $_POST["nachname"],
             $_POST["stufe"],
             $_POST["klasse"],
+            $_POST["vorname"],
+            $_POST["nachname"],
             $_POST["ergebnis"]
           ];
         }

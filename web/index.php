@@ -75,6 +75,10 @@
 				require("php/deleteWahleintrag.php");
 				$waittime = 1;
 				break;
+			case "deleteProjektzuteilung":
+				require("php/deleteProjektzuteilung.php");
+				$waittime = 1;
+				break;
 			case "updateConfiguration":
 				require("php/dashboard.php");
 				$waittime = 1;

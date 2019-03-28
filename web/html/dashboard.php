@@ -202,6 +202,8 @@ $errorIncluded = false;
     </div>
     <?php
   }
+
+  // Auswertung
   if ($config["Stage"] == 4) {
   ?>
   <div class="alert alert-<?php echo $showErrorModal ? "danger" : "success"; ?>" role="alert">
@@ -478,7 +480,7 @@ $errorIncluded = false;
           foreach ($projekte as $key => $projekt) {
             echo '
             <tr>
-              <td><a href="javascript:;" class="btn btn-success" onclick="showProjektInfoModal(projekte[' . $key . ']);">Info</a> ' . $projekt["name"] . '</td>
+              <td><a href="javascript:;" onclick="showProjektInfoModal(projekte[' . $key . ']);">' . $projekt["name"] . '</a></td>
               <td>' . $projekt["betreuer"] . '</td>
               <td>' . $projekt["minKlasse"] . '-' . $projekt["maxKlasse"] . '</td>
               <td>' . $projekt["minPlatz"] . '-' . $projekt["maxPlatz"] . '</td>
@@ -581,21 +583,21 @@ $errorIncluded = false;
               </td>
               <td>';
 
-              if (empty($student["ergebnis"])) {
+              if (empty($student["projekt"])) {
                 echo "N/A";
               }
               else {
                 $p = null;
                 foreach ($projekte as $key => $projekt) {
-                  if ($projekt["id"] == $student["ergebnis"]) {
+                  if ($projekt["id"] == $student["projekt"]) {
                     $p = $key;
                     break;
                   }
                 }
                 echo '
-                <input type="hidden" value="' . $student["ergebnis"] . '">
+                <input type="hidden" value="' . $student["projekt"] . '">
                 <a href="javascript: showProjektInfoModal(projekte[' . $p . ']);">
-                  ' . getProjektInfo($projekte, $student["ergebnis"])["name"] . '
+                  ' . getProjektInfo($projekte, $student["projekt"])["name"] . '
                 </a>';
               }
               echo '</td>
@@ -618,14 +620,26 @@ $errorIncluded = false;
               $("#schuelerEditForm").children("div.form-group")[3].children[1].value = $(student).children()[2].innerHTML; //vorname
               $("#schuelerEditForm").children("div.form-group")[4].children[1].value = $(student).children()[3].innerHTML; //nachname
               if ($(student).children()[5].innerHTML == "N/A") {
-                $("#schuelerEditForm").children("div.form-group")[5].appendChild($("<small class='form-text text-muted'>Nicht verfügbar</small>")[0]);
+                $("#schuelerEditForm .projekt-input").html(`
+                  <input type="hidden" name="ergebnis">
+                  <button type="button" onclick="javascript: changeProjektzuteilung(this);" class="btn btn-warning">
+                    Projekt zuteilen
+                  </button>`);
               }
               else {
                 console.log($(student).children()[5]);
-                $("#schuelerEditForm").children("div.form-group")[5].children[1].value = $(student).children()[5].children[0].value; //ergebnis
-                $("#schuelerEditForm").children("div.form-group")[5].appendChild($("<a href='javascript: ;' class='btn btn-primary'>Nicht verfügbar</a>")[0]);
+                $("#schuelerEditForm .projekt-input").html(`
+                  <input type="hidden" name="ergebnis" required value="` + $(student).children()[5].children[0].value + `" />
+                  Zuteilung
+                  <button type="button" onclick="javascript: changeProjektzuteilung(this);" class="btn btn-success">
+                    Ändern
+                  </button>
+                  <button type="button" onclick="javascript: $('#schuelerProjektzuteilungDeleteForm').submit();" class="btn btn-danger">
+                    Löschen
+                  </button>`);
               }
               $("#schuelerDeleteForm").children()[1].value = $(student).attr("uid");
+              $("#schuelerProjektzuteilungDeleteForm").children()[1].value = $(student).attr("uid");
               $("#schuelerEditModal").modal("show");
             }
           </script>
@@ -684,7 +698,7 @@ $errorIncluded = false;
           </div>
           <div class="form-group">
             <label>Ergebnis</label>
-            <input type="hidden" name="ergebnis" required>
+            <div class="projekt-input flex"></div>
           </div>
           <input type="hidden" name="action" value="editWahleintrag">
         </form>
@@ -692,7 +706,11 @@ $errorIncluded = false;
 
       <form method="post" id="schuelerDeleteForm">
         <input type="hidden" name="action" value="deleteWahleintrag">
-        <input type="hidden" name="studentID">
+        <input type="hidden" name="uid">
+      </form>
+      <form method="post" id="schuelerProjektzuteilungDeleteForm">
+        <input type="hidden" name="action" value="deleteProjektzuteilung">
+        <input type="hidden" name="uid">
       </form>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" onclick="javascript: $('#schuelerDeleteForm').submit();">Löschen</button>
@@ -728,7 +746,7 @@ $errorIncluded = false;
             Unten sehen sie einen beispielhaften Eintrag.
             Um einen weiteres Eingabefeld hinzuzufügen, klicken Sie auf den grünen Knopf links unten mit der Beschriftung "Schüler hinzufügen &#10010;".
             Um einen Eintrag zu entfernen betätigen sie das rote Kreuz rechts vom Eintrag.
-            Bitte beachten Sie, dass unvolständige Einträge beim Speichern gelöscht werden.
+            Bitte beachten Sie, dass unvollständige Einträge beim Speichern gelöscht werden und getätigte Änderungen nur übernommen werden bei der Tätigung des "Änderungen speichern"-Knopfes.
           </small>
 
           <table class="table table-dark">
@@ -796,7 +814,7 @@ $errorIncluded = false;
                 </td>
                 <td>
                   <input type="hidden" class="form-control" value="<?php echo $student['projekt']; ?>" name="projekt[]">
-                  <button type="button" class="btn btn-success" onclick="javascript: changeZwangszuteilungProjekt(this);">Ändern</button>
+                  <button type="button" class="btn btn-success" onclick="javascript: changeProjektzuteilung(this);">Ändern</button>
                 </td>
                 <td>
                   <button type="button" class="close text-danger" aria-label="Close" onclick="javascript: removeLine(this);">
@@ -845,7 +863,7 @@ $errorIncluded = false;
               </td>
               <td>
                 <input type="hidden" class="form-control" name="projekt[]">
-                <button type="button" class="btn btn-warning" onclick="javascript: changeZwangszuteilungProjekt(this);">Projekt wählen</button>
+                <button type="button" class="btn btn-warning" onclick="javascript: changeProjektzuteilung(this);">Projekt festlegen</button>
               </td>
               <td>
                 <button type="button" class="close text-danger" aria-label="Close" onclick="javascript: removeLine(this);">
@@ -855,39 +873,43 @@ $errorIncluded = false;
             </tr>`));
           }
 
-          function setZwangszuteilungProjekt(projekt) {
+          function setProjektzuteilung(projekt) {
+            console.log("Changing Projekt");
+            var button = $(".current-open");
+            // btn -> td -> tr -> td -> input
             projekt = projekt.parentNode.parentNode.children[0].children[0].value;
-            $("#zwangszuteilungProjektModal").modal("hide");
-            var button = $("#zwangszuteilungModal .current-open").children()[5];
-            button.children[0].value = projekt;
-            button.children[1].innerHTML = "Ändern";
-            button.children[1].classList.remove("btn-warning");
-            button.children[1].classList.add("btn-success");
-            $("#zwangszuteilungModal tr.current-open").removeClass("current-open");
-            $("#zwangszuteilungProjektModal tbody").html("");
+            $("#editStudentProjektzuteilungModal").modal("hide");
+            button.children("input").val(projekt);
+            button.children("button").first().html("Ändern");
+            button.children("button").first().removeClass("btn-warning");
+            button.children("button").first().addClass("btn-success");
+            $(".current-open").removeClass("current-open");
+            $("#editStudentProjektzuteilungModal tbody").html("");
             zwangszuteilungAppend();
           }
 
-          function changeZwangszuteilungProjekt(student, currentProjekt) {
-            student.parentNode.parentNode.classList.add("current-open");
+          function changeProjektzuteilung(student) {
+            student.parentNode.classList.add("current-open");
+            var input = student.parentNode.children[0];
+            $("#editStudentProjektzuteilungModal tbody").html("");
             for (var i = 0; i < projekte.length; i++) {
-              $("#zwangszuteilungProjektModal tbody").append(`
-              <tr` + (projekte[i]["id"] == student.parentNode.children[0].value ? " class='bg-success'" : "") + `>
+              $("#editStudentProjektzuteilungModal tbody").append(`
+              <tr` + (projekte[i]["id"] == input.value ? " class='bg-success'" : "") + `>
                 <td>
                   <input type="hidden" value="` + projekte[i]["id"] + `">
                   <a href="javascript: showProjektInfoModal(projekte[` + i + `]);">` + projekte[i]["name"] + `</a>
                 </td>
                 <td>` + projekte[i]["betreuer"] + `</td>
                 <td>
-                  <button type="button" onclick="javascript: setZwangszuteilungProjekt(this);" class="btn btn-`
-                  + (projekte[i]["id"] == student.parentNode.children[0].value ? `primary">
+                  <button type="button" onclick="javascript: setProjektzuteilung(this);" class="btn btn-`
+                  + (projekte[i]["id"] == input.value ? `primary">
                     OK` : `success">
                     Setzen`) + `
                   </button>
                 </td>
               </tr>`);
             }
-            $("#zwangszuteilungProjektModal").modal("show");
+            $("#editStudentProjektzuteilungModal").modal("show");
           }
 
           addStudentsInZwangszuteilungInput();
@@ -903,13 +925,13 @@ $errorIncluded = false;
   </div>
 </div>
 
-<!-- Projekt-Zwangszuteilungs-Modal -->
-<div class="modal fade" id="zwangszuteilungProjektModal" tabindex="-1" role="dialog" aria-hidden="true">
+<!-- Projektzuteilungs-Modal -->
+<div class="modal fade" id="editStudentProjektzuteilungModal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
     <div class="modal-content bg-dark">
 
       <div class="modal-header">
-        <h4 class="modal-title">Projekte der Zwangszuteilung</h4>
+        <h4 class="modal-title">Projektwahl für eine Zwangszuteilung</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span class="closebutton" aria-hidden="true">&times;</span>
         </button>
@@ -927,6 +949,9 @@ $errorIncluded = false;
           </thead>
           <tbody></tbody>
         </table>
+      </div>
+
+      <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Zurück</button>
       </div>
     </div>
@@ -1234,7 +1259,7 @@ $errorIncluded = false;
       <div class="card shadow bg-dark w-100 p-3 border border-warning text-warning" style="border: 3px solid !important;">
         <div class="card-body">
           <h5 class="card-title"><?php echo count($zwangszuteilung); ?></h5>
-          <p class="card-text">Schüler wurden einem Projekt zugeteilt.</p>
+          <p class="card-text">Schüler wurden vorab einem Projekt zugeteilt.</p>
           <div class="btn-group btn-group-toggle" data-toggle="buttons">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#zwangszuteilungModal">
               Auflisten
