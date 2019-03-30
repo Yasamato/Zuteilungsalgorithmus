@@ -157,7 +157,7 @@ $errorIncluded = false;
       }
 
       // Platz pro Stufe
-      for ($i = 5; $i <= 12; $i++) {
+      for ($i = CONFIG["minStufe"]; $i <= CONFIG["maxStufe"]; $i++) {
         if ($stufen[$i]["min"] > $stufen[$i]["students"] * (1 - $buffer)) {
           $showErrorModal = true;
           ?>
@@ -177,6 +177,23 @@ $errorIncluded = false;
           <div class="alert alert-<?php echo ($stufen[$i]["max"] < $stufen[$i]["students"] ? "danger" : "warning"); ?>" role="alert">
             Die von allen Projekten summierte Maximalteilnehmeranzahl für die <strong>Klassenstufe <?php echo $i; ?></strong> ist <?php echo ($stufen[$i]["max"] < $stufen[$i]["students"] ? "kleiner als" : "zu klein für"); ?> die Schüleranzahl der Stufe. Bitte erweitern sie die Maximalzahl bestehender Projekte <a href="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> oder fügen sie weitere Projekte <a href="javascript: window.location.href = '?site=create';" class="alert-link">hier</a> hinzu.
           </div><?php
+        }
+      }
+
+      if ($config["Stage"] > 4) {
+        foreach ($projekte as $key => $projekt) {
+          if (count($projekt["teilnehmer"]) < $projekt["minPlatz"]) {
+          ?>
+          <div class="alert alert-warning" role="alert">
+            Das <a href="javasript: showProjektInfoModal(projekte['<?php echo $key;?>']);" class="alert-link">Projekt <strong>'<?php echo $projekt["name"]; ?>'</strong></a> betreut von '<?php echo $projekt["betreuer"]; ?>' kann aufgrund mangelnder Teilnehmerzahl nicht stattfinden. Es wurden <?php echo count($projekt["teilnehmer"]); ?> Schüler dem Projekt zugewiesen. Die Liste kann <a href="printPDF?print=projekt&projekt=<?php echo $projekt["id"]; ?>" class="alert-link">hier</a> eingesehen werden.
+          </div><?php
+          }
+          elseif (count($projekt["teilnehmer"]) > $projekt["maxPlatz"]) {
+          ?>
+          <div class="alert alert-danger" role="alert">
+            Das <a href="javasript: showProjektInfoModal(projekte['<?php echo $key;?>']);" class="alert-link">Projekt <strong>'<?php echo $projekt["name"]; ?>'</strong></a> betreut von '<?php echo $projekt["betreuer"]; ?>' hat eine höhere Teilnehmerzahl als erlaubt. Es wurden <?php echo count($projekt["teilnehmer"]); ?> Schüler dem Projekt zugewiesen. Die Liste kann <a href="printPDF?print=projekt&projekt=<?php echo $projekt["id"]; ?>" class="alert-link">hier</a> eingesehen werden.
+          </div><?php
+          }
         }
       }
       ?>
@@ -261,7 +278,8 @@ $errorIncluded = false;
               		'<option value="1">#2 Projekte können eingereicht werden</option>',
               		'<option value="2">#3 Projekt-Einreichung geschlossen</option>',
               		'<option value="3">#4 Wahl-Interface geöffnet</option>',
-              		'<option value="4">#5 Wahlen abgeschlossen</option>'
+              		'<option value="4">#5 Wahlen abgeschlossen</option>',
+              		'<option value="5">#6 Auswertung abgeschlossen</option>'
               	];
               	echo $stages[$config["Stage"]];
               	for ($i = 0; $i < 5; $i++) {
@@ -276,11 +294,24 @@ $errorIncluded = false;
           </div>
           <small id="stageHelper" class="form-text text-muted">
             <ul>
-              <li>"Nicht veröffentlicht": Keiner hat Zugriff außer der Admin</li>
-              <li>"Projekte können eingereicht werden": Änderungen an den Einstellungen zu den Projekten können nicht mehr getätigt werden, jedoch die Hinweise vom Admin verändert werden sowie über das Lehrer-Interface Projekte eingesehen, bearbeitet und eingereicht werden</li>
-              <li>"Projekt-Einreichung geschlossen": Es können keine weiteren Projekte mehr von den Lehrern eingereicht werden. Editierungen bereits bestehender Projekte ist weiterhin möglich durch den Admin sowie die Lehrer</li>
-              <li>"Wahl-Interface geöffnet": Die Schüler können sich nun mit ihren Login-Daten anmelden und aus ihrem Projekt-Pool ihre Wahl wählen. Die Lehrerschaft hat nun nur noch Zugriff auf die Liste mit den Projekten, kann diese noch bearbeiten, jedoch nicht mehr einreichen (nur der Admin)</li>
-              <li>"Wahl abgeschlossen": Der Schüler-Zugriff wird geschlossen, Lehrer können die Liste ansehen. Änderungen können nur noch händisch von einem Admin getätigt werden. Die Auswertung wird durch einen Admin durchgeführt</li>
+              <li>
+                "Nicht veröffentlicht": Keiner hat Zugriff außer der Admin
+              </li>
+              <li>
+                "Projekte können eingereicht werden": Änderungen an den Einstellungen zu den Projekten können nicht mehr getätigt werden, jedoch die Hinweise vom Admin verändert werden sowie über das Lehrer-Interface Projekte eingesehen, bearbeitet und eingereicht werden
+              </li>
+              <li>
+                "Projekt-Einreichung geschlossen": Es können keine weiteren Projekte mehr von den Lehrern eingereicht werden. Editierungen bereits bestehender Projekte ist weiterhin möglich durch den Admin sowie die Lehrer
+              </li>
+              <li>
+                "Wahl-Interface geöffnet": Die Schüler können sich nun mit ihren Login-Daten anmelden und aus ihrem Projekt-Pool ihre Wahl wählen. Die Lehrerschaft hat nun nur noch Zugriff auf die Liste mit den Projekten, kann diese noch bearbeiten, jedoch nicht mehr einreichen (nur der Admin)
+              </li>
+              <li>
+                "Wahl abgeschlossen": Der Schüler-Zugriff wird geschlossen, Lehrer können die Liste ansehen. Änderungen können nur noch händisch von einem Admin getätigt werden. Die Auswertung wird durch einen Admin durchgeführt
+              </li>
+              <li>
+                "Auswertung abgeschlossen": Diese Phase kann nicht ausgewählt werden, sondern wird automatisch erreicht mit der fertigen Zuteilung durch den Zuteilungsalgorithmus, welcher durch den Admin ausgelöst werden muss
+              </li>
             </ul>
           </small>
           <h5>Klassendatensätze</h5>
@@ -480,7 +511,7 @@ $errorIncluded = false;
           foreach ($projekte as $key => $projekt) {
             echo '
             <tr>
-              <td><a href="javascript:;" onclick="showProjektInfoModal(projekte[' . $key . ']);">' . $projekt["name"] . '</a></td>
+              <td><a href="javascript:;" onclick="javasript: showProjektInfoModal(projekte[' . $key . ']);">' . $projekt["name"] . '</a></td>
               <td>' . $projekt["betreuer"] . '</td>
               <td>' . $projekt["minKlasse"] . '-' . $projekt["maxKlasse"] . '</td>
               <td>' . $projekt["minPlatz"] . '-' . $projekt["maxPlatz"] . '</td>
