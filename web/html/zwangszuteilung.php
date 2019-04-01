@@ -14,7 +14,7 @@
 				?>
 				<p>
 					Aufgrund einer Zwangszuteilung, kannst du keine Wahl tätigen.
-					Du bist <a href="javascript: showProjektInfoModal(projekte[<?php echo $key; ?>]);;">diesem Projekt</a> zugeteilt.
+					Du bist <a href="javascript: ;" onclick="javascript: showProjektInfoModal(projekte[<?php echo $key; ?>]);;">diesem Projekt</a> zugeteilt.
 					Bei Fragen und Problemen bitte an den Zuständigen wenden
 				</p>
 			</div>
