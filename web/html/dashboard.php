@@ -152,7 +152,7 @@ $errorIncluded = false;
         }
         ?>
         <div class="alert alert-<?php echo ($pMax < $gesamtanzahl ? "danger" : "warning"); ?>" role="alert">
-          Die von allen Projekten summierte Maximalteilnehmeranzahl ist <?php echo ($pMax < $gesamtanzahl ? "kleiner als" : "zu klein für"); ?> die Gesamtschülerzahl. Bitte erweitern sie die Maximalzahl bestehender Projekte <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> oder fügen sie weitere Projekte <a href="javascript: ;" onclick="javascript: window.location.href = '?site=create';" class="alert-link">hier</a> hinzu.
+          Die von allen Projekten summierte Maximalteilnehmeranzahl ist <?php echo ($pMax < $gesamtanzahl ? "kleiner als die" : " liegt nur wenig über der"); ?> Gesamtschülerzahl. Dies kann zu Problemen führen. Bitte erweitern sie die Maximalzahl bestehender Projekte <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> oder fügen sie weitere Projekte <a href="javascript: ;" onclick="javascript: window.location.href = '?site=create';" class="alert-link">hier</a> hinzu.
         </div><?php
       }
 
@@ -175,7 +175,7 @@ $errorIncluded = false;
           }
           ?>
           <div class="alert alert-<?php echo ($stufen[$i]["max"] < $stufen[$i]["students"] ? "danger" : "warning"); ?>" role="alert">
-            Die von allen Projekten summierte Maximalteilnehmeranzahl für die <strong>Klassenstufe <?php echo $i; ?></strong> ist <?php echo ($stufen[$i]["max"] < $stufen[$i]["students"] ? "kleiner als" : "zu klein für"); ?> die Schüleranzahl der Stufe. Bitte erweitern sie die Maximalzahl bestehender Projekte <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> oder fügen sie weitere Projekte <a href="javascript: ;" onclick="javascript: window.location.href = '?site=create';" class="alert-link">hier</a> hinzu.
+            Die von allen Projekten summierte Maximalteilnehmeranzahl für die <strong>Klassenstufe <?php echo $i; ?></strong> ist <?php echo ($stufen[$i]["max"] < $stufen[$i]["students"] ? "kleiner als die" : " liegt nur wenig über der"); ?> Schüleranzahl der Stufe. Dies kann zu Problemen führen. Bitte erweitern sie die Maximalzahl bestehender Projekte <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> oder fügen sie weitere Projekte <a href="javascript: ;" onclick="javascript: window.location.href = '?site=create';" class="alert-link">hier</a> hinzu.
           </div><?php
         }
       }
@@ -1248,7 +1248,7 @@ $errorIncluded = false;
         else {
           ?>
           <h5 class="card-title"><?php echo $klassenFertig; ?> von <?php echo count($klassenliste); ?></h5>
-          <p class="card-text">Klassen haben bereits vollständig gewählt.</p>
+          <p class="card-text">Klassen haben<?php echo $config["Stage"] > 3 ? "" : " bereits"; ?> vollständig gewählt.</p>
           <?php
         }
         ?>
@@ -1275,7 +1275,7 @@ $errorIncluded = false;
         <div class="card-body">
           <h5 class="card-title"><?php echo count($wahlen); ?> von <?php echo $gesamtanzahl; ?>
           </h5>
-          <p class="card-text">Schüler haben schon gewählt</p>
+          <p class="card-text">Schüler haben<?php echo $config["Stage"] > 3 ? "" : " schon"; ?> gewählt</p>
           <!-- Button trigger modal -->
           <div class="btn-group btn-group-toggle" data-toggle="buttons">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#schuelerModal">
