@@ -223,9 +223,9 @@ $errorIncluded = false;
   // Auswertung
   if ($config["Stage"] > 3) {
   ?>
-  <div class="alert alert-<?php echo $showErrorModal ? "danger" : "success"; ?>" role="alert">
+  <div class="alert alert-<?php echo $errorIncluded ? "danger" : "success"; ?>" role="alert">
     <?php
-    if ($showErrorModal) {
+    if ($errorIncluded) {
       ?>
     Aufgrund der <a href="javascript:;" onclick="javascript: $('#errorModal').modal('show');" class="alert-link">obigen Fehler</a> kann momentan keine Auswertung durchgeführt werden. Bitte korrigieren sie evtl. fehlende oder inkorrekte Angaben.
       <?php
@@ -234,7 +234,7 @@ $errorIncluded = false;
     ?>
     <h4 class="alert-heading">Zuteilung erfolgreich</h4>
     <p>
-      Die Wahlphase wurde erflogreich abgeschlossen und die Auswertung durch den Zuteilungsalgorithmus wurde vom Admin <?php echo file_exists("../FinishedAlgorithm/prozentzahl")) ? "initialisiert" : "durchgeführt"; ?>.
+      Die Wahlphase wurde erflogreich abgeschlossen und die Auswertung durch den Zuteilungsalgorithmus wurde vom Admin <?php echo file_exists("../FinishedAlgorithm/prozentzahl") ? "initialisiert" : "durchgeführt"; ?>.
     </p>
     <?php if (!file_exists("../FinishedAlgorithm/prozentzahl")) { ?>
     <form method="post">
@@ -1043,10 +1043,8 @@ $errorIncluded = false;
       </div>
 
       <div class="modal-body">
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Zurück</button>
-          <button type="button" class="btn btn-primary" onclick="javascript: $('#updateStudentsInKlassen').submit();">Änderung speichern</button>
-        </div>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Zurück</button>
+        <button type="button" class="btn btn-primary" onclick="javascript: $('#studentsInKlassenForm').submit();">Änderung speichern</button>
         <br>
         <small>
           Hier können Sie die ganzen verschiedenen Klassen eintragen mit ihrer Schüleranzahl.
@@ -1170,7 +1168,7 @@ $errorIncluded = false;
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" onclick="javascript: $('#updateStudentsInKlassen').submit();">Änderung speichern</button>
+        <button type="button" class="btn btn-primary" onclick="javascript: $('#studentsInKlassenForm').submit();">Änderung speichern</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Zurück</button>
       </div>
 
