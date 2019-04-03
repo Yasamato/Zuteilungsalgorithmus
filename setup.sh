@@ -72,6 +72,8 @@ EOF
 
 sudo chown -R $user:$user data/
 sudo chmod -R $level data/
+sudo chown -R $user:$user FinishedAlgorithm/
+sudo chmod -R $level FinishedAlgorithm/
 
 echo "Fertig"
 echo

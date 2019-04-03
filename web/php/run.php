@@ -1,5 +1,5 @@
 <?php
-if (!isLogin() || $_SESSION['benutzer']['typ'] == "admin") {
+if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
   die("Fehlende Berechtigung");
 }
 
@@ -79,24 +79,43 @@ if ($error
   || $gesamtanzahl != count($wahlen)
   || !empty($nichtEingetrageneKlassen)
   || $klassenFertig != count($klassenliste)
-  || $pMax < $gesamtanzahl
-  || $pMin > $gesamtanzahl) {
+  || $pMax < $gesamtanzahl) {
     alert("Die Bedinungen zur Ausführung des Zuteilungsalgorithmus sind nicht erfüllt.");
 }
 else {
-  // only linux.... drop win support
-  function isRunning($pid){
-      try {
-          $result = shell_exec(sprintf("ps %d", $pid));
-          return count(preg_split("/\n/", $result)) > 2;
-      } catch(Exception $e) {
-        var_dump($e);
-      }
-      return false;
+  if (($fh = fopen("../FinishedAlgorithm/projekte2.csv", "w")) === false) {
+    die("Mangelnde Zugriffsberechtigung auf den Ordner FinishedAlgorithm");
   }
+  foreach ($projekte as $projekt) {
+    fwrite($fh, $projekt["id"] . "," . ($projekt["minPlatz"] - count($projekt["teilnehmer"])) . "," . ($projekt["maxPlatz"] - count($projekt["teilnehmer"])));
+    if ($projekt["id"] != $projekte[count($projekte) - 1]["id"]) {
+      fwrite($fh, "\n");
+    }
+  }
+  fclose($fh);
 
-  // threadsNum nRuns studentsFile projekteFile
-  $cmd = "java -jar ../FinishedAlgorithm/Algorithmus.jar 4 100000 '../FinishedAlgorithm/students.csv' '../FinishedAlgorithm/projekte.csv'";
-  // exec(sprintf("%s > %s 2>&1 & echo $! >> %s", $cmd, $outputfile, $pidfile));
+  if (($fh = fopen("../FinishedAlgorithm/nurSchueler2.csv", "w")) === false) {
+    die("Mangelnde Zugriffsberechtigung auf den Ordner FinishedAlgorithm");
+  }
+  foreach ($wahlen as $wahl) {
+    if (empty($wahl["wahl"])) {
+      continue;
+    }
+    $string = $wahl["uid"] . "," . $wahl["nachname"] . "," . $wahl["vorname"];
+    for ($i = 0; $i < count($wahl["wahl"]) ; $i++) {
+      $string .= "," . $wahl["wahl"][$i];
+    }
+    fwrite($fh, $string);
+    if ($wahl["uid"] != $wahlen[count($wahlen) - 1]["uid"]) {
+      fwrite($fh, "\n");
+    }
+  }
+  fclose($fh);
+
+  $cmd = "java -jar ../FinishedAlgorithm/Algorithmus.jar 4 1000000 ../FinishedAlgorithm/projekte.csv ,ImM; ../FinishedAlgorithm/nurSchueler.csv ,KNV1234";
+  $outputfile = "../data/algorithmus.log";
+  $pidfile = "../data/alorithmus.pid";
+  //exec(sprintf("%s > %s 2>&1 & echo $! >> %s", $cmd, $outputfile, $pidfile));
+  die("");
 }
 ?>
