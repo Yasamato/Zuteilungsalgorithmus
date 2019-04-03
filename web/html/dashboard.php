@@ -208,27 +208,68 @@ $errorIncluded = false;
   if ($showErrorModal && $errorIncluded) {
     ?>
     <div class="alert alert-danger" role="alert">
-      Es sind Fehler aufgetreten. <a href="javascript: ;" onclick="javascript: $('#errorModal').modal('show');" class="alert-link">Details</a>.
+      Es sind Fehler aufgetreten. <a href="javascript:;" onclick="javascript: $('#errorModal').modal('show');" class="alert-link">Details</a>.
     </div>
     <?php
   }
   elseif ($showErrorModal) {
     ?>
     <div class="alert alert-warning" role="alert">
-      Es sind Warnmeldungen und Hinweise aufgetreten. <a href="javascript: ;" onclick="javascript: $('#errorModal').modal('show');" class="alert-link">Details</a>.
+      Es sind Warnmeldungen und Hinweise aufgetreten. <a href="javascript:;" onclick="javascript: $('#errorModal').modal('show');" class="alert-link">Details</a>.
     </div>
     <?php
   }
 
   // Auswertung
-  if ($config["Stage"] == 4) {
+  if ($config["Stage"] > 3) {
   ?>
   <div class="alert alert-<?php echo $showErrorModal ? "danger" : "success"; ?>" role="alert">
     <?php
     if ($showErrorModal) {
       ?>
-    Aufgrund der obigen Fehler kann momentan keine Auswertung durchgeführt werden. Bitte korrigieren sie evtl. fehlende oder inkorrekte Angaben.
+    Aufgrund der <a href="javascript:;" onclick="javascript: $('#errorModal').modal('show');" class="alert-link">obigen Fehler</a> kann momentan keine Auswertung durchgeführt werden. Bitte korrigieren sie evtl. fehlende oder inkorrekte Angaben.
       <?php
+    }
+    elseif (file_exists("../data/wahl_old.csv")) {
+    ?>
+    <h4 class="alert-heading">Zuteilung erfolgreich</h4>
+    <p>
+      Die Wahlphase wurde erflogreich abgeschlossen und die Auswertung durch den Zuteilungsalgorithmus wurde vom Admin <?php echo file_exists("../FinishedAlgorithm/prozentzahl")) ? "initialisiert" : "durchgeführt"; ?>.
+    </p>
+    <?php if (!file_exists("../FinishedAlgorithm/prozentzahl")) { ?>
+    <form method="post">
+      <input type="hidden" name="action" value="runZuteilungsalgorithmus">
+      <button type="submit" class="btn btn-primary">
+        Erneut ausführen
+      </a>
+    </form>
+    <?php
+      }
+      else { ?>
+    <div class="progress">
+      <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar"></div>
+    </div>
+    <script>
+      var progressbarCheck = setInterval(function () {
+        $.get("progress.php", function(data, status) {
+          if (status = "success") {
+            console.log(data);
+            data = parseFloat(data) * 100;
+            if (data != 100) {
+              $('.progress-bar').css('width', data + '%').html((Math.round(data * 100) / 100) + "%");
+            } else {
+              $('.progress-bar').css('width', data + '%').html((Math.round(data * 100) / 100) + "%");
+              window.location.reload();
+            }
+          }
+          else {
+            console.log("Progress-fetch failed!!");
+          }
+        });
+      }, 1000);
+    </script>
+    <?php
+      }
     }
     else {
     ?>
@@ -1302,6 +1343,7 @@ $errorIncluded = false;
 
   </div>
 
+  <?php if ($config["Stage"] > 2) { ?>
   <div class="row flex d-flex justify-content-center">
 
     <?php
@@ -1346,5 +1388,6 @@ $errorIncluded = false;
     ?>
 
   </div>
+  <?php } ?>
 
 </div>
