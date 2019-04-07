@@ -104,7 +104,7 @@ else {
       if (empty($wahl["wahl"])) {
         continue;
       }
-      $string = $wahl["uid"] . "," . $wahl["nachname"] . "," . $wahl["vorname"];
+      $string = $wahl["klasse"] . "," . $wahl["nachname"] . "," . $wahl["vorname"];
       for ($i = 0; $i < count($wahl["wahl"]) ; $i++) {
         $string .= "," . $wahl["wahl"][$i];
       }

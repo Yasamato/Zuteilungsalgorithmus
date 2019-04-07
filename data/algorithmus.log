@@ -2,27 +2,12 @@ Lade Projekte
 Projekte geladen!
 Geladene Projekte: 35
 Lade schueler
-Fehler bei int-cast in Zeile 17
-Fehler bei int-cast in Zeile 18
-Fehler bei int-cast in Zeile 23
-Fehler bei int-cast in Zeile 24
-Fehler bei int-cast in Zeile 33
-Fehler bei int-cast in Zeile 36
-Fehler bei int-cast in Zeile 39
-Fehler bei int-cast in Zeile 40
-Fehler bei int-cast in Zeile 47
-Fehler bei int-cast in Zeile 54
-Fehler bei int-cast in Zeile 82
-Fehler bei int-cast in Zeile 93
-Fehler bei int-cast in Zeile 95
-Fehler bei int-cast in Zeile 96
-Fehler bei int-cast in Zeile 113
-Anzahl der Schueler mit korrekter Abgabe, und ohne Sonderprojekt: 101
+Anzahl der Schueler mit korrekter Abgabe, und ohne Sonderprojekt: 116
 Starting Thread 0
 Starting Thread 1
+Running Thread 1
 Running Thread 0
 0.0 % done!
-Running Thread 1
 2.0 % done!
 4.0 % done!
 6.0 % done!
@@ -75,125 +60,137 @@ Running Thread 1
 Thread Thread 1 exiting.
 Thread Thread 0 exiting.
 -------------------------------------------------------------
-Projekt Nr. 5c98b2aa9717a Min. Teilnehmer: 10 Max.Teilnehmer: 30 Anzahl Teilnehmer: 25,Mittlere Klassenstufe: -1.635172324E8 Std: 5.9544552039291576E16
-Schueler chüler(1) Wahl , Klasse:  -595034
-Schueler chüler(1) Wahl , Klasse:  -595963950
-Schueler chüler(1) Wahl , Klasse:  -595614413
-Schueler chüler(1) Wahl , Klasse:  -595344051
-Schueler chüler(1) Wahl , Klasse:  -59550514
-Schueler chüler(1) Wahl , Klasse:  -5958748
-Schueler chüler(1) Wahl , Klasse:  -59565295
-Schueler chüler(1) Wahl , Klasse:  -59548
-Schueler chüler(1) Wahl , Klasse:  -59560585
-Schueler chüler(1) Wahl , Klasse:  -5948779
-Schueler chüler(1) Wahl , Klasse:  -59465347
-Schueler chüler(1) Wahl , Klasse:  -5950554
-Schueler chüler(1) Wahl , Klasse:  -595445537
-Schueler chüler(1) Wahl , Klasse:  -59533057
-Schueler chüler(1) Wahl , Klasse:  -595877861
-Schueler chüler(1) Wahl , Klasse:  -5945981
-Schueler chüler(1) Wahl , Klasse:  -5941861
-Schueler chüler(1) Wahl , Klasse:  -59425780
-Schueler chüler(1) Wahl , Klasse:  -5953533
-Schueler chüler(1) Wahl , Klasse:  -595784
-Schueler chüler(1) Wahl , Klasse:  -595415605
-Schueler chüler(1) Wahl , Klasse:  -59581157
-Schueler Peter(1) Wahl , Klasse:  -594778
-Schueler chüler(3) Wahl , Klasse:  -595186
-Schueler chüler(2) Wahl , Klasse:  -59447872
+Projekt Nr. 5c98b2aa9717a Min. Teilnehmer: 10 Max.Teilnehmer: 30 Anzahl Teilnehmer: 29,Mittlere Klassenstufe: 5.0 Std: 0.0
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler Peter(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(2) Wahl , Klasse:  5
+Schueler chüler(3) Wahl , Klasse:  5
 
 -------------------------------------------------------------
-Projekt Nr. 5c98b55207aa1 Min. Teilnehmer: 3 Max.Teilnehmer: 15 Anzahl Teilnehmer: 5,Mittlere Klassenstufe: -2.621030812E8 Std: 7.4473840385262496E16
-Schueler chüler(1) Wahl , Klasse:  -59534349
-Schueler chüler(1) Wahl , Klasse:  -595235444
-Schueler chüler(1) Wahl , Klasse:  -598486
-Schueler chüler(1) Wahl , Klasse:  -595342604
-Schueler chüler(1) Wahl , Klasse:  -59804523
+Projekt Nr. 5c98b55207aa1 Min. Teilnehmer: 3 Max.Teilnehmer: 15 Anzahl Teilnehmer: 5,Mittlere Klassenstufe: 5.0 Std: 0.0
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
 
 -------------------------------------------------------------
-Projekt Nr. 5c98b970b7847 Min. Teilnehmer: 6 Max.Teilnehmer: 35 Anzahl Teilnehmer: 15,Mittlere Klassenstufe: -2.9106297626666665E8 Std: 8.1513422232982256E16
-Schueler chüler(1) Wahl , Klasse:  -595441196
-Schueler chüler(1) Wahl , Klasse:  -595668061
-Schueler chüler(1) Wahl , Klasse:  -595374452
-Schueler chüler(1) Wahl , Klasse:  -59511293
-Schueler chüler(1) Wahl , Klasse:  -59535
-Schueler chüler(1) Wahl , Klasse:  -595956194
-Schueler chüler(1) Wahl , Klasse:  -595813851
-Schueler chüler(1) Wahl , Klasse:  -5955686
-Schueler chüler(2) Wahl , Klasse:  -59580701
-Schueler chüler(2) Wahl , Klasse:  -595455685
-Schueler chüler(2) Wahl , Klasse:  -59513227
-Schueler chüler(2) Wahl , Klasse:  -595112923
-Schueler chüler(2) Wahl , Klasse:  -5955301
-Schueler chüler(3) Wahl , Klasse:  -5951023
-Schueler chüler(3) Wahl , Klasse:  -595516
+Projekt Nr. 5c98b970b7847 Min. Teilnehmer: 6 Max.Teilnehmer: 35 Anzahl Teilnehmer: 16,Mittlere Klassenstufe: 5.0 Std: 0.0
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(2) Wahl , Klasse:  5
+Schueler chüler(2) Wahl , Klasse:  5
+Schueler chüler(2) Wahl , Klasse:  5
+Schueler chüler(3) Wahl , Klasse:  5
+Schueler chüler(2) Wahl , Klasse:  5
+Schueler chüler(4) Wahl , Klasse:  5
+Schueler chüler(3) Wahl , Klasse:  5
+Schueler chüler(2) Wahl , Klasse:  5
 
 -------------------------------------------------------------
-Projekt Nr. 5c98c70931cf4 Min. Teilnehmer: 6 Max.Teilnehmer: 30 Anzahl Teilnehmer: 9,Mittlere Klassenstufe: -2.792060343333333E8 Std: 8.0339051233105888E16
-Schueler chüler(1) Wahl , Klasse:  -595002427
-Schueler chüler(1) Wahl , Klasse:  -595157791
-Schueler chüler(1) Wahl , Klasse:  -5952015
-Schueler chüler(1) Wahl , Klasse:  -5952456
-Schueler chüler(1) Wahl , Klasse:  -595824
-Schueler chüler(1) Wahl , Klasse:  -59594974
-Schueler chüler(1) Wahl , Klasse:  -595633480
-Schueler chüler(1) Wahl , Klasse:  -595366085
-Schueler chüler(2) Wahl , Klasse:  -59599257
+Projekt Nr. 5c98c70931cf4 Min. Teilnehmer: 6 Max.Teilnehmer: 30 Anzahl Teilnehmer: 11,Mittlere Klassenstufe: 5.0 Std: 0.0
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(2) Wahl , Klasse:  5
 
 -------------------------------------------------------------
-Projekt Nr. 5c98c7925a1fc Min. Teilnehmer: 6 Max.Teilnehmer: 35 Anzahl Teilnehmer: 9,Mittlere Klassenstufe: -2.793514731111111E8 Std: 8.051970769894896E16
-Schueler chüler(1) Wahl , Klasse:  -595963996
-Schueler chüler(1) Wahl , Klasse:  -595998015
-Schueler chüler(1) Wahl , Klasse:  -59543949
-Schueler chüler(1) Wahl , Klasse:  -5952078
-Schueler chüler(1) Wahl , Klasse:  -59501081
-Schueler chüler(1) Wahl , Klasse:  -595297817
-Schueler chüler(1) Wahl , Klasse:  -59531
-Schueler chüler(3) Wahl , Klasse:  -5952805
-Schueler chüler(3) Wahl , Klasse:  -595893986
+Projekt Nr. 5c98c7925a1fc Min. Teilnehmer: 6 Max.Teilnehmer: 35 Anzahl Teilnehmer: 10,Mittlere Klassenstufe: 5.0 Std: 0.0
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(3) Wahl , Klasse:  5
+Schueler chüler(3) Wahl , Klasse:  5
 
 -------------------------------------------------------------
-Projekt Nr. 5c98c855ca7b5 Min. Teilnehmer: 6 Max.Teilnehmer: 20 Anzahl Teilnehmer: 8,Mittlere Klassenstufe: -1.13088981375E8 Std: 3.3698070846612256E16
-Schueler chüler(1) Wahl , Klasse:  -5953252
-Schueler chüler(1) Wahl , Klasse:  -59513417
-Schueler chüler(1) Wahl , Klasse:  -59597683
-Schueler chüler(1) Wahl , Klasse:  -59533242
-Schueler chüler(1) Wahl , Klasse:  -59514485
-Schueler chüler(1) Wahl , Klasse:  -5950470
-Schueler chüler(3) Wahl , Klasse:  -595059495
-Schueler chüler(2) Wahl , Klasse:  -59589807
+Projekt Nr. 5c98c855ca7b5 Min. Teilnehmer: 6 Max.Teilnehmer: 20 Anzahl Teilnehmer: 9,Mittlere Klassenstufe: 5.0 Std: 0.0
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(2) Wahl , Klasse:  5
+Schueler chüler(3) Wahl , Klasse:  5
+Schueler chüler(2) Wahl , Klasse:  5
 
 -------------------------------------------------------------
-Projekt Nr. 5c98c92c02e6c Min. Teilnehmer: 6 Max.Teilnehmer: 35 Anzahl Teilnehmer: 21,Mittlere Klassenstufe: -1.6593647519047618E8 Std: 5.8240905242453264E16
-Schueler chüler(1) Wahl , Klasse:  -5959111
-Schueler chüler(1) Wahl , Klasse:  -595380601
-Schueler chüler(1) Wahl , Klasse:  -59547425
-Schueler chüler(1) Wahl , Klasse:  -595897
-Schueler chüler(1) Wahl , Klasse:  -595529421
-Schueler chüler(1) Wahl , Klasse:  -595837044
-Schueler chüler(1) Wahl , Klasse:  -59593
-Schueler chüler(1) Wahl , Klasse:  -5958511
-Schueler chüler(1) Wahl , Klasse:  -5959210
-Schueler chüler(1) Wahl , Klasse:  -595829
-Schueler chüler(1) Wahl , Klasse:  -5959611
-Schueler chüler(1) Wahl , Klasse:  -59514261
-Schueler chüler(4) Wahl , Klasse:  -59501977
-Schueler chüler(2) Wahl , Klasse:  -595346702
-Schueler chüler(2) Wahl , Klasse:  -59533737
-Schueler chüler(3) Wahl , Klasse:  -5951419
-Schueler chüler(3) Wahl , Klasse:  -59583418
-Schueler chüler(2) Wahl , Klasse:  -595103380
-Schueler chüler(3) Wahl , Klasse:  -59591906
-Schueler chüler(3) Wahl , Klasse:  -59565142
-Schueler chüler(2) Wahl , Klasse:  -59591784
+Projekt Nr. 5c98c92c02e6c Min. Teilnehmer: 6 Max.Teilnehmer: 35 Anzahl Teilnehmer: 24,Mittlere Klassenstufe: 5.0 Std: 0.0
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(1) Wahl , Klasse:  5
+Schueler chüler(2) Wahl , Klasse:  5
+Schueler chüler(3) Wahl , Klasse:  5
+Schueler chüler(4) Wahl , Klasse:  5
+Schueler chüler(3) Wahl , Klasse:  5
+Schueler chüler(3) Wahl , Klasse:  5
+Schueler chüler(2) Wahl , Klasse:  5
+Schueler chüler(3) Wahl , Klasse:  5
+Schueler chüler(4) Wahl , Klasse:  5
+Schueler chüler(2) Wahl , Klasse:  5
+Schueler chüler(2) Wahl , Klasse:  5
 
-Anzahl Schueler ohne Projekt: 9
-Schueler die die 1 te Wahl bekommen haben: 69/101(68.32)
-Schueler die die 2 te Wahl bekommen haben: 12/101(11.88)
-Schueler die die 3 te Wahl bekommen haben: 10/101(9.9)
-Schueler die die 4 te Wahl bekommen haben: 1/101(0.99)
-Schueler die keine ihrer Wahlen bekommen haben: 9/101(8.91)
+Anzahl Schueler ohne Projekt: 12
+Schueler die die 1 te Wahl bekommen haben: 78/116(67.24)
+Schueler die die 2 te Wahl bekommen haben: 13/116(11.21)
+Schueler die die 3 te Wahl bekommen haben: 10/116(8.62)
+Schueler die die 4 te Wahl bekommen haben: 3/116(2.59)
+Schueler die keine ihrer Wahlen bekommen haben: 12/116(10.34)
 Schueler die ein Projekt haben welches nicht stattfindet: 0
-Score: 205.0(2.0297029702970297)
+Score: 272.0(2.3448275862068964)
 Anzahl der Projekte die stattfinden: 7 /35
-Std: 4.6832954967865664E17 (6.6904221382665232E16)
+Std: 0.0 (0.0)
