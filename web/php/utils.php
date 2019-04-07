@@ -44,9 +44,9 @@
 	function newlineRemove($txt) {
 		return str_replace("\n", "<br>", $txt);
 	}
-	
+
   // only linux.... drop win support
-  function isRunning($pid){
+  function isRunning($pid) {
       try {
           $result = shell_exec(sprintf("ps %d", $pid));
           return count(preg_split("/\n/", $result)) > 2;

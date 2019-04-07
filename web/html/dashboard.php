@@ -3,6 +3,21 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
   die("Zugriff verweigert");
 }
 
+// cleanup des Zuteilungsalgorithmus
+if (file_exists("../data/algorithmus.pid")) {
+  if (!isRunning(file_get_contents("../data/algorithmus.pid"))) {
+    alert("Der Zuteilungsalgorithmus hat terminiert.");
+    unlink("../data/algorithmus.pid");
+    if (file_exists("../FinishedAlgorithm/verteilungNachSchueler.csv") && file_exists("../FinishedAlgorithm/verteilungNachProjekten.csv")) {
+      // TODO: integration der Daten.
+    }
+    else {
+      alert("Es konnten keine Ergebnisdateien gefunden werden");
+    }
+  }
+}
+
+
 // generate the statistics how many places are available in each class
 // initialize the data array
 $stufen = [];
@@ -234,9 +249,9 @@ $errorIncluded = false;
     ?>
     <h4 class="alert-heading">Zuteilung erfolgreich</h4>
     <p>
-      Die Wahlphase wurde erflogreich abgeschlossen und die Auswertung durch den Zuteilungsalgorithmus wurde vom Admin <?php echo file_exists("../FinishedAlgorithm/prozentzahl") ? "initialisiert" : "durchgeführt"; ?>.
+      Die Wahlphase wurde erflogreich abgeschlossen und die Auswertung durch den Zuteilungsalgorithmus wurde vom Admin <?php echo file_exists("../data/algorithmus.pid") ? "initialisiert" : "durchgeführt"; ?>.
     </p>
-    <?php if (!file_exists("../FinishedAlgorithm/prozentzahl")) { ?>
+    <?php if (!file_exists("../data/algorithmus.pid")) { ?>
     <form method="post">
       <input type="hidden" name="action" value="runZuteilungsalgorithmus">
       <button type="submit" class="btn btn-primary">
@@ -253,8 +268,8 @@ $errorIncluded = false;
       var progressbarCheck = setInterval(function () {
         $.get("progress.php", function(data, status) {
           if (status = "success") {
-            console.log(data);
             data = parseFloat(data) * 100;
+            console.log("Fortschritt: " + data + "%");
             if (data != 100) {
               $('.progress-bar').css('width', data + '%').html((Math.round(data * 100) / 100) + "%");
             } else {
