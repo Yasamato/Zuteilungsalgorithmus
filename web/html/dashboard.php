@@ -261,11 +261,11 @@ $errorIncluded = false;
             data = parseFloat(data) * 100;
             console.log("Fortschritt: " + data + "%");
             if (data != 100) {
-              $($('.progress-bar')[0]).css('width', data + '%').html((Math.round(data * 100) / 100) + "%");
-              $($('.progress-bar')[1]).css('width', (100 - data) + '%');
+              $($('.progress-bar')[0]).css('width', data + '%').html((data > 25 ? (Math.round(data * 100) / 100) + "%" : ""));
+              $($('.progress-bar')[1]).css('width', (100 - data) + '%').html((data < 25 ? (Math.round(data * 100) / 100) + "%" : ""));
             } else {
               $($('.progress-bar')[0]).css('width', '100%').html("100%");
-              $($('.progress-bar')[1]).css('width', '0%');
+              $($('.progress-bar')[1]).css('width', '0%').html("");
               window.location.reload();
             }
           }
@@ -308,11 +308,11 @@ $errorIncluded = false;
             data = parseFloat(data) * 100;
             console.log("Fortschritt: " + data + "%");
             if (data != 100) {
-              $($('.progress-bar')[0]).css('width', data + '%').html((Math.round(data * 100) / 100) + "%");
-              $($('.progress-bar')[1]).css('width', (100 - data) + '%');
+              $($('.progress-bar')[0]).css('width', data + '%').html((data > 25 ? (Math.round(data * 100) / 100) + "%" : ""));
+              $($('.progress-bar')[1]).css('width', (100 - data) + '%').html((data < 25 ? (Math.round(data * 100) / 100) + "%" : ""));
             } else {
               $($('.progress-bar')[0]).css('width', '100%').html("100%");
-              $($('.progress-bar')[1]).css('width', '0%');
+              $($('.progress-bar')[1]).css('width', '0%').html("");
               window.location.reload();
             }
           }
