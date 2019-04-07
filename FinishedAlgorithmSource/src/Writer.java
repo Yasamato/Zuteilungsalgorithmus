@@ -26,8 +26,8 @@ public class Writer {
             Set<Schueler> sortedSchueler = new TreeSet<Schueler>(new Comparator<Schueler>() {
                 @Override
                 public int compare(Schueler o1, Schueler o2) {
-                    String s1 = o1.getKlasse() + o1.getName() + o1.getVorname();
-                    String s2 = o2.getKlasse() + o2.getName() + o2.getVorname();
+                    String s1 = o1.getKlasse() + o1.getName() + o1.getVorname()+o1.getId();
+                    String s2 = o2.getKlasse() + o2.getName() + o2.getVorname()+o2.getId();
                     return s1.compareTo(s2);
                 }
             });
