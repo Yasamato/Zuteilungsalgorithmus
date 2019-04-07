@@ -95,6 +95,8 @@ public class ProjectFileReader {
         } else {
             System.out.println("Lade Projekte");
             loadProjekte();
+            System.out.println("Projekte geladen!");
+            System.out.println("Geladene Projekte: " + projektList.size());
             return projektList;
         }
     }
@@ -112,7 +114,7 @@ public class ProjectFileReader {
             while ((line = reader.readLine()) != null) {
                 String[] elements = line.split(this.delimiter);
 
-                int id = Integer.parseInt(elements[this.idIndex]);
+                String id = elements[this.idIndex];
                 int max = Integer.parseInt(elements[this.maxIndex]);
                 int min = Integer.parseInt(elements[this.minIndex]);
                 //Erstellen des Objektes und hinzufuegen zur Liste

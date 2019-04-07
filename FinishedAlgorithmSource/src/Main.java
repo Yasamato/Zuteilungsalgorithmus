@@ -1,9 +1,6 @@
-import com.sun.org.apache.xml.internal.resolver.readers.ExtendedXMLCatalogReader;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 
 public class Main {

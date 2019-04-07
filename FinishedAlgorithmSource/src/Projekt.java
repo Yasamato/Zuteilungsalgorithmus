@@ -5,7 +5,7 @@ public class Projekt {
     /**
      * Speichert ID des Projektes
      */
-    private int id;
+    private String id;
     /**
      * Speichert minimale Anzahl der Teilnehmer, ohne welche das Projekt nicht stattfinden kann
      */
@@ -26,7 +26,7 @@ public class Projekt {
      * @param minTeilnehmer minimale Anzahl der Teilnehmer
      * @param maxTeilnehmer maximale Anzahl der Teilnehmer
      */
-    public Projekt(int id, int minTeilnehmer, int maxTeilnehmer) {
+    public Projekt(String id, int minTeilnehmer, int maxTeilnehmer) {
         this.id = id;
         this.minTeilnehmer = minTeilnehmer;
         this.maxTeilnehmer = maxTeilnehmer;
@@ -129,7 +129,7 @@ public class Projekt {
     /**
      * @return Attribut ID
      */
-    public int getId() {
+    public String getId() {
         return id;
     }
 
