@@ -3,26 +3,6 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
   die("Zugriff verweigert");
 }
 
-// cleanup des Zuteilungsalgorithmus
-if (file_exists("../data/algorithmus.pid")) {
-  if (!isRunning(file_get_contents("../data/algorithmus.pid"))) {
-    alert("Der Zuteilungsalgorithmus wurde beendet.");
-    unlink("../data/algorithmus.pid");
-    if (file_exists("../FinishedAlgorithm/prozentzahl")) {
-      unlink("../FinishedAlgorithm/prozentzahl");
-    }
-    if (file_exists("../FinishedAlgorithm/verteilungNachSchuelern.csv") && file_exists("../FinishedAlgorithm/verteilungNachProjekten.csv")) {
-      dbSet("../data/config.csv", "Stage", $config["Stage"], "Stage", 5);
-      $config = dbRead("../data/config.csv");
-      alert("Fertig ausgewertet");
-      // TODO: integration der Daten.
-    }
-    else {
-      alert("Es konnten keine Ergebnisdateien gefunden werden. Überprüfen sie die Dateiberechtigungen im Verzeichnis 'FinishedAlgorithm', da es sich hierbei wahrscheinlich um einen Berechtigungsfehler handelt.");
-    }
-  }
-}
-
 
 // generate the statistics how many places are available in each class
 // initialize the data array
@@ -252,12 +232,11 @@ $errorIncluded = false;
       <?php
     }
     elseif ($config["Stage"] > 4) {
-    ?>
+      if (!file_exists("../data/algorithmus.pid")) { ?>
     <h4 class="alert-heading">Zuteilung erfolgreich</h4>
     <p>
-      Die Wahlphase wurde erflogreich abgeschlossen und die Auswertung durch den Zuteilungsalgorithmus wurde vom Admin bereits<?php echo file_exists("../data/algorithmus.pid") ? "gestartet" : "durchgeführt"; ?>.
+      Die Wahlphase wurde erflogreich abgeschlossen und die Auswertung durch den Zuteilungsalgorithmus wurde vom Admin bereits <?php echo file_exists("../data/algorithmus.pid") ? "gestartet" : "durchgeführt"; ?>.
     </p>
-    <?php if (!file_exists("../data/algorithmus.pid")) { ?>
     <form method="post">
       <input type="hidden" name="action" value="runZuteilungsalgorithmus">
       <button type="submit" class="btn btn-primary">
@@ -267,12 +246,13 @@ $errorIncluded = false;
     <?php
       }
       else { ?>
-    <h4 class="alert-heading">Am Auswerten</h4>
+    <h4 class="alert-heading">Am erneuten Auswerten</h4>
     <p>
       Die Wahlphase wurde erflogreich abgeschlossen und der Zuteilungsalgorithmus wurde vom Admin erneut gestartet auf Basis der Wahlen und Zwangszuzuteilungen.
     </p>
     <div class="progress">
-      <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar"></div>
+      <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"></div>
+      <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 100%;"></div>
     </div>
     <script>
       var progressbarCheck = setInterval(function () {
@@ -281,9 +261,11 @@ $errorIncluded = false;
             data = parseFloat(data) * 100;
             console.log("Fortschritt: " + data + "%");
             if (data != 100) {
-              $('.progress-bar').css('width', data + '%').html((Math.round(data * 100) / 100) + "%");
+              $($('.progress-bar')[0]).css('width', data + '%').html((Math.round(data * 100) / 100) + "%");
+              $($('.progress-bar')[1]).css('width', (100 - data) + '%');
             } else {
-              $('.progress-bar').css('width', data + '%').html((Math.round(data * 100) / 100) + "%");
+              $($('.progress-bar')[0]).css('width', '100%').html("100%");
+              $($('.progress-bar')[1]).css('width', '0%');
               window.location.reload();
             }
           }
@@ -316,7 +298,8 @@ $errorIncluded = false;
       Die Wahlphase wurde erflogreich abgeschlossen und der Zuteilungsalgorithmus wurde vom Admin gestartet.
     </p>
     <div class="progress">
-      <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar"></div>
+      <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"></div>
+      <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 100%;"></div>
     </div>
     <script>
       var progressbarCheck = setInterval(function () {
@@ -325,9 +308,11 @@ $errorIncluded = false;
             data = parseFloat(data) * 100;
             console.log("Fortschritt: " + data + "%");
             if (data != 100) {
-              $('.progress-bar').css('width', data + '%').html((Math.round(data * 100) / 100) + "%");
+              $($('.progress-bar')[0]).css('width', data + '%').html((Math.round(data * 100) / 100) + "%");
+              $($('.progress-bar')[1]).css('width', (100 - data) + '%');
             } else {
-              $('.progress-bar').css('width', data + '%').html((Math.round(data * 100) / 100) + "%");
+              $($('.progress-bar')[0]).css('width', '100%').html("100%");
+              $($('.progress-bar')[1]).css('width', '0%');
               window.location.reload();
             }
           }

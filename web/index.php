@@ -14,7 +14,7 @@
 		<meta name="author" content="Jonas Dalchow">
 		<meta name="author" content="Leon Selig">
 
-		<meta name="description" content="Wahlseite der LMG8-Schule von Maxdorf">
+		<meta name="description" content="Wahlseite des LMG8 von Maxdorf">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
 		<meta http-equiv='cache-control' content='no-cache'>
 		<meta http-equiv='expires' content='0'>
@@ -42,61 +42,80 @@
 	}
 	require 'php/setup.php';
 	$waittime = 0;
-	if (isset($_POST['action'])) {
-		switch ($_POST['action']) {
-			case "login":
-				require("php/login.php"); // dummy-login
-				// require("php/login_live.php");
-				break;
-			case "logout":
-				logout();
-				break;
-			case "addProject":
-				require("php/projektErstellung.php");
-				$waittime = 5;
-				break;
-			case "editProject":
-				require("php/editProjekt.php");
-				$waittime = 5;
-				break;
-			case "deleteProjekt":
-				require("php/deleteProjekt.php");
-				$waittime = 5;
-				break;
-			case "wahl":
-				require("php/wahl.php");
-				$waittime = 1;
-				break;
-			case "editWahleintrag":
-				require("php/editWahleintrag.php");
-				$waittime = 1;
-				break;
-			case "deleteWahleintrag":
-				require("php/deleteWahleintrag.php");
-				$waittime = 1;
-				break;
-			case "deleteProjektzuteilung":
-				require("php/deleteProjektzuteilung.php");
-				$waittime = 1;
-				break;
-			case "updateConfiguration":
-				require("php/dashboard.php");
-				$waittime = 1;
-				break;
-			case "updateStudentsInKlassen":
-				require("php/klassen.php");
-				$waittime = 1;
-				break;
-			case "updateZwangszuteilung":
-				require("php/zwangszuteilung.php");
-				$waittime = 1;
-				break;
-			case "runZuteilungsalgorithmus":
-				require("php/run.php");
-				break;
-			default:
-				die("Unbekannter Befehl!");
-				break;
+	if (isset($_POST['action']) || isLogin() && $_SESSION['benutzer']['typ'] == "admin" && file_exists("../data/algorithmus.pid") && !isRunning(file_get_contents("../data/algorithmus.pid"))) {
+		// cleanup des Zuteilungsalgorithmus
+		if (file_exists("../data/algorithmus.pid") && !isRunning(file_get_contents("../data/algorithmus.pid"))) {
+		  alert("Der Zuteilungsalgorithmus wurde beendet.");
+		  unlink("../data/algorithmus.pid");
+		  if (file_exists("../FinishedAlgorithm/prozentzahl")) {
+		    unlink("../FinishedAlgorithm/prozentzahl");
+		  }
+		  if (file_exists("../FinishedAlgorithm/verteilungNachSchuelern.csv") && file_exists("../FinishedAlgorithm/verteilungNachProjekten.csv")) {
+		    dbSet("../data/config.csv", "Stage", $config["Stage"], "Stage", "5");
+		    alert("TODO: Fertig auswerten");
+		    // TODO: integration der Daten.
+		  }
+		  else {
+		    alert("Es konnten keine Ergebnisdateien gefunden werden. Überprüfen sie die Dateiberechtigungen im Verzeichnis 'FinishedAlgorithm', da es sich hierbei wahrscheinlich um einen Berechtigungsfehler handelt.");
+		  }
+		}
+		else {
+			// eigentlicher action-handler
+			switch ($_POST['action']) {
+				case "login":
+					require("php/login.php"); // dummy-login
+					// require("php/login_live.php");
+					break;
+				case "logout":
+					logout();
+					break;
+				case "addProject":
+					require("php/projektErstellung.php");
+					$waittime = 5;
+					break;
+				case "editProject":
+					require("php/editProjekt.php");
+					$waittime = 5;
+					break;
+				case "deleteProjekt":
+					require("php/deleteProjekt.php");
+					$waittime = 5;
+					break;
+				case "wahl":
+					require("php/wahl.php");
+					$waittime = 1;
+					break;
+				case "editWahleintrag":
+					require("php/editWahleintrag.php");
+					$waittime = 1;
+					break;
+				case "deleteWahleintrag":
+					require("php/deleteWahleintrag.php");
+					$waittime = 1;
+					break;
+				case "deleteProjektzuteilung":
+					require("php/deleteProjektzuteilung.php");
+					$waittime = 1;
+					break;
+				case "updateConfiguration":
+					require("php/dashboard.php");
+					$waittime = 1;
+					break;
+				case "updateStudentsInKlassen":
+					require("php/klassen.php");
+					$waittime = 1;
+					break;
+				case "updateZwangszuteilung":
+					require("php/zwangszuteilung.php");
+					$waittime = 1;
+					break;
+				case "runZuteilungsalgorithmus":
+					require("php/run.php");
+					break;
+				default:
+					die("Unbekannter Befehl!");
+					break;
+			}
 		}
 		// verhindern vom erneuten Senden von Formular-Daten beim Refreshen durch den Browser
 		?>

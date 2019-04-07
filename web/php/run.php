@@ -78,7 +78,7 @@ else {
     }
   }
   if ($error
-    || $config["Stage"] != 4
+    || $config["Stage"] < 4
     || $gesamtanzahl != count($wahlen)
     || !empty($nichtEingetrageneKlassen)
     || $klassenFertig != count($klassenliste)
