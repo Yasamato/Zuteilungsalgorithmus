@@ -12,6 +12,8 @@ if (file_exists("../data/algorithmus.pid")) {
       unlink("../FinishedAlgorithm/prozentzahl");
     }
     if (file_exists("../FinishedAlgorithm/verteilungNachSchuelern.csv") && file_exists("../FinishedAlgorithm/verteilungNachProjekten.csv")) {
+      dbSet("../data/config.csv", "Stage", $config["Stage"], "Stage", 5);
+      $config = dbRead("../data/config.csv");
       alert("Fertig ausgewertet");
       // TODO: integration der Daten.
     }
@@ -242,18 +244,18 @@ $errorIncluded = false;
   // Auswertung
   if ($config["Stage"] > 3) {
   ?>
-  <div class="alert alert-<?php echo $errorIncluded ? "danger" : "success"; ?>" role="alert">
+  <div class="alert alert-<?php echo $errorIncluded ? "danger" : (file_exists("../data/algorithmus.pid") ? "warning" : "success"); ?>" role="alert">
     <?php
     if ($errorIncluded) {
       ?>
     Aufgrund der <a href="javascript:;" onclick="javascript: $('#errorModal').modal('show');" class="alert-link">obigen Fehler</a> kann momentan keine Auswertung durchgeführt werden. Bitte korrigieren sie evtl. fehlende oder inkorrekte Angaben.
       <?php
     }
-    elseif (file_exists("../data/wahl_old.csv")) {
+    elseif ($config["Stage"] > 4) {
     ?>
     <h4 class="alert-heading">Zuteilung erfolgreich</h4>
     <p>
-      Die Wahlphase wurde erflogreich abgeschlossen und die Auswertung durch den Zuteilungsalgorithmus wurde vom Admin <?php echo file_exists("../data/algorithmus.pid") ? "initialisiert" : "durchgeführt"; ?>.
+      Die Wahlphase wurde erflogreich abgeschlossen und die Auswertung durch den Zuteilungsalgorithmus wurde vom Admin bereits<?php echo file_exists("../data/algorithmus.pid") ? "gestartet" : "durchgeführt"; ?>.
     </p>
     <?php if (!file_exists("../data/algorithmus.pid")) { ?>
     <form method="post">
@@ -265,6 +267,10 @@ $errorIncluded = false;
     <?php
       }
       else { ?>
+    <h4 class="alert-heading">Am Auswerten</h4>
+    <p>
+      Die Wahlphase wurde erflogreich abgeschlossen und der Zuteilungsalgorithmus wurde vom Admin erneut gestartet auf Basis der Wahlen und Zwangszuzuteilungen.
+    </p>
     <div class="progress">
       <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar"></div>
     </div>
@@ -291,12 +297,11 @@ $errorIncluded = false;
       }
     }
     else {
-    ?>
+      if (!file_exists("../data/algorithmus.pid")) { ?>
     <h4 class="alert-heading">Bereit zur Auswertung</h4>
     <p>
-      Die Wahlphase wurde erflogreich abgeschlossen und somit kann die Auswertung durch den Zuteilungsalgorithmus vom Admin initialisiert werden.
+      Die Wahlphase wurde erflogreich abgeschlossen und somit kann die Auswertung durch den Zuteilungsalgorithmus vom Admin gestartet werden.
     </p>
-    <?php if (!file_exists("../data/algorithmus.pid")) { ?>
     <form method="post">
       <input type="hidden" name="action" value="runZuteilungsalgorithmus">
       <button type="submit" class="btn btn-primary">
@@ -306,6 +311,10 @@ $errorIncluded = false;
     <?php
       }
       else { ?>
+    <h4 class="alert-heading">Am Auswerten</h4>
+    <p>
+      Die Wahlphase wurde erflogreich abgeschlossen und der Zuteilungsalgorithmus wurde vom Admin gestartet.
+    </p>
     <div class="progress">
       <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar"></div>
     </div>
@@ -737,24 +746,29 @@ $errorIncluded = false;
               $("#schuelerEditForm").children("div.form-group")[2].children[1].value = $(student).children()[1].innerHTML; //klasse
               $("#schuelerEditForm").children("div.form-group")[3].children[1].value = $(student).children()[2].innerHTML; //vorname
               $("#schuelerEditForm").children("div.form-group")[4].children[1].value = $(student).children()[3].innerHTML; //nachname
-              if ($(student).children()[5].innerHTML == "N/A") {
-                $("#schuelerEditForm .projekt-input").html(`
-                  <input type="hidden" name="ergebnis">
-                  <button type="button" onclick="javascript: changeProjektzuteilung(this);" class="btn btn-warning">
-                    Projekt zuteilen
-                  </button>`);
+              if (window.config.Stage > 4) {
+                if ($(student).children()[5].innerHTML == "N/A") {
+                  $("#schuelerEditForm .projekt-input").html(`
+                    <input type="hidden" name="ergebnis">
+                    <button type="button" onclick="javascript: changeProjektzuteilung(this);" class="btn btn-warning">
+                      Projekt zuteilen
+                    </button>`);
+                }
+                else {
+                  console.log($(student).children()[5]);
+                  $("#schuelerEditForm .projekt-input").html(`
+                    <input type="hidden" name="ergebnis" required value="` + $(student).children()[5].children[0].value + `" />
+                    Zuteilung
+                    <button type="button" onclick="javascript: changeProjektzuteilung(this);" class="btn btn-success">
+                      Ändern
+                    </button>
+                    <button type="button" onclick="javascript: $('#schuelerProjektzuteilungDeleteForm').submit();" class="btn btn-danger">
+                      Löschen
+                    </button>`);
+                }
               }
               else {
-                console.log($(student).children()[5]);
-                $("#schuelerEditForm .projekt-input").html(`
-                  <input type="hidden" name="ergebnis" required value="` + $(student).children()[5].children[0].value + `" />
-                  Zuteilung
-                  <button type="button" onclick="javascript: changeProjektzuteilung(this);" class="btn btn-success">
-                    Ändern
-                  </button>
-                  <button type="button" onclick="javascript: $('#schuelerProjektzuteilungDeleteForm').submit();" class="btn btn-danger">
-                    Löschen
-                  </button>`);
+                $("#schuelerEditForm .projekt-input").parent().addClass("d-none");
               }
               $("#schuelerDeleteForm").children()[1].value = $(student).attr("uid");
               $("#schuelerProjektzuteilungDeleteForm").children()[1].value = $(student).attr("uid");

@@ -60,7 +60,7 @@ if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
 	dbSetRow("../data/config.csv", "Stage", $config["Stage"], $values);
 	if (dbRead("../data/config.csv") == $config) {
 		error_log("Die Änderung der Einstellung in der Datei ../data/config.csv von '" . json_encode($config) . "' zu '" . json_encode($values) . "' ist fehlgeschlagen", 0, "../data/error.log");
-		die("Speichern der Konfiguration fehlgeschlagen.");
+		alert("Speichern der Konfiguration fehlgeschlagen: Die Änderung der Einstellung in der Datei ../data/config.csv von '" . json_encode($config) . "' zu '" . json_encode($values) . "' ist fehlgeschlagen");
 	}
 }
 else {
