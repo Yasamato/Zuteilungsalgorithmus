@@ -632,12 +632,14 @@ $errorIncluded = false;
         </button>
         <br>
         <small class="text-muted">Das Ergebnis der Auswertung ist erst verfügbar sobald die Auswertung durch den Admin durchgeführt wurde. Die Auswertung kann erst im Admin-Panel durchgeführt werden, sobald die Wahlen geschlossen sind.</small>
-
+        <?php
+          if (empty($wahlen)) {
+            echo '
         <table class="table table-dark table-striped table-hover">
           <thead class="thead-dark">
             <tr>
-              <th class="sticky-top">Stufe</th>
-              <th class="sticky-top">Klasse</th>
+              <th class="sticky-top"><a href="javasript:;">Stufe</a></th>
+              <th class="sticky-top"><a href="javasript:;">Klasse</a></th>
               <th class="sticky-top">Vorname</th>
               <th class="sticky-top">Nachname</th>
               <th class="sticky-top">Wahl</th>
@@ -645,16 +647,30 @@ $errorIncluded = false;
               <th class="sticky-top">Bearbeiten</th>
             </tr>
           </thead>
-          <tbody><?php
-          if (empty($wahlen)) {
-            echo "
+          <tbody>
             <tr>
               <td>
                 Bisher wurde keine Wahl getätigt
               </td>
-            </tr>";
+            </tr>
+          </tbody>
+        </table>';
           }
           foreach ($klassen as $klasse) {
+            echo '
+        <table class="table table-dark table-striped table-hover">
+          <thead class="thead-dark">
+            <tr>
+              <th class="sticky-top">Stufe</th>
+              <th class="sticky-top">Klasse <a data-toggle="collapse" aria-expanded="true" href="#class-' . $klasse[0]["klasse"] . '">' . $klasse[0]["klasse"] . '</a></th>
+              <th class="sticky-top">Vorname</th>
+              <th class="sticky-top">Nachname</th>
+              <th class="sticky-top">Wahl</th>
+              <th class="sticky-top">Ergebnis</th>
+              <th class="sticky-top">Bearbeiten</th>
+            </tr>
+          </thead>
+          <tbody id="class-' . $klasse[0]["klasse"] . '">';
             foreach ($klasse as $key => $student) {
               if ($key == 0) {
                 continue;
@@ -720,49 +736,51 @@ $errorIncluded = false;
               </td>
             </tr>';
             }
+            echo "
+
+            </tbody>
+          </table>
+          ";
           }
           ?>
-          <script>
-            function editStudentModal(student) {
-              // button -> td -> tr
-              var student = student.parentNode.parentNode;
-              $("#schuelerEditForm").children("div.form-group")[0].children[1].value = $(student).attr("uid"); //uid
-              $("#schuelerEditForm").children("div.form-group")[1].children[1].value = $(student).children()[0].innerHTML; //stufe
-              $("#schuelerEditForm").children("div.form-group")[2].children[1].value = $(student).children()[1].innerHTML; //klasse
-              $("#schuelerEditForm").children("div.form-group")[3].children[1].value = $(student).children()[2].innerHTML; //vorname
-              $("#schuelerEditForm").children("div.form-group")[4].children[1].value = $(student).children()[3].innerHTML; //nachname
-              if (window.config.Stage > 4) {
-                if ($(student).children()[5].innerHTML == "N/A") {
-                  $("#schuelerEditForm .projekt-input").html(`
-                    <input type="hidden" name="ergebnis">
-                    <button type="button" onclick="javascript: changeProjektzuteilung(this);" class="btn btn-warning">
-                      Projekt zuteilen
-                    </button>`);
-                }
-                else {
-                  console.log($(student).children()[5]);
-                  $("#schuelerEditForm .projekt-input").html(`
-                    <input type="hidden" name="ergebnis" required value="` + $(student).children()[5].children[0].value + `" />
-                    Zuteilung
-                    <button type="button" onclick="javascript: changeProjektzuteilung(this);" class="btn btn-success">
-                      Ändern
-                    </button>
-                    <button type="button" onclick="javascript: $('#schuelerProjektzuteilungDeleteForm').submit();" class="btn btn-danger">
-                      Löschen
-                    </button>`);
-                }
+        <script>
+          function editStudentModal(student) {
+            // button -> td -> tr
+            var student = student.parentNode.parentNode;
+            $("#schuelerEditForm").children("div.form-group")[0].children[1].value = $(student).attr("uid"); //uid
+            $("#schuelerEditForm").children("div.form-group")[1].children[1].value = $(student).children()[0].innerHTML; //stufe
+            $("#schuelerEditForm").children("div.form-group")[2].children[1].value = $(student).children()[1].innerHTML; //klasse
+            $("#schuelerEditForm").children("div.form-group")[3].children[1].value = $(student).children()[2].innerHTML; //vorname
+            $("#schuelerEditForm").children("div.form-group")[4].children[1].value = $(student).children()[3].innerHTML; //nachname
+            if (window.config.Stage > 4) {
+              if ($(student).children()[5].innerHTML == "N/A") {
+                $("#schuelerEditForm .projekt-input").html(`
+                  <input type="hidden" name="ergebnis">
+                  <button type="button" onclick="javascript: changeProjektzuteilung(this);" class="btn btn-warning">
+                    Projekt zuteilen
+                  </button>`);
               }
               else {
-                $("#schuelerEditForm .projekt-input").parent().addClass("d-none");
+                console.log($(student).children()[5]);
+                $("#schuelerEditForm .projekt-input").html(`
+                  <input type="hidden" name="ergebnis" required value="` + $(student).children()[5].children[0].value + `" />
+                  Zuteilung
+                  <button type="button" onclick="javascript: changeProjektzuteilung(this);" class="btn btn-success">
+                    Ändern
+                  </button>
+                  <button type="button" onclick="javascript: $('#schuelerProjektzuteilungDeleteForm').submit();" class="btn btn-danger">
+                    Löschen
+                  </button>`);
               }
-              $("#schuelerDeleteForm").children()[1].value = $(student).attr("uid");
-              $("#schuelerProjektzuteilungDeleteForm").children()[1].value = $(student).attr("uid");
-              $("#schuelerEditModal").modal("show");
             }
-          </script>
-
-          </tbody>
-        </table>
+            else {
+              $("#schuelerEditForm .projekt-input").parent().addClass("d-none");
+            }
+            $("#schuelerDeleteForm").children()[1].value = $(student).attr("uid");
+            $("#schuelerProjektzuteilungDeleteForm").children()[1].value = $(student).attr("uid");
+            $("#schuelerEditModal").modal("show");
+          }
+        </script>
       </div>
 
       <div class="modal-footer">
