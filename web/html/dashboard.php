@@ -252,7 +252,7 @@ $errorIncluded = false;
     </p>
     <div class="progress">
       <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"></div>
-      <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 100%;"></div>
+      <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 100%;">Loading...</div>
     </div>
     <script>
       var progressbarCheck = setInterval(function () {
@@ -299,7 +299,7 @@ $errorIncluded = false;
     </p>
     <div class="progress">
       <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"></div>
-      <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 100%;"></div>
+      <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 100%;">Loading...</div>
     </div>
     <script>
       var progressbarCheck = setInterval(function () {
