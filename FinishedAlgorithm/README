@@ -14,5 +14,5 @@ Anzupassen sind die 6 Parameter des Programmes.
 6.Parameter: Beschreibung der Schueler.csv (spaltentechnisch):
 		Erstes Zeichen ist das Trennzeichen der CSV-Datei!
 		Danach in Spaltenreihenfolge:
-		K fuer Klasse, N fuer Name, V fuer Vorname, 1 fuer 1.Wahl, 2 fuer 2.Wahl usw., ';' fuer Leerspalte
+		K fuer Klasse, N fuer die Benutzer-ID, V fuer Vorname, 1 fuer 1.Wahl, 2 fuer 2.Wahl usw., ';' fuer Leerspalte
 		Bsp: ,KNV12345 dafuer, dass in der ersten Spalte die Klassen stehen in der zweiten die Nachname usw. und alle Spalten durch ein Komma getrennt sind!
