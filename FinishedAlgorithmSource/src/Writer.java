@@ -69,8 +69,8 @@ public class Writer {
                     String s1 = "";
                     String s2 = "";
                     if (!(o1.getZugeteiltesProjekt() == null) && !(o2.getZugeteiltesProjekt() == null)) {
-                        s1 = Integer.toString(o1.getZugeteiltesProjekt().getId());
-                        s2 = Integer.toString(o2.getZugeteiltesProjekt().getId());
+                        s1 = o1.getZugeteiltesProjekt().getId();
+                        s2 = o2.getZugeteiltesProjekt().getId();
                         if (s1.length() == 1) {
                             s1 = "0" + s1;
                         }

@@ -125,9 +125,9 @@ public class SchuelerFileReader {
      * @param id ID des Projektes
      * @return das Projekt mit der dazugehoerigen ID, null wenn kein Projekt die angegebene ID hat
      */
-    private Projekt getProjekt(int id) {
+    private Projekt getProjekt(String id) {
         for (Projekt p : this.projektListe) {
-            if (p.getId() == id) {
+            if (p.getId().equals(id)) {
                 return p;
             }
         }
@@ -166,7 +166,7 @@ public class SchuelerFileReader {
                 Projekt[] wuensche = new Projekt[strWuensche.length];
                 try {
                     for (int i = 0; i < wuensche.length; i++) {
-                        wuensche[i] = getProjekt(Integer.parseInt(strWuensche[i]));
+                        wuensche[i] = getProjekt(strWuensche[i]);
                     }
                     for (Projekt p : wuensche) {
                         if (p == null) {
