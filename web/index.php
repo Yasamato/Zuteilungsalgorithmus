@@ -52,8 +52,11 @@
 		  }
 		  if (file_exists("../FinishedAlgorithm/verteilungNachSchuelern.csv") && file_exists("../FinishedAlgorithm/verteilungNachProjekten.csv")) {
 		    dbSet("../data/config.csv", "Stage", $config["Stage"], "Stage", "5");
-		    alert("TODO: Fertig auswerten");
-		    // TODO: integration der Daten.
+				foreach (explode("\n", file_get_contents("../FinishedAlgorithm/verteilungNachSchuelern.csv")) as $row) {
+					$data = explode(",", $row);
+					dbSet("../data/wahl.csv", "uid", $data[1], "projekt", ($data[3] == "null" ? "" : $data[3]));
+				}
+		    alert("Die Daten wurden erfolgreich ausgewertet.");
 		  }
 		  else {
 		    alert("Es konnten keine Ergebnisdateien gefunden werden. Überprüfen sie die Dateiberechtigungen im Verzeichnis 'FinishedAlgorithm', da es sich hierbei wahrscheinlich um einen Berechtigungsfehler handelt.");
