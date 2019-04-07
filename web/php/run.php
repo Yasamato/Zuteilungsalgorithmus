@@ -118,7 +118,7 @@ else {
     $cmd = "java -jar ../FinishedAlgorithm/Algorithmus.jar 2 1000000 '../FinishedAlgorithm/projekte2.csv' ',ImM' '../FinishedAlgorithm/nurSchueler2.csv' ',KNV1234'";
     $outputfile = "../data/algorithmus.log";
     $pidfile = "../data/algorithmus.pid";
-    exec(sprintf("%s > %s 2>&1 & echo $! >> %s", $cmd, $outputfile, $pidfile));
+    exec("cd ../FinishedAlgorithm; " . sprintf("%s > %s 2>&1 & echo $! >> %s", $cmd, $outputfile, $pidfile));
     alert("Der Zuteilungsalgorithmus wurde gestartet.");
   }
 }

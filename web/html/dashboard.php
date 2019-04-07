@@ -6,13 +6,17 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
 // cleanup des Zuteilungsalgorithmus
 if (file_exists("../data/algorithmus.pid")) {
   if (!isRunning(file_get_contents("../data/algorithmus.pid"))) {
-    alert("Der Zuteilungsalgorithmus hat terminiert.");
+    alert("Der Zuteilungsalgorithmus wurde beendet.");
     unlink("../data/algorithmus.pid");
-    if (file_exists("../FinishedAlgorithm/verteilungNachSchueler.csv") && file_exists("../FinishedAlgorithm/verteilungNachProjekten.csv")) {
+    if (file_exists("../FinishedAlgorithm/prozentzahl")) {
+      unlink("../FinishedAlgorithm/prozentzahl");
+    }
+    if (file_exists("../FinishedAlgorithm/verteilungNachSchuelern.csv") && file_exists("../FinishedAlgorithm/verteilungNachProjekten.csv")) {
+      alert("Fertig ausgewertet");
       // TODO: integration der Daten.
     }
     else {
-      alert("Es konnten keine Ergebnisdateien gefunden werden");
+      alert("Es konnten keine Ergebnisdateien gefunden werden. Überprüfen sie die Dateiberechtigungen im Verzeichnis 'FinishedAlgorithm', da es sich hierbei wahrscheinlich um einen Berechtigungsfehler handelt.");
     }
   }
 }
@@ -292,6 +296,7 @@ $errorIncluded = false;
     <p>
       Die Wahlphase wurde erflogreich abgeschlossen und somit kann die Auswertung durch den Zuteilungsalgorithmus vom Admin initialisiert werden.
     </p>
+    <?php if (!file_exists("../data/algorithmus.pid")) { ?>
     <form method="post">
       <input type="hidden" name="action" value="runZuteilungsalgorithmus">
       <button type="submit" class="btn btn-primary">
@@ -299,6 +304,32 @@ $errorIncluded = false;
       </a>
     </form>
     <?php
+      }
+      else { ?>
+    <div class="progress">
+      <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar"></div>
+    </div>
+    <script>
+      var progressbarCheck = setInterval(function () {
+        $.get("progress.php", function(data, status) {
+          if (status = "success") {
+            data = parseFloat(data) * 100;
+            console.log("Fortschritt: " + data + "%");
+            if (data != 100) {
+              $('.progress-bar').css('width', data + '%').html((Math.round(data * 100) / 100) + "%");
+            } else {
+              $('.progress-bar').css('width', data + '%').html((Math.round(data * 100) / 100) + "%");
+              window.location.reload();
+            }
+          }
+          else {
+            console.log("Progress-fetch failed!!");
+          }
+        });
+      }, 1000);
+    </script>
+    <?php
+      }
     }
     ?>
   </div>
