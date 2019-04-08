@@ -250,31 +250,6 @@ $errorIncluded = false;
     <p>
       Die Wahlphase wurde erflogreich abgeschlossen und der Zuteilungsalgorithmus wurde vom Admin erneut gestartet auf Basis der Wahlen und Zwangszuzuteilungen.
     </p>
-    <div class="progress">
-      <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"></div>
-      <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 100%;">Loading...</div>
-    </div>
-    <script>
-      var progressbarCheck = setInterval(function () {
-        $.get("progress.php", function(data, status) {
-          if (status = "success") {
-            data = parseFloat(data) * 100;
-            console.log("Fortschritt: " + data + "%");
-            if (data != 100) {
-              $($('.progress-bar')[0]).css('width', data + '%').html((data > 25 ? (Math.round(data * 100) / 100) + "%" : ""));
-              $($('.progress-bar')[1]).css('width', (100 - data) + '%').html((data < 25 ? (Math.round(data * 100) / 100) + "%" : ""));
-            } else {
-              $($('.progress-bar')[0]).css('width', '100%').html("100%");
-              $($('.progress-bar')[1]).css('width', '0%').html("");
-              window.location.reload();
-            }
-          }
-          else {
-            console.log("Progress-fetch failed!!");
-          }
-        });
-      }, 1000);
-    </script>
     <?php
       }
     }
@@ -297,33 +272,37 @@ $errorIncluded = false;
     <p>
       Die Wahlphase wurde erflogreich abgeschlossen und der Zuteilungsalgorithmus wurde vom Admin gestartet.
     </p>
-    <div class="progress">
-      <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"></div>
-      <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 100%;">Loading...</div>
-    </div>
-    <script>
-      var progressbarCheck = setInterval(function () {
-        $.get("progress.php", function(data, status) {
-          if (status = "success") {
-            data = parseFloat(data) * 100;
-            console.log("Fortschritt: " + data + "%");
-            if (data != 100) {
-              $($('.progress-bar')[0]).css('width', data + '%').html((data > 25 ? (Math.round(data * 100) / 100) + "%" : ""));
-              $($('.progress-bar')[1]).css('width', (100 - data) + '%').html((data < 25 ? (Math.round(data * 100) / 100) + "%" : ""));
-            } else {
-              $($('.progress-bar')[0]).css('width', '100%').html("100%");
-              $($('.progress-bar')[1]).css('width', '0%').html("");
-              window.location.reload();
-            }
-          }
-          else {
-            console.log("Progress-fetch failed!!");
-          }
-        });
-      }, 1000);
-    </script>
     <?php
       }
+    }
+    if (file_exists("../data/algorithmus.pid")) {
+      ?>
+      <div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"></div>
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 100%;">Loading...</div>
+      </div>
+      <script>
+        var progressbarCheck = setInterval(function () {
+          $.get("progress.php", function(data, status) {
+            if (status = "success") {
+              data = parseFloat(data) * 100;
+              console.log("Fortschritt: " + data + "%");
+              if (data != 100) {
+                $($('.progress-bar')[0]).css('width', data + '%').html((data > 25 ? (Math.round(data * 100) / 100) + "%" : ""));
+                $($('.progress-bar')[1]).css('width', (100 - data) + '%').html((data < 25 ? (Math.round(data * 100) / 100) + "%" : ""));
+              } else {
+                $($('.progress-bar')[0]).css('width', '100%').html("100%");
+                $($('.progress-bar')[1]).css('width', '0%').html("");
+                window.location.reload();
+              }
+            }
+            else {
+              console.log("Progress-fetch failed!!");
+            }
+          });
+        }, 1000);
+      </script>
+      <?php
     }
     ?>
   </div>
