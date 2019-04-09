@@ -138,65 +138,51 @@ $errorIncluded = false;
         <?php
       }
 
-      // Ausreichend Plätze für Schüler
-      if ($pMin > $gesamtanzahl * (1 - $buffer)) {
-        $showErrorModal = true;
-        ?>
-        <div class="alert alert-warning" role="alert">
-          Die von allen Projekten summierte Mindestteilnehmeranzahl ist <?php echo ($pMin > $gesamtanzahl ? "größer als" : "zu groß für"); ?> die Gesamtschülerzahl. Falls nicht Projekte nicht stattfinden sollen, passen Sie bitte <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> ggf. die Mindestteilnehmeranzahl an.
-        </div><?php
-      }
-      if ($pMax < $gesamtanzahl * (1 + $buffer)) {
-        $showErrorModal = true;
-        if ($pMax < $gesamtanzahl) {
-          $errorIncluded = true;
-        }
-        ?>
-        <div class="alert alert-<?php echo ($pMax < $gesamtanzahl ? "danger" : "warning"); ?>" role="alert">
-          Die von allen Projekten summierte Maximalteilnehmeranzahl ist <?php echo ($pMax < $gesamtanzahl ? "kleiner als die" : " liegt nur wenig über der"); ?> Gesamtschülerzahl. Dies kann zu Problemen führen. Bitte erweitern sie die Maximalzahl bestehender Projekte <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> oder fügen sie weitere Projekte <a href="javascript: ;" onclick="javascript: window.location.href = '?site=create';" class="alert-link">hier</a> hinzu.
-        </div><?php
-      }
-
-      // Platz pro Stufe
-      for ($i = CONFIG["minStufe"]; $i <= CONFIG["maxStufe"]; $i++) {
-        if ($stufen[$i]["min"] > $stufen[$i]["students"] * (1 - $buffer)) {
+      if ($config["Stage"] < 5) {
+        // Ausreichend Plätze für Schüler
+        if ($pMin > $gesamtanzahl * (1 - $buffer)) {
           $showErrorModal = true;
           ?>
-          <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            Die von allen Projekten summierte Mindestteilnehmeranzahl für die <strong>Klassenstufe <?php echo $i; ?></strong> ist <?php echo ($stufen[$i]["min"] > $stufen[$i]["students"] ? "größer als" : "zu groß für"); ?> die Schüleranzahl der Stufe. Dies kann zu Problemen führen und kann <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> bearbeitet werden.
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+          <div class="alert alert-warning" role="alert">
+            Die von allen Projekten summierte Mindestteilnehmeranzahl ist <?php echo ($pMin > $gesamtanzahl ? "größer als" : "zu groß für"); ?> die Gesamtschülerzahl. Falls nicht Projekte nicht stattfinden sollen, passen Sie bitte <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> ggf. die Mindestteilnehmeranzahl an.
           </div><?php
         }
-        if ($stufen[$i]["max"] < $stufen[$i]["students"] * (1 + $buffer)) {
+        if ($pMax < $gesamtanzahl * (1 + $buffer)) {
           $showErrorModal = true;
-          if ($stufen[$i]["max"] < $stufen[$i]["students"]) {
+          if ($pMax < $gesamtanzahl) {
             $errorIncluded = true;
           }
           ?>
-          <div class="alert alert-<?php echo ($stufen[$i]["max"] < $stufen[$i]["students"] ? "danger" : "warning"); ?>" role="alert">
-            Die von allen Projekten summierte Maximalteilnehmeranzahl für die <strong>Klassenstufe <?php echo $i; ?></strong> ist <?php echo ($stufen[$i]["max"] < $stufen[$i]["students"] ? "kleiner als die" : " liegt nur wenig über der"); ?> Schüleranzahl der Stufe. Dies kann zu Problemen führen. Bitte erweitern sie die Maximalzahl bestehender Projekte <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> oder fügen sie weitere Projekte <a href="javascript: ;" onclick="javascript: window.location.href = '?site=create';" class="alert-link">hier</a> hinzu.
+          <div class="alert alert-<?php echo ($pMax < $gesamtanzahl ? "danger" : "warning"); ?>" role="alert">
+            Die von allen Projekten summierte Maximalteilnehmeranzahl ist <?php echo ($pMax < $gesamtanzahl ? "kleiner als die" : " liegt nur wenig über der"); ?> Gesamtschülerzahl. Dies kann zu Problemen führen. Bitte erweitern sie die Maximalzahl bestehender Projekte <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> oder fügen sie weitere Projekte <a href="javascript: ;" onclick="javascript: window.location.href = '?site=create';" class="alert-link">hier</a> hinzu.
           </div><?php
+        }
+
+        // Platz pro Stufe
+        for ($i = CONFIG["minStufe"]; $i <= CONFIG["maxStufe"]; $i++) {
+          if ($stufen[$i]["min"] > $stufen[$i]["students"] * (1 - $buffer)) {
+            $showErrorModal = true;
+            ?>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              Die von allen Projekten summierte Mindestteilnehmeranzahl für die <strong>Klassenstufe <?php echo $i; ?></strong> ist <?php echo ($stufen[$i]["min"] > $stufen[$i]["students"] ? "größer als" : "zu groß für"); ?> die Schüleranzahl der Stufe. Dies kann zu Problemen führen und kann <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> bearbeitet werden.
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div><?php
+          }
+          if ($stufen[$i]["max"] < $stufen[$i]["students"] * (1 + $buffer)) {
+            $showErrorModal = true;
+            if ($stufen[$i]["max"] < $stufen[$i]["students"]) {
+              $errorIncluded = true;
+            }
+            ?>
+            <div class="alert alert-<?php echo ($stufen[$i]["max"] < $stufen[$i]["students"] ? "danger" : "warning"); ?>" role="alert">
+              Die von allen Projekten summierte Maximalteilnehmeranzahl für die <strong>Klassenstufe <?php echo $i; ?></strong> ist <?php echo ($stufen[$i]["max"] < $stufen[$i]["students"] ? "kleiner als die" : " liegt nur wenig über der"); ?> Schüleranzahl der Stufe. Dies kann zu Problemen führen. Bitte erweitern sie die Maximalzahl bestehender Projekte <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> oder fügen sie weitere Projekte <a href="javascript: ;" onclick="javascript: window.location.href = '?site=create';" class="alert-link">hier</a> hinzu.
+            </div><?php
+          }
         }
       }
 
-      if ($config["Stage"] > 4) {
-        foreach ($projekte as $key => $projekt) {
-          if (count($projekt["teilnehmer"]) < $projekt["minPlatz"]) {
-          ?>
-          <div class="alert alert-warning" role="alert">
-            Das <a href="javasript: ;" onclick="javascript: showProjektInfoModal(projekte['<?php echo $key;?>']);" class="alert-link">Projekt <strong>'<?php echo $projekt["name"]; ?>'</strong></a> betreut von '<?php echo $projekt["betreuer"]; ?>' kann aufgrund mangelnder Teilnehmerzahl nicht stattfinden. Es wurden <?php echo count($projekt["teilnehmer"]); ?> Schüler dem Projekt zugewiesen. Die Liste kann <a href="printPDF?print=projekt&projekt=<?php echo $projekt["id"]; ?>" class="alert-link">hier</a> eingesehen werden.
-          </div><?php
-          }
-          elseif (count($projekt["teilnehmer"]) > $projekt["maxPlatz"]) {
-          ?>
-          <div class="alert alert-danger" role="alert">
-            Das <a href="javasript: ;" onclick="javascript: showProjektInfoModal(projekte['<?php echo $key;?>']);" class="alert-link">Projekt <strong>'<?php echo $projekt["name"]; ?>'</strong></a> betreut von '<?php echo $projekt["betreuer"]; ?>' hat eine höhere Teilnehmerzahl als erlaubt. Es wurden <?php echo count($projekt["teilnehmer"]); ?> Schüler dem Projekt zugewiesen. Die Liste kann <a href="printPDF?print=projekt&projekt=<?php echo $projekt["id"]; ?>" class="alert-link">hier</a> eingesehen werden.
-          </div><?php
-          }
-        }
-      }
       ?>
       </div>
     </div>
@@ -307,6 +293,45 @@ $errorIncluded = false;
     ?>
   </div>
   <?php
+  }
+  if ($config["Stage"] > 4) {
+    // Schüler die gewählt haben, aber nicht zugeteilt werden konnten
+    $studentOhneZuteilung = [];
+    foreach ($wahlen as $wahl) {
+      if (empty($wahl["projekt"])) {
+        array_push($studentOhneZuteilung, $wahl);
+      }
+    }
+    if (!empty($studentOhneZuteilung)) {
+      ?>
+      <div class="alert alert-danger" role="alert">
+        Es konnten <strong><?php echo count($studentOhneZuteilung); ?> Schüler</strong> keinem Projekt zugeteilt werden und diese müssen <a href="javascript: ;" onclick="javascript: $('#schuelerModal').modal('show');" class="alert-link">hier manuell</a> zugeteilt werden.
+      </div><?php
+    }
+
+    // Projekte die Stattfinden oder nicht
+    $projekteNichtStattfinden = [];
+    $projekteZuViel = [];
+    foreach ($projekte as $key => $projekt) {
+      if (count($projekt["teilnehmer"]) < $projekt["minPlatz"]) {
+        array_push($projekteNichtStattfinden, $projekt);
+      }
+      elseif (count($projekt["teilnehmer"]) > $projekt["maxPlatz"]) {
+        array_push($projekteZuViel, $projekt);
+      }
+    }
+    if (!empty($projekteNichtStattfinden)) {
+      ?>
+      <div class="alert alert-danger" role="alert">
+        Es können <strong><?php echo count($projekteNichtStattfinden); ?> Projekten</strong> aufgrund mangelnder Teilnehmerzahl nicht stattfinden. <a href="javasript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">Projekt einsehen</a>
+      </div><?php
+    }
+    if (!empty($projekteZuViel)) {
+      ?>
+      <div class="alert alert-warning" role="alert">
+        Die Teilnehmerzahl von <strong><?php echo count($projekteZuViel); ?> Projekten</strong> übersteigt die Maximalteilnehmeranzahl. <a href="javasript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">Projekt einsehen</a>
+      </div><?php
+    }
   }
   ?>
 </div>
@@ -550,13 +575,73 @@ $errorIncluded = false;
       <div class="modal-body">
         <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
         <button onclick="javascript: window.open('printPDF.php?print=projekt&projekt=all');" type="button" class="btn btn-secondary">Liste drucken</button>
+        <?php
+        if ($config["Stage"] > 4) {
+          if (!empty($projekteNichtStattfinden)) {
+            ?>
+        <h4 class="text-danger">Folgende Projekte können aufgrund mangelnder Teilnehmerzahl nicht stattfinden.</h4>
+        <table class="table table-dark table-striped table-hover border border-danger">
+          <thead class="thead-dark">
+            <tr>
+              <th class="sticky-top">Name</th>
+              <th class="sticky-top">Betreuer</th>
+              <th class="sticky-top">Stufe</th>
+              <th class="sticky-top">(Zugeteilt) Platz</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            foreach ($projekteNichtStattfinden as $projekt) {
+              echo '
+              <tr class="border-left border-danger">
+                <td><a href="javascript:;" onclick="javasript: showProjektInfoModal(projekte[' . $key . ']);">' . $projekt["name"] . '</a></td>
+                <td>' . $projekt["betreuer"] . '</td>
+                <td>' . $projekt["minKlasse"] . '-' . $projekt["maxKlasse"] . '</td>
+                <td class="bg-danger">(' . count($projekt["teilnehmer"]) . ') >' . $projekt["minPlatz"] . '-' . $projekt["maxPlatz"] . '</td>
+              </tr>';
+            }
+            ?>
+          </tbody>
+        </table>
+            <?php
+          }
+          if (!empty($projekteZuViel)) {
+            ?>
+        <h4 class="text-warning">Die Teilnehmerzahl der folgenden Projekte überschreitet deren Maximalteilnehmeranzahl.</h4>
+        <table class="table table-dark table-striped table-hover border border-danger">
+          <thead class="thead-dark">
+            <tr>
+              <th class="sticky-top">Name</th>
+              <th class="sticky-top">Betreuer</th>
+              <th class="sticky-top">Stufe</th>
+              <th class="sticky-top">(Zugeteilt) Platz</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            foreach ($projekteNichtStattfinden as $projekt) {
+              echo '
+              <tr class="border-left border-warning">
+                <td><a href="javascript:;" onclick="javasript: showProjektInfoModal(projekte[' . $key . ']);">' . $projekt["name"] . '</a></td>
+                <td>' . $projekt["betreuer"] . '</td>
+                <td>' . $projekt["minKlasse"] . '-' . $projekt["maxKlasse"] . '</td>
+                <td class="bg-warning">(' . count($projekt["teilnehmer"]) . ') >' . $projekt["minPlatz"] . '-' . $projekt["maxPlatz"] . '</td>
+              </tr>';
+            }
+            ?>
+          </tbody>
+        </table>
+            <?php
+          }
+        }
+        ?>
         <table class="table table-dark table-striped table-hover">
           <thead class="thead-dark">
             <tr>
               <th class="sticky-top">Name</th>
               <th class="sticky-top">Betreuer</th>
               <th class="sticky-top">Stufe</th>
-              <th class="sticky-top">Platz</th>
+              <th class="sticky-top"><?php echo $config["Stage"] > 4 ? "(Zugeteilt) " : ""; ?>Platz</th>
             </tr>
           </thead>
           <tbody><?php
@@ -569,12 +654,13 @@ $errorIncluded = false;
             </tr>";
           }
           foreach ($projekte as $key => $projekt) {
+            $color = (count($projekt["teilnehmer"]) >= $projekt["minPlatz"] ? (count($projekt["teilnehmer"]) <= $projekt["maxPlatz"] ? 'success' : 'warning') : 'danger');
             echo '
-            <tr>
+            <tr' . ($config["Stage"] > 4 ? ' class="border-left border-' . $color . '"' : '') . '>
               <td><a href="javascript:;" onclick="javasript: showProjektInfoModal(projekte[' . $key . ']);">' . $projekt["name"] . '</a></td>
               <td>' . $projekt["betreuer"] . '</td>
               <td>' . $projekt["minKlasse"] . '-' . $projekt["maxKlasse"] . '</td>
-              <td>' . $projekt["minPlatz"] . '-' . $projekt["maxPlatz"] . '</td>
+              <td' . ($config["Stage"] > 4 ? ' class="bg-' . $color . '">' . '(' . count($projekt["teilnehmer"]) . ') ' : '>') . $projekt["minPlatz"] . '-' . $projekt["maxPlatz"] . '</td>
             </tr>';
           }
           ?>
@@ -617,8 +703,8 @@ $errorIncluded = false;
         <table class="table table-dark table-striped table-hover">
           <thead class="thead-dark">
             <tr>
-              <th class="sticky-top"><a href="javasript:;">Stufe</a></th>
-              <th class="sticky-top"><a href="javasript:;">Klasse</a></th>
+              <th class="sticky-top">Stufe</th>
+              <th class="sticky-top">Klasse</th>
               <th class="sticky-top">Vorname</th>
               <th class="sticky-top">Nachname</th>
               <th class="sticky-top">Wahl</th>
@@ -635,13 +721,14 @@ $errorIncluded = false;
           </tbody>
         </table>';
           }
-          foreach ($klassen as $klasse) {
+          elseif ($config["Stage"] > 4 && !empty($studentOhneZuteilung)) {
             echo '
-        <table class="table table-dark table-striped table-hover">
+        <h4 class="text-danger">Folgende Schüler konnten nicht zugeteilt werden und benötigen eine manuelle Zuteilung!</h4>
+        <table class="table table-dark table-striped table-hover border border-danger">
           <thead class="thead-dark">
             <tr>
               <th class="sticky-top">Stufe</th>
-              <th class="sticky-top">Klasse <a data-toggle="collapse" aria-expanded="true" href="#class-' . $klasse[0]["klasse"] . '">' . $klasse[0]["klasse"] . '</a></th>
+              <th class="sticky-top">Klasse</th>
               <th class="sticky-top">Vorname</th>
               <th class="sticky-top">Nachname</th>
               <th class="sticky-top">Wahl</th>
@@ -649,13 +736,69 @@ $errorIncluded = false;
               <th class="sticky-top">Bearbeiten</th>
             </tr>
           </thead>
-          <tbody id="class-' . $klasse[0]["klasse"] . '">';
+          <tbody>';
+            foreach ($studentOhneZuteilung as $student) {
+            echo '
+          <tr uid="' . $student["uid"] . '">
+            <td>' . $student["stufe"] . '</td>
+            <td>' . $student["klasse"] . '</td>
+            <td>' . $student["vorname"] . '</td>
+            <td>' . $student["nachname"] . '</td>
+            <td>
+              <ol>';
+              foreach ($student["wahl"] as $wahl) {
+                $p = null;
+                foreach ($projekte as $key => $projekt) {
+                  if ($projekt["id"] == $wahl) {
+                    $p = $key;
+                    break;
+                  }
+                }
+                echo '
+                <li>
+                  <a href="javascript:;" onclick="showProjektInfoModal(projekte[' . $p . ']);">
+                    ' . getProjektInfo($projekte, $wahl)["name"] . '
+                  </a>
+                </li>';
+              }
+              echo '
+              </ol>
+            </td>
+            <td class="bg-danger">
+              Konnte nicht zugeteilt werden
+            </td>
+            <td class="navbar-dark">
+              <button class="navbar-toggler" type="button" onclick="javascript: editStudentModal(this);">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+            </td>
+          </tr>';
+            }
+            echo '
+          </tbody>
+        </table>';
+          }
+          foreach ($klassen as $klasse) {
+            echo '
+        <table class="table table-dark table-striped table-hover">
+          <thead class="thead-dark">
+            <tr>
+              <th class="sticky-top">Stufe</th>
+              <th class="sticky-top">Klasse <a href="javascript: ;" onclick="javascript: $(`#class-' . $klasse[0]["klasse"] . '`).collapse(`toggle`);">' . $klasse[0]["klasse"] . '</a></th>
+              <th class="sticky-top">Vorname</th>
+              <th class="sticky-top">Nachname</th>
+              <th class="sticky-top">Wahl</th>
+              <th class="sticky-top">Ergebnis</th>
+              <th class="sticky-top">Bearbeiten</th>
+            </tr>
+          </thead>
+          <tbody id="class-' . $klasse[0]["klasse"] . '" class="collapse show">';
             foreach ($klasse as $key => $student) {
               if ($key == 0) {
                 continue;
               }
               echo '
-            <tr uid="' . $student["uid"] . '">
+            <tr uid="' . $student["uid"] . '"' . ($config["Stage"] > 4 ? " class='border-left border-" . (empty($student["projekt"]) ? "danger" : "success") . "'" : "") . '>
               <td>' . $student["stufe"] . '</td>
               <td>' . $student["klasse"] . '</td>
               <td>' . $student["vorname"] . '</td>
@@ -688,10 +831,10 @@ $errorIncluded = false;
 
                 echo '
               </td>
-              <td>';
+              <td' . ($config["Stage"] > 4 ? " class='bg-" . (empty($student["projekt"]) ? "danger" : "success") . "'" : "") . '>';
 
               if (empty($student["projekt"])) {
-                echo "N/A";
+                echo ($config["Stage"] > 4 ? "Konnte nicht zugeteilt werden" : "N/A");
               }
               else {
                 $p = null;
@@ -703,7 +846,7 @@ $errorIncluded = false;
                 }
                 echo '
                 <input type="hidden" value="' . $student["projekt"] . '">
-                <a href="javascript: ;" onclick="javascript: showProjektInfoModal(projekte[' . $p . ']);">
+                <a href="javascript: ;" onclick="javascript: showProjektInfoModal(projekte[' . $p . ']);"' . ($config["Stage"] > 4 ? " class='text-light'" : "") . '>
                   ' . getProjektInfo($projekte, $student["projekt"])["name"] . '
                 </a>';
               }
