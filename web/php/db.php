@@ -181,7 +181,13 @@
 		}
 
 		$removed = false;
+		$dataHeader = [];
 		foreach ($data as $key => $entry) {
+			if (empty($dataHeader)) {
+				foreach ($entry as $index => $value) {
+					array_push($dataHeader, $index);
+				}
+			}
 			if ($entry[$search] == $searchNeedle) {
 				unset($data[$key]);
 				$removed = true;
@@ -190,7 +196,7 @@
 		}
 
 		if ($removed) {
-			return dbWrite($path, $data);
+			return dbWrite($path, $data, $dataHeader);
 		}
 		error_log("Versuche nicht vorhandenen Eintrag " . $search . " = " . $searchNeedle . " in " . $path . " zu entfernen", 0, "../data/error.log");
 		return false;

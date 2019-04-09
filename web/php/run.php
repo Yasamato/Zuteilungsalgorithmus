@@ -90,7 +90,13 @@ else {
       die("Mangelnde Zugriffsberechtigung auf den Ordner FinishedAlgorithm");
     }
     foreach ($projekte as $projekt) {
-      fwrite($fh, $projekt["id"] . "," . ($projekt["minPlatz"] - count($projekt["teilnehmer"])) . "," . ($projekt["maxPlatz"] - count($projekt["teilnehmer"])));
+      $zwangszugeteilt = 0;
+      foreach ($zwangszuteilung as $zuteilung) {
+        if ($zuteilung["projekt"] == $projekt["id"]) {
+          $zwangszugeteilt += 1;
+        }
+      }
+      fwrite($fh, $projekt["id"] . "," . ($projekt["minPlatz"] - $zwangszugeteilt) . "," . ($projekt["maxPlatz"] - $zwangszugeteilt));
       if ($projekt["id"] != $projekte[count($projekte) - 1]["id"]) {
         fwrite($fh, "\n");
       }
