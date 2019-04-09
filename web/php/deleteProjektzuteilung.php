@@ -9,24 +9,17 @@ if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
         break;
       }
     }
-    $zwangszugeteilt = false;
-    foreach ($zwangszuteilung as $zuteilung) {
-      if ($zuteilung["uid"] == $_POST["uid"]) {
-        $zwangszugeteilt = true;
-        break;
-      }
-    }
     if (empty($student)) {
       error_log("Der Schüler mit der ID " . $_POST["uid"] . " konnte nicht gefunden werden und wurde dementsprechend nicht gelöscht werden", 0, "../data/error.log");
       alert("Der Schüler mit der ID " . $_POST["uid"] . " konnte nicht gefunden werden und wurde dementsprechend nicht gelöscht werden");
     }
     else {
-      if (dbRemove("../data/" . ($zwangszugeteilt ? "zwangszuteilung.csv" : "wahl.csv"), "uid", $_POST["uid"])) {
-        alert("Der Schüler '" . $student["vorname"] . " " . $student["nachname"] . "' mit der ID " . $_POST["uid"] . " wurde erfolgreich gelöscht");
+      if (dbSet("../data/wahl.csv", "uid", $_POST["uid"], "projekt", "")) {
+        alert("Die Projektzuteilung des Schülers '" . $student["vorname"] . " " . $student["nachname"] . "' mit der ID " . $_POST["uid"] . " wurde erfolgreich gelöscht");
       }
       else {
-        error_log("Löschen des Schülereintrags mit der ID " . $_POST["uid"] . " ist fehlgeschlagen.", 0, "../data/error.log");
-        alert("Löschen des Schülereintrags mit der ID " . $_POST["uid"] . " ist fehlgeschlagen.");
+        error_log("Löschen der Projektzuteilung des Schülereintrags mit der ID " . $_POST["uid"] . " ist fehlgeschlagen.", 0, "../data/error.log");
+        alert("Löschen der Projektzuteilung des Schülereintrags mit der ID " . $_POST["uid"] . " ist fehlgeschlagen.");
       }
     }
   }

@@ -12,7 +12,7 @@
 <div class="row" id="wahlpage">
 
 	<div class="col-sm-7 col-md-7 col-lg-8 col-xl-9">
-		<div class="d-flex flex-wrap align-content-start sticky-top" id="projektliste">
+		<div class="d-flex flex-wrap align-content-start" id="projektliste">
 			<?php
 			$vorherigeWahl = null;
 			$vorherigeWahlKey = array();
@@ -32,7 +32,7 @@
 				<input type="hidden" value="<?php echo $projekt["id"]; ?>">
 				<div class="card-body">
 					<h5><?php echo $projekt["name"]; ?></h5>
-					<a href="javascript: showProjektInfoModal(projekte[<?php echo $key; ?>]);" class="btn btn-primary">Info</a>
+					<a href="javascript: ;" onclick="javascript: showProjektInfoModal(projekte[<?php echo $key; ?>]);" class="btn btn-primary">Info</a>
 				</div>
 			</div>
 			<?php
@@ -42,7 +42,7 @@
 	</div>
 
 	<div class="col-sm-5 col-md-5 col-lg-4 col-xl-3">
-		<div class="card" id="wahlliste">
+		<div class="card sticky-top" id="wahlliste">
 			<form method="post"></form>
 			<div class="card-body">
 				<h5 class="text-dark">Projektwahl <small>hier hinein ziehen</small></h5><?php
@@ -73,7 +73,7 @@
 								<input type="hidden" value="<?php echo $projekt["id"]; ?>">
 								<div class="card-body">
 									<h5><?php echo $projekt["name"]; ?></h5>
-									<a href="javascript: showProjektInfoModal(projekte[<?php echo $vorherigeWahlKey[$i]; ?>]);" class="btn btn-primary">Info</a>
+									<a href="javascript: ;" onclick="javascript: showProjektInfoModal(projekte[<?php echo $vorherigeWahlKey[$i]; ?>]);" class="btn btn-primary">Info</a>
 								</div>
 							</div>
 							<?php

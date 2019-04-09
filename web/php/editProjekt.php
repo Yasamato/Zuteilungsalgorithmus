@@ -36,7 +36,7 @@ if (isLogin() && ($_SESSION['benutzer']['typ'] == "teachers" && $config["Stage"]
 		$error = true;
 	}
 
-	if (empty($_GET['projekt']) || empty(getProjektInfo($_GET['projekt']))) {
+	if (empty($_GET['projekt']) || empty(getProjektInfo($projekte, $_GET['projekt']))) {
     alert("Der zu editierende Eintrag konnte nicht gefunden werden");
     $error = true;
   }

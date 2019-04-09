@@ -61,7 +61,7 @@ cat > data/config.php <<EOF
   define("CONFIG", [
     "dbLineSeperator" => "__;__",
     "dbElementSeperator" => "__#__",
-    "dbFilesPermission" => $level, // see https://www.w3schools.com/php/func_filesystem_chmod.asp
+    "dbFilesPermission" => $level, // siehe https://www.w3schools.com/php/func_filesystem_chmod.asp
     "adminUser" => "$adminUser",
     "adminPassword" => "$adminPassword",
     "minStufe" => 5,
@@ -72,6 +72,8 @@ EOF
 
 sudo chown -R $user:$user data/
 sudo chmod -R $level data/
+sudo chown -R $user:$user FinishedAlgorithm/
+sudo chmod -R $level FinishedAlgorithm/
 
 echo "Fertig"
 echo

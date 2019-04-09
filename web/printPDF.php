@@ -136,7 +136,7 @@
       $this->ln($h);
     }
 
-		function printKlasse($klasse, $studentlist, $zwangszuteilung, $klassenliste = false) {
+		function printKlasse($klasse, $studentlist, $projekte, $zwangszuteilung, $klassenliste = false) {
       $this->AddPage("P", "A4");
       $this->setCellHeightRatio(1.1);
       $this->ln(13);
@@ -175,12 +175,12 @@
 					$student["klasse"],
 					$student["nachname"],
 					$student["vorname"],
-					$_SESSION['benutzer']['typ'] == "admin" ? (empty($student["ergebnis"]) ? "N/A" : getProjektInfo($projekte, $student["ergebnis"])["name"]) : ($zugeteilt ? "Zugeteilt" : (empty($student["wahl"]) ? "Nein" : "Ja"))
+					$_SESSION['benutzer']['typ'] == "admin" ? (empty($student["projekt"]) ? "N/A" : getProjektInfo($projekte, $student["projekt"])["name"]) : ($zugeteilt ? "Zugeteilt" : (empty($student["wahl"]) ? "Nein" : "Ja"))
 				]);
 			}
 			// Aufbereiten der Breiten
 			$widths = [
-				10, 40, 40, 100
+				12, 39, 39, 100
 			];
 			// Tabelle
 			$this->ColoredTable($header, $dataToPrint, $widths);
@@ -256,7 +256,7 @@
       foreach ($projekte as $projekt) {
         $pdf->printProjekt($projekt);
 				if (!empty($projekt["teilnehmer"])) {
-					$pdf->printKlasse("Teilnehmerliste " . $projekt["name"], $projekt["teilnehmer"], $zwangszuteilung);
+					$pdf->printKlasse("Teilnehmerliste " . $projekt["name"], $projekt["teilnehmer"], $projekte, $zwangszuteilung);
 				}
       }
     }
@@ -266,7 +266,7 @@
 			$pdf->SetSubject("Projekt " . $projekt["name"]);
       $pdf->printProjekt($projekt);
 			if (!empty($projekt["teilnehmer"])) {
-				$pdf->printKlasse("Teilnehmerliste " . $projekt["name"], $projekt["teilnehmer"], $zwangszuteilung, false);
+				$pdf->printKlasse("Teilnehmerliste " . $projekt["name"], $projekt["teilnehmer"], $projekte, $zwangszuteilung, false);
 			}
     }
   }
@@ -289,7 +289,7 @@
 			if (empty($klassen[$_GET['klasse']])) {
 				error_log("Klasse '" . $_GET["klasse"] . "' konnte nicht gefunden werden.", 0, "../data/error.log");
 			}
-      $pdf->printKlasse($_GET['klasse'], $klassen[$_GET['klasse']], $zwangszuteilung, $klassenliste);
+      $pdf->printKlasse($_GET['klasse'], $klassen[$_GET['klasse']], $projekte, $zwangszuteilung, $klassenliste);
     }
   }
   else {

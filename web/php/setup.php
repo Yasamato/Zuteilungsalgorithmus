@@ -139,7 +139,7 @@ foreach ($zwangszuteilung as $key => $zuteilung) {
     "stufe" => $zuteilung["stufe"],
     "klasse" => $zuteilung["klasse"],
     "wahl" => array(),
-    "ergebnis" => $zuteilung["projekt"]
+    "projekt" => $zuteilung["projekt"]
   ]);
 }
 usort($wahlen, function ($a, $b) {
@@ -210,7 +210,7 @@ if (isLogin()) {
     foreach ($projekte as $key => $projekt) {
       $teilnehmer = [];
       foreach ($wahlen as $student) {
-        if (!empty($student["ergebnis"]) && $student["ergebnis"] == $projekt["id"]) {
+        if (!empty($student["projekt"]) && $student["projekt"] == $projekt["id"]) {
           array_push($teilnehmer, $student);
         }
       }

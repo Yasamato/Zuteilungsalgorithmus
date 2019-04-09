@@ -48,11 +48,11 @@ function showProjektInfoModal(p) {
 							</tr>
 							<tr>
 								<th scope="row">Mensa-Essen</th>
-								` + (config["MontagVormittag"] || config["MontagNachmittag"] ? "<td class='text-" + (p.moMensa == "true" ? "success'>&#10004;" : "danger'>&#10006;") + "</td>" : "") + `
-								` + (config["DienstagVormittag"] || config["DienstagNachmittag"] ? "<td class='text-" + (p.diMensa == "true" ? "success'>&#10004;" : "danger'>&#10006;") + "</td>" : "") + `
-								` + (config["MittwochVormittag"] || config["MittwochNachmittag"] ? "<td class='text-" + (p.miMensa == "true" ? "success'>&#10004;" : "danger'>&#10006;") + "</td>" : "") + `
-								` + (config["DonnerstagVormittag"] || config["DonnerstagNachmittag"] ? "<td class='text-" + (p.doMensa == "true" ? "success'>&#10004;" : "danger'>&#10006;") + "</td>" : "") + `
-								` + (config["FreitagVormittag"] || config["FreitagNachmittag"] ? "<td class='text-" + (p.frMensa == "true" ? "success'>&#10004;" : "danger'>&#10006;") + "</td>" : "") + `
+								` + (config["MontagVormittag"] || config["MontagNachmittag"] ? "<td class='h4 text-" + (p.moMensa == "true" ? "success'>&#10003;" : "danger'>&#10005;") + "</td>" : "") + `
+								` + (config["DienstagVormittag"] || config["DienstagNachmittag"] ? "<td class='h4 text-" + (p.diMensa == "true" ? "success'>&#10003;" : "danger'>&#10005;") + "</td>" : "") + `
+								` + (config["MittwochVormittag"] || config["MittwochNachmittag"] ? "<td class='h4 text-" + (p.miMensa == "true" ? "success'>&#10003;" : "danger'>&#10005;") + "</td>" : "") + `
+								` + (config["DonnerstagVormittag"] || config["DonnerstagNachmittag"] ? "<td class='h4 text-" + (p.doMensa == "true" ? "success'>&#10003;" : "danger'>&#10005;") + "</td>" : "") + `
+								` + (config["FreitagVormittag"] || config["FreitagNachmittag"] ? "<td class='h4 text-" + (p.frMensa == "true" ? "success'>&#10003;" : "danger'>&#10005;") + "</td>" : "") + `
 							</tr>
 							<tr>
 								<th scope="row">Nachmittag</th>
@@ -74,7 +74,7 @@ function showProjektInfoModal(p) {
       			<input type="hidden" name="action" value="deleteProjekt">
       			<input type="hidden" name="projekt" value="` + p.id + `">
       		</form>
-          <button type="button" class="btn btn-danger" onclick="javascript: confirmDeleteProjekt('` + p.id + `', '` + p.name + `');">Löschen</button>
+          <button type="button" class="btn btn-danger mr-auto" onclick="javascript: confirmDeleteProjekt('` + p.id + `', '` + p.name + `');">Löschen</button>
 					` : "") + `
 					` + (window.user == "admin" || window.user == "teachers" ? `
           <button type="button" class="btn btn-warning" onclick="javascript: window.location.href = '?site=edit&projekt=` + p.id + `';">Bearbeiten</button>

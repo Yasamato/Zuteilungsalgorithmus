@@ -3,6 +3,7 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
   die("Zugriff verweigert");
 }
 
+
 // generate the statistics how many places are available in each class
 // initialize the data array
 $stufen = [];
@@ -17,7 +18,7 @@ for ($i = CONFIG["minStufe"]; $i <= CONFIG["maxStufe"]; $i++) {
 // read each project and add the max members to the affected classes
 $pMin = 0;
 $pMax = 0;
-foreach (dbRead("../data/projekte.csv") as $p) {
+foreach ($projekte as $p) {
   for ($i = CONFIG["minStufe"]; $i <= CONFIG["maxStufe"]; $i++) {
 		if ($p["minKlasse"] <= $i && $p["maxKlasse"] >= $i) {
 			$stufen[$i]["min"] += $p["minPlatz"];
@@ -72,7 +73,7 @@ $errorIncluded = false;
     <div class="modal-content bg-dark">
 
       <div class="modal-header">
-        <h4 class="modal-title"><?php echo $errorIncluded ? "Warnungen und Fehlermeldungen" : "Hinweise"; ?></h4>
+        <h4 class="modal-title">Warnmeldungen und Hinweise</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span class="closebutton" aria-hidden="true">&times;</span>
         </button>
@@ -86,7 +87,7 @@ $errorIncluded = false;
         $errorIncluded = true;
         ?>
         <div class="alert alert-danger" role="alert">
-          Die <strong>Klasse <?php echo $klasse; ?></strong> konnte nicht gefunden werden. Korrigieren Sie bitte die Klassseneinträge entsprechend <a href="javascript: $('#studentsInKlassen').modal('show');" class="alert-link">hier</a>.
+          Die <strong>Klasse <?php echo $klasse; ?></strong> konnte nicht gefunden werden. Korrigieren Sie bitte die Klassseneinträge entsprechend <a href="javascript:;" onclick="javascript: $('#studentsInKlassen').modal('show');" class="alert-link">hier</a> oder bearbeiten sie den Schülereintrag <a href="javascript: ;" onclick="javascript: $('#schuelerModal').modal('show');" class="alert-link">hier</a>.
         </div><?php
       }
 
@@ -97,7 +98,7 @@ $errorIncluded = false;
           $errorIncluded = true;
           ?>
         <div class="alert alert-danger" role="alert">
-          Die <strong>Klasse <?php echo $klasse["klasse"]; ?></strong> hat mehr Schüler als eingetragen. Korrigieren Sie bitte die Klassseneinträge entsprechend <a href="javascript: $('#studentsInKlassen').modal('show');" class="alert-link">hier</a>.
+          Die <strong>Klasse <?php echo $klasse["klasse"]; ?></strong> hat mehr Schüler als eingetragen. Korrigieren Sie bitte die Klassseneinträge entsprechend <a href="javascript:;" onclick="javascript: $('#studentsInKlassen').modal('show');" class="alert-link">hier</a> oder bearbeiten sie den Schülereintrag <a href="javascript: ;" onclick="javascript: $('#schuelerModal').modal('show');" class="alert-link">hier</a>.
         </div><?php
         }
       }
@@ -110,7 +111,7 @@ $errorIncluded = false;
         }
         ?>
         <div class="alert alert-<?php echo $config["Stage"] < 4 ? "primary alert-dismissible fade show" : "danger"; ?>" role="alert">
-          Es ha<?php echo $gesamtanzahl > 1 ? "ben" : "t" ?> nur <?php echo count($wahlen) . " von " . $gesamtanzahl; ?> Schülern gewählt. Einträge <a href="javascript: $('#schuelerModal').modal('show');" class="alert-link">Auflisten</a>.
+          Es ha<?php echo $gesamtanzahl > 1 ? "ben" : "t" ?> nur <?php echo count($wahlen) . " von " . $gesamtanzahl; ?> Schülern gewählt. Einträge <a href="javascript: ;" onclick="javascript: $('#schuelerModal').modal('show');" class="alert-link">auflisten</a>.
           <?php if ($config["Stage"] < 4) { ?>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -127,7 +128,7 @@ $errorIncluded = false;
         }
         ?>
         <div class="alert alert-<?php echo $config["Stage"] < 4 ? "primary alert-dismissible fade show" : "danger"; ?>" role="alert">
-          Es ha<?php echo $klassenFertig > 1 ? "ben" : "t" ?> nur <?php echo $klassenFertig . " von " . count($klassenliste); ?> Klassen vollständig gewählt.
+          Es ha<?php echo $klassenFertig > 1 ? "ben" : "t" ?> nur <?php echo $klassenFertig . " von " . count($klassenliste); ?> Klassen vollständig gewählt. Einträge <a href="javascript: ;" onclick="javascript: $('#studentsInKlassen').modal('show');" class="alert-link">auflisten</a>
           <?php if ($config["Stage"] < 4) { ?>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -137,42 +138,51 @@ $errorIncluded = false;
         <?php
       }
 
-      // Ausreichend Plätze für Schüler
-      if ($pMin > $gesamtanzahl * (1 - $buffer)) {
-        $showErrorModal = true;
-        ?>
-        <div class="alert alert-warning" role="alert">
-          Die von allen Projekten summierte Mindestteilnehmeranzahl ist zu groß für die Gesamtschülerzahl. Falls nicht Projekte nicht stattfinden sollen, passen Sie bitte die Mindestteilnehmeranzahl an. Einträge <a href="javascript: $('#projekteModal').modal('show');" class="alert-link">Auflisten</a>.
-        </div><?php
-      }
-      if ($pMax < $gesamtanzahl * (1 + $buffer)) {
-        $showErrorModal = true;
-        $errorIncluded = true;
-        ?>
-        <div class="alert alert-danger" role="alert">
-          Die von allen Projekten summierte Maximalteilnehmeranzahl ist zu klein für die Gesamtschülerzahl. Bitte erweitern sie die Maximalzahl bestehender Projekte oder fügen sie weitere Projekte hinzu. Einträge <a href="javascript: $('#projekteModal').modal('show');" class="alert-link">Auflisten</a>.
-        </div><?php
+      if ($config["Stage"] < 5) {
+        // Ausreichend Plätze für Schüler
+        if ($pMin > $gesamtanzahl * (1 - $buffer)) {
+          $showErrorModal = true;
+          ?>
+          <div class="alert alert-warning" role="alert">
+            Die von allen Projekten summierte Mindestteilnehmeranzahl ist <?php echo ($pMin > $gesamtanzahl ? "größer als" : "zu groß für"); ?> die Gesamtschülerzahl. Falls nicht Projekte nicht stattfinden sollen, passen Sie bitte <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> ggf. die Mindestteilnehmeranzahl an.
+          </div><?php
+        }
+        if ($pMax < $gesamtanzahl * (1 + $buffer)) {
+          $showErrorModal = true;
+          if ($pMax < $gesamtanzahl) {
+            $errorIncluded = true;
+          }
+          ?>
+          <div class="alert alert-<?php echo ($pMax < $gesamtanzahl ? "danger" : "warning"); ?>" role="alert">
+            Die von allen Projekten summierte Maximalteilnehmeranzahl ist <?php echo ($pMax < $gesamtanzahl ? "kleiner als die" : " liegt nur wenig über der"); ?> Gesamtschülerzahl. Dies kann zu Problemen führen. Bitte erweitern sie die Maximalzahl bestehender Projekte <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> oder fügen sie weitere Projekte <a href="javascript: ;" onclick="javascript: window.location.href = '?site=create';" class="alert-link">hier</a> hinzu.
+          </div><?php
+        }
+
+        // Platz pro Stufe
+        for ($i = CONFIG["minStufe"]; $i <= CONFIG["maxStufe"]; $i++) {
+          if ($stufen[$i]["min"] > $stufen[$i]["students"] * (1 - $buffer)) {
+            $showErrorModal = true;
+            ?>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              Die von allen Projekten summierte Mindestteilnehmeranzahl für die <strong>Klassenstufe <?php echo $i; ?></strong> ist <?php echo ($stufen[$i]["min"] > $stufen[$i]["students"] ? "größer als" : "zu groß für"); ?> die Schüleranzahl der Stufe. Dies kann zu Problemen führen und kann <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> bearbeitet werden.
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div><?php
+          }
+          if ($stufen[$i]["max"] < $stufen[$i]["students"] * (1 + $buffer)) {
+            $showErrorModal = true;
+            if ($stufen[$i]["max"] < $stufen[$i]["students"]) {
+              $errorIncluded = true;
+            }
+            ?>
+            <div class="alert alert-<?php echo ($stufen[$i]["max"] < $stufen[$i]["students"] ? "danger" : "warning"); ?>" role="alert">
+              Die von allen Projekten summierte Maximalteilnehmeranzahl für die <strong>Klassenstufe <?php echo $i; ?></strong> ist <?php echo ($stufen[$i]["max"] < $stufen[$i]["students"] ? "kleiner als die" : " liegt nur wenig über der"); ?> Schüleranzahl der Stufe. Dies kann zu Problemen führen. Bitte erweitern sie die Maximalzahl bestehender Projekte <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> oder fügen sie weitere Projekte <a href="javascript: ;" onclick="javascript: window.location.href = '?site=create';" class="alert-link">hier</a> hinzu.
+            </div><?php
+          }
+        }
       }
 
-      // Platz pro Stufe
-      for ($i = 5; $i <= 12; $i++) {
-        if ($stufen[$i]["min"] > $stufen[$i]["students"] * (1 - $buffer)) {
-          ?>
-          <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            Die von allen Projekten summierte Mindestteilnehmeranzahl für die <strong>Klassenstufe <?php echo $i; ?></strong> ist zu groß für die Schüleranzahl der Stufe. Dies kann zu Problemen führen. Einträge <a href="javascript: $('#projekteModal').modal('show');" class="alert-link">Auflisten</a>.
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div><?php
-        }
-        if ($stufen[$i]["max"] < $stufen[$i]["students"] * (1 + $buffer)) {
-          $errorIncluded = true;
-          ?>
-          <div class="alert alert-danger" role="alert">
-            Die von allen Projekten summierte Maximalteilnehmeranzahl für die <strong>Klassenstufe <?php echo $i; ?></strong> ist zu klein für die Schüleranzahl der Stufe. Bitte erweitern sie die Maximalzahl bestehender Projekte oder fügen sie weitere Projekte hinzu. Einträge <a href="javascript: $('#projekteModal').modal('show');" class="alert-link">Auflisten</a>.
-          </div><?php
-        }
-      }
       ?>
       </div>
     </div>
@@ -185,31 +195,55 @@ $errorIncluded = false;
   if ($showErrorModal && $errorIncluded) {
     ?>
     <div class="alert alert-danger" role="alert">
-      Es sind Fehler aufgetreten. <a href="javascript: $('#errorModal').modal('show');" class="alert-link">Details</a>.
+      Es sind Fehler aufgetreten. <a href="javascript:;" onclick="javascript: $('#errorModal').modal('show');" class="alert-link">Details</a>.
     </div>
     <?php
   }
   elseif ($showErrorModal) {
     ?>
     <div class="alert alert-warning" role="alert">
-      Es sind Warnmeldungen und Hinweise aufgetreten. <a href="javascript: $('#errorModal').modal('show');" class="alert-link">Details</a>.
+      Es sind Warnmeldungen und Hinweise aufgetreten. <a href="javascript:;" onclick="javascript: $('#errorModal').modal('show');" class="alert-link">Details</a>.
     </div>
     <?php
   }
-  if ($config["Stage"] == 4) {
+
+  // Auswertung
+  if ($config["Stage"] > 3) {
   ?>
-  <div class="alert alert-<?php echo $showErrorModal ? "danger" : "success"; ?>" role="alert">
+  <div class="alert alert-<?php echo $errorIncluded ? "danger" : (file_exists("../data/algorithmus.pid") ? "warning" : "success"); ?>" role="alert">
     <?php
-    if ($showErrorModal) {
+    if ($errorIncluded) {
       ?>
-    Aufgrund der obigen Fehler kann momentan keine Auswertung durchgeführt werden. Bitte korrigieren sie evtl. fehlende oder inkorrekte Angaben.
+    Aufgrund der <a href="javascript:;" onclick="javascript: $('#errorModal').modal('show');" class="alert-link">obigen Fehler</a> kann momentan keine Auswertung durchgeführt werden. Bitte korrigieren sie evtl. fehlende oder inkorrekte Angaben.
       <?php
     }
+    elseif ($config["Stage"] > 4) {
+      if (!file_exists("../data/algorithmus.pid")) { ?>
+    <h4 class="alert-heading">Zuteilung erfolgreich</h4>
+    <p>
+      Die Wahlphase wurde erflogreich abgeschlossen und die Auswertung durch den Zuteilungsalgorithmus wurde vom Admin bereits <?php echo file_exists("../data/algorithmus.pid") ? "gestartet" : "durchgeführt"; ?>.
+    </p>
+    <form method="post">
+      <input type="hidden" name="action" value="runZuteilungsalgorithmus">
+      <button type="submit" class="btn btn-primary">
+        Erneut ausführen
+      </a>
+    </form>
+    <?php
+      }
+      else { ?>
+    <h4 class="alert-heading">Am erneuten Auswerten</h4>
+    <p>
+      Die Wahlphase wurde erflogreich abgeschlossen und der Zuteilungsalgorithmus wurde vom Admin erneut gestartet auf Basis der Wahlen und Zwangszuzuteilungen.
+    </p>
+    <?php
+      }
+    }
     else {
-    ?>
+      if (!file_exists("../data/algorithmus.pid")) { ?>
     <h4 class="alert-heading">Bereit zur Auswertung</h4>
     <p>
-      Die Wahlphase wurde erflogreich abgeschlossen und somit kann die Auswertung durch den Zuteilungsalgorithmus vom Admin initialisiert werden.
+      Die Wahlphase wurde erflogreich abgeschlossen und somit kann die Auswertung durch den Zuteilungsalgorithmus vom Admin gestartet werden.
     </p>
     <form method="post">
       <input type="hidden" name="action" value="runZuteilungsalgorithmus">
@@ -218,10 +252,86 @@ $errorIncluded = false;
       </a>
     </form>
     <?php
+      }
+      else { ?>
+    <h4 class="alert-heading">Am Auswerten</h4>
+    <p>
+      Die Wahlphase wurde erflogreich abgeschlossen und der Zuteilungsalgorithmus wurde vom Admin gestartet.
+    </p>
+    <?php
+      }
+    }
+    if (file_exists("../data/algorithmus.pid")) {
+      ?>
+      <div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"></div>
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 100%;">Loading...</div>
+      </div>
+      <script>
+        var progressbarCheck = setInterval(function () {
+          $.get("progress.php", function(data, status) {
+            if (status = "success") {
+              data = parseFloat(data) * 100;
+              console.log("Fortschritt: " + data + "%");
+              if (data != 100) {
+                $($('.progress-bar')[0]).css('width', data + '%').html((data > 50 ? (Math.round(data * 100) / 100) + "%" : ""));
+                $($('.progress-bar')[1]).css('width', (100 - data) + '%').html((data < 50 ? (Math.round(data * 100) / 100) + "%" : ""));
+              } else {
+                $($('.progress-bar')[0]).css('width', '100%').html("100%");
+                $($('.progress-bar')[1]).css('width', '0%').html("");
+                window.location.reload();
+              }
+            }
+            else {
+              console.log("Progress-fetch failed!!");
+            }
+          });
+        }, 1000);
+      </script>
+      <?php
     }
     ?>
   </div>
   <?php
+  }
+  if ($config["Stage"] > 4) {
+    // Schüler die gewählt haben, aber nicht zugeteilt werden konnten
+    $studentOhneZuteilung = [];
+    foreach ($wahlen as $wahl) {
+      if (empty($wahl["projekt"])) {
+        array_push($studentOhneZuteilung, $wahl);
+      }
+    }
+    if (!empty($studentOhneZuteilung)) {
+      ?>
+      <div class="alert alert-danger" role="alert">
+        Es konnten <strong><?php echo count($studentOhneZuteilung); ?> Schüler</strong> keinem Projekt zugeteilt werden und diese müssen <a href="javascript: ;" onclick="javascript: $('#schuelerModal').modal('show');" class="alert-link">hier manuell</a> zugeteilt werden.
+      </div><?php
+    }
+
+    // Projekte die Stattfinden oder nicht
+    $projekteNichtStattfinden = [];
+    $projekteZuViel = [];
+    foreach ($projekte as $key => $projekt) {
+      if (count($projekt["teilnehmer"]) < $projekt["minPlatz"]) {
+        array_push($projekteNichtStattfinden, $projekt);
+      }
+      elseif (count($projekt["teilnehmer"]) > $projekt["maxPlatz"]) {
+        array_push($projekteZuViel, $projekt);
+      }
+    }
+    if (!empty($projekteNichtStattfinden)) {
+      ?>
+      <div class="alert alert-danger" role="alert">
+        Es können <strong><?php echo count($projekteNichtStattfinden); ?> Projekten</strong> aufgrund mangelnder Teilnehmerzahl nicht stattfinden. <a href="javasript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">Projekt einsehen</a>
+      </div><?php
+    }
+    if (!empty($projekteZuViel)) {
+      ?>
+      <div class="alert alert-warning" role="alert">
+        Die Teilnehmerzahl von <strong><?php echo count($projekteZuViel); ?> Projekten</strong> übersteigt die Maximalteilnehmeranzahl. <a href="javasript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">Projekt einsehen</a>
+      </div><?php
+    }
   }
   ?>
 </div>
@@ -253,7 +363,8 @@ $errorIncluded = false;
               		'<option value="1">#2 Projekte können eingereicht werden</option>',
               		'<option value="2">#3 Projekt-Einreichung geschlossen</option>',
               		'<option value="3">#4 Wahl-Interface geöffnet</option>',
-              		'<option value="4">#5 Wahlen abgeschlossen</option>'
+              		'<option value="4">#5 Wahlen abgeschlossen</option>',
+              		'<option value="5">#6 Auswertung abgeschlossen</option>'
               	];
               	echo $stages[$config["Stage"]];
               	for ($i = 0; $i < 5; $i++) {
@@ -268,11 +379,24 @@ $errorIncluded = false;
           </div>
           <small id="stageHelper" class="form-text text-muted">
             <ul>
-              <li>"Nicht veröffentlicht": Keiner hat Zugriff außer der Admin</li>
-              <li>"Projekte können eingereicht werden": Änderungen an den Einstellungen zu den Projekten können nicht mehr getätigt werden, jedoch die Hinweise vom Admin verändert werden sowie über das Lehrer-Interface Projekte eingesehen, bearbeitet und eingereicht werden</li>
-              <li>"Projekt-Einreichung geschlossen": Es können keine weiteren Projekte mehr von den Lehrern eingereicht werden. Editierungen bereits bestehender Projekte ist weiterhin möglich durch den Admin sowie die Lehrer</li>
-              <li>"Wahl-Interface geöffnet": Die Schüler können sich nun mit ihren Login-Daten anmelden und aus ihrem Projekt-Pool ihre Wahl wählen. Die Lehrerschaft hat nun nur noch Zugriff auf die Liste mit den Projekten, kann diese noch bearbeiten, jedoch nicht mehr einreichen (nur der Admin)</li>
-              <li>"Wahl abgeschlossen": Der Schüler-Zugriff wird geschlossen, Lehrer können die Liste ansehen. Änderungen können nur noch händisch von einem Admin getätigt werden. Die Auswertung wird durch einen Admin durchgeführt</li>
+              <li>
+                "Nicht veröffentlicht": Keiner hat Zugriff außer der Admin
+              </li>
+              <li>
+                "Projekte können eingereicht werden": Änderungen an den Einstellungen zu den Projekten können nicht mehr getätigt werden, jedoch die Hinweise vom Admin verändert werden sowie über das Lehrer-Interface Projekte eingesehen, bearbeitet und eingereicht werden
+              </li>
+              <li>
+                "Projekt-Einreichung geschlossen": Es können keine weiteren Projekte mehr von den Lehrern eingereicht werden. Editierungen bereits bestehender Projekte ist weiterhin möglich durch den Admin sowie die Lehrer
+              </li>
+              <li>
+                "Wahl-Interface geöffnet": Die Schüler können sich nun mit ihren Login-Daten anmelden und aus ihrem Projekt-Pool ihre Wahl wählen. Die Lehrerschaft hat nun nur noch Zugriff auf die Liste mit den Projekten, kann diese noch bearbeiten, jedoch nicht mehr einreichen (nur der Admin)
+              </li>
+              <li>
+                "Wahl abgeschlossen": Der Schüler-Zugriff wird geschlossen, Lehrer können die Liste ansehen. Änderungen können nur noch händisch von einem Admin getätigt werden. Die Auswertung wird durch einen Admin durchgeführt
+              </li>
+              <li>
+                "Auswertung abgeschlossen": Diese Phase kann nicht ausgewählt werden, sondern wird automatisch erreicht mit der fertigen Zuteilung durch den Zuteilungsalgorithmus, welcher durch den Admin ausgelöst werden muss
+              </li>
             </ul>
           </small>
           <h5>Klassendatensätze</h5>
@@ -438,7 +562,7 @@ $errorIncluded = false;
 
 <!-- Projekte-Modal -->
 <div class="modal fade" id="projekteModal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
     <div class="modal-content bg-dark">
 
       <div class="modal-header">
@@ -451,13 +575,73 @@ $errorIncluded = false;
       <div class="modal-body">
         <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
         <button onclick="javascript: window.open('printPDF.php?print=projekt&projekt=all');" type="button" class="btn btn-secondary">Liste drucken</button>
+        <?php
+        if ($config["Stage"] > 4) {
+          if (!empty($projekteNichtStattfinden)) {
+            ?>
+        <h4 class="text-danger">Folgende Projekte können aufgrund mangelnder Teilnehmerzahl nicht stattfinden.</h4>
+        <table class="table table-dark table-striped table-hover border border-danger">
+          <thead class="thead-dark">
+            <tr>
+              <th class="sticky-top">Name</th>
+              <th class="sticky-top">Betreuer</th>
+              <th class="sticky-top">Stufe</th>
+              <th class="sticky-top">(Zugeteilt) Platz</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            foreach ($projekteNichtStattfinden as $projekt) {
+              echo '
+              <tr class="border-left border-danger">
+                <td><a href="javascript:;" onclick="javasript: showProjektInfoModal(projekte[' . $key . ']);">' . $projekt["name"] . '</a></td>
+                <td>' . $projekt["betreuer"] . '</td>
+                <td>' . $projekt["minKlasse"] . '-' . $projekt["maxKlasse"] . '</td>
+                <td class="bg-danger">(' . count($projekt["teilnehmer"]) . ') ' . $projekt["minPlatz"] . '-' . $projekt["maxPlatz"] . '</td>
+              </tr>';
+            }
+            ?>
+          </tbody>
+        </table>
+            <?php
+          }
+          if (!empty($projekteZuViel)) {
+            ?>
+        <h4 class="text-warning">Die Teilnehmerzahl der folgenden Projekte überschreitet deren Maximalteilnehmeranzahl.</h4>
+        <table class="table table-dark table-striped table-hover border border-danger">
+          <thead class="thead-dark">
+            <tr>
+              <th class="sticky-top">Name</th>
+              <th class="sticky-top">Betreuer</th>
+              <th class="sticky-top">Stufe</th>
+              <th class="sticky-top">(Zugeteilt) Platz</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            foreach ($projekteNichtStattfinden as $projekt) {
+              echo '
+              <tr class="border-left border-warning">
+                <td><a href="javascript:;" onclick="javasript: showProjektInfoModal(projekte[' . $key . ']);">' . $projekt["name"] . '</a></td>
+                <td>' . $projekt["betreuer"] . '</td>
+                <td>' . $projekt["minKlasse"] . '-' . $projekt["maxKlasse"] . '</td>
+                <td class="bg-warning">(' . count($projekt["teilnehmer"]) . ') >' . $projekt["minPlatz"] . '-' . $projekt["maxPlatz"] . '</td>
+              </tr>';
+            }
+            ?>
+          </tbody>
+        </table>
+            <?php
+          }
+        }
+        ?>
         <table class="table table-dark table-striped table-hover">
           <thead class="thead-dark">
             <tr>
               <th class="sticky-top">Name</th>
               <th class="sticky-top">Betreuer</th>
               <th class="sticky-top">Stufe</th>
-              <th class="sticky-top">Platz</th>
+              <th class="sticky-top"><?php echo $config["Stage"] > 4 ? "(Zugeteilt) " : ""; ?>Platz</th>
             </tr>
           </thead>
           <tbody><?php
@@ -470,12 +654,13 @@ $errorIncluded = false;
             </tr>";
           }
           foreach ($projekte as $key => $projekt) {
+            $color = (count($projekt["teilnehmer"]) >= $projekt["minPlatz"] ? (count($projekt["teilnehmer"]) <= $projekt["maxPlatz"] ? 'success' : 'warning') : 'danger');
             echo '
-            <tr>
-              <td><a href="javascript:;" class="btn btn-success" onclick="showProjektInfoModal(projekte[' . $key . ']);">Info</a> ' . $projekt["name"] . '</td>
+            <tr' . ($config["Stage"] > 4 ? ' class="border-left border-' . $color . '"' : '') . '>
+              <td><a href="javascript:;" onclick="javasript: showProjektInfoModal(projekte[' . $key . ']);">' . $projekt["name"] . '</a></td>
               <td>' . $projekt["betreuer"] . '</td>
               <td>' . $projekt["minKlasse"] . '-' . $projekt["maxKlasse"] . '</td>
-              <td>' . $projekt["minPlatz"] . '-' . $projekt["maxPlatz"] . '</td>
+              <td' . ($config["Stage"] > 4 ? ' class="bg-' . $color . '">' . '(' . count($projekt["teilnehmer"]) . ') ' : '>') . $projekt["minPlatz"] . '-' . $projekt["maxPlatz"] . '</td>
             </tr>';
           }
           ?>
@@ -494,7 +679,7 @@ $errorIncluded = false;
 
 <!-- Schüler-Modal -->
 <div class="modal fade" id="schuelerModal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
     <div class="modal-content bg-dark">
 
       <div class="modal-header">
@@ -507,10 +692,14 @@ $errorIncluded = false;
       <div class="modal-body">
         <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
         <button onclick="javascript: window.open('printPDF.php?print=students&klasse=all');" type="button" class="btn btn-secondary">Liste drucken</button>
-        <button onclick="javascript: $('#zwangszuteilungModal').modal('show');" type="button" class="btn btn-success">Zwangszuteilungen</button>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#zwangszuteilungModal">
+          Zwangszuteilungen
+        </button>
         <br>
         <small class="text-muted">Das Ergebnis der Auswertung ist erst verfügbar sobald die Auswertung durch den Admin durchgeführt wurde. Die Auswertung kann erst im Admin-Panel durchgeführt werden, sobald die Wahlen geschlossen sind.</small>
-
+        <?php
+          if (empty($wahlen)) {
+            echo '
         <table class="table table-dark table-striped table-hover">
           <thead class="thead-dark">
             <tr>
@@ -523,22 +712,91 @@ $errorIncluded = false;
               <th class="sticky-top">Bearbeiten</th>
             </tr>
           </thead>
-          <tbody><?php
-          if (empty($wahlen)) {
-            echo "
+          <tbody>
             <tr>
               <td>
                 Bisher wurde keine Wahl getätigt
               </td>
-            </tr>";
+            </tr>
+          </tbody>
+        </table>';
+          }
+          elseif ($config["Stage"] > 4 && !empty($studentOhneZuteilung)) {
+            echo '
+        <h4 class="text-danger">Folgende Schüler konnten nicht zugeteilt werden und benötigen eine manuelle Zuteilung!</h4>
+        <table class="table table-dark table-striped table-hover border border-danger">
+          <thead class="thead-dark">
+            <tr>
+              <th class="sticky-top">Stufe</th>
+              <th class="sticky-top">Klasse</th>
+              <th class="sticky-top">Vorname</th>
+              <th class="sticky-top">Nachname</th>
+              <th class="sticky-top">Wahl</th>
+              <th class="sticky-top">Ergebnis</th>
+              <th class="sticky-top">Bearbeiten</th>
+            </tr>
+          </thead>
+          <tbody>';
+            foreach ($studentOhneZuteilung as $student) {
+            echo '
+          <tr uid="' . $student["uid"] . '">
+            <td>' . $student["stufe"] . '</td>
+            <td>' . $student["klasse"] . '</td>
+            <td>' . $student["vorname"] . '</td>
+            <td>' . $student["nachname"] . '</td>
+            <td>
+              <ol>';
+              foreach ($student["wahl"] as $wahl) {
+                $p = null;
+                foreach ($projekte as $key => $projekt) {
+                  if ($projekt["id"] == $wahl) {
+                    $p = $key;
+                    break;
+                  }
+                }
+                echo '
+                <li>
+                  <a href="javascript:;" onclick="showProjektInfoModal(projekte[' . $p . ']);">
+                    ' . getProjektInfo($projekte, $wahl)["name"] . '
+                  </a>
+                </li>';
+              }
+              echo '
+              </ol>
+            </td>
+            <td class="bg-danger">Konnte nicht zugeteilt werden</td>
+            <td class="navbar-dark">
+              <button class="navbar-toggler" type="button" onclick="javascript: editStudentModal(this);">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+            </td>
+          </tr>';
+            }
+            echo '
+          </tbody>
+        </table>';
           }
           foreach ($klassen as $klasse) {
+            echo '
+        <table class="table table-dark table-striped table-hover">
+          <thead class="thead-dark">
+            <tr>
+              <th class="sticky-top">Stufe</th>
+              <th class="sticky-top">Klasse <a href="javascript: ;" onclick="javascript: $(`#class-' . $klasse[0]["klasse"] . '`).collapse(`toggle`);">' . $klasse[0]["klasse"] . '</a></th>
+              <th class="sticky-top">Vorname</th>
+              <th class="sticky-top">Nachname</th>
+              <th class="sticky-top">Wahl</th>
+              <th class="sticky-top">Ergebnis</th>
+              <th class="sticky-top">Bearbeiten</th>
+            </tr>
+          </thead>
+          <tbody id="class-' . $klasse[0]["klasse"] . '" class="collapse show">';
             foreach ($klasse as $key => $student) {
               if ($key == 0) {
                 continue;
               }
               echo '
-            <tr uid="' . $student["uid"] . '">
+            <tr uid="' . $student["uid"] . '"' . ($config["Stage"] > 4 ? " class='border-left border-" . (empty($student["projekt"]) ? "danger" : "success") . "'" : "") . '>
               <td>' . $student["stufe"] . '</td>
               <td>' . $student["klasse"] . '</td>
               <td>' . $student["vorname"] . '</td>
@@ -571,23 +829,23 @@ $errorIncluded = false;
 
                 echo '
               </td>
-              <td>';
+              <td' . ($config["Stage"] > 4 ? " class='bg-" . (empty($student["projekt"]) ? "danger" : "success") . "'" : "") . '>';
 
-              if (empty($student["ergebnis"])) {
-                echo "N/A";
+              if (empty($student["projekt"])) {
+                echo ($config["Stage"] > 4 ? "Konnte nicht zugeteilt werden" : "N/A");
               }
               else {
                 $p = null;
                 foreach ($projekte as $key => $projekt) {
-                  if ($projekt["id"] == $student["ergebnis"]) {
+                  if ($projekt["id"] == $student["projekt"]) {
                     $p = $key;
                     break;
                   }
                 }
                 echo '
-                <input type="hidden" value="' . $student["ergebnis"] . '">
-                <a href="javascript: showProjektInfoModal(projekte[' . $p . ']);">
-                  ' . getProjektInfo($projekte, $student["ergebnis"])["name"] . '
+                <input type="hidden" value="' . $student["projekt"] . '">
+                <a href="javascript: ;" onclick="javascript: showProjektInfoModal(projekte[' . $p . ']);"' . ($config["Stage"] > 4 ? " class='text-light'" : "") . '>
+                  ' . getProjektInfo($projekte, $student["projekt"])["name"] . '
                 </a>';
               }
               echo '</td>
@@ -598,32 +856,51 @@ $errorIncluded = false;
               </td>
             </tr>';
             }
+            echo "
+
+            </tbody>
+          </table>
+          ";
           }
           ?>
-          <script>
-            function editStudentModal(student) {
-              // button -> td -> tr
-              var student = student.parentNode.parentNode;
-              $("#schuelerEditForm").children("div.form-group")[0].children[1].value = $(student).attr("uid"); //uid
-              $("#schuelerEditForm").children("div.form-group")[1].children[1].value = $(student).children()[0].innerHTML; //stufe
-              $("#schuelerEditForm").children("div.form-group")[2].children[1].value = $(student).children()[1].innerHTML; //klasse
-              $("#schuelerEditForm").children("div.form-group")[3].children[1].value = $(student).children()[2].innerHTML; //vorname
-              $("#schuelerEditForm").children("div.form-group")[4].children[1].value = $(student).children()[3].innerHTML; //nachname
-              if ($(student).children()[5].innerHTML == "N/A") {
-                $("#schuelerEditForm").children("div.form-group")[5].appendChild($("<small class='form-text text-muted'>Nicht verfügbar</small>")[0]);
+        <script>
+          function editStudentModal(student) {
+            // button -> td -> tr
+            var student = student.parentNode.parentNode;
+            $("#schuelerEditForm").children("div.form-group")[0].children[1].value = $(student).attr("uid"); //uid
+            $("#schuelerEditForm").children("div.form-group")[1].children[1].value = $(student).children()[0].innerHTML; //stufe
+            $("#schuelerEditForm").children("div.form-group")[2].children[1].value = $(student).children()[1].innerHTML; //klasse
+            $("#schuelerEditForm").children("div.form-group")[3].children[1].value = $(student).children()[2].innerHTML; //vorname
+            $("#schuelerEditForm").children("div.form-group")[4].children[1].value = $(student).children()[3].innerHTML; //nachname
+            if (window.config.Stage > 4) {
+              if ($(student).children()[5].innerHTML == "Konnte nicht zugeteilt werden") {
+                $("#schuelerEditForm .projekt-input").html(`
+                  <input type="hidden" name="ergebnis">
+                  <button type="button" onclick="javascript: changeProjektzuteilung(this);" class="btn btn-warning">
+                    Projekt zuteilen
+                  </button>`);
               }
               else {
                 console.log($(student).children()[5]);
-                $("#schuelerEditForm").children("div.form-group")[5].children[1].value = $(student).children()[5].children[0].value; //ergebnis
-                $("#schuelerEditForm").children("div.form-group")[5].appendChild($("<a href='javascript: ;' class='btn btn-primary'>Nicht verfügbar</a>")[0]);
+                $("#schuelerEditForm .projekt-input").html(`
+                  <input type="hidden" name="ergebnis" required value="` + $(student).children()[5].children[0].value + `" />
+                  Zuteilung
+                  <button type="button" onclick="javascript: changeProjektzuteilung(this);" class="btn btn-success">
+                    Ändern
+                  </button>
+                  <button type="button" onclick="javascript: $('#schuelerProjektzuteilungDeleteForm').submit();" class="btn btn-danger">
+                    Löschen
+                  </button>`);
               }
-              $("#schuelerDeleteForm").children()[1].value = $(student).attr("uid");
-              $("#schuelerEditModal").modal("show");
             }
-          </script>
-
-          </tbody>
-        </table>
+            else {
+              $("#schuelerEditForm .projekt-input").parent().addClass("d-none");
+            }
+            $("#schuelerDeleteForm").children()[1].value = $(student).attr("uid");
+            $("#schuelerProjektzuteilungDeleteForm").children()[1].value = $(student).attr("uid");
+            $("#schuelerEditModal").modal("show");
+          }
+        </script>
       </div>
 
       <div class="modal-footer">
@@ -676,7 +953,7 @@ $errorIncluded = false;
           </div>
           <div class="form-group">
             <label>Ergebnis</label>
-            <input type="hidden" name="ergebnis" required>
+            <div class="projekt-input flex"></div>
           </div>
           <input type="hidden" name="action" value="editWahleintrag">
         </form>
@@ -684,7 +961,11 @@ $errorIncluded = false;
 
       <form method="post" id="schuelerDeleteForm">
         <input type="hidden" name="action" value="deleteWahleintrag">
-        <input type="hidden" name="studentID">
+        <input type="hidden" name="uid">
+      </form>
+      <form method="post" id="schuelerProjektzuteilungDeleteForm">
+        <input type="hidden" name="action" value="deleteProjektzuteilung">
+        <input type="hidden" name="uid">
       </form>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" onclick="javascript: $('#schuelerDeleteForm').submit();">Löschen</button>
@@ -697,7 +978,7 @@ $errorIncluded = false;
 
 <!-- Zwangszuteilungs-Modal -->
 <div class="modal fade" id="zwangszuteilungModal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
     <div class="modal-content bg-dark">
 
       <div class="modal-header">
@@ -707,10 +988,11 @@ $errorIncluded = false;
         </button>
       </div>
 
-      <form method="post" id="zwangszuteilungForm">
-        <div class="modal-body">
+      <div class="modal-body">
+        <form method="post" id="zwangszuteilungForm">
+          <input type="hidden" name="action" value="updateZwangszuteilung">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Zurück</button>
-          <button type="submit" name="action" value="updateZwangszuteilung" class="btn btn-primary">Änderung speichern</button>
+          <button type="submit" class="btn btn-primary">Änderung speichern</button>
           <br>
           <small class="text-muted">
             Um Schüler Zwangszuzuteilen tragen Sie bitte die U-ID (Login-Name des Schülers) korrekt ein und wählen sie das entsprechende Projekt aus.
@@ -719,7 +1001,7 @@ $errorIncluded = false;
             Unten sehen sie einen beispielhaften Eintrag.
             Um einen weiteres Eingabefeld hinzuzufügen, klicken Sie auf den grünen Knopf links unten mit der Beschriftung "Schüler hinzufügen &#10010;".
             Um einen Eintrag zu entfernen betätigen sie das rote Kreuz rechts vom Eintrag.
-            Bitte beachten Sie, dass unvolständige Einträge beim Speichern gelöscht werden.
+            Bitte beachten Sie, dass unvollständige Einträge beim Speichern gelöscht werden und getätigte Änderungen nur übernommen werden bei der Tätigung des "Änderungen speichern"-Knopfes.
           </small>
 
           <table class="table table-dark">
@@ -787,7 +1069,7 @@ $errorIncluded = false;
                 </td>
                 <td>
                   <input type="hidden" class="form-control" value="<?php echo $student['projekt']; ?>" name="projekt[]">
-                  <button type="button" class="btn btn-success" onclick="javascript: changeZwangszuteilungProjekt(this);">Ändern</button>
+                  <button type="button" class="btn btn-success" onclick="javascript: changeProjektzuteilung(this);">Ändern</button>
                 </td>
                 <td>
                   <button type="button" class="close text-danger" aria-label="Close" onclick="javascript: removeLine(this);">
@@ -801,106 +1083,110 @@ $errorIncluded = false;
 
             </tbody>
           </table>
-          <script>
-            function zwangszuteilungAppend() {
-              let inputs = $("#zwangszuteilungModal tbody")[1].querySelectorAll("input");
-              for (var input of inputs) {
-                if (!input.value.replace(/\s+/, '').length) {
-                  console.log(input);
-                  console.log("found empty");
-                  return;
-                }
+        </form>
+        <script>
+          function zwangszuteilungAppend() {
+            let inputs = $("#zwangszuteilungModal tbody")[1].querySelectorAll("input");
+            for (var input of inputs) {
+              if (!input.value.replace(/\s+/, '').length) {
+                console.log(input);
+                console.log("found empty");
+                return;
               }
-              addStudentsInZwangszuteilungInput();
             }
+            addStudentsInZwangszuteilungInput();
+          }
 
-            function addStudentsInZwangszuteilungInput() {
-              //var node = document.querySelector('#studentsInKlassen tbody');
-              $($("#zwangszuteilungModal tbody")[1]).append($(`
-              <tr>
+          function addStudentsInZwangszuteilungInput() {
+            //var node = document.querySelector('#studentsInKlassen tbody');
+            $($("#zwangszuteilungModal tbody")[1]).append($(`
+            <tr>
+              <td>
+                <input type="text" class="form-control" aria-label="U-ID" name="uid[]" oninput="javascript: zwangszuteilungAppend();">
+              </td>
+              <td>
+                <input type="number" class="form-control" aria-label="Stufe" name="stufe[]" min="<?php echo CONFIG["minStufe"]; ?>" max="<?php echo CONFIG["maxStufe"]; ?>" oninput="javascript: zwangszuteilungAppend();">
+              </td>
+              <td>
+                <input type="text" class="form-control" aria-label="Klasse" name="klasse[]" oninput="javascript: zwangszuteilungAppend();">
+              </td>
+              <td>
+                <input type="text" class="form-control" aria-label="Vorname" name="vorname[]" oninput="javascript: zwangszuteilungAppend();">
+              </td>
+              <td>
+                <input type="text" class="form-control" aria-label="Nachname" name="nachname[]" oninput="javascript: zwangszuteilungAppend();">
+              </td>
+              <td>
+                <input type="hidden" class="form-control" name="projekt[]">
+                <button type="button" class="btn btn-warning" onclick="javascript: changeProjektzuteilung(this);">Projekt festlegen</button>
+              </td>
+              <td>
+                <button type="button" class="close text-danger" aria-label="Close" onclick="javascript: removeLine(this);">
+                  <span class="closebutton" aria-hidden="true">&times;</span>
+                </button>
+              </td>
+            </tr>`));
+          }
+
+          function setProjektzuteilung(projekt) {
+            console.log("Changing Projekt");
+            var button = $(".current-open");
+            // btn -> td -> tr -> td -> input
+            projekt = projekt.parentNode.parentNode.children[0].children[0].value;
+            $("#editStudentProjektzuteilungModal").modal("hide");
+            button.children("input").val(projekt);
+            button.children("button").first().html("Ändern");
+            button.children("button").first().removeClass("btn-warning");
+            button.children("button").first().addClass("btn-success");
+            $(".current-open").removeClass("current-open");
+            $("#editStudentProjektzuteilungModal tbody").html("");
+            zwangszuteilungAppend();
+          }
+
+          function changeProjektzuteilung(student) {
+            student.parentNode.classList.add("current-open");
+            var input = student.parentNode.children[0];
+            $("#editStudentProjektzuteilungModal tbody").html("");
+            for (var i = 0; i < projekte.length; i++) {
+              $("#editStudentProjektzuteilungModal tbody").append(`
+              <tr` + (projekte[i]["id"] == input.value ? " class='bg-success'" : "") + `>
                 <td>
-                  <input type="text" class="form-control" aria-label="U-ID" name="uid[]" oninput="javascript: zwangszuteilungAppend();">
+                  <input type="hidden" value="` + projekte[i]["id"] + `">
+                  <a href="javascript: ;" onclick="javascript: showProjektInfoModal(projekte[` + i + `]);">` + projekte[i]["name"] + `</a>
                 </td>
+                <td>` + projekte[i]["betreuer"] + `</td>
                 <td>
-                  <input type="number" class="form-control" aria-label="Stufe" name="stufe[]" min="<?php echo CONFIG["minStufe"]; ?>" max="<?php echo CONFIG["maxStufe"]; ?>" oninput="javascript: zwangszuteilungAppend();">
-                </td>
-                <td>
-                  <input type="text" class="form-control" aria-label="Klasse" name="klasse[]" oninput="javascript: zwangszuteilungAppend();">
-                </td>
-                <td>
-                  <input type="text" class="form-control" aria-label="Vorname" name="vorname[]" oninput="javascript: zwangszuteilungAppend();">
-                </td>
-                <td>
-                  <input type="text" class="form-control" aria-label="Nachname" name="nachname[]" oninput="javascript: zwangszuteilungAppend();">
-                </td>
-                <td>
-                  <input type="hidden" class="form-control" name="projekt[]">
-                  <button type="button" class="btn btn-warning" onclick="javascript: changeZwangszuteilungProjekt(this);">Projekt wählen</button>
-                </td>
-                <td>
-                  <button type="button" class="close text-danger" aria-label="Close" onclick="javascript: removeLine(this);">
-                    <span class="closebutton" aria-hidden="true">&times;</span>
+                  <button type="button" onclick="javascript: setProjektzuteilung(this);" class="btn btn-`
+                  + (projekte[i]["id"] == input.value ? `primary">
+                    OK` : `success">
+                    Setzen`) + `
                   </button>
                 </td>
-              </tr>`));
+              </tr>`);
             }
+            $("#editStudentProjektzuteilungModal").modal("show");
+          }
 
-            function setZwangszuteilungProjekt(projekt) {
-              projekt = projekt.parentNode.parentNode.children[0].children[0].value;
-              $("#zwangszuteilungProjektModal").modal("hide");
-              var button = $("#zwangszuteilungModal .current-open").children()[5];
-              button.children[0].value = projekt;
-              button.children[1].innerHTML = "Ändern";
-              button.children[1].classList.remove("btn-warning");
-              button.children[1].classList.add("btn-success");
-              $("#zwangszuteilungModal tr.current-open").removeClass("current-open");
-              $("#zwangszuteilungProjektModal tbody").html("");
-              zwangszuteilungAppend();
-            }
+          addStudentsInZwangszuteilungInput();
+        </script>
+        <button onclick="javascript: addStudentsInZwangszuteilungInput();" type="button" class="btn btn-success">Schüler hinzufügen &#10010;</button>
+      </div>
 
-            function changeZwangszuteilungProjekt(student, currentProjekt) {
-              student.parentNode.parentNode.classList.add("current-open");
-              for (var i = 0; i < projekte.length; i++) {
-                $("#zwangszuteilungProjektModal tbody").append(`
-                <tr` + (projekte[i]["id"] == student.parentNode.children[0].value ? " class='bg-success'" : "") + `>
-                  <td>
-                    <input type="hidden" value="` + projekte[i]["id"] + `">
-                    <a href="javascript: showProjektInfoModal(projekte[` + i + `]);">` + projekte[i]["name"] + `</a>
-                  </td>
-                  <td>` + projekte[i]["betreuer"] + `</td>
-                  <td>
-                    <button type="button" onclick="javascript: setZwangszuteilungProjekt(this);" class="btn btn-`
-                    + (projekte[i]["id"] == student.parentNode.children[0].value ? `primary">
-                      OK` : `success">
-                      Setzen`) + `
-                    </button>
-                  </td>
-                </tr>`);
-              }
-              $("#zwangszuteilungProjektModal").modal("show");
-            }
-
-            addStudentsInZwangszuteilungInput();
-          </script>
-          <button onclick="javascript: addStudentsInZwangszuteilungInput();" type="button" class="btn btn-success">Schüler hinzufügen &#10010;</button>
-        </div>
-
-        <div class="modal-footer">
-          <button type="submit" name="action" value="updateZwangszuteilung" class="btn btn-primary">Änderung speichern</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Zurück</button>
-        </div>
-      </form>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="javascript: $('#zwangszuteilungForm').submit();">Änderung speichern</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Zurück</button>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- Projekt-Zwangszuteilungs-Modal -->
-<div class="modal fade" id="zwangszuteilungProjektModal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
+<!-- Projektzuteilungs-Modal -->
+<div class="modal fade" id="editStudentProjektzuteilungModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
     <div class="modal-content bg-dark">
 
       <div class="modal-header">
-        <h4 class="modal-title">Projekte der Zwangszuteilung</h4>
+        <h4 class="modal-title">Projektwahl für eine Zwangszuteilung</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span class="closebutton" aria-hidden="true">&times;</span>
         </button>
@@ -918,6 +1204,9 @@ $errorIncluded = false;
           </thead>
           <tbody></tbody>
         </table>
+      </div>
+
+      <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Zurück</button>
       </div>
     </div>
@@ -926,7 +1215,7 @@ $errorIncluded = false;
 
 <!-- Klassenauflistung-Modal -->
 <div class="modal fade" id="studentsInKlassen" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content bg-dark">
 
       <div class="modal-header">
@@ -936,42 +1225,44 @@ $errorIncluded = false;
         </button>
       </div>
 
-      <form id="studentsInKlassenForm" method="post">
-        <div class="modal-body">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Zurück</button>
-          <button type="submit" name="action" value="updateStudentsInKlassen" class="btn btn-primary">Änderung speichern</button>
-          <small>
-            Hier können Sie die ganzen verschiedenen Klassen eintragen mit ihrer Schüleranzahl.
-            Dadurch kann eine Überprüfung der Vollständigkeit durchgeführt werden.
-            Um einen weiteres Eingabefeld hinzuzufügen, klicken Sie auf den grünen Knopf links unten mit der Beschriftung "Klasse hinzufügen &#10010;".
-            Um einen Eintrag zu entfernen betätigen sie das rote Kreuz rechts vom Eintrag.
-            Bitte beachten Sie, dass unvolständige Einträge beim Speichern gelöscht werden.
-            Im Nachfolgenden sehen Sie einen beispielhaften Eintrag einer 5. Klasse mit 28 Schülern.
-          </small>
+      <div class="modal-body">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Zurück</button>
+        <button type="button" class="btn btn-primary" onclick="javascript: $('#studentsInKlassenForm').submit();">Änderung speichern</button>
+        <br>
+        <small>
+          Hier können Sie die ganzen verschiedenen Klassen eintragen mit ihrer Schüleranzahl.
+          Dadurch kann eine Überprüfung der Vollständigkeit durchgeführt werden.
+          Um einen weiteres Eingabefeld hinzuzufügen, klicken Sie auf den grünen Knopf links unten mit der Beschriftung "Klasse hinzufügen &#10010;".
+          Um einen Eintrag zu entfernen betätigen sie das rote Kreuz rechts vom Eintrag.
+          Bitte beachten Sie, dass unvolständige Einträge beim Speichern gelöscht werden.
+          Im Nachfolgenden sehen Sie einen beispielhaften Eintrag einer 5. Klasse mit 28 Schülern.
+        </small>
 
-          <table class="table table-dark">
-            <tbody>
-              <tr>
-                <td>
-                  <input type="text" class="form-control" aria-label="Stufe" value="5" readonly>
-                </td>
-                <td>
-                  <input type="text" class="form-control" aria-label="Klasse" value="5a" readonly>
-                </td>
-                <td>
-                  <input type="number" class="form-control" aria-label="Schüleranzahl" value="28" readonly>
-                </td>
-                <td>
-                  <button type="button" class="close text-danger" aria-label="Close" disabled>
-                    <span class="closebutton" aria-hidden="true">&times;</span>
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <small class="text-muted">
-            Tragen Sie die echten Werte bitte in der nachfolgenden Tabelle ein.
-          </small>
+        <table class="table table-dark">
+          <tbody>
+            <tr>
+              <td>
+                <input type="text" class="form-control" aria-label="Stufe" value="5" readonly>
+              </td>
+              <td>
+                <input type="text" class="form-control" aria-label="Klasse" value="5a" readonly>
+              </td>
+              <td>
+                <input type="number" class="form-control" aria-label="Schüleranzahl" value="28" readonly>
+              </td>
+              <td>
+                <button type="button" class="close text-danger" aria-label="Close" disabled>
+                  <span class="closebutton" aria-hidden="true">&times;</span>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <small class="text-muted">
+          Tragen Sie die echten Werte bitte in der nachfolgenden Tabelle ein.
+        </small>
+        <form id="studentsInKlassenForm" method="post">
+          <input type="hidden" name="action" value="updateStudentsInKlassen">
           <table class="table table-striped">
             <thead class="thead-dark">
               <tr>
@@ -1013,57 +1304,57 @@ $errorIncluded = false;
               ?>
             </tbody>
           </table>
+        </form>
 
-          <script>
-            function studentsInKlassenAppend() {
-              let inputs = $("#studentsInKlassen tbody")[1].querySelectorAll("input");
-              for (var input of inputs) {
-                if (!input.value.replace(/\s+/, '').length) {
-                  console.log(input);
-                  console.log("found empty");
-                  return;
-                }
+        <script>
+          function studentsInKlassenAppend() {
+            let inputs = $("#studentsInKlassen tbody")[1].querySelectorAll("input");
+            for (var input of inputs) {
+              if (!input.value.replace(/\s+/, '').length) {
+                console.log(input);
+                console.log("found empty");
+                return;
               }
-              addStudentsInKlassenInput();
-            }
-
-            function addStudentsInKlassenInput() {
-              //var node = document.querySelector('#studentsInKlassen tbody');
-              $($("#studentsInKlassen tbody")[1]).append($(`
-              <tr>
-                <td>
-                  <input type="text" class="form-control" placeholder="Bsp: 5" aria-label="Stufe" name="stufe[]" min="<?php echo CONFIG["minStufe"]; ?>" max="<?php echo CONFIG["maxStufe"]; ?>" oninput="javascript: studentsInKlassenAppend();">
-                </td>
-                <td>
-                  <input type="text" class="form-control" placeholder="Bsp: 5a" aria-label="Klasse" name="klasse[]" oninput="javascript: studentsInKlassenAppend();">
-                </td>
-                <td>
-                  <input type="number" class="form-control" aria-label="Schüleranzahl" name="anzahl[]" oninput="javascript: studentsInKlassenAppend();">
-                </td>
-                <td>
-                  <button type="button" class="close text-danger" aria-label="Close" onclick="javascript: removeLine(this);">
-                    <span class="closebutton" aria-hidden="true">&times;</span>
-                  </button>
-                </td>
-              </tr>`));
-            }
-
-            function removeLine(element) {
-              // button -> td -> tr -> tbody
-              var row = element.parentNode.parentNode;
-              row.parentNode.removeChild(row);
             }
             addStudentsInKlassenInput();
-          </script>
-          <button onclick="javascript: addStudentsInKlassenInput();" type="button" class="btn btn-success">Klasse hinzufügen &#10010;</button>
-        </div>
+          }
 
-        <div class="modal-footer">
-          <button type="submit" name="action" value="updateStudentsInKlassen" class="btn btn-primary">Änderung speichern</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Zurück</button>
-        </div>
+          function addStudentsInKlassenInput() {
+            //var node = document.querySelector('#studentsInKlassen tbody');
+            $($("#studentsInKlassen tbody")[1]).append($(`
+            <tr>
+              <td>
+                <input type="text" class="form-control" placeholder="Bsp: 5" aria-label="Stufe" name="stufe[]" min="<?php echo CONFIG["minStufe"]; ?>" max="<?php echo CONFIG["maxStufe"]; ?>" oninput="javascript: studentsInKlassenAppend();">
+              </td>
+              <td>
+                <input type="text" class="form-control" placeholder="Bsp: 5a" aria-label="Klasse" name="klasse[]" oninput="javascript: studentsInKlassenAppend();">
+              </td>
+              <td>
+                <input type="number" class="form-control" aria-label="Schüleranzahl" name="anzahl[]" oninput="javascript: studentsInKlassenAppend();">
+              </td>
+              <td>
+                <button type="button" class="close text-danger" aria-label="Close" onclick="javascript: removeLine(this);">
+                  <span class="closebutton" aria-hidden="true">&times;</span>
+                </button>
+              </td>
+            </tr>`));
+          }
 
-      </form>
+          function removeLine(element) {
+            // button -> td -> tr -> tbody
+            var row = element.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+          }
+          addStudentsInKlassenInput();
+        </script>
+        <button onclick="javascript: addStudentsInKlassenInput();" type="button" class="btn btn-success">Klasse hinzufügen &#10010;</button>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="javascript: $('#studentsInKlassenForm').submit();">Änderung speichern</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Zurück</button>
+      </div>
+
     </div>
   </div>
 </div>
@@ -1074,7 +1365,7 @@ $errorIncluded = false;
   <div class="row">
     <!-- Spalte 1 -->
     <div class="col-12 col-lg-4">
-      <div class="row flex">
+      <div class="row flex d-flex justify-content-center">
 
         <div class="col-xs-12 col-sm-6 col-lg-12">
       		<div class="card w-100 text-white bg-dark p-3">
@@ -1119,13 +1410,13 @@ $errorIncluded = false;
 
     <!-- Spalte 2 -->
     <div class="col-12 col-lg-8">
-      <div class="row flex">
+      <div class="row flex d-flex justify-content-center">
 
         <div class="col-xl-4 col-sm-6 col-xs-12">
-          <div class="card w-100 text-white bg-dark p-3<?php if ($pMax < $gesamtanzahl * (1 + $buffer)) {echo " border border-danger"; } elseif ($pMin > $gesamtanzahl * (1 - $buffer)) {echo " border border-warning"; } ?>">
+          <div class="card w-100 text-white bg-dark p-3<?php if ($pMax < $gesamtanzahl) {echo " class='text-danger'"; } elseif ($pMax < $gesamtanzahl * (1 + $buffer) || $pMin > $gesamtanzahl * (1 - $buffer)) {echo " border border-warning"; } ?>">
             <div class="card-body">
               <h5 class="card-title">
-                <span<?php if ($pMin > $gesamtanzahl * (1 - $buffer)) {echo " class='text-warning'"; } echo ">" . $pMin; ?></span> - <span<?php if ($pMax < $gesamtanzahl * (1 + $buffer)) {echo " class='text-danger'"; } echo ">" . $pMax; ?></span>
+                <span<?php if ($pMin > $gesamtanzahl * (1 - $buffer)) {echo " class='text-warning'"; } echo ">" . $pMin; ?></span> - <span<?php if ($pMax < $gesamtanzahl) {echo " class='text-danger'"; } elseif ($pMax < $gesamtanzahl * (1 + $buffer)) {echo " class='text-warning'"; } echo ">" . $pMax; ?></span>
               </h5>
               <p class="card-text">Plätze sind laut Projektangaben insgesamt verfügbar</p></p>
             </div>
@@ -1136,10 +1427,10 @@ $errorIncluded = false;
           for ($i = CONFIG["minStufe"]; $i <= CONFIG["maxStufe"]; $i++) {
           ?>
         <div class="col-xl-4 col-sm-6 col-xs-12">
-      		<div class="card w-100 text-white bg-dark p-3<?php if ($stufen[$i]["max"] < $stufen[$i]["students"] * (1 + $buffer)) {echo " border border-danger"; } elseif ($stufen[$i]["min"] > $stufen[$i]["students"] * (1 - $buffer)) {echo " border border-warning"; } ?>">
+      		<div class="card w-100 text-white bg-dark p-3<?php if ($stufen[$i]["max"] < $stufen[$i]["students"]) {echo " class='text-danger'"; } elseif ($stufen[$i]["max"] < $stufen[$i]["students"] * (1 + $buffer) || $stufen[$i]["min"] > $stufen[$i]["students"] * (1 - $buffer)) {echo " border border-warning"; } ?>">
       			<div class="card-body">
               <h5 class="card-title">
-                <span<?php if ($stufen[$i]["min"] > $stufen[$i]["students"] * (1 - $buffer)) {echo " class='text-warning'"; } echo ">" . $stufen[$i]["min"]; ?></span> - <span<?php if ($stufen[$i]["max"] < $stufen[$i]["students"] * (1 + $buffer)) {echo " class='text-danger'"; } echo ">" . $stufen[$i]["max"]; ?></span>
+                <span<?php if ($stufen[$i]["min"] > $stufen[$i]["students"] * (1 - $buffer)) {echo " class='text-warning'"; } echo ">" . $stufen[$i]["min"]; ?></span> - <span<?php if ($stufen[$i]["max"] < $stufen[$i]["students"]) {echo " class='text-danger'"; } elseif ($stufen[$i]["max"] < $stufen[$i]["students"] * (1 + $buffer)) {echo " class='text-warning'"; } echo ">" . $stufen[$i]["max"]; ?></span>
               </h5>
       				<p class="card-text">Plätze sind laut Projektangaben verfügbar für Klassenstufe <?php echo $i; ?></p>
       			</div>
@@ -1155,10 +1446,10 @@ $errorIncluded = false;
 
 
   <!-- Klassenauflistung -->
-  <div class="row flex">
+  <div class="row flex d-flex justify-content-center">
 
 
-    <div class="col-12 col-sm-6 col-md-4 offset-md-2 col-lg-3 offset-lg-3">
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
       <div class="card shadow bg-dark w-100 p-3 border <?php
       if (count($klassenliste) == 0) {
         echo " border-danger text-danger";
@@ -1179,10 +1470,15 @@ $errorIncluded = false;
         else {
           ?>
           <h5 class="card-title"><?php echo $klassenFertig; ?> von <?php echo count($klassenliste); ?></h5>
-          <p class="card-text">Klassen haben bereits vollständig gewählt.</p>
+          <p class="card-text">Klassen haben<?php echo $config["Stage"] > 3 ? "" : " bereits"; ?> vollständig gewählt.</p>
           <?php
         }
         ?>
+          <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#studentsInKlassen">
+              Einträge bearbeiten
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -1201,7 +1497,7 @@ $errorIncluded = false;
         <div class="card-body">
           <h5 class="card-title"><?php echo count($wahlen); ?> von <?php echo $gesamtanzahl; ?>
           </h5>
-          <p class="card-text">Schüler haben schon gewählt</p>
+          <p class="card-text">Schüler haben<?php echo $config["Stage"] > 3 ? "" : " schon"; ?> gewählt</p>
           <!-- Button trigger modal -->
           <div class="btn-group btn-group-toggle" data-toggle="buttons">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#schuelerModal">
@@ -1211,9 +1507,25 @@ $errorIncluded = false;
         </div>
       </div>
     </div>
+
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+      <div class="card shadow bg-dark w-100 p-3 border border-warning text-warning" style="border: 3px solid !important;">
+        <div class="card-body">
+          <h5 class="card-title"><?php echo count($zwangszuteilung); ?></h5>
+          <p class="card-text">Schüler wurden vorab einem Projekt zugeteilt.</p>
+          <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#zwangszuteilungModal">
+              Auflisten
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
-  <div class="row flex">
+  <?php if ($config["Stage"] > 2) { ?>
+  <div class="row flex d-flex justify-content-center">
 
     <?php
     foreach ($klassen as $key => $klasse) {
@@ -1257,5 +1569,6 @@ $errorIncluded = false;
     ?>
 
   </div>
+  <?php } ?>
 
 </div>

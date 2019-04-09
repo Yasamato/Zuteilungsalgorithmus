@@ -5,6 +5,13 @@ Dieses Projekt bietet eine vollständige Weboberfläche samt Back-End Serverprog
 
 Neben der mühseligen Aufgabe der Datensammlung, beherscht die Software eine automatische Datenanalyse und kann ein sehr gutes Optimum für die gewählten Projekte ermitteln, welches nahezu allen manuellen Auswertungen überlegen ist.
 
+# Systemanforderungen
+- Linux OS, Mac OS (getestet mit Ubuntu 18.04 LTS)
+- php-fähiger Webserver (getestet mit Apache 2.4.29)
+- >=php7.0 (getestet mit php7.2.15)
+- java Runtime Environment (getestet mit java 7 und 8)
+
+
 # Verwendete externe Bibliotheken
 - Bootstrap v.4.3.1 (CSS und JS-Framework) [offizielle Webseite](https://getbootstrap.com/)
 - jQuery v.3.3.1 (JS-Framework) [offizielle Webseite](https://jquery.com/)

@@ -51,7 +51,7 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "teachers") {
   </div>
 
   <div class="container">
-    <?php if ($config["Stage"] > 1) { ?>
+    <?php if ($config["Stage"] > 2) { ?>
     <div class="row flex">
       <?php
       foreach ($klassen as $key => $klasse) {
