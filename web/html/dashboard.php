@@ -323,7 +323,7 @@ $errorIncluded = false;
     if (!empty($projekteNichtStattfinden)) {
       ?>
       <div class="alert alert-danger" role="alert">
-        Es können <strong><?php echo count($projekteNichtStattfinden); ?> Projekten</strong> aufgrund mangelnder Teilnehmerzahl nicht stattfinden. <a href="javasript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">Projekt einsehen</a>
+        Es können <strong><?php echo count($projekteNichtStattfinden); ?> Projekte</strong> aufgrund mangelnder Teilnehmerzahl nicht stattfinden. <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">Projekt einsehen</a>
       </div><?php
     }
     if (!empty($projekteZuViel)) {
