@@ -274,8 +274,8 @@ $errorIncluded = false;
               data = parseFloat(data) * 100;
               console.log("Fortschritt: " + data + "%");
               if (data != 100) {
-                $($('.progress-bar')[0]).css('width', data + '%').html((data > 25 ? (Math.round(data * 100) / 100) + "%" : ""));
-                $($('.progress-bar')[1]).css('width', (100 - data) + '%').html((data < 25 ? (Math.round(data * 100) / 100) + "%" : ""));
+                $($('.progress-bar')[0]).css('width', data + '%').html((data > 50 ? (Math.round(data * 100) / 100) + "%" : ""));
+                $($('.progress-bar')[1]).css('width', (100 - data) + '%').html((data < 50 ? (Math.round(data * 100) / 100) + "%" : ""));
               } else {
                 $($('.progress-bar')[0]).css('width', '100%').html("100%");
                 $($('.progress-bar')[1]).css('width', '0%').html("");
@@ -597,7 +597,7 @@ $errorIncluded = false;
                 <td><a href="javascript:;" onclick="javasript: showProjektInfoModal(projekte[' . $key . ']);">' . $projekt["name"] . '</a></td>
                 <td>' . $projekt["betreuer"] . '</td>
                 <td>' . $projekt["minKlasse"] . '-' . $projekt["maxKlasse"] . '</td>
-                <td class="bg-danger">(' . count($projekt["teilnehmer"]) . ') >' . $projekt["minPlatz"] . '-' . $projekt["maxPlatz"] . '</td>
+                <td class="bg-danger">(' . count($projekt["teilnehmer"]) . ') ' . $projekt["minPlatz"] . '-' . $projekt["maxPlatz"] . '</td>
               </tr>';
             }
             ?>
@@ -764,9 +764,7 @@ $errorIncluded = false;
               echo '
               </ol>
             </td>
-            <td class="bg-danger">
-              Konnte nicht zugeteilt werden
-            </td>
+            <td class="bg-danger">Konnte nicht zugeteilt werden</td>
             <td class="navbar-dark">
               <button class="navbar-toggler" type="button" onclick="javascript: editStudentModal(this);">
                 <span class="navbar-toggler-icon"></span>
@@ -875,7 +873,7 @@ $errorIncluded = false;
             $("#schuelerEditForm").children("div.form-group")[3].children[1].value = $(student).children()[2].innerHTML; //vorname
             $("#schuelerEditForm").children("div.form-group")[4].children[1].value = $(student).children()[3].innerHTML; //nachname
             if (window.config.Stage > 4) {
-              if ($(student).children()[5].innerHTML == "N/A") {
+              if ($(student).children()[5].innerHTML == "Konnte nicht zugeteilt werden") {
                 $("#schuelerEditForm .projekt-input").html(`
                   <input type="hidden" name="ergebnis">
                   <button type="button" onclick="javascript: changeProjektzuteilung(this);" class="btn btn-warning">
