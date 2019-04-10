@@ -124,7 +124,7 @@ else {
     fclose($fh);
 
     $iterationen = count($projekte) * (count($wahlen) - $zwangszugeteiltGesamt) * pow(10, $_POST["genauigkeit"]); // mit $_POST["genauigkeit"] = [0; 2]
-    $cmd = "java -jar ../FinishedAlgorithm/Algorithmus.jar 2 100000 '../FinishedAlgorithm/projekte.csv' ',ImM' '../FinishedAlgorithm/schueler.csv' ',KNV1234'";
+    $cmd = "java -jar ../FinishedAlgorithm/Algorithmus.jar 2 " . $iterationen . " '../FinishedAlgorithm/projekte.csv' ',ImM' '../FinishedAlgorithm/schueler.csv' ',KNV1234'";
     $outputfile = "../data/algorithmus.log";
     $pidfile = "../data/algorithmus.pid";
     exec("cd ../FinishedAlgorithm; " . sprintf("%s > %s 2>&1 & echo $! >> %s", $cmd, $outputfile, $pidfile));

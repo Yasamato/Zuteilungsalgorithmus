@@ -8,931 +8,1073 @@ Starting Thread 1
 Running Thread 0
 0.0 % done!
 Running Thread 1
-20.0 % done!
-40.0 % done!
-60.0 % done!
-80.0 % done!
+0.6652253450856478 % done!
+1.3304506901712956 % done!
+1.9956760352569434 % done!
+2.660901380342591 % done!
+3.3261267254282387 % done!
+3.9913520705138867 % done!
+4.656577415599535 % done!
+5.321802760685182 % done!
+5.98702810577083 % done!
+6.6522534508564775 % done!
+7.317478795942125 % done!
+7.9827041410277735 % done!
+8.647929486113421 % done!
+9.31315483119907 % done!
+9.978380176284716 % done!
+10.643605521370365 % done!
+11.308830866456011 % done!
+11.97405621154166 % done!
+12.639281556627308 % done!
+13.304506901712955 % done!
+13.969732246798603 % done!
+14.63495759188425 % done!
+15.300182936969899 % done!
+15.965408282055547 % done!
+16.630633627141194 % done!
+17.295858972226842 % done!
+17.96108431731249 % done!
+18.62630966239814 % done!
+19.291535007483784 % done!
+19.956760352569432 % done!
+20.62198569765508 % done!
+21.28721104274073 % done!
+21.952436387826378 % done!
+22.617661732912023 % done!
+23.28288707799767 % done!
+23.94811242308332 % done!
+24.613337768168968 % done!
+25.278563113254616 % done!
+25.94378845834026 % done!
+26.60901380342591 % done!
+27.27423914851156 % done!
+27.939464493597207 % done!
+28.604689838682855 % done!
+29.2699151837685 % done!
+29.93514052885415 % done!
+30.600365873939797 % done!
+31.265591219025445 % done!
+31.930816564111094 % done!
+32.59604190919674 % done!
+33.26126725428239 % done!
+33.92649259936804 % done!
+34.591717944453684 % done!
+35.25694328953933 % done!
+35.92216863462498 % done!
+36.587393979710626 % done!
+37.25261932479628 % done!
+37.91784466988192 % done!
+38.58307001496757 % done!
+39.24829536005322 % done!
+39.913520705138865 % done!
+40.57874605022452 % done!
+41.24397139531016 % done!
+41.90919674039581 % done!
+42.57442208548146 % done!
+43.2396474305671 % done!
+43.904872775652755 % done!
+44.5700981207384 % done!
+45.235323465824045 % done!
+45.9005488109097 % done!
+46.56577415599534 % done!
+47.230999501080994 % done!
+47.89622484616664 % done!
+48.561450191252284 % done!
+49.226675536337936 % done!
+49.89190088142358 % done!
+50.55712622650923 % done!
+51.22235157159488 % done!
+51.88757691668052 % done!
+52.552802261766175 % done!
+53.21802760685182 % done!
+53.88325295193747 % done!
+54.54847829702312 % done!
+55.21370364210876 % done!
+55.87892898719441 % done!
+56.54415433228006 % done!
+57.20937967736571 % done!
+57.874605022451355 % done!
+58.539830367537 % done!
+59.20505571262265 % done!
+59.8702810577083 % done!
+60.53550640279395 % done!
+61.200731747879594 % done!
+61.86595709296524 % done!
+62.53118243805089 % done!
+63.196407783136536 % done!
+63.86163312822219 % done!
+64.52685847330784 % done!
+65.19208381839348 % done!
+65.85730916347913 % done!
+66.52253450856477 % done!
+67.18775985365042 % done!
+67.85298519873608 % done!
+68.51821054382172 % done!
+69.18343588890737 % done!
+69.84866123399301 % done!
+70.51388657907866 % done!
+71.17911192416432 % done!
+71.84433726924996 % done!
+72.50956261433561 % done!
+73.17478795942125 % done!
+73.8400133045069 % done!
+74.50523864959256 % done!
+75.1704639946782 % done!
+75.83568933976385 % done!
+76.50091468484949 % done!
+77.16614002993514 % done!
+77.8313653750208 % done!
+78.49659072010644 % done!
+79.16181606519208 % done!
+79.82704141027773 % done!
+80.49226675536337 % done!
+81.15749210044903 % done!
+81.82271744553468 % done!
+82.48794279062032 % done!
+83.15316813570597 % done!
+83.81839348079161 % done!
+84.48361882587727 % done!
+85.14884417096292 % done!
+85.81406951604856 % done!
+86.4792948611342 % done!
+87.14452020621985 % done!
+87.80974555130551 % done!
+88.47497089639116 % done!
+89.1401962414768 % done!
+89.80542158656245 % done!
+90.47064693164809 % done!
+91.13587227673375 % done!
+91.8010976218194 % done!
+92.46632296690504 % done!
+93.13154831199068 % done!
+93.79677365707633 % done!
+94.46199900216199 % done!
+95.12722434724763 % done!
+95.79244969233328 % done!
+96.45767503741892 % done!
+97.12290038250457 % done!
+97.78812572759023 % done!
+98.45335107267587 % done!
+99.11857641776152 % done!
+99.78380176284716 % done!
 Thread Thread 1 exiting.
 Thread Thread 0 exiting.
 -------------------------------------------------------------
-Projekt Nr. 5c98af4f7789c Min. Teilnehmer: 8 Max.Teilnehmer: 16 Anzahl Teilnehmer: 16,Mittlere Klassenstufe: 11.0625 Std: 0.68359375
-Schueler -1736081371(1) Wahl , Klasse:  11
-Schueler -1707414546(2) Wahl , Klasse:  12
-Schueler -1575972721(2) Wahl , Klasse:  12
-Schueler 2380184(1) Wahl , Klasse:  12
-Schueler 77199291(2) Wahl , Klasse:  11
-Schueler 73780376(3) Wahl , Klasse:  10
-Schueler 2157(3) Wahl , Klasse:  11
+Projekt Nr. 5c98af4f7789c Min. Teilnehmer: 8 Max.Teilnehmer: 16 Anzahl Teilnehmer: 16,Mittlere Klassenstufe: 11.1875 Std: 0.65234375
 Schueler -1796472969(2) Wahl , Klasse:  10
-Schueler -902003468(3) Wahl , Klasse:  12
-Schueler -1652405308(3) Wahl , Klasse:  10
+Schueler 73780376(3) Wahl , Klasse:  10
+Schueler 77199291(2) Wahl , Klasse:  11
 Schueler 724997471(3) Wahl , Klasse:  10
-Schueler 67262680(3) Wahl , Klasse:  12
-Schueler 1972992094(3) Wahl , Klasse:  11
 Schueler -2076039322(3) Wahl , Klasse:  11
-Schueler 2087384273(4) Wahl , Klasse:  10
+Schueler -1707414546(2) Wahl , Klasse:  12
+Schueler -902003468(3) Wahl , Klasse:  12
+Schueler 1972992094(3) Wahl , Klasse:  11
+Schueler 67262680(3) Wahl , Klasse:  12
+Schueler 82541813(4) Wahl , Klasse:  11
+Schueler -1652405308(3) Wahl , Klasse:  10
+Schueler -1575972721(2) Wahl , Klasse:  12
+Schueler 1300361157(4) Wahl , Klasse:  11
+Schueler 69496014(4) Wahl , Klasse:  12
 Schueler 86233045(4) Wahl , Klasse:  12
+Schueler 2380184(1) Wahl , Klasse:  12
 
 -------------------------------------------------------------
 Projekt Nr. 5c98b2aa9717a Min. Teilnehmer: 10 Max.Teilnehmer: 30 Anzahl Teilnehmer: 30,Mittlere Klassenstufe: 5.533333333333333 Std: 0.24888888888888902
-Schueler 83118(1) Wahl , Klasse:  6
 Schueler -1732392096(1) Wahl , Klasse:  6
-Schueler -1736081362(1) Wahl , Klasse:  5
-Schueler 479173932(1) Wahl , Klasse:  5
-Schueler 67109039(1) Wahl , Klasse:  6
-Schueler 80572830(1) Wahl , Klasse:  5
-Schueler 82544448(1) Wahl , Klasse:  5
-Schueler -1997550056(2) Wahl , Klasse:  5
-Schueler 74113572(2) Wahl , Klasse:  6
-Schueler 2390755(1) Wahl , Klasse:  6
-Schueler 63372932(1) Wahl , Klasse:  6
-Schueler 506165583(2) Wahl , Klasse:  5
 Schueler -1818761006(1) Wahl , Klasse:  6
-Schueler -1474105454(2) Wahl , Klasse:  6
-Schueler 2300952(3) Wahl , Klasse:  5
-Schueler 1588074282(2) Wahl , Klasse:  5
-Schueler 1618385537(2) Wahl , Klasse:  5
-Schueler 2043896(3) Wahl , Klasse:  5
+Schueler 82544448(1) Wahl , Klasse:  5
 Schueler 1873462493(1) Wahl , Klasse:  6
-Schueler 8588466(2) Wahl , Klasse:  6
-Schueler -1654228478(3) Wahl , Klasse:  5
-Schueler 67223442(4) Wahl , Klasse:  6
-Schueler 2331390(2) Wahl , Klasse:  5
-Schueler -764841861(3) Wahl , Klasse:  6
-Schueler 2390314(4) Wahl , Klasse:  5
-Schueler -1727024907(3) Wahl , Klasse:  6
-Schueler 2043057023(3) Wahl , Klasse:  6
-Schueler -1707450409(1) Wahl , Klasse:  5
 Schueler 42767643(2) Wahl , Klasse:  6
-Schueler 65798396(3) Wahl , Klasse:  6
+Schueler 1588074282(2) Wahl , Klasse:  5
+Schueler 67109039(1) Wahl , Klasse:  6
+Schueler 83118(1) Wahl , Klasse:  6
+Schueler 2390755(1) Wahl , Klasse:  6
+Schueler 479173932(1) Wahl , Klasse:  5
+Schueler 2043383808(2) Wahl , Klasse:  6
+Schueler -1997550056(2) Wahl , Klasse:  5
+Schueler 506165583(2) Wahl , Klasse:  5
+Schueler 63372932(1) Wahl , Klasse:  6
+Schueler 1618385537(2) Wahl , Klasse:  5
+Schueler 8588466(2) Wahl , Klasse:  6
+Schueler 2043896(3) Wahl , Klasse:  5
+Schueler 2331390(2) Wahl , Klasse:  5
+Schueler -1707450409(1) Wahl , Klasse:  5
+Schueler -1727024907(3) Wahl , Klasse:  6
+Schueler -1654228478(3) Wahl , Klasse:  5
+Schueler -1187708117(3) Wahl , Klasse:  6
+Schueler 2390314(4) Wahl , Klasse:  5
+Schueler 67223442(4) Wahl , Klasse:  6
+Schueler 2043057023(3) Wahl , Klasse:  6
+Schueler 80572830(1) Wahl , Klasse:  5
+Schueler 74113572(2) Wahl , Klasse:  6
+Schueler -1736081362(1) Wahl , Klasse:  5
+Schueler 2300952(3) Wahl , Klasse:  5
+Schueler -764841861(3) Wahl , Klasse:  6
 
 -------------------------------------------------------------
-Projekt Nr. 5c98b383210ea Min. Teilnehmer: 10 Max.Teilnehmer: 30 Anzahl Teilnehmer: 30,Mittlere Klassenstufe: 8.266666666666667 Std: 0.39555555555555555
-Schueler 1982616704(1) Wahl , Klasse:  9
-Schueler -2051118930(1) Wahl , Klasse:  8
-Schueler 73422791(1) Wahl , Klasse:  9
-Schueler -1707422533(1) Wahl , Klasse:  8
-Schueler 65190187(1) Wahl , Klasse:  8
-Schueler 2288374(2) Wahl , Klasse:  9
-Schueler -1793346090(2) Wahl , Klasse:  8
-Schueler -2089265295(2) Wahl , Klasse:  7
-Schueler 82053(2) Wahl , Klasse:  8
-Schueler 66024211(1) Wahl , Klasse:  9
-Schueler 73432401(1) Wahl , Klasse:  8
-Schueler -555147462(1) Wahl , Klasse:  9
+Projekt Nr. 5c98b383210ea Min. Teilnehmer: 10 Max.Teilnehmer: 30 Anzahl Teilnehmer: 30,Mittlere Klassenstufe: 8.133333333333333 Std: 0.4488888888888887
 Schueler 1619928101(1) Wahl , Klasse:  8
-Schueler -1819692126(2) Wahl , Klasse:  7
-Schueler -1854437980(2) Wahl , Klasse:  9
-Schueler 1201607530(2) Wahl , Klasse:  7
+Schueler 73422791(1) Wahl , Klasse:  9
+Schueler 2024049913(1) Wahl , Klasse:  9
 Schueler 63365744(1) Wahl , Klasse:  8
-Schueler -754299151(1) Wahl , Klasse:  9
-Schueler 2011120730(1) Wahl , Klasse:  9
-Schueler 2558999(1) Wahl , Klasse:  8
-Schueler -1818596676(1) Wahl , Klasse:  8
+Schueler -1925140697(2) Wahl , Klasse:  7
+Schueler -1793346090(2) Wahl , Klasse:  8
 Schueler 2054974(1) Wahl , Klasse:  8
-Schueler 583874980(2) Wahl , Klasse:  9
-Schueler 65808885(2) Wahl , Klasse:  8
+Schueler -2089265295(2) Wahl , Klasse:  7
+Schueler -1818596676(1) Wahl , Klasse:  8
+Schueler 1201607530(2) Wahl , Klasse:  7
+Schueler 67372496(2) Wahl , Klasse:  9
+Schueler 66024211(1) Wahl , Klasse:  9
+Schueler 2558999(1) Wahl , Klasse:  8
+Schueler 73293211(1) Wahl , Klasse:  8
+Schueler 2255041(1) Wahl , Klasse:  8
+Schueler 1982616704(1) Wahl , Klasse:  9
 Schueler -1368467098(1) Wahl , Klasse:  8
-Schueler -1698314071(2) Wahl , Klasse:  9
-Schueler 71462858(1) Wahl , Klasse:  8
+Schueler -2054964359(1) Wahl , Klasse:  8
+Schueler 2011120730(1) Wahl , Klasse:  9
+Schueler 2288374(2) Wahl , Klasse:  9
+Schueler 81293267(2) Wahl , Klasse:  9
+Schueler 1235314143(2) Wahl , Klasse:  9
+Schueler 65190187(1) Wahl , Klasse:  8
 Schueler -901805881(2) Wahl , Klasse:  8
-Schueler 2039661310(3) Wahl , Klasse:  8
-Schueler 2066406(1) Wahl , Klasse:  9
+Schueler -2051118930(1) Wahl , Klasse:  8
+Schueler 2033290965(2) Wahl , Klasse:  7
+Schueler -1819692126(2) Wahl , Klasse:  7
+Schueler 82053(2) Wahl , Klasse:  8
+Schueler -1707422533(1) Wahl , Klasse:  8
+Schueler -2025858673(2) Wahl , Klasse:  8
 
 -------------------------------------------------------------
-Projekt Nr. 5c98b42dd9ca7 Min. Teilnehmer: 16 Max.Teilnehmer: 24 Anzahl Teilnehmer: 24,Mittlere Klassenstufe: 11.041666666666666 Std: 0.5399305555555554
+Projekt Nr. 5c98b42dd9ca7 Min. Teilnehmer: 16 Max.Teilnehmer: 24 Anzahl Teilnehmer: 24,Mittlere Klassenstufe: 10.791666666666666 Std: 0.4982638888888889
 Schueler 1612542041(1) Wahl , Klasse:  11
-Schueler -1964964902(1) Wahl , Klasse:  10
-Schueler -1567767587(1) Wahl , Klasse:  11
-Schueler 1972487764(1) Wahl , Klasse:  12
-Schueler -2136822215(1) Wahl , Klasse:  11
-Schueler 65808943(1) Wahl , Klasse:  11
-Schueler 74103068(1) Wahl , Klasse:  11
-Schueler -200395060(1) Wahl , Klasse:  10
-Schueler -1797212503(1) Wahl , Klasse:  12
 Schueler -1251689689(1) Wahl , Klasse:  10
-Schueler -1575976441(1) Wahl , Klasse:  10
-Schueler -2054696116(1) Wahl , Klasse:  11
-Schueler -158398354(1) Wahl , Klasse:  12
-Schueler 63599453(1) Wahl , Klasse:  12
-Schueler 79870233(1) Wahl , Klasse:  10
 Schueler 922006168(1) Wahl , Klasse:  11
-Schueler 2300921(2) Wahl , Klasse:  12
-Schueler 259151849(2) Wahl , Klasse:  11
-Schueler 64449333(2) Wahl , Klasse:  11
-Schueler 82545905(2) Wahl , Klasse:  12
 Schueler -2083555185(1) Wahl , Klasse:  12
-Schueler 79855054(2) Wahl , Klasse:  10
-Schueler 89721(2) Wahl , Klasse:  11
-Schueler 77124(3) Wahl , Klasse:  11
+Schueler 2024058445(1) Wahl , Klasse:  10
+Schueler -200395060(1) Wahl , Klasse:  10
+Schueler 2330781(1) Wahl , Klasse:  10
+Schueler 81293771(1) Wahl , Klasse:  11
+Schueler -2136822215(1) Wahl , Klasse:  11
+Schueler -2054696116(1) Wahl , Klasse:  11
+Schueler 2173303(1) Wahl , Klasse:  10
+Schueler 865651531(1) Wahl , Klasse:  11
+Schueler -1660500671(1) Wahl , Klasse:  10
+Schueler 79870233(1) Wahl , Klasse:  10
+Schueler 66806654(1) Wahl , Klasse:  10
+Schueler 74103068(1) Wahl , Klasse:  11
+Schueler 73431030(1) Wahl , Klasse:  11
+Schueler 72266905(2) Wahl , Klasse:  12
+Schueler 63599453(1) Wahl , Klasse:  12
+Schueler 63524509(1) Wahl , Klasse:  11
+Schueler -1797212503(1) Wahl , Klasse:  12
+Schueler -1364908045(2) Wahl , Klasse:  11
+Schueler 967250309(2) Wahl , Klasse:  11
+Schueler 65112877(2) Wahl , Klasse:  10
 
 -------------------------------------------------------------
-Projekt Nr. 5c98b55207aa1 Min. Teilnehmer: 3 Max.Teilnehmer: 15 Anzahl Teilnehmer: 15,Mittlere Klassenstufe: 6.466666666666667 Std: 1.8488888888888886
-Schueler 1697410559(1) Wahl , Klasse:  8
-Schueler 1582115630(2) Wahl , Klasse:  6
-Schueler 1998508451(1) Wahl , Klasse:  5
+Projekt Nr. 5c98b55207aa1 Min. Teilnehmer: 3 Max.Teilnehmer: 15 Anzahl Teilnehmer: 15,Mittlere Klassenstufe: 6.666666666666667 Std: 1.5555555555555558
 Schueler 2195214(1) Wahl , Klasse:  9
 Schueler 69496572(1) Wahl , Klasse:  6
-Schueler -2083298604(2) Wahl , Klasse:  8
-Schueler -1997446580(3) Wahl , Klasse:  5
-Schueler 2078171916(2) Wahl , Klasse:  6
-Schueler 2364956(2) Wahl , Klasse:  5
-Schueler 2696372(2) Wahl , Klasse:  5
 Schueler 74354535(2) Wahl , Klasse:  6
-Schueler 80582440(3) Wahl , Klasse:  8
-Schueler -1112106276(2) Wahl , Klasse:  8
+Schueler 1697410559(1) Wahl , Klasse:  8
+Schueler 1998508451(1) Wahl , Klasse:  5
+Schueler 69159654(1) Wahl , Klasse:  7
+Schueler 1582115630(2) Wahl , Klasse:  6
 Schueler -2075294202(3) Wahl , Klasse:  7
+Schueler 2364956(2) Wahl , Klasse:  5
+Schueler 2078171916(2) Wahl , Klasse:  6
+Schueler 80582440(3) Wahl , Klasse:  8
+Schueler -2083298604(2) Wahl , Klasse:  8
+Schueler -1112106276(2) Wahl , Klasse:  8
+Schueler -758149460(2) Wahl , Klasse:  6
 Schueler 2806(1) Wahl , Klasse:  5
 
 -------------------------------------------------------------
 Projekt Nr. 5c98b64c1443f Min. Teilnehmer: 2 Max.Teilnehmer: 10 Anzahl Teilnehmer: 3,Mittlere Klassenstufe: 10.666666666666666 Std: 0.888888888888889
-Schueler 2364728(2) Wahl , Klasse:  10
 Schueler 2011131496(2) Wahl , Klasse:  12
 Schueler -1752975035(4) Wahl , Klasse:  10
+Schueler 2364728(2) Wahl , Klasse:  10
 
 -------------------------------------------------------------
-Projekt Nr. 5c98b70ee3ba2 Min. Teilnehmer: 8 Max.Teilnehmer: 22 Anzahl Teilnehmer: 22,Mittlere Klassenstufe: 10.227272727272727 Std: 2.266528925619834
-Schueler -1804039037(1) Wahl , Klasse:  11
-Schueler -1850727869(1) Wahl , Klasse:  9
+Projekt Nr. 5c98b70ee3ba2 Min. Teilnehmer: 8 Max.Teilnehmer: 22 Anzahl Teilnehmer: 22,Mittlere Klassenstufe: 10.409090909090908 Std: 2.0599173553719012
 Schueler 77005678(1) Wahl , Klasse:  8
-Schueler 72377316(2) Wahl , Klasse:  8
-Schueler 68139370(2) Wahl , Klasse:  12
-Schueler -1653857241(1) Wahl , Klasse:  9
-Schueler 63121070(1) Wahl , Klasse:  12
-Schueler -2140798949(2) Wahl , Klasse:  9
-Schueler 76471094(3) Wahl , Klasse:  10
-Schueler -181326628(1) Wahl , Klasse:  12
-Schueler 1197913450(3) Wahl , Klasse:  12
-Schueler -2025858673(1) Wahl , Klasse:  8
-Schueler 79058(2) Wahl , Klasse:  10
-Schueler -2083446822(2) Wahl , Klasse:  8
-Schueler 2747985(3) Wahl , Klasse:  12
-Schueler 2160005(3) Wahl , Klasse:  12
-Schueler -2004029317(2) Wahl , Klasse:  10
-Schueler -2047240678(2) Wahl , Klasse:  11
-Schueler -757603736(2) Wahl , Klasse:  9
-Schueler -1997440360(1) Wahl , Klasse:  10
 Schueler -1841849031(1) Wahl , Klasse:  11
+Schueler -1997440360(1) Wahl , Klasse:  10
+Schueler 68139370(2) Wahl , Klasse:  12
+Schueler 2575840(1) Wahl , Klasse:  10
+Schueler 63121070(1) Wahl , Klasse:  12
+Schueler -2083446822(2) Wahl , Klasse:  8
+Schueler -2140798949(2) Wahl , Klasse:  9
+Schueler -757603736(2) Wahl , Klasse:  9
+Schueler 1197913450(3) Wahl , Klasse:  12
+Schueler 2747985(3) Wahl , Klasse:  12
+Schueler 2553009(3) Wahl , Klasse:  12
+Schueler 76471094(3) Wahl , Klasse:  10
+Schueler -1887051224(3) Wahl , Klasse:  11
+Schueler -2047240678(2) Wahl , Klasse:  11
+Schueler -1790639194(2) Wahl , Klasse:  12
+Schueler -1854437980(3) Wahl , Klasse:  9
 Schueler -90824506(3) Wahl , Klasse:  12
+Schueler -1653857241(1) Wahl , Klasse:  9
+Schueler 1175450092(1) Wahl , Klasse:  11
+Schueler -1804039037(1) Wahl , Klasse:  11
+Schueler 72377316(2) Wahl , Klasse:  8
 
 -------------------------------------------------------------
-Projekt Nr. 5c98b847c626a Min. Teilnehmer: 5 Max.Teilnehmer: 25 Anzahl Teilnehmer: 25,Mittlere Klassenstufe: 6.92 Std: 1.5936
-Schueler -2013021084(1) Wahl , Klasse:  7
-Schueler -2047466624(1) Wahl , Klasse:  6
-Schueler -1641978398(1) Wahl , Klasse:  7
+Projekt Nr. 5c98b847c626a Min. Teilnehmer: 5 Max.Teilnehmer: 25 Anzahl Teilnehmer: 25,Mittlere Klassenstufe: 6.8 Std: 1.4399999999999997
 Schueler 1972453248(1) Wahl , Klasse:  7
-Schueler 1346382288(2) Wahl , Klasse:  9
-Schueler 1235314147(2) Wahl , Klasse:  5
-Schueler -1079831519(2) Wahl , Klasse:  9
-Schueler 63614167(2) Wahl , Klasse:  7
-Schueler -1904282422(2) Wahl , Klasse:  5
-Schueler 2079199209(2) Wahl , Klasse:  5
-Schueler -2083106925(2) Wahl , Klasse:  7
 Schueler 2001081163(2) Wahl , Klasse:  7
-Schueler 2046748947(1) Wahl , Klasse:  8
-Schueler 1300486161(2) Wahl , Klasse:  5
+Schueler 1346382288(2) Wahl , Klasse:  9
+Schueler 63614167(2) Wahl , Klasse:  7
+Schueler -1079831519(2) Wahl , Klasse:  9
 Schueler -1732271121(2) Wahl , Klasse:  6
-Schueler 2040023000(2) Wahl , Klasse:  8
+Schueler 1300486161(2) Wahl , Klasse:  5
+Schueler 2039745134(2) Wahl , Klasse:  7
 Schueler 80800667(2) Wahl , Klasse:  7
-Schueler 76276159(2) Wahl , Klasse:  9
-Schueler 2039864435(1) Wahl , Klasse:  7
-Schueler -1280369220(1) Wahl , Klasse:  6
 Schueler 1982614782(1) Wahl , Klasse:  9
 Schueler 1445900308(2) Wahl , Klasse:  6
+Schueler -1904282422(2) Wahl , Klasse:  5
+Schueler 1235314147(2) Wahl , Klasse:  5
+Schueler 840925716(2) Wahl , Klasse:  5
+Schueler -2013021084(1) Wahl , Klasse:  7
+Schueler 2040023000(2) Wahl , Klasse:  8
+Schueler 288097208(1) Wahl , Klasse:  6
+Schueler -1280369220(1) Wahl , Klasse:  6
+Schueler -2083106925(2) Wahl , Klasse:  7
 Schueler 2398230(1) Wahl , Klasse:  6
+Schueler 1755021112(1) Wahl , Klasse:  8
+Schueler 2451023(2) Wahl , Klasse:  7
+Schueler -688459096(2) Wahl , Klasse:  6
+Schueler 2039864435(1) Wahl , Klasse:  7
 Schueler 2039878199(3) Wahl , Klasse:  8
-Schueler 2039745134(2) Wahl , Klasse:  7
 
 -------------------------------------------------------------
-Projekt Nr. 5c98b970b7847 Min. Teilnehmer: 6 Max.Teilnehmer: 35 Anzahl Teilnehmer: 35,Mittlere Klassenstufe: 9.342857142857143 Std: 6.339591836734691
-Schueler -1710092437(1) Wahl , Klasse:  11
+Projekt Nr. 5c98b970b7847 Min. Teilnehmer: 6 Max.Teilnehmer: 35 Anzahl Teilnehmer: 35,Mittlere Klassenstufe: 9.257142857142858 Std: 5.791020408163266
+Schueler 2011182234(1) Wahl , Klasse:  11
 Schueler 2039958759(1) Wahl , Klasse:  8
+Schueler -1710092437(1) Wahl , Klasse:  11
+Schueler 69908307(1) Wahl , Klasse:  10
+Schueler 63372936(1) Wahl , Klasse:  7
+Schueler -2022520875(1) Wahl , Klasse:  11
 Schueler 1488306722(1) Wahl , Klasse:  11
 Schueler 2662594(2) Wahl , Klasse:  12
+Schueler 2045973(1) Wahl , Klasse:  6
 Schueler 2314457(1) Wahl , Klasse:  11
-Schueler 958182385(2) Wahl , Klasse:  11
+Schueler 132306912(1) Wahl , Klasse:  12
 Schueler 1841575249(1) Wahl , Klasse:  8
+Schueler 2291386(1) Wahl , Klasse:  11
+Schueler 1989818739(2) Wahl , Klasse:  12
+Schueler 63316803(2) Wahl , Klasse:  11
 Schueler 2092859(1) Wahl , Klasse:  6
+Schueler 2133165901(3) Wahl , Klasse:  6
+Schueler 2061852642(4) Wahl , Klasse:  12
+Schueler 2049428(2) Wahl , Klasse:  10
+Schueler 2066406(3) Wahl , Klasse:  9
 Schueler -1825501571(2) Wahl , Klasse:  7
 Schueler 236495751(3) Wahl , Klasse:  6
-Schueler 2049428(2) Wahl , Klasse:  10
-Schueler 2011235395(3) Wahl , Klasse:  5
-Schueler 74822862(3) Wahl , Klasse:  6
-Schueler -1925148629(1) Wahl , Klasse:  5
-Schueler -2022520875(1) Wahl , Klasse:  11
-Schueler 73303396(3) Wahl , Klasse:  11
-Schueler 2245234(4) Wahl , Klasse:  12
 Schueler 2390757(2) Wahl , Klasse:  10
-Schueler 2133165901(3) Wahl , Klasse:  6
-Schueler 463988763(3) Wahl , Klasse:  11
-Schueler 65190193(4) Wahl , Klasse:  12
-Schueler 2162857(4) Wahl , Klasse:  11
 Schueler 304221377(3) Wahl , Klasse:  6
+Schueler 463988763(3) Wahl , Klasse:  11
+Schueler 2011235395(3) Wahl , Klasse:  5
+Schueler 73303396(3) Wahl , Klasse:  11
+Schueler 74822862(3) Wahl , Klasse:  6
+Schueler 2162857(4) Wahl , Klasse:  11
 Schueler 73900173(2) Wahl , Klasse:  12
-Schueler 63316803(2) Wahl , Klasse:  11
-Schueler 132306912(1) Wahl , Klasse:  12
 Schueler 2052789845(4) Wahl , Klasse:  11
-Schueler 63353198(4) Wahl , Klasse:  5
-Schueler 2045973(1) Wahl , Klasse:  6
-Schueler 2061852642(4) Wahl , Klasse:  12
-Schueler 1989818739(2) Wahl , Klasse:  12
-Schueler 2291386(1) Wahl , Klasse:  11
-Schueler 69908307(1) Wahl , Klasse:  10
-Schueler 2011182234(1) Wahl , Klasse:  11
-Schueler 63372936(1) Wahl , Klasse:  7
+Schueler 958182385(2) Wahl , Klasse:  11
+Schueler 1830491095(3) Wahl , Klasse:  6
+Schueler -1736081371(2) Wahl , Klasse:  11
+Schueler -1925148629(1) Wahl , Klasse:  5
 
 -------------------------------------------------------------
-Projekt Nr. 5c98baacedff8 Min. Teilnehmer: 6 Max.Teilnehmer: 20 Anzahl Teilnehmer: 20,Mittlere Klassenstufe: 10.95 Std: 1.4475000000000007
-Schueler 818173878(1) Wahl , Klasse:  12
-Schueler 2063562985(1) Wahl , Klasse:  11
+Projekt Nr. 5c98baacedff8 Min. Teilnehmer: 6 Max.Teilnehmer: 20 Anzahl Teilnehmer: 20,Mittlere Klassenstufe: 10.75 Std: 2.5875
+Schueler 2320424(1) Wahl , Klasse:  7
+Schueler 2300921(1) Wahl , Klasse:  12
+Schueler 73315177(1) Wahl , Klasse:  10
 Schueler 1331892168(1) Wahl , Klasse:  10
-Schueler -764911038(1) Wahl , Klasse:  12
-Schueler -1597529212(1) Wahl , Klasse:  11
-Schueler -1576180928(2) Wahl , Klasse:  10
-Schueler 2553009(2) Wahl , Klasse:  12
-Schueler 2078992(1) Wahl , Klasse:  12
-Schueler 2116960754(1) Wahl , Klasse:  7
 Schueler -2137067381(1) Wahl , Klasse:  12
+Schueler -1191938947(2) Wahl , Klasse:  11
+Schueler -2022260156(2) Wahl , Klasse:  12
+Schueler 818173878(1) Wahl , Klasse:  12
+Schueler -1576180928(2) Wahl , Klasse:  10
+Schueler 2331394(1) Wahl , Klasse:  11
+Schueler 2078992(1) Wahl , Klasse:  12
+Schueler 65808943(2) Wahl , Klasse:  11
+Schueler 302674683(2) Wahl , Klasse:  6
 Schueler -1647682336(1) Wahl , Klasse:  10
+Schueler -1567767587(2) Wahl , Klasse:  11
 Schueler -1807155970(1) Wahl , Klasse:  12
-Schueler 967250309(1) Wahl , Klasse:  11
-Schueler 1465808208(2) Wahl , Klasse:  11
-Schueler 1800932688(2) Wahl , Klasse:  10
+Schueler 74346206(2) Wahl , Klasse:  11
+Schueler -181326628(2) Wahl , Klasse:  12
+Schueler 2394424(1) Wahl , Klasse:  12
 Schueler 1235314187(1) Wahl , Klasse:  11
-Schueler -1078600733(2) Wahl , Klasse:  12
-Schueler 68688817(3) Wahl , Klasse:  12
-Schueler 79878335(1) Wahl , Klasse:  10
-Schueler -909071041(1) Wahl , Klasse:  11
 
 -------------------------------------------------------------
-Projekt Nr. 5c98bbf60a74e Min. Teilnehmer: 6 Max.Teilnehmer: 30 Anzahl Teilnehmer: 30,Mittlere Klassenstufe: 6.2 Std: 1.8933333333333324
-Schueler -1819000131(1) Wahl , Klasse:  9
+Projekt Nr. 5c98bbf60a74e Min. Teilnehmer: 6 Max.Teilnehmer: 30 Anzahl Teilnehmer: 30,Mittlere Klassenstufe: 6.333333333333333 Std: 1.88888888888889
 Schueler 72260842(1) Wahl , Klasse:  6
-Schueler 64266396(1) Wahl , Klasse:  6
-Schueler 75268942(2) Wahl , Klasse:  5
-Schueler 79650792(2) Wahl , Klasse:  5
+Schueler 1731528407(1) Wahl , Klasse:  8
 Schueler -2022460336(1) Wahl , Klasse:  9
-Schueler 82541149(2) Wahl , Klasse:  5
+Schueler -1819000131(1) Wahl , Klasse:  9
+Schueler 79650792(2) Wahl , Klasse:  5
+Schueler 1964254833(2) Wahl , Klasse:  6
+Schueler 1975763583(1) Wahl , Klasse:  7
+Schueler 63531222(1) Wahl , Klasse:  5
 Schueler -1818689996(2) Wahl , Klasse:  6
 Schueler 1998040455(2) Wahl , Klasse:  7
-Schueler 1964254833(2) Wahl , Klasse:  6
 Schueler 75160292(2) Wahl , Klasse:  8
+Schueler 64266396(1) Wahl , Klasse:  6
+Schueler 1965573887(3) Wahl , Klasse:  6
 Schueler 67255954(2) Wahl , Klasse:  6
 Schueler 1346390275(3) Wahl , Klasse:  5
-Schueler 1731528407(1) Wahl , Klasse:  8
-Schueler 2777762(3) Wahl , Klasse:  5
-Schueler 1873236699(4) Wahl , Klasse:  5
-Schueler 765431302(4) Wahl , Klasse:  5
-Schueler 242960398(3) Wahl , Klasse:  9
-Schueler 81293267(4) Wahl , Klasse:  9
-Schueler 2024177846(3) Wahl , Klasse:  6
 Schueler 2052357439(3) Wahl , Klasse:  6
-Schueler 1841530802(4) Wahl , Klasse:  6
-Schueler 1969400988(4) Wahl , Klasse:  5
 Schueler -1262646529(4) Wahl , Klasse:  5
-Schueler -1961537737(4) Wahl , Klasse:  5
-Schueler 2320171(3) Wahl , Klasse:  6
+Schueler 1873236699(4) Wahl , Klasse:  5
+Schueler -1070323199(3) Wahl , Klasse:  9
+Schueler 2024177846(3) Wahl , Klasse:  6
+Schueler 765431302(4) Wahl , Klasse:  5
+Schueler 75268942(2) Wahl , Klasse:  5
+Schueler -2079628208(3) Wahl , Klasse:  8
+Schueler 83491(4) Wahl , Klasse:  6
+Schueler 1969400988(4) Wahl , Klasse:  5
+Schueler -2080135557(3) Wahl , Klasse:  6
 Schueler 80068106(2) Wahl , Klasse:  5
-Schueler 63531222(1) Wahl , Klasse:  5
-Schueler 1975763583(1) Wahl , Klasse:  7
-Schueler 1965573887(3) Wahl , Klasse:  6
+Schueler 2320171(3) Wahl , Klasse:  6
+Schueler 242960398(3) Wahl , Klasse:  9
+Schueler 82541149(2) Wahl , Klasse:  5
 
 -------------------------------------------------------------
-Projekt Nr. 5c98bcafc0613 Min. Teilnehmer: 4 Max.Teilnehmer: 25 Anzahl Teilnehmer: 25,Mittlere Klassenstufe: 10.12 Std: 2.1856000000000004
-Schueler -644728355(1) Wahl , Klasse:  10
-Schueler 2354237(2) Wahl , Klasse:  10
-Schueler 80990436(1) Wahl , Klasse:  10
-Schueler 65601(1) Wahl , Klasse:  9
-Schueler 2162502(1) Wahl , Klasse:  12
-Schueler 329885059(1) Wahl , Klasse:  12
+Projekt Nr. 5c98bcafc0613 Min. Teilnehmer: 4 Max.Teilnehmer: 25 Anzahl Teilnehmer: 25,Mittlere Klassenstufe: 10.12 Std: 2.1856
 Schueler 79768398(1) Wahl , Klasse:  10
+Schueler 65601(1) Wahl , Klasse:  9
 Schueler 2078518818(2) Wahl , Klasse:  10
-Schueler -399379972(3) Wahl , Klasse:  11
-Schueler -1825780150(3) Wahl , Klasse:  11
-Schueler 80991472(3) Wahl , Klasse:  11
-Schueler 2011235240(2) Wahl , Klasse:  9
-Schueler 74346157(3) Wahl , Klasse:  9
-Schueler -568701182(4) Wahl , Klasse:  7
-Schueler -1825665454(3) Wahl , Klasse:  12
-Schueler -2070783163(3) Wahl , Klasse:  8
-Schueler 1964799324(3) Wahl , Klasse:  8
+Schueler 329885059(1) Wahl , Klasse:  12
+Schueler -644728355(1) Wahl , Klasse:  10
+Schueler 2162502(1) Wahl , Klasse:  12
+Schueler 2021316954(1) Wahl , Klasse:  11
 Schueler -1819579275(1) Wahl , Klasse:  12
+Schueler 80990436(1) Wahl , Klasse:  10
+Schueler 74346157(3) Wahl , Klasse:  9
+Schueler -1825780150(3) Wahl , Klasse:  11
+Schueler 2011235240(2) Wahl , Klasse:  9
+Schueler -1825665454(3) Wahl , Klasse:  12
 Schueler 71161837(2) Wahl , Klasse:  9
 Schueler -1790639690(3) Wahl , Klasse:  12
-Schueler 2021316954(1) Wahl , Klasse:  11
-Schueler 2314344(3) Wahl , Klasse:  11
+Schueler -399379972(3) Wahl , Klasse:  11
+Schueler 2354237(2) Wahl , Klasse:  10
+Schueler 80991472(3) Wahl , Klasse:  11
+Schueler -568701182(4) Wahl , Klasse:  7
+Schueler 1964799324(3) Wahl , Klasse:  8
 Schueler 72260946(3) Wahl , Klasse:  12
-Schueler 586553962(3) Wahl , Klasse:  9
 Schueler -2054847865(2) Wahl , Klasse:  8
+Schueler 2314344(3) Wahl , Klasse:  11
+Schueler -2070783163(3) Wahl , Klasse:  8
+Schueler 64452706(1) Wahl , Klasse:  9
 
 -------------------------------------------------------------
-Projekt Nr. 5c98bd907d9c2 Min. Teilnehmer: 8 Max.Teilnehmer: 24 Anzahl Teilnehmer: 24,Mittlere Klassenstufe: 6.291666666666667 Std: 1.1232638888888886
-Schueler 2152892(1) Wahl , Klasse:  7
-Schueler -2080135553(1) Wahl , Klasse:  8
-Schueler -1790791386(2) Wahl , Klasse:  7
-Schueler -2137295986(2) Wahl , Klasse:  5
-Schueler 415171408(1) Wahl , Klasse:  6
-Schueler 2066391(1) Wahl , Klasse:  5
-Schueler 8171563(1) Wahl , Klasse:  8
-Schueler 2023988529(2) Wahl , Klasse:  5
-Schueler -2080135557(1) Wahl , Klasse:  6
-Schueler -2064976695(2) Wahl , Klasse:  5
-Schueler -2076136042(1) Wahl , Klasse:  5
-Schueler -1841335706(2) Wahl , Klasse:  7
-Schueler 65915800(3) Wahl , Klasse:  8
-Schueler 76465286(2) Wahl , Klasse:  6
-Schueler 723180347(2) Wahl , Klasse:  7
-Schueler 1916653205(2) Wahl , Klasse:  7
-Schueler 71583(2) Wahl , Klasse:  6
-Schueler 78956171(3) Wahl , Klasse:  6
-Schueler -1975724260(1) Wahl , Klasse:  8
+Projekt Nr. 5c98bd907d9c2 Min. Teilnehmer: 8 Max.Teilnehmer: 24 Anzahl Teilnehmer: 24,Mittlere Klassenstufe: 6.25 Std: 1.1875
 Schueler 72268630(1) Wahl , Klasse:  6
-Schueler 1824169001(2) Wahl , Klasse:  5
 Schueler -558786046(1) Wahl , Klasse:  7
-Schueler -1819579495(2) Wahl , Klasse:  6
+Schueler 2066391(1) Wahl , Klasse:  5
+Schueler 415171408(1) Wahl , Klasse:  6
+Schueler 76465286(2) Wahl , Klasse:  6
+Schueler 2058209491(1) Wahl , Klasse:  7
+Schueler -2137295986(2) Wahl , Klasse:  5
+Schueler -2064976695(2) Wahl , Klasse:  5
+Schueler 723180347(2) Wahl , Klasse:  7
 Schueler -1103692099(2) Wahl , Klasse:  5
+Schueler 78956171(3) Wahl , Klasse:  6
+Schueler 71583(2) Wahl , Klasse:  6
+Schueler 2152892(1) Wahl , Klasse:  7
+Schueler -1924984242(3) Wahl , Klasse:  5
+Schueler -902003960(3) Wahl , Klasse:  5
+Schueler 8171563(1) Wahl , Klasse:  8
+Schueler 1824169001(2) Wahl , Klasse:  5
+Schueler -1841335706(2) Wahl , Klasse:  7
+Schueler 2154900(3) Wahl , Klasse:  8
+Schueler 2023988529(2) Wahl , Klasse:  5
+Schueler 1916653205(2) Wahl , Klasse:  7
+Schueler -2080135553(1) Wahl , Klasse:  8
+Schueler -1819579495(2) Wahl , Klasse:  6
+Schueler -1975724260(1) Wahl , Klasse:  8
 
 -------------------------------------------------------------
-Projekt Nr. 5c98be971f9de Min. Teilnehmer: 8 Max.Teilnehmer: 20 Anzahl Teilnehmer: 17,Mittlere Klassenstufe: 8.705882352941176 Std: 0.7958477508650518
-Schueler -232658702(1) Wahl , Klasse:  9
-Schueler -2026193312(1) Wahl , Klasse:  8
-Schueler 1618378810(2) Wahl , Klasse:  10
-Schueler -1975673952(1) Wahl , Klasse:  8
-Schueler 74113750(2) Wahl , Klasse:  9
-Schueler 314694607(2) Wahl , Klasse:  10
-Schueler 898716453(2) Wahl , Klasse:  8
-Schueler 2479791(2) Wahl , Klasse:  8
-Schueler -823721310(1) Wahl , Klasse:  9
-Schueler 2004765637(2) Wahl , Klasse:  10
-Schueler 817943384(3) Wahl , Klasse:  8
+Projekt Nr. 5c98be971f9de Min. Teilnehmer: 8 Max.Teilnehmer: 20 Anzahl Teilnehmer: 15,Mittlere Klassenstufe: 8.8 Std: 0.8266666666666667
 Schueler 2075698854(1) Wahl , Klasse:  10
+Schueler 1618378810(2) Wahl , Klasse:  10
+Schueler -823721310(1) Wahl , Klasse:  9
+Schueler -232658702(1) Wahl , Klasse:  9
+Schueler 314694607(2) Wahl , Klasse:  10
+Schueler -1975673952(1) Wahl , Klasse:  8
 Schueler -1078927094(1) Wahl , Klasse:  9
-Schueler 319076526(4) Wahl , Klasse:  8
+Schueler 74113750(2) Wahl , Klasse:  9
+Schueler 2479791(2) Wahl , Klasse:  8
+Schueler 817943384(3) Wahl , Klasse:  8
+Schueler -2026193312(1) Wahl , Klasse:  8
+Schueler 2004765637(2) Wahl , Klasse:  10
 Schueler -1727023089(4) Wahl , Klasse:  7
 Schueler 2039661806(3) Wahl , Klasse:  9
-Schueler 1964353860(3) Wahl , Klasse:  8
+Schueler 2070761(4) Wahl , Klasse:  8
 
 -------------------------------------------------------------
-Projekt Nr. 5c98bff040b99 Min. Teilnehmer: 6 Max.Teilnehmer: 18 Anzahl Teilnehmer: 18,Mittlere Klassenstufe: 10.38888888888889 Std: 1.570987654320987
-Schueler 2017315650(1) Wahl , Klasse:  12
-Schueler -1405042618(1) Wahl , Klasse:  8
-Schueler 76987430(1) Wahl , Klasse:  10
-Schueler 2049142(1) Wahl , Klasse:  11
-Schueler 1956568759(2) Wahl , Klasse:  10
-Schueler 73186285(2) Wahl , Klasse:  10
-Schueler 2368218(1) Wahl , Klasse:  11
-Schueler 56706673(1) Wahl , Klasse:  9
-Schueler 1630606121(2) Wahl , Klasse:  11
-Schueler -1990012167(2) Wahl , Klasse:  9
+Projekt Nr. 5c98bff040b99 Min. Teilnehmer: 6 Max.Teilnehmer: 18 Anzahl Teilnehmer: 18,Mittlere Klassenstufe: 10.055555555555555 Std: 1.4969135802469133
+Schueler 2020999252(1) Wahl , Klasse:  8
+Schueler 74345(1) Wahl , Klasse:  8
+Schueler 65917560(1) Wahl , Klasse:  11
+Schueler 1449342445(1) Wahl , Klasse:  10
 Schueler 756788241(1) Wahl , Klasse:  9
-Schueler 72267215(2) Wahl , Klasse:  12
+Schueler -1994257661(1) Wahl , Klasse:  10
+Schueler 2368218(1) Wahl , Klasse:  11
+Schueler 63408214(2) Wahl , Klasse:  12
+Schueler 76987430(1) Wahl , Klasse:  10
+Schueler 2017315650(1) Wahl , Klasse:  12
+Schueler 1956568759(2) Wahl , Klasse:  10
 Schueler 2092869(2) Wahl , Klasse:  9
-Schueler 2394424(2) Wahl , Klasse:  12
-Schueler -109120075(1) Wahl , Klasse:  12
-Schueler -969639286(2) Wahl , Klasse:  10
+Schueler 65805805(1) Wahl , Klasse:  10
+Schueler -754299151(2) Wahl , Klasse:  9
+Schueler 1630606121(2) Wahl , Klasse:  11
 Schueler -1808199472(1) Wahl , Klasse:  10
+Schueler 56706673(1) Wahl , Klasse:  9
 Schueler -1797806748(1) Wahl , Klasse:  12
 
 -------------------------------------------------------------
-Projekt Nr. 5c98c108cd4e3 Min. Teilnehmer: 4 Max.Teilnehmer: 20 Anzahl Teilnehmer: 20,Mittlere Klassenstufe: 10.15 Std: 2.0275
-Schueler 1728231963(1) Wahl , Klasse:  11
-Schueler -1070323199(1) Wahl , Klasse:  9
-Schueler -1997854383(2) Wahl , Klasse:  8
-Schueler 2039877703(2) Wahl , Klasse:  11
-Schueler 76276341(2) Wahl , Klasse:  10
-Schueler -165350495(1) Wahl , Klasse:  12
-Schueler 65790688(1) Wahl , Klasse:  7
-Schueler 2039870098(2) Wahl , Klasse:  10
+Projekt Nr. 5c98c108cd4e3 Min. Teilnehmer: 4 Max.Teilnehmer: 20 Anzahl Teilnehmer: 20,Mittlere Klassenstufe: 10.1 Std: 2.4899999999999993
 Schueler 66104(1) Wahl , Klasse:  10
-Schueler 71760203(2) Wahl , Klasse:  7
-Schueler 2330987(3) Wahl , Klasse:  12
-Schueler 2603012(3) Wahl , Klasse:  10
-Schueler -1956266559(1) Wahl , Klasse:  11
+Schueler -165350495(1) Wahl , Klasse:  12
 Schueler 2122647(1) Wahl , Klasse:  11
-Schueler 79395(1) Wahl , Klasse:  12
-Schueler 73603463(2) Wahl , Klasse:  11
-Schueler -572581401(2) Wahl , Klasse:  10
-Schueler 65805805(3) Wahl , Klasse:  10
-Schueler 2100293(2) Wahl , Klasse:  11
+Schueler 1904089554(1) Wahl , Klasse:  11
+Schueler 71760203(2) Wahl , Klasse:  7
+Schueler -1956266559(1) Wahl , Klasse:  11
 Schueler 2100638093(2) Wahl , Klasse:  10
+Schueler 65790688(1) Wahl , Klasse:  7
+Schueler 67223201(1) Wahl , Klasse:  7
+Schueler 76276341(2) Wahl , Klasse:  10
+Schueler -1997854383(2) Wahl , Klasse:  8
+Schueler 2100293(2) Wahl , Klasse:  11
+Schueler 2330987(3) Wahl , Klasse:  12
+Schueler 2039870098(2) Wahl , Klasse:  10
+Schueler 1728231963(1) Wahl , Klasse:  11
+Schueler 2039877703(2) Wahl , Klasse:  11
+Schueler -572581401(2) Wahl , Klasse:  10
+Schueler 73603463(2) Wahl , Klasse:  11
+Schueler 79395(1) Wahl , Klasse:  12
+Schueler 2086844461(1) Wahl , Klasse:  10
 
 -------------------------------------------------------------
 Projekt Nr. 5c98c3d5e7f8d Min. Teilnehmer: 6 Max.Teilnehmer: 18 Anzahl Teilnehmer: 18,Mittlere Klassenstufe: 7.111111111111111 Std: 1.098765432098765
+Schueler 74099339(1) Wahl , Klasse:  6
 Schueler 601516505(1) Wahl , Klasse:  8
-Schueler -1819579479(1) Wahl , Klasse:  8
 Schueler -1796833243(1) Wahl , Klasse:  6
-Schueler 1802396629(1) Wahl , Klasse:  8
-Schueler 75438973(1) Wahl , Klasse:  8
 Schueler 1060301627(2) Wahl , Klasse:  6
+Schueler 75438973(1) Wahl , Klasse:  8
+Schueler 1802396629(1) Wahl , Klasse:  8
+Schueler 1963879888(3) Wahl , Klasse:  7
+Schueler -1819579479(1) Wahl , Klasse:  8
+Schueler 1840305578(2) Wahl , Klasse:  5
+Schueler 64872651(2) Wahl , Klasse:  6
+Schueler 1986190663(3) Wahl , Klasse:  8
+Schueler -564025481(3) Wahl , Klasse:  8
+Schueler -2074407761(4) Wahl , Klasse:  6
 Schueler -2008046532(2) Wahl , Klasse:  8
 Schueler -1675080940(2) Wahl , Klasse:  6
-Schueler -2074407761(4) Wahl , Klasse:  6
-Schueler 1755021112(4) Wahl , Klasse:  8
-Schueler 1986190663(3) Wahl , Klasse:  8
-Schueler 1840305578(2) Wahl , Klasse:  5
-Schueler -564025481(3) Wahl , Klasse:  8
-Schueler 2070761(3) Wahl , Klasse:  8
+Schueler 1964353860(1) Wahl , Klasse:  8
 Schueler 1179719300(1) Wahl , Klasse:  8
-Schueler 1963879888(3) Wahl , Klasse:  7
-Schueler 74099339(1) Wahl , Klasse:  6
-Schueler 64872651(2) Wahl , Klasse:  6
+Schueler 319076526(1) Wahl , Klasse:  8
 
 -------------------------------------------------------------
-Projekt Nr. 5c98c51ca4e5e Min. Teilnehmer: 4 Max.Teilnehmer: 25 Anzahl Teilnehmer: 25,Mittlere Klassenstufe: 10.84 Std: 0.9344000000000006
-Schueler 75033249(1) Wahl , Klasse:  12
-Schueler -1079048445(1) Wahl , Klasse:  12
-Schueler -1618045830(1) Wahl , Klasse:  10
-Schueler 84576(1) Wahl , Klasse:  12
+Projekt Nr. 5c98c51ca4e5e Min. Teilnehmer: 4 Max.Teilnehmer: 25 Anzahl Teilnehmer: 25,Mittlere Klassenstufe: 10.84 Std: 0.8544000000000004
 Schueler -1247071434(1) Wahl , Klasse:  9
 Schueler 2546937(1) Wahl , Klasse:  10
-Schueler -734238731(2) Wahl , Klasse:  11
-Schueler -1707623083(1) Wahl , Klasse:  11
-Schueler 70930931(2) Wahl , Klasse:  12
-Schueler 65802364(2) Wahl , Klasse:  11
-Schueler -2083294010(1) Wahl , Klasse:  10
-Schueler 73613848(1) Wahl , Klasse:  11
-Schueler 1222309150(2) Wahl , Klasse:  12
-Schueler -1778561526(2) Wahl , Klasse:  12
-Schueler 2017202051(2) Wahl , Klasse:  9
 Schueler 2129454441(1) Wahl , Klasse:  11
-Schueler 351044142(2) Wahl , Klasse:  11
-Schueler 75033431(1) Wahl , Klasse:  11
-Schueler -1997440942(2) Wahl , Klasse:  9
-Schueler -2079994441(2) Wahl , Klasse:  11
-Schueler 1028982894(1) Wahl , Klasse:  10
-Schueler 78722128(2) Wahl , Klasse:  12
-Schueler 2543444(3) Wahl , Klasse:  10
+Schueler 1222309150(2) Wahl , Klasse:  12
+Schueler -1079048445(1) Wahl , Klasse:  12
 Schueler -1819694903(1) Wahl , Klasse:  11
+Schueler 65802364(2) Wahl , Klasse:  11
+Schueler 70930931(2) Wahl , Klasse:  12
+Schueler 75033431(1) Wahl , Klasse:  11
+Schueler 65190193(2) Wahl , Klasse:  12
+Schueler 1028982894(1) Wahl , Klasse:  10
+Schueler 75033249(1) Wahl , Klasse:  12
+Schueler -2083294010(1) Wahl , Klasse:  10
 Schueler 1393515934(1) Wahl , Klasse:  11
+Schueler -1597529212(3) Wahl , Klasse:  11
+Schueler -2079994441(2) Wahl , Klasse:  11
+Schueler 76280247(3) Wahl , Klasse:  11
+Schueler 2017202051(2) Wahl , Klasse:  9
+Schueler -1997440942(2) Wahl , Klasse:  9
+Schueler -1791182509(1) Wahl , Klasse:  12
+Schueler -734238731(2) Wahl , Klasse:  11
+Schueler 73613848(1) Wahl , Klasse:  11
+Schueler -1707623083(1) Wahl , Klasse:  11
+Schueler 77124(2) Wahl , Klasse:  11
+Schueler -1618045830(1) Wahl , Klasse:  10
 
 -------------------------------------------------------------
-Projekt Nr. 5c98c5dbe97e5 Min. Teilnehmer: 6 Max.Teilnehmer: 30 Anzahl Teilnehmer: 30,Mittlere Klassenstufe: 8.333333333333334 Std: 0.35555555555555546
-Schueler -2054841913(1) Wahl , Klasse:  9
-Schueler 2612591(1) Wahl , Klasse:  8
-Schueler 304221381(1) Wahl , Klasse:  9
-Schueler 74239534(1) Wahl , Klasse:  8
-Schueler 1586263865(2) Wahl , Klasse:  8
-Schueler -2070775227(1) Wahl , Klasse:  8
-Schueler -1262646515(2) Wahl , Klasse:  9
-Schueler -2079630326(1) Wahl , Klasse:  9
-Schueler 80204864(2) Wahl , Klasse:  9
-Schueler -938108799(1) Wahl , Klasse:  8
-Schueler 82658125(2) Wahl , Klasse:  8
-Schueler -1803562071(2) Wahl , Klasse:  9
+Projekt Nr. 5c98c5dbe97e5 Min. Teilnehmer: 6 Max.Teilnehmer: 30 Anzahl Teilnehmer: 30,Mittlere Klassenstufe: 8.366666666666667 Std: 0.36555555555555547
 Schueler -1776732227(1) Wahl , Klasse:  9
-Schueler -1675145072(3) Wahl , Klasse:  9
-Schueler 71349732(2) Wahl , Klasse:  8
-Schueler 63234985(2) Wahl , Klasse:  8
-Schueler -2083771627(3) Wahl , Klasse:  9
-Schueler 76886600(4) Wahl , Klasse:  9
+Schueler 1586263865(2) Wahl , Klasse:  8
 Schueler 1979942316(1) Wahl , Klasse:  9
-Schueler 898707645(2) Wahl , Klasse:  7
-Schueler 79149390(2) Wahl , Klasse:  8
-Schueler 63529183(3) Wahl , Klasse:  8
-Schueler 2122764(1) Wahl , Klasse:  9
-Schueler 2053169(1) Wahl , Klasse:  8
-Schueler -2054964359(3) Wahl , Klasse:  8
 Schueler 1142607872(1) Wahl , Klasse:  8
-Schueler -2079628208(2) Wahl , Klasse:  8
-Schueler 1379812394(2) Wahl , Klasse:  7
+Schueler -2070775227(1) Wahl , Klasse:  8
+Schueler 80204864(2) Wahl , Klasse:  9
+Schueler -2054841913(1) Wahl , Klasse:  9
+Schueler 82658125(2) Wahl , Klasse:  8
+Schueler -938108799(1) Wahl , Klasse:  8
+Schueler -2083771627(3) Wahl , Klasse:  9
+Schueler 63234985(2) Wahl , Klasse:  8
+Schueler 2612591(1) Wahl , Klasse:  8
+Schueler 2053169(1) Wahl , Klasse:  8
 Schueler -172750740(3) Wahl , Klasse:  8
+Schueler -555147462(3) Wahl , Klasse:  9
+Schueler 76886600(4) Wahl , Klasse:  9
+Schueler -1803562071(2) Wahl , Klasse:  9
+Schueler -1698314071(3) Wahl , Klasse:  9
+Schueler -2079630326(1) Wahl , Klasse:  9
+Schueler 1379812394(2) Wahl , Klasse:  7
+Schueler 71349732(2) Wahl , Klasse:  8
+Schueler -1262646515(2) Wahl , Klasse:  9
+Schueler 79149390(2) Wahl , Klasse:  8
+Schueler 898707645(2) Wahl , Klasse:  7
+Schueler 73432401(3) Wahl , Klasse:  8
+Schueler 2122764(1) Wahl , Klasse:  9
+Schueler 304221381(1) Wahl , Klasse:  9
 Schueler -674602667(2) Wahl , Klasse:  8
+Schueler 74239534(1) Wahl , Klasse:  8
+Schueler 63529183(3) Wahl , Klasse:  8
 
 -------------------------------------------------------------
 Projekt Nr. 5c98c657c12ed Min. Teilnehmer: 4 Max.Teilnehmer: 28 Anzahl Teilnehmer: 13,Mittlere Klassenstufe: 9.692307692307692 Std: 1.9053254437869822
-Schueler 514015602(1) Wahl , Klasse:  11
 Schueler 2662722(1) Wahl , Klasse:  8
+Schueler -2140375032(1) Wahl , Klasse:  8
+Schueler -163270785(2) Wahl , Klasse:  10
+Schueler 514015602(1) Wahl , Klasse:  11
+Schueler 755632841(3) Wahl , Klasse:  12
+Schueler -1822154142(2) Wahl , Klasse:  10
 Schueler -2054839420(1) Wahl , Klasse:  9
 Schueler 2552692(2) Wahl , Klasse:  8
-Schueler -2140375032(1) Wahl , Klasse:  8
-Schueler -1797193194(2) Wahl , Klasse:  8
 Schueler -47956653(3) Wahl , Klasse:  11
 Schueler -1742105870(3) Wahl , Klasse:  11
-Schueler 755632841(3) Wahl , Klasse:  12
+Schueler -1797193194(2) Wahl , Klasse:  8
 Schueler 2112439738(2) Wahl , Klasse:  9
 Schueler -1473155285(3) Wahl , Klasse:  11
-Schueler -1822154142(2) Wahl , Klasse:  10
-Schueler -163270785(2) Wahl , Klasse:  10
 
 -------------------------------------------------------------
-Projekt Nr. 5c98c70931cf4 Min. Teilnehmer: 6 Max.Teilnehmer: 30 Anzahl Teilnehmer: 30,Mittlere Klassenstufe: 6.066666666666666 Std: 0.7288888888888891
-Schueler -2133373297(1) Wahl , Klasse:  7
-Schueler 753917561(2) Wahl , Klasse:  7
-Schueler -688459096(1) Wahl , Klasse:  6
-Schueler -413202020(1) Wahl , Klasse:  6
-Schueler 2043539826(1) Wahl , Klasse:  7
-Schueler 73313250(1) Wahl , Klasse:  6
-Schueler 2078145826(1) Wahl , Klasse:  7
-Schueler -902003960(1) Wahl , Klasse:  5
-Schueler -1832316718(1) Wahl , Klasse:  7
-Schueler 1068910959(1) Wahl , Klasse:  7
-Schueler -1187708117(1) Wahl , Klasse:  6
-Schueler -1732835113(2) Wahl , Klasse:  6
-Schueler -1925140697(1) Wahl , Klasse:  7
-Schueler 73422550(1) Wahl , Klasse:  6
-Schueler 2320424(2) Wahl , Klasse:  7
-Schueler 840925716(1) Wahl , Klasse:  5
-Schueler 78395179(1) Wahl , Klasse:  6
-Schueler 2486587(2) Wahl , Klasse:  5
+Projekt Nr. 5c98c70931cf4 Min. Teilnehmer: 6 Max.Teilnehmer: 30 Anzahl Teilnehmer: 30,Mittlere Klassenstufe: 6.0 Std: 0.6
+Schueler 1364290482(1) Wahl , Klasse:  5
+Schueler 1069663712(1) Wahl , Klasse:  5
 Schueler 72513275(1) Wahl , Klasse:  7
-Schueler 2575704(2) Wahl , Klasse:  5
-Schueler 71760130(2) Wahl , Klasse:  5
-Schueler -43882006(1) Wahl , Klasse:  5
-Schueler -1726963403(1) Wahl , Klasse:  7
-Schueler 67057131(1) Wahl , Klasse:  5
-Schueler 2428110(2) Wahl , Klasse:  7
-Schueler 302674683(1) Wahl , Klasse:  6
+Schueler -94518590(1) Wahl , Klasse:  7
+Schueler 1068910959(1) Wahl , Klasse:  7
+Schueler 2662780(2) Wahl , Klasse:  5
+Schueler 73313250(1) Wahl , Klasse:  6
+Schueler -1832316718(1) Wahl , Klasse:  7
+Schueler 73422550(1) Wahl , Klasse:  6
+Schueler -2079604465(1) Wahl , Klasse:  6
+Schueler -413202020(1) Wahl , Klasse:  6
+Schueler 2546672(1) Wahl , Klasse:  6
+Schueler -1791352920(2) Wahl , Klasse:  6
+Schueler 753917561(2) Wahl , Klasse:  7
 Schueler 79966089(1) Wahl , Klasse:  5
-Schueler 2374426(1) Wahl , Klasse:  5
+Schueler -1732835113(2) Wahl , Klasse:  6
+Schueler 1609889305(1) Wahl , Klasse:  6
+Schueler 2078145826(1) Wahl , Klasse:  7
+Schueler 2017144967(2) Wahl , Klasse:  7
+Schueler 78395179(1) Wahl , Klasse:  6
+Schueler 1841530802(1) Wahl , Klasse:  6
+Schueler 2116960754(2) Wahl , Klasse:  7
+Schueler -2116312993(2) Wahl , Klasse:  5
+Schueler -1818443866(2) Wahl , Klasse:  6
+Schueler 1619379370(2) Wahl , Klasse:  5
+Schueler -1641978398(2) Wahl , Klasse:  7
+Schueler -68881103(1) Wahl , Klasse:  6
 Schueler 2368683(1) Wahl , Klasse:  5
-Schueler 805642518(2) Wahl , Klasse:  7
+Schueler 63353198(1) Wahl , Klasse:  5
+Schueler 2575704(2) Wahl , Klasse:  5
 
 -------------------------------------------------------------
-Projekt Nr. 5c98c7925a1fc Min. Teilnehmer: 6 Max.Teilnehmer: 35 Anzahl Teilnehmer: 35,Mittlere Klassenstufe: 9.771428571428572 Std: 3.604897959183674
-Schueler 71346920(1) Wahl , Klasse:  10
-Schueler -1808509297(1) Wahl , Klasse:  11
-Schueler -1282721655(1) Wahl , Klasse:  7
-Schueler 2573414(1) Wahl , Klasse:  10
-Schueler 871826606(1) Wahl , Klasse:  9
-Schueler 66215291(1) Wahl , Klasse:  11
-Schueler 74119520(1) Wahl , Klasse:  10
+Projekt Nr. 5c98c7925a1fc Min. Teilnehmer: 6 Max.Teilnehmer: 35 Anzahl Teilnehmer: 35,Mittlere Klassenstufe: 10.0 Std: 3.7714285714285714
 Schueler 80575049(1) Wahl , Klasse:  10
-Schueler -1511476647(1) Wahl , Klasse:  10
-Schueler 1458602165(1) Wahl , Klasse:  10
-Schueler 73431030(2) Wahl , Klasse:  11
-Schueler 1609889305(2) Wahl , Klasse:  6
-Schueler 724225729(2) Wahl , Klasse:  11
-Schueler 81293771(2) Wahl , Klasse:  11
-Schueler 1842106526(1) Wahl , Klasse:  7
-Schueler -2054964339(2) Wahl , Klasse:  12
-Schueler 67293537(2) Wahl , Klasse:  10
-Schueler 2125962998(2) Wahl , Klasse:  10
-Schueler -576206603(2) Wahl , Klasse:  12
-Schueler -1818422734(1) Wahl , Klasse:  5
-Schueler 1982610743(1) Wahl , Klasse:  12
-Schueler -2079604465(2) Wahl , Klasse:  6
-Schueler -880587154(1) Wahl , Klasse:  11
-Schueler 2173303(2) Wahl , Klasse:  10
-Schueler 67372496(1) Wahl , Klasse:  9
-Schueler -557158472(2) Wahl , Klasse:  5
-Schueler 310989611(1) Wahl , Klasse:  11
-Schueler 73315177(2) Wahl , Klasse:  10
-Schueler 2100648646(1) Wahl , Klasse:  11
-Schueler 1581690642(2) Wahl , Klasse:  10
-Schueler 71462106(2) Wahl , Klasse:  11
-Schueler 2330781(3) Wahl , Klasse:  10
-Schueler -2018857654(3) Wahl , Klasse:  10
-Schueler -2136888763(3) Wahl , Klasse:  11
+Schueler 74119520(1) Wahl , Klasse:  10
+Schueler 871826606(1) Wahl , Klasse:  9
+Schueler 80817655(1) Wahl , Klasse:  12
 Schueler -1795003131(2) Wahl , Klasse:  12
+Schueler -2054964339(2) Wahl , Klasse:  12
+Schueler 64538450(1) Wahl , Klasse:  7
+Schueler 1982610743(1) Wahl , Klasse:  12
+Schueler -2004029317(1) Wahl , Klasse:  10
+Schueler 82544758(1) Wahl , Klasse:  10
+Schueler 1581690642(2) Wahl , Klasse:  10
+Schueler -2077800565(1) Wahl , Klasse:  9
+Schueler 67293537(2) Wahl , Klasse:  10
+Schueler 2374426(2) Wahl , Klasse:  5
+Schueler -1997370658(2) Wahl , Klasse:  12
+Schueler 2603012(2) Wahl , Klasse:  10
+Schueler -576206603(2) Wahl , Klasse:  12
+Schueler -1078600733(1) Wahl , Klasse:  12
+Schueler -1818422734(1) Wahl , Klasse:  5
+Schueler 2573414(1) Wahl , Klasse:  10
+Schueler 65808885(1) Wahl , Klasse:  8
+Schueler 63373149(1) Wahl , Klasse:  5
+Schueler 71346920(1) Wahl , Klasse:  10
+Schueler -1675145072(1) Wahl , Klasse:  9
+Schueler 517709686(2) Wahl , Klasse:  11
+Schueler 1458602165(1) Wahl , Klasse:  10
+Schueler -1984276819(2) Wahl , Klasse:  10
+Schueler 2125962998(2) Wahl , Klasse:  10
+Schueler 71462106(2) Wahl , Klasse:  11
+Schueler 79855054(1) Wahl , Klasse:  10
+Schueler 2078807028(1) Wahl , Klasse:  11
+Schueler -576244870(3) Wahl , Klasse:  12
+Schueler 66215291(1) Wahl , Klasse:  11
+Schueler 80697864(2) Wahl , Klasse:  11
+Schueler 695259299(3) Wahl , Klasse:  12
 
 -------------------------------------------------------------
 Projekt Nr. 5c98c855ca7b5 Min. Teilnehmer: 6 Max.Teilnehmer: 20 Anzahl Teilnehmer: 12,Mittlere Klassenstufe: 6.666666666666667 Std: 0.8888888888888887
-Schueler 898593445(1) Wahl , Klasse:  5
 Schueler -964291318(1) Wahl , Klasse:  8
-Schueler 753604585(2) Wahl , Klasse:  6
+Schueler 77539(2) Wahl , Klasse:  8
+Schueler 898593445(1) Wahl , Klasse:  5
 Schueler -1851097500(3) Wahl , Klasse:  6
 Schueler -1791109322(3) Wahl , Klasse:  6
-Schueler -1653894632(4) Wahl , Klasse:  6
-Schueler -2041776423(4) Wahl , Klasse:  7
 Schueler 78842039(3) Wahl , Klasse:  8
-Schueler -716287028(4) Wahl , Klasse:  7
-Schueler 77539(2) Wahl , Klasse:  8
 Schueler 715796857(4) Wahl , Klasse:  7
+Schueler -1653894632(4) Wahl , Klasse:  6
+Schueler -716287028(4) Wahl , Klasse:  7
 Schueler 514030987(4) Wahl , Klasse:  6
+Schueler -2041776423(4) Wahl , Klasse:  7
+Schueler 753604585(2) Wahl , Klasse:  6
 
 -------------------------------------------------------------
-Projekt Nr. 5c98c92c02e6c Min. Teilnehmer: 6 Max.Teilnehmer: 35 Anzahl Teilnehmer: 35,Mittlere Klassenstufe: 8.371428571428572 Std: 6.690612244897959
-Schueler -1850518203(1) Wahl , Klasse:  6
-Schueler 72260831(1) Wahl , Klasse:  10
-Schueler 63408214(1) Wahl , Klasse:  12
-Schueler 2001084890(1) Wahl , Klasse:  12
-Schueler 121831203(1) Wahl , Klasse:  6
-Schueler 2474087(1) Wahl , Klasse:  7
-Schueler -542059121(1) Wahl , Klasse:  9
-Schueler 2305120(1) Wahl , Klasse:  7
-Schueler 1069663712(2) Wahl , Klasse:  5
-Schueler 925582772(1) Wahl , Klasse:  12
-Schueler 74113857(1) Wahl , Klasse:  10
-Schueler 75427(1) Wahl , Klasse:  7
-Schueler 71118468(1) Wahl , Klasse:  11
-Schueler 503594857(2) Wahl , Klasse:  10
-Schueler -576244870(1) Wahl , Klasse:  12
-Schueler 73607183(2) Wahl , Klasse:  6
-Schueler 74099235(2) Wahl , Klasse:  7
-Schueler 80995774(2) Wahl , Klasse:  10
-Schueler 2546672(2) Wahl , Klasse:  6
-Schueler -172266050(1) Wahl , Klasse:  5
-Schueler -1818443866(1) Wahl , Klasse:  6
-Schueler 1619379370(1) Wahl , Klasse:  5
-Schueler 2078241089(1) Wahl , Klasse:  7
+Projekt Nr. 5c98c92c02e6c Min. Teilnehmer: 6 Max.Teilnehmer: 35 Anzahl Teilnehmer: 35,Mittlere Klassenstufe: 8.028571428571428 Std: 5.342040816326531
+Schueler 2543444(1) Wahl , Klasse:  10
 Schueler 74233011(1) Wahl , Klasse:  10
-Schueler -2140547290(2) Wahl , Klasse:  12
-Schueler 2112431113(2) Wahl , Klasse:  12
-Schueler 2026676774(2) Wahl , Klasse:  7
-Schueler 865651531(2) Wahl , Klasse:  11
-Schueler 1998035753(2) Wahl , Klasse:  5
-Schueler -1850555596(2) Wahl , Klasse:  6
-Schueler 72501537(3) Wahl , Klasse:  5
-Schueler 74345(2) Wahl , Klasse:  8
-Schueler 80697864(1) Wahl , Klasse:  11
-Schueler 288097208(3) Wahl , Klasse:  6
-Schueler -1791182509(2) Wahl , Klasse:  12
+Schueler -172266050(1) Wahl , Klasse:  5
+Schueler 805642518(1) Wahl , Klasse:  7
+Schueler 2281976(2) Wahl , Klasse:  9
+Schueler 71118468(1) Wahl , Klasse:  11
+Schueler 2486587(1) Wahl , Klasse:  5
+Schueler -1726963403(2) Wahl , Klasse:  7
+Schueler 74113857(1) Wahl , Klasse:  10
+Schueler -2054702959(2) Wahl , Klasse:  6
+Schueler 73607183(2) Wahl , Klasse:  6
+Schueler 2305120(1) Wahl , Klasse:  7
+Schueler -1854684386(2) Wahl , Klasse:  5
+Schueler 63539871(1) Wahl , Klasse:  7
+Schueler -542059121(1) Wahl , Klasse:  9
+Schueler 121831203(1) Wahl , Klasse:  6
+Schueler 72260831(1) Wahl , Klasse:  10
+Schueler -557158472(1) Wahl , Klasse:  5
+Schueler 2474087(1) Wahl , Klasse:  7
+Schueler 65915800(1) Wahl , Klasse:  8
+Schueler 2039661310(2) Wahl , Klasse:  8
+Schueler 78726749(2) Wahl , Klasse:  10
+Schueler -1850518203(1) Wahl , Klasse:  6
+Schueler 2144107519(2) Wahl , Klasse:  12
+Schueler 1142604028(1) Wahl , Klasse:  5
+Schueler 75427(1) Wahl , Klasse:  7
+Schueler 503594857(2) Wahl , Klasse:  10
+Schueler -158398354(3) Wahl , Klasse:  12
+Schueler 67057131(2) Wahl , Klasse:  5
+Schueler 89721(1) Wahl , Klasse:  11
+Schueler 68688817(1) Wahl , Klasse:  12
+Schueler -1732826265(1) Wahl , Klasse:  9
+Schueler -1937914886(2) Wahl , Klasse:  8
+Schueler 64449333(1) Wahl , Klasse:  11
+Schueler -43882006(3) Wahl , Klasse:  5
 
 -------------------------------------------------------------
-Projekt Nr. 5c98ca3e6d3ac Min. Teilnehmer: 6 Max.Teilnehmer: 14 Anzahl Teilnehmer: 14,Mittlere Klassenstufe: 11.142857142857142 Std: 0.5510204081632653
-Schueler 2144107519(1) Wahl , Klasse:  12
-Schueler 2112084(1) Wahl , Klasse:  10
+Projekt Nr. 5c98ca3e6d3ac Min. Teilnehmer: 6 Max.Teilnehmer: 14 Anzahl Teilnehmer: 14,Mittlere Klassenstufe: 11.285714285714286 Std: 0.6326530612244898
+Schueler -2136888763(2) Wahl , Klasse:  11
+Schueler 350861263(2) Wahl , Klasse:  12
 Schueler 78857401(1) Wahl , Klasse:  11
-Schueler 65112877(1) Wahl , Klasse:  10
-Schueler 2089904664(1) Wahl , Klasse:  12
-Schueler 78927740(1) Wahl , Klasse:  11
+Schueler 66296139(2) Wahl , Klasse:  12
+Schueler 2017321385(1) Wahl , Klasse:  11
+Schueler 81293580(2) Wahl , Klasse:  10
+Schueler 2160005(2) Wahl , Klasse:  12
 Schueler -1964957741(1) Wahl , Klasse:  12
-Schueler 1969494209(2) Wahl , Klasse:  11
+Schueler 2308895(2) Wahl , Klasse:  12
 Schueler 80701418(2) Wahl , Klasse:  12
 Schueler 64458452(2) Wahl , Klasse:  11
-Schueler 350861263(2) Wahl , Klasse:  12
+Schueler 2162719(2) Wahl , Klasse:  12
+Schueler 73186285(3) Wahl , Klasse:  10
 Schueler 82663709(2) Wahl , Klasse:  10
-Schueler 2078807028(3) Wahl , Klasse:  11
-Schueler -1364908045(1) Wahl , Klasse:  11
 
 -------------------------------------------------------------
-Projekt Nr. 5c98cabb39e37 Min. Teilnehmer: 8 Max.Teilnehmer: 20 Anzahl Teilnehmer: 20,Mittlere Klassenstufe: 6.2 Std: 0.7600000000000003
-Schueler 1985788770(1) Wahl , Klasse:  5
-Schueler 72386159(1) Wahl , Klasse:  7
+Projekt Nr. 5c98cabb39e37 Min. Teilnehmer: 8 Max.Teilnehmer: 20 Anzahl Teilnehmer: 20,Mittlere Klassenstufe: 6.25 Std: 0.7875
 Schueler 2039803852(1) Wahl , Klasse:  7
-Schueler -2018796167(1) Wahl , Klasse:  6
-Schueler 2592165(2) Wahl , Klasse:  7
-Schueler 67037101(1) Wahl , Klasse:  6
-Schueler 841568553(2) Wahl , Klasse:  7
-Schueler 743772639(2) Wahl , Klasse:  5
-Schueler 2066464(1) Wahl , Klasse:  7
-Schueler 1060825621(2) Wahl , Klasse:  6
-Schueler 80774286(2) Wahl , Klasse:  5
-Schueler 1830491095(2) Wahl , Klasse:  6
+Schueler 2696372(1) Wahl , Klasse:  5
 Schueler 2136090(1) Wahl , Klasse:  5
+Schueler -2018796167(1) Wahl , Klasse:  6
+Schueler 841568553(2) Wahl , Klasse:  7
+Schueler 2066464(1) Wahl , Klasse:  7
+Schueler -1804038417(2) Wahl , Klasse:  7
+Schueler 2592165(2) Wahl , Klasse:  7
+Schueler 743772639(2) Wahl , Klasse:  5
+Schueler 1060825621(2) Wahl , Klasse:  6
+Schueler 72386159(1) Wahl , Klasse:  7
+Schueler 80774286(2) Wahl , Klasse:  5
+Schueler -1993919418(2) Wahl , Klasse:  7
+Schueler -1282737025(3) Wahl , Klasse:  7
 Schueler -1898614375(2) Wahl , Klasse:  7
 Schueler 2145186(1) Wahl , Klasse:  7
-Schueler -1804038417(2) Wahl , Klasse:  7
-Schueler 1364290482(3) Wahl , Klasse:  5
-Schueler -1993919418(2) Wahl , Klasse:  7
-Schueler 2033290965(3) Wahl , Klasse:  7
-Schueler 261095836(3) Wahl , Klasse:  5
+Schueler 1985788770(1) Wahl , Klasse:  5
+Schueler 67037101(1) Wahl , Klasse:  6
+Schueler 2078241089(3) Wahl , Klasse:  7
+Schueler 2777762(1) Wahl , Klasse:  5
 
 -------------------------------------------------------------
-Projekt Nr. 5c98cb36a6a49 Min. Teilnehmer: 4 Max.Teilnehmer: 20 Anzahl Teilnehmer: 20,Mittlere Klassenstufe: 5.55 Std: 0.44750000000000023
-Schueler -758149460(1) Wahl , Klasse:  6
-Schueler -1710937045(1) Wahl , Klasse:  6
-Schueler 3518804(1) Wahl , Klasse:  5
-Schueler 63404377(2) Wahl , Klasse:  5
-Schueler 63380620(1) Wahl , Klasse:  5
-Schueler 83836(2) Wahl , Klasse:  7
-Schueler -2077748476(1) Wahl , Klasse:  6
-Schueler 2241694(2) Wahl , Klasse:  5
-Schueler -2026194056(2) Wahl , Klasse:  5
-Schueler 80218181(2) Wahl , Klasse:  5
-Schueler 2368466(2) Wahl , Klasse:  6
-Schueler -2025905628(1) Wahl , Klasse:  5
-Schueler 408371372(2) Wahl , Klasse:  7
-Schueler 64444998(3) Wahl , Klasse:  6
-Schueler 2460820(2) Wahl , Klasse:  5
-Schueler -1796650448(1) Wahl , Klasse:  6
-Schueler 1956047628(1) Wahl , Klasse:  5
-Schueler 2097130946(3) Wahl , Klasse:  6
-Schueler -1854684386(3) Wahl , Klasse:  5
+Projekt Nr. 5c98cb36a6a49 Min. Teilnehmer: 4 Max.Teilnehmer: 20 Anzahl Teilnehmer: 20,Mittlere Klassenstufe: 5.55 Std: 0.5475000000000002
 Schueler 72260819(1) Wahl , Klasse:  5
+Schueler 2368466(2) Wahl , Klasse:  6
+Schueler 80218181(2) Wahl , Klasse:  5
+Schueler 408371372(2) Wahl , Klasse:  7
+Schueler -2026194056(2) Wahl , Klasse:  5
+Schueler 1956047628(1) Wahl , Klasse:  5
+Schueler -1710937045(1) Wahl , Klasse:  6
+Schueler 67228514(1) Wahl , Klasse:  6
+Schueler 83836(2) Wahl , Klasse:  7
+Schueler 2241694(2) Wahl , Klasse:  5
+Schueler 63404377(2) Wahl , Klasse:  5
+Schueler -2025905628(1) Wahl , Klasse:  5
+Schueler 2460820(2) Wahl , Klasse:  5
+Schueler -2133373297(3) Wahl , Klasse:  7
+Schueler 3518804(1) Wahl , Klasse:  5
+Schueler -2077748476(1) Wahl , Klasse:  6
+Schueler 63380620(1) Wahl , Klasse:  5
+Schueler -1796650448(1) Wahl , Klasse:  6
+Schueler -1864717153(3) Wahl , Klasse:  5
+Schueler -1961537737(2) Wahl , Klasse:  5
 
 -------------------------------------------------------------
-Projekt Nr. 5c98cc059c466 Min. Teilnehmer: 10 Max.Teilnehmer: 30 Anzahl Teilnehmer: 23,Mittlere Klassenstufe: 5.6521739130434785 Std: 0.4007561436672968
-Schueler 642381361(2) Wahl , Klasse:  5
-Schueler 2015810500(2) Wahl , Klasse:  6
+Projekt Nr. 5c98cc059c466 Min. Teilnehmer: 10 Max.Teilnehmer: 30 Anzahl Teilnehmer: 22,Mittlere Klassenstufe: 5.590909090909091 Std: 0.3326446280991734
 Schueler -2064816982(2) Wahl , Klasse:  6
-Schueler -1797189381(2) Wahl , Klasse:  5
-Schueler -1850727432(3) Wahl , Klasse:  5
-Schueler 898707565(3) Wahl , Klasse:  5
+Schueler 2015810500(2) Wahl , Klasse:  6
 Schueler 74346423(3) Wahl , Klasse:  6
-Schueler 2168609(2) Wahl , Klasse:  6
-Schueler 1997803998(3) Wahl , Klasse:  6
+Schueler -1850727432(3) Wahl , Klasse:  5
+Schueler -1797189381(2) Wahl , Klasse:  5
+Schueler 898707565(3) Wahl , Klasse:  5
 Schueler 63420902(3) Wahl , Klasse:  5
-Schueler -1997446463(4) Wahl , Klasse:  5
-Schueler 2338814(3) Wahl , Klasse:  6
-Schueler -2026328392(3) Wahl , Klasse:  6
-Schueler 75203(4) Wahl , Klasse:  5
-Schueler -154078589(4) Wahl , Klasse:  5
-Schueler 71744079(2) Wahl , Klasse:  7
+Schueler 642381361(2) Wahl , Klasse:  5
 Schueler 2182439(4) Wahl , Klasse:  6
+Schueler 2338814(3) Wahl , Klasse:  6
+Schueler 2168609(2) Wahl , Klasse:  6
+Schueler -2026328392(3) Wahl , Klasse:  6
+Schueler -154078589(4) Wahl , Klasse:  5
+Schueler 1997803998(3) Wahl , Klasse:  6
+Schueler 75203(4) Wahl , Klasse:  5
+Schueler 71744079(2) Wahl , Klasse:  7
+Schueler 1802113785(3) Wahl , Klasse:  5
 Schueler -1821830162(4) Wahl , Klasse:  6
 Schueler 2761711(4) Wahl , Klasse:  6
-Schueler -572564302(2) Wahl , Klasse:  7
-Schueler 1802113785(3) Wahl , Klasse:  5
-Schueler -1088703867(3) Wahl , Klasse:  5
 Schueler -365615109(4) Wahl , Klasse:  6
+Schueler -1088703867(3) Wahl , Klasse:  5
+Schueler -1997446463(4) Wahl , Klasse:  5
 
 -------------------------------------------------------------
-Projekt Nr. 5c98cc9ec9356 Min. Teilnehmer: 8 Max.Teilnehmer: 30 Anzahl Teilnehmer: 29,Mittlere Klassenstufe: 10.482758620689655 Std: 1.491082045184304
-Schueler 75454469(1) Wahl , Klasse:  10
-Schueler -1793764435(1) Wahl , Klasse:  11
-Schueler 2424080(2) Wahl , Klasse:  11
+Projekt Nr. 5c98cc9ec9356 Min. Teilnehmer: 8 Max.Teilnehmer: 30 Anzahl Teilnehmer: 28,Mittlere Klassenstufe: 10.464285714285714 Std: 1.5344387755102045
+Schueler -1392489180(1) Wahl , Klasse:  11
 Schueler 240722128(2) Wahl , Klasse:  11
+Schueler -98212674(1) Wahl , Klasse:  9
 Schueler -2081480769(1) Wahl , Klasse:  11
+Schueler -1793764435(1) Wahl , Klasse:  11
+Schueler 2186075(2) Wahl , Klasse:  12
+Schueler 2100857374(1) Wahl , Klasse:  12
+Schueler 64467958(1) Wahl , Klasse:  11
+Schueler -617451941(1) Wahl , Klasse:  12
+Schueler -1850466438(2) Wahl , Klasse:  11
+Schueler 2079191243(2) Wahl , Klasse:  11
+Schueler 1963762664(3) Wahl , Klasse:  10
+Schueler -306748960(3) Wahl , Klasse:  9
+Schueler 75454469(1) Wahl , Klasse:  10
+Schueler -2083315643(4) Wahl , Klasse:  11
+Schueler 576279714(3) Wahl , Klasse:  9
+Schueler -166888990(4) Wahl , Klasse:  10
+Schueler 1970305010(4) Wahl , Klasse:  11
+Schueler -74087495(4) Wahl , Klasse:  11
 Schueler -2054495382(2) Wahl , Klasse:  12
 Schueler 2043747530(3) Wahl , Klasse:  8
-Schueler -98212674(1) Wahl , Klasse:  9
-Schueler 1963762664(3) Wahl , Klasse:  10
-Schueler 576279714(3) Wahl , Klasse:  9
-Schueler 1061104481(3) Wahl , Klasse:  11
-Schueler -166888990(4) Wahl , Klasse:  10
-Schueler 2079191243(2) Wahl , Klasse:  11
-Schueler 2186075(2) Wahl , Klasse:  12
-Schueler -1850466438(2) Wahl , Klasse:  11
-Schueler -306748960(3) Wahl , Klasse:  9
-Schueler -74087495(4) Wahl , Klasse:  11
-Schueler 65081501(4) Wahl , Klasse:  11
-Schueler 1970305010(4) Wahl , Klasse:  11
-Schueler -617451941(1) Wahl , Klasse:  12
-Schueler -2083315643(4) Wahl , Klasse:  11
-Schueler -1392489180(1) Wahl , Klasse:  11
-Schueler 2100857374(1) Wahl , Klasse:  12
-Schueler -1691614739(4) Wahl , Klasse:  12
+Schueler 2424080(2) Wahl , Klasse:  11
 Schueler 1965863210(3) Wahl , Klasse:  9
-Schueler 77003780(4) Wahl , Klasse:  8
-Schueler 64467958(1) Wahl , Klasse:  11
-Schueler 1904089554(4) Wahl , Klasse:  11
+Schueler 1061104481(3) Wahl , Klasse:  11
+Schueler -1691614739(4) Wahl , Klasse:  12
 Schueler -2083331638(2) Wahl , Klasse:  8
+Schueler 77003780(4) Wahl , Klasse:  8
+Schueler 65081501(4) Wahl , Klasse:  11
 
 -------------------------------------------------------------
 Projekt Nr. 5c98cd8f9f989 Min. Teilnehmer: 5 Max.Teilnehmer: 25 Anzahl Teilnehmer: 16,Mittlere Klassenstufe: 10.3125 Std: 2.83984375
-Schueler -1818443987(2) Wahl , Klasse:  10
-Schueler 1965651104(2) Wahl , Klasse:  11
+Schueler 1259373324(1) Wahl , Klasse:  7
 Schueler 2473(2) Wahl , Klasse:  12
-Schueler 79134028(2) Wahl , Klasse:  11
-Schueler -1990161122(3) Wahl , Klasse:  11
 Schueler 79116(2) Wahl , Klasse:  7
-Schueler 2162843(3) Wahl , Klasse:  11
+Schueler 1963774460(3) Wahl , Klasse:  12
+Schueler -1818443987(2) Wahl , Klasse:  10
 Schueler 380274500(1) Wahl , Klasse:  12
+Schueler 79134028(2) Wahl , Klasse:  11
 Schueler -566350385(3) Wahl , Klasse:  12
 Schueler 755871196(4) Wahl , Klasse:  10
+Schueler 2162843(3) Wahl , Klasse:  11
+Schueler -1990161122(3) Wahl , Klasse:  11
 Schueler -1218679587(3) Wahl , Klasse:  9
-Schueler -225388852(4) Wahl , Klasse:  8
 Schueler 64994914(3) Wahl , Klasse:  10
-Schueler 1963774460(3) Wahl , Klasse:  12
-Schueler 1259373324(1) Wahl , Klasse:  7
+Schueler -225388852(4) Wahl , Klasse:  8
+Schueler 1965651104(2) Wahl , Klasse:  11
 Schueler 2016205925(4) Wahl , Klasse:  12
 
 -------------------------------------------------------------
-Projekt Nr. 5c98ceb21ca28 Min. Teilnehmer: 8 Max.Teilnehmer: 30 Anzahl Teilnehmer: 30,Mittlere Klassenstufe: 7.033333333333333 Std: 2.4988888888888874
+Projekt Nr. 5c98ceb21ca28 Min. Teilnehmer: 8 Max.Teilnehmer: 30 Anzahl Teilnehmer: 30,Mittlere Klassenstufe: 7.1 Std: 2.6899999999999995
+Schueler -1260799826(1) Wahl , Klasse:  9
+Schueler 274311427(1) Wahl , Klasse:  9
 Schueler 1965729572(1) Wahl , Klasse:  9
-Schueler 67044458(1) Wahl , Klasse:  6
-Schueler -2083124657(2) Wahl , Klasse:  5
+Schueler 79846925(1) Wahl , Klasse:  9
 Schueler -1682644116(1) Wahl , Klasse:  5
 Schueler -1841778021(1) Wahl , Klasse:  7
 Schueler 2162723(2) Wahl , Klasse:  5
-Schueler 1956362946(3) Wahl , Klasse:  8
+Schueler 2688668(2) Wahl , Klasse:  8
 Schueler 1995051849(3) Wahl , Klasse:  5
-Schueler -978113055(3) Wahl , Klasse:  6
-Schueler 274311427(1) Wahl , Klasse:  9
-Schueler 79846925(1) Wahl , Klasse:  9
-Schueler -2051001056(2) Wahl , Klasse:  8
-Schueler -1399780943(3) Wahl , Klasse:  8
-Schueler -2083506590(3) Wahl , Klasse:  9
+Schueler 67044458(1) Wahl , Klasse:  6
 Schueler 1619924098(4) Wahl , Klasse:  5
-Schueler 2360778(4) Wahl , Klasse:  5
-Schueler 73425103(3) Wahl , Klasse:  5
-Schueler 79133842(4) Wahl , Klasse:  9
-Schueler 73293211(4) Wahl , Klasse:  8
-Schueler -1260799826(1) Wahl , Klasse:  9
+Schueler -2083124657(2) Wahl , Klasse:  5
+Schueler 1956362946(3) Wahl , Klasse:  8
 Schueler -1791063400(3) Wahl , Klasse:  5
+Schueler -978113055(3) Wahl , Klasse:  6
+Schueler 366216200(2) Wahl , Klasse:  8
+Schueler -2051001056(2) Wahl , Klasse:  8
+Schueler -2083506590(3) Wahl , Klasse:  9
+Schueler -2051387632(3) Wahl , Klasse:  7
 Schueler -2083769446(3) Wahl , Klasse:  7
-Schueler 2255041(4) Wahl , Klasse:  8
 Schueler -1253219302(2) Wahl , Klasse:  8
 Schueler -2083294506(3) Wahl , Klasse:  6
-Schueler -2051387632(3) Wahl , Klasse:  7
-Schueler 366216200(2) Wahl , Klasse:  8
 Schueler 2071405499(4) Wahl , Klasse:  9
+Schueler 2360778(4) Wahl , Klasse:  5
+Schueler 586553962(1) Wahl , Klasse:  9
 Schueler 1166986276(4) Wahl , Klasse:  5
-Schueler 2688668(2) Wahl , Klasse:  8
+Schueler 2615250(3) Wahl , Klasse:  9
+Schueler 73425103(3) Wahl , Klasse:  5
+Schueler 79133842(4) Wahl , Klasse:  9
+Schueler -1399780943(3) Wahl , Klasse:  8
 
 -------------------------------------------------------------
-Projekt Nr. 5c98cf446f037 Min. Teilnehmer: 10 Max.Teilnehmer: 30 Anzahl Teilnehmer: 26,Mittlere Klassenstufe: 7.961538461538462 Std: 0.6523668639053255
-Schueler 11293806(1) Wahl , Klasse:  9
-Schueler 86232766(2) Wahl , Klasse:  8
+Projekt Nr. 5c98cf446f037 Min. Teilnehmer: 10 Max.Teilnehmer: 30 Anzahl Teilnehmer: 26,Mittlere Klassenstufe: 7.846153846153846 Std: 0.5917159763313605
 Schueler 1969255826(1) Wahl , Klasse:  8
-Schueler -2070783167(2) Wahl , Klasse:  8
 Schueler -1703946603(2) Wahl , Klasse:  7
-Schueler -2140573959(1) Wahl , Klasse:  8
-Schueler 1956244291(2) Wahl , Klasse:  8
+Schueler -2070783167(2) Wahl , Klasse:  8
+Schueler 11293806(1) Wahl , Klasse:  9
+Schueler 77381929(3) Wahl , Klasse:  7
 Schueler 2132720756(3) Wahl , Klasse:  7
+Schueler -1997431122(4) Wahl , Klasse:  7
+Schueler 898716453(3) Wahl , Klasse:  8
 Schueler -365921678(3) Wahl , Klasse:  9
 Schueler 80691888(4) Wahl , Klasse:  8
-Schueler 77381929(3) Wahl , Klasse:  7
-Schueler 73596497(2) Wahl , Klasse:  9
-Schueler 71933135(2) Wahl , Klasse:  7
-Schueler -90498844(4) Wahl , Klasse:  9
-Schueler -1621497497(4) Wahl , Klasse:  7
-Schueler 2049080(3) Wahl , Klasse:  8
-Schueler 76467252(4) Wahl , Klasse:  8
-Schueler 66215446(4) Wahl , Klasse:  7
-Schueler 1448052431(2) Wahl , Klasse:  8
-Schueler -1997431122(4) Wahl , Klasse:  7
 Schueler 64076470(4) Wahl , Klasse:  7
-Schueler 1965469269(4) Wahl , Klasse:  7
+Schueler 73596497(2) Wahl , Klasse:  9
 Schueler 67281894(3) Wahl , Klasse:  9
+Schueler 1956244291(2) Wahl , Klasse:  8
+Schueler -2140573959(1) Wahl , Klasse:  8
+Schueler 71933135(2) Wahl , Klasse:  7
+Schueler -1621497497(4) Wahl , Klasse:  7
+Schueler 1448052431(2) Wahl , Klasse:  8
+Schueler 86232766(2) Wahl , Klasse:  8
+Schueler 66215446(4) Wahl , Klasse:  7
+Schueler 1965469269(4) Wahl , Klasse:  7
+Schueler 2049080(3) Wahl , Klasse:  8
+Schueler -90498844(4) Wahl , Klasse:  9
+Schueler -572564302(3) Wahl , Klasse:  7
 Schueler -682356717(4) Wahl , Klasse:  9
-Schueler 64452706(3) Wahl , Klasse:  9
-Schueler 2615250(4) Wahl , Klasse:  9
+Schueler 76467252(4) Wahl , Klasse:  8
 
 -------------------------------------------------------------
-Projekt Nr. 5c98cfad65080 Min. Teilnehmer: 10 Max.Teilnehmer: 30 Anzahl Teilnehmer: 30,Mittlere Klassenstufe: 7.133333333333334 Std: 5.582222222222222
-Schueler 79650088(1) Wahl , Klasse:  11
-Schueler -1732394975(1) Wahl , Klasse:  11
-Schueler 2192720(1) Wahl , Klasse:  11
-Schueler 69610052(2) Wahl , Klasse:  11
+Projekt Nr. 5c98cfad65080 Min. Teilnehmer: 10 Max.Teilnehmer: 30 Anzahl Teilnehmer: 30,Mittlere Klassenstufe: 7.233333333333333 Std: 5.578888888888889
+Schueler 583874980(1) Wahl , Klasse:  9
 Schueler 74337749(1) Wahl , Klasse:  7
-Schueler 2014746734(2) Wahl , Klasse:  6
-Schueler 74343(2) Wahl , Klasse:  6
+Schueler 2192720(1) Wahl , Klasse:  11
 Schueler 2106890483(1) Wahl , Klasse:  8
-Schueler 1433573172(2) Wahl , Klasse:  5
-Schueler 2122388(2) Wahl , Klasse:  5
-Schueler -1740439791(2) Wahl , Klasse:  11
-Schueler 64372111(2) Wahl , Klasse:  5
-Schueler -1789302221(2) Wahl , Klasse:  6
-Schueler -572566025(2) Wahl , Klasse:  5
-Schueler 2100708228(2) Wahl , Klasse:  6
-Schueler 1964250989(3) Wahl , Klasse:  6
-Schueler 1142604028(3) Wahl , Klasse:  5
 Schueler 64468392(1) Wahl , Klasse:  6
-Schueler 82544700(3) Wahl , Klasse:  5
-Schueler 1802717603(2) Wahl , Klasse:  6
+Schueler 79650088(1) Wahl , Klasse:  11
+Schueler -1740439791(2) Wahl , Klasse:  11
 Schueler 2047076545(2) Wahl , Klasse:  10
+Schueler 2122388(2) Wahl , Klasse:  5
+Schueler 2100708228(2) Wahl , Klasse:  6
 Schueler 2558968(3) Wahl , Klasse:  11
-Schueler -555147838(2) Wahl , Klasse:  11
-Schueler 67228514(3) Wahl , Klasse:  6
-Schueler 67223201(2) Wahl , Klasse:  7
-Schueler 758488544(3) Wahl , Klasse:  6
-Schueler 70946058(2) Wahl , Klasse:  5
+Schueler 69610052(2) Wahl , Klasse:  11
 Schueler -1791126761(2) Wahl , Klasse:  5
-Schueler 75150776(2) Wahl , Klasse:  6
+Schueler -1789302221(2) Wahl , Klasse:  6
+Schueler -2047466624(2) Wahl , Klasse:  6
 Schueler -788137429(3) Wahl , Klasse:  5
+Schueler -555147838(2) Wahl , Klasse:  11
+Schueler 1433573172(2) Wahl , Klasse:  5
+Schueler 82544700(3) Wahl , Klasse:  5
+Schueler 1964250989(3) Wahl , Klasse:  6
+Schueler 1802717603(2) Wahl , Klasse:  6
+Schueler 74343(2) Wahl , Klasse:  6
+Schueler 2079199209(3) Wahl , Klasse:  5
+Schueler 75150776(2) Wahl , Klasse:  6
+Schueler 64372111(2) Wahl , Klasse:  5
+Schueler -1850555596(1) Wahl , Klasse:  6
+Schueler 2014746734(2) Wahl , Klasse:  6
+Schueler 758488544(3) Wahl , Klasse:  6
+Schueler -1732394975(1) Wahl , Klasse:  11
+Schueler -572566025(2) Wahl , Klasse:  5
 
 -------------------------------------------------------------
-Projekt Nr. 5c98cfe6b4972 Min. Teilnehmer: 10 Max.Teilnehmer: 22 Anzahl Teilnehmer: 22,Mittlere Klassenstufe: 8.454545454545455 Std: 5.247933884297521
-Schueler -567318420(1) Wahl , Klasse:  10
-Schueler -1924984242(1) Wahl , Klasse:  5
-Schueler 2662780(1) Wahl , Klasse:  5
-Schueler -611739947(1) Wahl , Klasse:  10
-Schueler 81293580(1) Wahl , Klasse:  10
-Schueler 76282(1) Wahl , Klasse:  5
-Schueler 70378(1) Wahl , Klasse:  7
-Schueler -1984276819(1) Wahl , Klasse:  10
-Schueler -1791352920(1) Wahl , Klasse:  6
+Projekt Nr. 5c98cfe6b4972 Min. Teilnehmer: 10 Max.Teilnehmer: 22 Anzahl Teilnehmer: 22,Mittlere Klassenstufe: 8.727272727272727 Std: 4.834710743801652
 Schueler 1728245418(1) Wahl , Klasse:  6
-Schueler 2017144967(1) Wahl , Klasse:  7
-Schueler -1781602216(1) Wahl , Klasse:  6
-Schueler -1191938947(1) Wahl , Klasse:  11
-Schueler -2054702959(1) Wahl , Klasse:  6
-Schueler 82541813(1) Wahl , Klasse:  11
-Schueler 2281976(1) Wahl , Klasse:  9
-Schueler -1732826265(2) Wahl , Klasse:  9
-Schueler 1175450092(2) Wahl , Klasse:  11
-Schueler -2077800565(2) Wahl , Klasse:  9
-Schueler -1997437619(2) Wahl , Klasse:  11
-Schueler 72266905(3) Wahl , Klasse:  12
+Schueler 72501537(1) Wahl , Klasse:  5
+Schueler 70378(1) Wahl , Klasse:  7
+Schueler -611739947(1) Wahl , Klasse:  10
+Schueler 74099235(1) Wahl , Klasse:  7
+Schueler 2087384273(1) Wahl , Klasse:  10
+Schueler 71760130(1) Wahl , Klasse:  5
 Schueler 2011240948(1) Wahl , Klasse:  10
+Schueler -1781602216(1) Wahl , Klasse:  6
+Schueler 2428110(1) Wahl , Klasse:  7
+Schueler 80995774(1) Wahl , Klasse:  10
+Schueler 2026676774(1) Wahl , Klasse:  7
+Schueler 2010857181(1) Wahl , Klasse:  10
+Schueler 2587246(1) Wahl , Klasse:  6
+Schueler -1997437619(2) Wahl , Klasse:  11
+Schueler -1964964902(2) Wahl , Klasse:  10
+Schueler 925582772(2) Wahl , Klasse:  12
+Schueler 2380126(2) Wahl , Klasse:  10
+Schueler 67228189(2) Wahl , Klasse:  11
+Schueler -1511476647(2) Wahl , Klasse:  10
+Schueler 1969494209(1) Wahl , Klasse:  11
+Schueler 2079191239(1) Wahl , Klasse:  11
 
 -------------------------------------------------------------
-Projekt Nr. 5c98d03a167ff Min. Teilnehmer: 10 Max.Teilnehmer: 25 Anzahl Teilnehmer: 25,Mittlere Klassenstufe: 9.48 Std: 4.249599999999998
-Schueler -2081881805(1) Wahl , Klasse:  10
-Schueler -68881103(2) Wahl , Klasse:  6
-Schueler -1641961937(2) Wahl , Klasse:  12
-Schueler -1937914886(1) Wahl , Klasse:  8
-Schueler -1854082366(1) Wahl , Klasse:  8
-Schueler -844374026(1) Wahl , Klasse:  5
-Schueler -1864717153(2) Wahl , Klasse:  5
-Schueler 73310471(2) Wahl , Klasse:  12
-Schueler 7930709(1) Wahl , Klasse:  10
-Schueler -842720956(1) Wahl , Klasse:  10
-Schueler -1819693986(1) Wahl , Klasse:  11
+Projekt Nr. 5c98d03a167ff Min. Teilnehmer: 10 Max.Teilnehmer: 25 Anzahl Teilnehmer: 25,Mittlere Klassenstufe: 10.0 Std: 3.76
+Schueler -1185847073(1) Wahl , Klasse:  10
 Schueler 65798217(1) Wahl , Klasse:  9
-Schueler 81293268(1) Wahl , Klasse:  10
-Schueler -1819585757(2) Wahl , Klasse:  12
-Schueler -1994257661(2) Wahl , Klasse:  10
-Schueler 68475(1) Wahl , Klasse:  7
-Schueler 2011245549(3) Wahl , Klasse:  12
-Schueler 69503722(2) Wahl , Klasse:  9
-Schueler -1317735128(2) Wahl , Klasse:  12
-Schueler 1235314143(1) Wahl , Klasse:  9
-Schueler 2154900(1) Wahl , Klasse:  8
 Schueler -1797151110(1) Wahl , Klasse:  10
-Schueler 75454693(3) Wahl , Klasse:  10
+Schueler -1819693986(1) Wahl , Klasse:  11
+Schueler -844374026(1) Wahl , Klasse:  5
+Schueler 79058(1) Wahl , Klasse:  10
+Schueler -1854082366(1) Wahl , Klasse:  8
+Schueler 73310471(2) Wahl , Klasse:  12
+Schueler -842720956(1) Wahl , Klasse:  10
+Schueler 82539240(1) Wahl , Klasse:  11
+Schueler 82545905(3) Wahl , Klasse:  12
+Schueler 69503722(2) Wahl , Klasse:  9
+Schueler -2140547290(1) Wahl , Klasse:  12
+Schueler 261095836(2) Wahl , Klasse:  5
+Schueler -2081881805(1) Wahl , Klasse:  10
+Schueler 81293268(1) Wahl , Klasse:  10
+Schueler 68475(1) Wahl , Klasse:  7
+Schueler -764911038(3) Wahl , Klasse:  12
+Schueler 7930709(1) Wahl , Klasse:  10
+Schueler 1465808208(3) Wahl , Klasse:  11
 Schueler -1819473018(1) Wahl , Klasse:  11
-Schueler 65917560(3) Wahl , Klasse:  11
+Schueler 310989611(2) Wahl , Klasse:  11
+Schueler 75454693(3) Wahl , Klasse:  10
+Schueler 2011245549(3) Wahl , Klasse:  12
+Schueler -1317735128(2) Wahl , Klasse:  12
 
-Anzahl Schueler ohne Projekt: 52
-Schueler die die 1 te Wahl bekommen haben: 328/859(38.18)
-Schueler die die 2 te Wahl bekommen haben: 278/859(32.36)
-Schueler die die 3 te Wahl bekommen haben: 137/859(15.95)
-Schueler die die 4 te Wahl bekommen haben: 64/859(7.45)
-Schueler die keine ihrer Wahlen bekommen haben: 52/859(6.05)
+Anzahl Schueler ohne Projekt: 56
+Schueler die die 1 te Wahl bekommen haben: 336/859(39.12)
+Schueler die die 2 te Wahl bekommen haben: 275/859(32.01)
+Schueler die die 3 te Wahl bekommen haben: 136/859(15.83)
+Schueler die die 4 te Wahl bekommen haben: 56/859(6.52)
+Schueler die keine ihrer Wahlen bekommen haben: 56/859(6.52)
 Schueler die ein Projekt haben welches nicht stattfindet: 0
-Score: 2234.0(2.6006984866123397)
+Score: 2219.0(2.5832363213038416)
 Anzahl der Projekte die stattfinden: 35 /35
-Std: 66.7780485371701 (1.9079442439191456)
+Std: 65.20313729238981 (1.862946779782566)
