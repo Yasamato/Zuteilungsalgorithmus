@@ -148,12 +148,27 @@
       $this->ln(6);
 
 			// Aufbereiten des Headers
-			$header = [
-				"Klasse",
-				"Nachname",
-				"Vorname",
-				$_SESSION['benutzer']['typ'] == "admin" ? "Ergebnis" : "Bereits gewählt"
-			];
+			if (!empty($klassenliste)) {
+				$header = [
+					"Klasse",
+					"Nachname",
+					"Vorname",
+					$_SESSION['benutzer']['typ'] == "admin" ? "Ergebnis" : "Bereits gewählt"
+				];
+				$widths = [
+					12, 39, 39, 100
+				];
+			}
+			else {
+				$header = [
+					"Klasse",
+					"Nachname",
+					"Vorname"
+				];
+				$widths = [
+					12, 89, 89
+				];
+			}
 			// Aufbereiten der Daten für die Schülertabelle
 			$dataToPrint = [];
 			$dummyWertVorhanden = 0;
@@ -171,24 +186,29 @@
 						break;
 					}
 				}
-				$string = "";
-				if ($_SESSION['benutzer']['typ'] == "admin") {
-					$string = empty($student["projekt"]) ? ($config["Stage"] > 4 ? "Konnte nicht zugeteilt werden" : "N/A") : getProjektInfo($projekte, $student["projekt"])["name"];
+				if (!empty($klassenliste)) {
+					$string = "";
+					if ($_SESSION['benutzer']['typ'] == "admin") {
+						$string = empty($student["projekt"]) ? ($config["Stage"] > 4 ? "Konnte nicht zugeteilt werden" : "N/A") : getProjektInfo($projekte, $student["projekt"])["name"];
+					}
+					else {
+						$string = $zugeteilt ? "Zugeteilt" : (empty($student["wahl"]) ? "Nein" : "Ja");
+					}
+					array_push($dataToPrint, [
+						$student["klasse"],
+						$student["nachname"],
+						$student["vorname"],
+						$string
+					]);
 				}
 				else {
-					$string = $zugeteilt ? "Zugeteilt" : (empty($student["wahl"]) ? "Nein" : "Ja");
+					array_push($dataToPrint, [
+						$student["klasse"],
+						$student["nachname"],
+						$student["vorname"]
+					]);
 				}
-				array_push($dataToPrint, [
-					$student["klasse"],
-					$student["nachname"],
-					$student["vorname"],
-					$string
-				]);
 			}
-			// Aufbereiten der Breiten
-			$widths = [
-				12, 39, 39, 100
-			];
 			// Tabelle
 			$this->ColoredTable($header, $dataToPrint, $widths);
 			if (!empty($klassenliste)) {
@@ -294,7 +314,7 @@
 			$pdf->SetSubject("Projekt " . $projekt["name"]);
       $pdf->printProjekt($projekt);
 			if (!empty($projekt["teilnehmer"])) {
-				$pdf->printKlasse("Teilnehmerliste " . $projekt["name"], $projekt["teilnehmer"], $projekte, $zwangszuteilung, false);
+				$pdf->printKlasse("Teilnehmerliste " . $projekt["name"], $projekt["teilnehmer"], $projekte, $zwangszuteilung);
 			}
     }
   }
