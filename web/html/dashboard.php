@@ -225,9 +225,18 @@ $errorIncluded = false;
     </p>
     <form method="post">
       <input type="hidden" name="action" value="runZuteilungsalgorithmus">
-      <button type="submit" class="btn btn-primary">
-        Erneut ausführen
-      </a>
+      <div class="input-group">
+        <select class="form-control custom-select" name="genauigkeit">
+          <option value="0">Schnellste Laufzeit</option>
+          <option value="1" selected>Normal Genauigkeit</option>
+          <option value="2">Optimale Verteilung</option>
+        </select>
+        <div class="input-group-append">
+          <button type="submit" class="btn btn-primary">
+            Erneut ausführen
+          </button>
+        </div>
+      </div>
     </form>
     <?php
       }
@@ -247,9 +256,18 @@ $errorIncluded = false;
     </p>
     <form method="post">
       <input type="hidden" name="action" value="runZuteilungsalgorithmus">
-      <button type="submit" class="btn btn-primary">
-        Starten
-      </a>
+      <div class="input-group">
+        <select class="form-control custom-select" name="genauigkeit">
+          <option value="0">Schnellste Laufzeit</option>
+          <option value="1" selected>Normal Genauigkeit</option>
+          <option value="2">Optimale Verteilung</option>
+        </select>
+        <div class="input-group-append">
+          <button type="submit" class="btn btn-primary">
+            Starten
+          </button>
+        </div>
+      </div>
     </form>
     <?php
       }

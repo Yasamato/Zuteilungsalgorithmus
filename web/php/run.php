@@ -89,11 +89,13 @@ else {
     if (($fh = fopen("../FinishedAlgorithm/projekte.csv", "w")) === false) {
       die("Mangelnde Zugriffsberechtigung auf den Ordner FinishedAlgorithm");
     }
+    $zwangszugeteiltGesamt = 0;
     foreach ($projekte as $projekt) {
       $zwangszugeteilt = 0;
       foreach ($zwangszuteilung as $zuteilung) {
         if ($zuteilung["projekt"] == $projekt["id"]) {
           $zwangszugeteilt += 1;
+          $zwangszugeteiltGesamt += 1;
         }
       }
       fwrite($fh, $projekt["id"] . "," . ($projekt["minPlatz"] - $zwangszugeteilt) . "," . ($projekt["maxPlatz"] - $zwangszugeteilt));
@@ -121,6 +123,7 @@ else {
     }
     fclose($fh);
 
+    $iterationen = count($projekte) * (count($wahlen) - $zwangszugeteiltGesamt) * pow(10, $_POST["genauigkeit"]); // mit $_POST["genauigkeit"] = [0; 2]
     $cmd = "java -jar ../FinishedAlgorithm/Algorithmus.jar 2 100000 '../FinishedAlgorithm/projekte.csv' ',ImM' '../FinishedAlgorithm/schueler.csv' ',KNV1234'";
     $outputfile = "../data/algorithmus.log";
     $pidfile = "../data/algorithmus.pid";
