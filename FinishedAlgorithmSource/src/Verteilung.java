@@ -217,6 +217,22 @@ public class Verteilung {
      * @param printProjekte Wahrheitswert, ob jedes Projekt zusaetzlich noch beschrieben werden soll
      */
     public void macheAusgabe(boolean printProjekte) {
+        ArrayList<Projekt> findetNichtStatt = new ArrayList<>();
+        for (Projekt p : this.projektListe) {
+            if (p.getTeilnehmer().size() < p.getminTeilnehmer()) {
+                if (p.getTeilnehmer().size() != 0) {
+                    System.out.println("Es gab noch Schüler die in ein nicht stattfindendes Projekt zugeteilt wurden.");
+                    System.out.println("Trage aus...");
+                    for (int i = 0; i < p.getTeilnehmer().size(); ) {
+                        p.getTeilnehmer().get(i).schreibeAusProjektAus();
+                    }
+                }
+                findetNichtStatt.add(p);
+            }
+        }
+        for(Projekt p: findetNichtStatt){
+            this.projektListe.remove(p);
+        }
         if (printProjekte) {
             for (Projekt p : this.projektListe) {
                 System.out.println(p.toString());
