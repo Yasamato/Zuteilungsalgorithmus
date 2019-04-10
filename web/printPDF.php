@@ -14,8 +14,8 @@
     // Breite: 297mm - 2cm margin => 277mm zum Arbeiten
     function printProjekt($projekt) {
       $this->AddPage("L", "A4");
+			$this->printHeader();
       $this->setCellHeightRatio(1.1);
-      $this->ln(13);
 
       // Zeile 1
       $this->SetFont('freeserif', 'B', 14);
@@ -136,10 +136,11 @@
       $this->ln($h);
     }
 
-		function printKlasse($klasse, $studentlist, $projekte, $zwangszuteilung, $klassenliste = false) {
+		function printKlasse($klasse, $studentlist, $projekte, $zwangszuteilung, $klassenliste = []) {
+			$config = dbRead("../data/config.csv")[0];
       $this->AddPage("P", "A4");
+			$this->printHeader();
       $this->setCellHeightRatio(1.1);
-      $this->ln(13);
 
       // Zeile 1
       $this->SetFont('freeserif', 'B', 14);
@@ -147,12 +148,27 @@
       $this->ln(6);
 
 			// Aufbereiten des Headers
-			$header = [
-				"Klasse",
-				"Nachname",
-				"Vorname",
-				$_SESSION['benutzer']['typ'] == "admin" ? "Ergebnis" : "Bereits gewählt"
-			];
+			if (!empty($klassenliste)) {
+				$header = [
+					"Klasse",
+					"Nachname",
+					"Vorname",
+					$_SESSION['benutzer']['typ'] == "admin" ? "Ergebnis" : "Bereits gewählt"
+				];
+				$widths = [
+					12, 39, 39, 100
+				];
+			}
+			else {
+				$header = [
+					"Klasse",
+					"Nachname",
+					"Vorname"
+				];
+				$widths = [
+					12, 89, 89
+				];
+			}
 			// Aufbereiten der Daten für die Schülertabelle
 			$dataToPrint = [];
 			$dummyWertVorhanden = 0;
@@ -170,18 +186,29 @@
 						break;
 					}
 				}
-
-				array_push($dataToPrint, [
-					$student["klasse"],
-					$student["nachname"],
-					$student["vorname"],
-					$_SESSION['benutzer']['typ'] == "admin" ? (empty($student["projekt"]) ? "N/A" : getProjektInfo($projekte, $student["projekt"])["name"]) : ($zugeteilt ? "Zugeteilt" : (empty($student["wahl"]) ? "Nein" : "Ja"))
-				]);
+				if (!empty($klassenliste)) {
+					$string = "";
+					if ($_SESSION['benutzer']['typ'] == "admin") {
+						$string = empty($student["projekt"]) ? ($config["Stage"] > 4 ? "Konnte nicht zugeteilt werden" : "N/A") : getProjektInfo($projekte, $student["projekt"])["name"];
+					}
+					else {
+						$string = $zugeteilt ? "Zugeteilt" : (empty($student["wahl"]) ? "Nein" : "Ja");
+					}
+					array_push($dataToPrint, [
+						$student["klasse"],
+						$student["nachname"],
+						$student["vorname"],
+						$string
+					]);
+				}
+				else {
+					array_push($dataToPrint, [
+						$student["klasse"],
+						$student["nachname"],
+						$student["vorname"]
+					]);
+				}
 			}
-			// Aufbereiten der Breiten
-			$widths = [
-				12, 39, 39, 100
-			];
 			// Tabelle
 			$this->ColoredTable($header, $dataToPrint, $widths);
 			if (!empty($klassenliste)) {
@@ -192,17 +219,34 @@
 						break;
 					}
 				}
-				$this->Cell(0, 6, count($studentlist) - $dummyWertVorhanden . " / " . $anzahl . " Schüler-Einträgen gefunden");
+				if ($config["Stage"] > 4) {
+					$ohneZuteilung = 0;
+					foreach ($studentlist as $student) {
+						if (empty($student["nachname"])) {
+							continue;
+						}
+						if (empty($student["projekt"])) {
+							$ohneZuteilung += 1;
+						}
+					}
+					$this->Cell(0, 6, count($studentlist) - $dummyWertVorhanden - $ohneZuteilung. " / " . $anzahl . " Schüler wurden zugeteilt");
+				}
+				else {
+					$this->Cell(0, 6, count($studentlist) - $dummyWertVorhanden . " / " . $anzahl . " Schüler-Einträgen gefunden");
+				}
 			}
 			else {
 				$this->Cell(0, 6, count($studentlist) - $dummyWertVorhanden . " Teilnehmer");
 			}
 		}
 
-    function Header() {
+		function Header() {
+			return;
+		}
+
+    function printHeader() {
       $this->Image("pictures/Logo_Farbe.jpg", 10, 6, 30); // pfad ,x ,y , size
       $this->SetFont('freeserif', 'B', 24);
-      $this->Ln(11);
       $this->Cell(30);
       $this->Cell(66, 10, 'Projektwoche ' . date("Y"));
       $this->ln(13);
@@ -229,7 +273,11 @@
       $fill = 0;
       foreach($data as $row) {
 				for ($i = 0; $i < count($row); $i++) {
+					if ($row[$i] == "Konnte nicht zugeteilt werden") {
+						$this->SetTextColor(220, 53, 69);
+					}
           $this->Cell($widths[$i], 6, $row[$i], "LR", 0, 'L', $fill);
+					$this->SetTextColor(0);
 				}
         $this->Ln();
         $fill=!$fill;
@@ -266,7 +314,7 @@
 			$pdf->SetSubject("Projekt " . $projekt["name"]);
       $pdf->printProjekt($projekt);
 			if (!empty($projekt["teilnehmer"])) {
-				$pdf->printKlasse("Teilnehmerliste " . $projekt["name"], $projekt["teilnehmer"], $projekte, $zwangszuteilung, false);
+				$pdf->printKlasse("Teilnehmerliste " . $projekt["name"], $projekt["teilnehmer"], $projekte, $zwangszuteilung);
 			}
     }
   }
@@ -280,7 +328,7 @@
 			$pdf->SetTitle("Projektwoche " . date("Y"));
 			$pdf->SetSubject('Schülerlisten der Schule');
 			foreach ($klassen as $key => $klasse) {
-        $pdf->printKlasse($key, $klasse, $zwangszuteilung, $klassenliste);
+        $pdf->printKlasse($key, $klasse, $projekte, $zwangszuteilung, $klassenliste);
       }
     }
     else {

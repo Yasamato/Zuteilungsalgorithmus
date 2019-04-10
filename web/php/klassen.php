@@ -13,7 +13,7 @@ if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
       continue;
     }
     // Validierung
-    if ($_POST["stufe"][$i] < CONFIG["minStufe"] || $_POST["stufe"][$i] > CONFIG["maxStufe"] || $_POST["anzahl"][$i] <= 0 || $_POST["anzahl"][$i] > 100) {
+    if ($_POST["stufe"][$i] < CONFIG["minStufe"] || $_POST["stufe"][$i] > CONFIG["maxStufe"] || $_POST["anzahl"][$i] <= 0 || $_POST["anzahl"][$i] > 300) {
       error_log("Dateneintrag der Klasse " . $_POST["klasse"][$i] . " mit " . $_POST["anzahl"][$i] . " Schülern hat einen unrealistischen Betrag und wird ignoriert.", 0, "../data/error.log");
       alert("Dateneintrag der Klasse " . $_POST["klasse"][$i] . " mit " . $_POST["anzahl"][$i] . " Schülern hat einen unrealistischen Betrag und wird ignoriert.");
       continue;

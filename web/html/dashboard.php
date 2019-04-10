@@ -62,7 +62,7 @@ foreach ($klassen as $klasse => $liste) {
   }
 }
 
-$buffer = 0.05;
+$buffer = 0.10; // +/- 10% Buffer bei den Projektplätzen
 $showErrorModal = false;
 $errorIncluded = false;
 ?>
@@ -128,7 +128,7 @@ $errorIncluded = false;
         }
         ?>
         <div class="alert alert-<?php echo $config["Stage"] < 4 ? "primary alert-dismissible fade show" : "danger"; ?>" role="alert">
-          Es ha<?php echo $klassenFertig > 1 ? "ben" : "t" ?> nur <?php echo $klassenFertig . " von " . count($klassenliste); ?> Klassen vollständig gewählt. Einträge <a href="javascript: ;" onclick="javascript: $('#studentsInKlassen').modal('show');" class="alert-link">auflisten</a>
+          Es ha<?php echo $klassenFertig > 1 ? "ben " : "t " . $klassenFertig . " von " . count($klassenliste); ?> Klassen vollständig gewählt. Einträge <a href="javascript: ;" onclick="javascript: $('#studentsInKlassen').modal('show');" class="alert-link">auflisten</a>
           <?php if ($config["Stage"] < 4) { ?>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -323,7 +323,7 @@ $errorIncluded = false;
     if (!empty($projekteNichtStattfinden)) {
       ?>
       <div class="alert alert-danger" role="alert">
-        Es können <strong><?php echo count($projekteNichtStattfinden); ?> Projekten</strong> aufgrund mangelnder Teilnehmerzahl nicht stattfinden. <a href="javasript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">Projekt einsehen</a>
+        Es können <strong><?php echo count($projekteNichtStattfinden); ?> Projekte</strong> aufgrund mangelnder Teilnehmerzahl nicht stattfinden. <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">Projekt einsehen</a>
       </div><?php
     }
     if (!empty($projekteZuViel)) {

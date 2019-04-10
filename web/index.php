@@ -36,6 +36,50 @@
 	require "php/db.php";
 	require "php/utils.php";
 
+	/*
+	Integration von Fabi's Verteilung
+	$tmp = file_get_contents("../data/nurSchueler.csv");
+	$data = [];
+	$header = [
+		"uid",
+		"vorname",
+		"nachname",
+		"stufe",
+		"klasse",
+		"wahl",
+		"projekt"
+	];
+	foreach (explode("\n", $tmp) as $line => $row) {
+		if (empty($row)) {
+			continue;
+		}
+		$row = explode(",", $row);
+		$stufe = "";
+		for ($i = 0; $i < strlen($row[0]); $i++) {
+			$char = $row[0][$i];
+			if (!is_numeric($char)) {
+				break;
+			}
+			$stufe .= $char;
+		}
+		array_push($data, [
+			$row[1], // uid
+			$row[2], // vorname
+			"Nachname", // nachname
+			$stufe, // stufe
+			$row[0], // klasse
+			implode("§", [
+				$row[3],
+				$row[4],
+				$row[5],
+				$row[6]
+			]), // wahl
+			"" // ergebnis
+		]);
+	}
+	dbWrite("../data/wahl.csv", $data, $header);
+	*/
+
 	// on form-submit
 	if (isset($_GET['logout'])) {
 		logout();
