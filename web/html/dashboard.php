@@ -62,7 +62,7 @@ foreach ($klassen as $klasse => $liste) {
   }
 }
 
-$buffer = 0.05;
+$buffer = 0.10; // +/- 10% Buffer bei den Projektplätzen
 $showErrorModal = false;
 $errorIncluded = false;
 ?>
