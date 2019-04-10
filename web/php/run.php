@@ -86,7 +86,7 @@ else {
       alert("Die Bedinungen zur Ausführung des Zuteilungsalgorithmus sind nicht erfüllt.");
   }
   else {
-    if (($fh = fopen("../FinishedAlgorithm/projekte2.csv", "w")) === false) {
+    if (($fh = fopen("../FinishedAlgorithm/projekte.csv", "w")) === false) {
       die("Mangelnde Zugriffsberechtigung auf den Ordner FinishedAlgorithm");
     }
     foreach ($projekte as $projekt) {
@@ -103,7 +103,7 @@ else {
     }
     fclose($fh);
 
-    if (($fh = fopen("../FinishedAlgorithm/nurSchueler2.csv", "w")) === false) {
+    if (($fh = fopen("../FinishedAlgorithm/schueler.csv", "w")) === false) {
       die("Mangelnde Zugriffsberechtigung auf den Ordner FinishedAlgorithm");
     }
     foreach ($wahlen as $wahl) {
@@ -121,7 +121,7 @@ else {
     }
     fclose($fh);
 
-    $cmd = "java -jar ../FinishedAlgorithm/Algorithmus.jar 2 1000000 '../FinishedAlgorithm/projekte2.csv' ',ImM' '../FinishedAlgorithm/nurSchueler2.csv' ',KNV1234'";
+    $cmd = "java -jar ../FinishedAlgorithm/Algorithmus.jar 2 100000 '../FinishedAlgorithm/projekte.csv' ',ImM' '../FinishedAlgorithm/schueler.csv' ',KNV1234'";
     $outputfile = "../data/algorithmus.log";
     $pidfile = "../data/algorithmus.pid";
     exec("cd ../FinishedAlgorithm; " . sprintf("%s > %s 2>&1 & echo $! >> %s", $cmd, $outputfile, $pidfile));
