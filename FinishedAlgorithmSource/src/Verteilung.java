@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
 
 
 public class Verteilung {
@@ -152,18 +149,24 @@ public class Verteilung {
                 //System.out.println("------------------------------------------------");
                 //System.out.println("------------------------------------------------");
             } else {
-                HashMap<Integer, Projekt> beliebtheitmap = new HashMap<Integer, Projekt>();
-                SortedSet<Integer> k = new TreeSet<Integer>();
-                for (Projekt p : zuloeschen) {
-                    int beliebtheit = p.getBeliebtheit(this.schuelerListe);
-                    beliebtheitmap.put(beliebtheit, p);
-                    k.add(beliebtheit);
-                }
+                Verteilung v = this;
+                Collections.sort(zuloeschen, new Comparator<Projekt>() {
+                    @Override
+                    public int compare(Projekt o1, Projekt o2) {
+                        int o1B = o1.getBeliebtheit(v.schuelerListe);
+                        int o2B = o2.getBeliebtheit(v.schuelerListe);
+                        if (o1B < o2B) {
+                            return -1;
+                        } else if (o1B > o2B) {
+                            return 1;
+                        }
+                        return 0;
+                    }
+                });
                 while (projektplaetze - countPlaetze < this.schuelerListe.size()) {
-                    int beliebtestes = k.last();
-                    Projekt p = beliebtheitmap.get(beliebtestes);
+                    Projekt p = zuloeschen.get(zuloeschen.size() - 1);
+                    zuloeschen.remove(p);
                     this.projektListe.add(p);
-                    k.remove(k.last());
                     countPlaetze -= p.getmaxTeilnehmer();
                 }
                 this.verteile4(false);
@@ -230,7 +233,7 @@ public class Verteilung {
                 findetNichtStatt.add(p);
             }
         }
-        for(Projekt p: findetNichtStatt){
+        for (Projekt p : findetNichtStatt) {
             this.projektListe.remove(p);
         }
         if (printProjekte) {
