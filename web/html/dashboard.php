@@ -323,7 +323,7 @@ $errorIncluded = false;
     if (!empty($studentOhneZuteilung)) {
       ?>
       <div class="alert alert-danger" role="alert">
-        Es konnten <strong><?php echo count($studentOhneZuteilung); ?> Schüler</strong> keinem Projekt zugeteilt werden und diese müssen <a href="javascript: ;" onclick="javascript: $('#schuelerModal').modal('show');" class="alert-link">hier manuell</a> zugeteilt werden.
+        Es konnten <strong><?php echo count($studentOhneZuteilung); ?> Schüler</strong> keinem Projekt zugeteilt werden. Diese müssen <a href="javascript: ;" onclick="javascript: $('#schuelerModal').modal('show');" class="alert-link">hier manuell</a> zugeteilt werden.
       </div><?php
     }
 
@@ -341,13 +341,13 @@ $errorIncluded = false;
     if (!empty($projekteNichtStattfinden)) {
       ?>
       <div class="alert alert-danger" role="alert">
-        Es können <strong><?php echo count($projekteNichtStattfinden); ?> Projekte</strong> aufgrund mangelnder Teilnehmerzahl nicht stattfinden. <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">Projekt einsehen</a>
+        Es können <strong><?php echo count($projekteNichtStattfinden); ?> Projekte</strong> aufgrund mangelnder Teilnehmerzahl nicht stattfinden. <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">Projekte einsehen</a>
       </div><?php
     }
     if (!empty($projekteZuViel)) {
       ?>
       <div class="alert alert-warning" role="alert">
-        Die Teilnehmerzahl von <strong><?php echo count($projekteZuViel); ?> Projekten</strong> übersteigt die Maximalteilnehmeranzahl. <a href="javasript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">Projekt einsehen</a>
+        Die Teilnehmerzahl von <strong><?php echo count($projekteZuViel); ?> Projekten</strong> übersteigt die Maximalteilnehmeranzahl. <a href="javasript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">Projekte einsehen</a>
       </div><?php
     }
   }
@@ -1025,13 +1025,13 @@ $errorIncluded = false;
           <button type="submit" class="btn btn-primary">Änderung speichern</button>
           <br>
           <small class="text-muted">
-            Um Schüler Zwangszuzuteilen tragen Sie bitte die U-ID (Login-Name des Schülers) korrekt ein und wählen sie das entsprechende Projekt aus.
+            Um Schüler vorab fest einem Projekt zuzuteilen, tragen Sie bitte die U-ID (Login-Name des Schülers) korrekt ein und wählen sie das entsprechende Projekt aus.
             Falls sie bereits ein Projekt ausgewählt haben, färbt sich der Knopf zur Projektauswahl grün und die Beschriftung ändert sich zu "Ändern".
-            Es kann jedoch weiterhin jederzeit das ausgewwählte Projekt geändert werden.
+            Es kann jedoch weiterhin jederzeit das ausgewählte Projekt geändert werden.
             Unten sehen sie einen beispielhaften Eintrag.
             Um einen weiteres Eingabefeld hinzuzufügen, klicken Sie auf den grünen Knopf links unten mit der Beschriftung "Schüler hinzufügen &#10010;".
-            Um einen Eintrag zu entfernen betätigen sie das rote Kreuz rechts vom Eintrag.
-            Bitte beachten Sie, dass unvollständige Einträge beim Speichern gelöscht werden und getätigte Änderungen nur übernommen werden bei der Tätigung des "Änderungen speichern"-Knopfes.
+            Um einen Eintrag zu entfernen, betätigen sie das rote Kreuz rechts vom Eintrag.
+            Bitte beachten Sie, dass unvollständige Einträge beim Speichern gelöscht werden und Änderungen nur übernommen werden bei Betätigung des "Änderungen speichern"-Knopfes.
           </small>
 
           <table class="table table-dark">
@@ -1264,7 +1264,7 @@ $errorIncluded = false;
           Dadurch kann eine Überprüfung der Vollständigkeit durchgeführt werden.
           Um einen weiteres Eingabefeld hinzuzufügen, klicken Sie auf den grünen Knopf links unten mit der Beschriftung "Klasse hinzufügen &#10010;".
           Um einen Eintrag zu entfernen betätigen sie das rote Kreuz rechts vom Eintrag.
-          Bitte beachten Sie, dass unvolständige Einträge beim Speichern gelöscht werden.
+          Bitte beachten Sie, dass unvollständige Einträge beim Speichern gelöscht werden.
           Im Nachfolgenden sehen Sie einen beispielhaften Eintrag einer 5. Klasse mit 28 Schülern.
         </small>
 
