@@ -329,6 +329,12 @@ $errorIncluded = false;
         Es konnten <strong><?php echo count($studentOhneZuteilung); ?> Schüler</strong> keinem Projekt zugeteilt werden. Diese müssen <a href="javascript: ;" onclick="javascript: $('#schuelerModal').modal('show');" class="alert-link">hier manuell</a> zugeteilt werden.
       </div><?php
     }
+    else {
+      ?>
+      <div class="alert alert-success" role="alert">
+        Es konnten <strong>alle <?php echo count($wahlen); ?> Schüler</strong> einem ihrer Wunsch-Projekte zugeteilt werden.
+      </div><?php
+    }
 
     // Projekte die Stattfinden oder nicht
     $projekteNichtStattfinden = [];
@@ -351,6 +357,12 @@ $errorIncluded = false;
       ?>
       <div class="alert alert-warning" role="alert">
         Die Teilnehmerzahl von <strong><?php echo count($projekteZuViel); ?> Projekten</strong> übersteigt die Maximalteilnehmeranzahl. <a href="javasript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">Projekte einsehen</a>
+      </div><?php
+    }
+    elseif (empty($projekteNichtStattfinden)) {
+      ?>
+      <div class="alert alert-success" role="alert">
+        Es können <strong>alle <?php echo count($projekte); ?> Projekte</strong> statt finden.
       </div><?php
     }
   }
