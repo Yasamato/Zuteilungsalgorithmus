@@ -101,7 +101,7 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "teachers") {
       <div class="card-body">
         <h5 class="card-title">Liste aller eingereichten Projekte</h5>
         <table class="table table-dark table-striped table-hover text-left">
-          <thead>
+          <thead class="thead-dark">
             <tr>
               <th class="sticky-top">Name</th>
               <th class="sticky-top">Betreuer</th>

@@ -37,7 +37,7 @@
 	require "php/utils.php";
 
 	/*
-	Integration von Fabi's Verteilung
+	// Integration von Fabi's Verteilung
 	$tmp = file_get_contents("../data/nurSchueler.csv");
 	$data = [];
 	$header = [
@@ -72,7 +72,8 @@
 				$row[3],
 				$row[4],
 				$row[5],
-				$row[6]
+				$row[6],
+				$row[7] // nur bei 5 Wahlen
 			]), // wahl
 			"" // ergebnis
 		]);
@@ -85,12 +86,28 @@
 		logout();
 	}
 	require 'php/setup.php';
+
+	if (($fh = fopen("../data/p.csv", "w")) === false) {
+		die("Mangelnde Zugriffsberechtigung auf den Ordner FinishedAlgorithm");
+	}
+	fwrite($fh, "id,minPlatz,maxPlatz,minKlasse,maxKlasse\n");
+	foreach ($projekte as $projekt) {
+    fwrite($fh, $projekt["id"] . "," . $projekt["minPlatz"] . "," . $projekt["maxPlatz"] . "," . $projekt["minKlasse"] . "," . $projekt["maxKlasse"]);
+    if ($projekt["id"] != $projekte[count($projekte) - 1]["id"]) {
+      fwrite($fh, "\n");
+    }
+	}
+	fclose($fh);
+
+
 	$waittime = 0;
 	if (isset($_POST['action']) || isLogin() && $_SESSION['benutzer']['typ'] == "admin" && file_exists("../data/algorithmus.pid") && !isRunning(file_get_contents("../data/algorithmus.pid"))) {
 		// cleanup des Zuteilungsalgorithmus
-		if (file_exists("../data/algorithmus.pid") && !isRunning(file_get_contents("../data/algorithmus.pid"))) {
-		  alert("Der Zuteilungsalgorithmus wurde beendet.");
+		if (!file_exists("../data/cleanup.lock") && file_exists("../data/algorithmus.pid") && !isRunning(file_get_contents("../data/algorithmus.pid"))) {
+			$fh = fopen("../data/cleanup.lock", "w");
+			fclose($fh);
 		  unlink("../data/algorithmus.pid");
+		  alert("Der Zuteilungsalgorithmus wurde beendet.");
 		  if (file_exists("../FinishedAlgorithm/prozentzahl")) {
 		    unlink("../FinishedAlgorithm/prozentzahl");
 		  }
@@ -105,6 +122,8 @@
 		  else {
 		    alert("Es konnten keine Ergebnisdateien gefunden werden. Überprüfen sie die Dateiberechtigungen im Verzeichnis 'FinishedAlgorithm', da es sich hierbei wahrscheinlich um einen Berechtigungsfehler handelt.");
 		  }
+			$waittime = 2;
+			unlink("../data/cleanup.lock");
 		}
 		else {
 			// eigentlicher action-handler
@@ -158,6 +177,7 @@
 					break;
 				case "runZuteilungsalgorithmus":
 					require("php/run.php");
+					$waittime = 1;
 					break;
 				default:
 					die("Unbekannter Befehl!");

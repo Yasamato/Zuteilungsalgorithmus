@@ -20,7 +20,7 @@ function showProjektInfoModal(p) {
     					<p><b>Klassenstufe:</b> ` + p.minKlasse + `-` + p.maxKlasse + `</p>
     					<p><b>Teilnehmerzahl:</b> ` + p.minPlatz + `-` + p.maxPlatz + `</p>
     					<p><b>Kosten/Sonstiges:</b> ` + p.sonstiges + `</p>
-    					<p><b>Vorraussetungen:</b> ` + p.vorraussetzungen + `</p>
+    					<p><b>Voraussetungen:</b> ` + p.vorraussetzungen + `</p>
             </div>
             <div class="col-sm-8">
               <p>` + p.beschreibung + `</p>

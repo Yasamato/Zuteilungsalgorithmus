@@ -303,7 +303,7 @@
 			$pdf->SetSubject('Projektliste');
       foreach ($projekte as $projekt) {
         $pdf->printProjekt($projekt);
-				if (!empty($projekt["teilnehmer"])) {
+				if (!empty($projekt["teilnehmer"]) && $_SESSION['benutzer']['typ'] == "admin") {
 					$pdf->printKlasse("Teilnehmerliste " . $projekt["name"], $projekt["teilnehmer"], $projekte, $zwangszuteilung);
 				}
       }

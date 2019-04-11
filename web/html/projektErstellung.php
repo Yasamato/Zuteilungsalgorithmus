@@ -4,7 +4,8 @@ if (!isLogin() || ($_SESSION['benutzer']['typ'] != "admin" && $_SESSION['benutze
   die("Zugriff verweigert");
 }
 
-if (!empty($_GET["projekt"]) && $_SESSION['benutzer']['typ'] == "teachers" && $config["Stage"] >= 3) {
+$projekt = null;
+if (empty($_GET["projekt"]) && $_SESSION['benutzer']['typ'] == "teachers" && $config["Stage"] >= 3) {
   die("Zugriff verweigert");
 }
 elseif (!empty($_GET["projekt"])) {
@@ -35,7 +36,7 @@ elseif (!empty($_GET["projekt"])) {
 			<!-- Eingabefeld für Projektname -->
 			<div class="col-md">
 				<label>Projektname</label>
-				<input type="text" class="form-control" placeholder="Projektname" required name="pName" autofocus value="<?php echo empty($_POST["pName"]) ? (empty($projekt["name"]) ? "" : $projekt["name"]) : $_POST["pName"]; ?>">
+				<input type="text" class="form-control" placeholder="Beispielsweise: Mein Traumprojekt" required name="pName" autofocus value="<?php echo empty($_POST["pName"]) ? (empty($projekt["name"]) ? "" : $projekt["name"]) : $_POST["pName"]; ?>">
 				<small class="text-muted">
 					Bitte geben Sie einen geeigneten Projektnamen an
 				</small>
@@ -44,7 +45,7 @@ elseif (!empty($_GET["projekt"])) {
 			<!-- Eingabefeld für die Betreuer -->
 			<div class="col-md">
 				<label>Betreuer</label>
-				<input type="text" class="form-control" placeholder="Betreuer" required name="betreuer" value="<?php echo empty($_POST["betreuer"]) ? (empty($projekt["betreuer"]) ? "" : $projekt["betreuer"]) : $_POST["betreuer"]; ?>">
+				<input type="text" class="form-control" placeholder="Beispielsweise: Hr. Mustermann, Fr. Mustermann" required name="betreuer" value="<?php echo empty($_POST["betreuer"]) ? (empty($projekt["betreuer"]) ? "" : $projekt["betreuer"]) : $_POST["betreuer"]; ?>">
 				<small class="text-muted">
 					Bitte geben Sie die Betreuer getrennt durch Kommata an
 				</small>
@@ -57,7 +58,7 @@ elseif (!empty($_GET["projekt"])) {
 			<!-- Eingabefeld für die Beschreibung -->
       <div class="col">
   			<label>Beschreibung</label>
-  			<textarea class="form-control" placeholder="Beschreibung" required rows="12" name="beschreibung"><?php echo empty($_POST["beschreibung"]) ? (empty($projekt["beschreibung"]) ? "" : newlineBack($projekt["beschreibung"])) : $_POST["beschreibung"]; ?></textarea>
+  			<textarea class="form-control" placeholder="Beispielsweise:" required rows="12" name="beschreibung"><?php echo empty($_POST["beschreibung"]) ? (empty($projekt["beschreibung"]) ? "" : newlineBack($projekt["beschreibung"])) : $_POST["beschreibung"]; ?></textarea>
   			<small class="text-muted">
   				Bitte geben Sie eine geeignete Beschreibung des Projektes an.
   			</small>
@@ -102,7 +103,7 @@ elseif (!empty($_GET["projekt"])) {
 		<div class="form-row">
       <!-- Eingabefeld für den Raumwunsch -->
       <label>Raumwunsch</label>
-      <input type="text" class="form-control" placeholder="B101/Sporthalle" name="raum" value="<?php echo empty($_POST["raum"]) ? (empty($projekt["raum"]) ? "" : $projekt["raum"]) : $_POST["raum"]; ?>">
+      <input type="text" class="form-control" placeholder="Beispielsweise: B101/Sporthalle" name="raum" value="<?php echo empty($_POST["raum"]) ? (empty($projekt["raum"]) ? "" : $projekt["raum"]) : $_POST["raum"]; ?>">
     </div>
     <p>
       <small class="text-muted">
@@ -115,7 +116,7 @@ elseif (!empty($_GET["projekt"])) {
 		<div class="form-row">
 			<!-- Eingabefeld für Kosten/Sontiges-->
 			<label>Kosten/Sonstiges</label>
-			<input type="text" class="form-control" placeholder="Kosten/Sonstiges" name="sonstiges" value="<?php echo empty($_POST["sonstiges"]) ? (empty($projekt["sonstiges"]) ? "" : $projekt["sonstiges"]) : $_POST["sonstiges"]; ?>">
+			<input type="text" class="form-control" placeholder="Beispielsweise: Zugticketkosten von 10€" name="sonstiges" value="<?php echo empty($_POST["sonstiges"]) ? (empty($projekt["sonstiges"]) ? "" : $projekt["sonstiges"]) : $_POST["sonstiges"]; ?>">
 		</div>
     <p>
       <small class="text-muted">
@@ -127,7 +128,7 @@ elseif (!empty($_GET["projekt"])) {
 		<!-- sechste Zeile -->
 		<div class="form-row">
 				<label>Besondere Voraussetzungen</label>
-				<input type="text" class="form-control" placeholder="Computerkenntnisse" name="vorraussetzungen" value="<?php echo empty($_POST["vorraussetzungen"]) ? (empty($projekt["vorraussetzungen"]) ? "" : $projekt["vorraussetzungen"]) : $_POST["vorraussetzungen"]; ?>">
+				<input type="text" class="form-control" placeholder="Beispielsweise: Computerkenntnisse" name="vorraussetzungen" value="<?php echo empty($_POST["vorraussetzungen"]) ? (empty($projekt["vorraussetzungen"]) ? "" : $projekt["vorraussetzungen"]) : $_POST["vorraussetzungen"]; ?>">
 		</div>
     <p>
       <small class="text-muted">
@@ -140,7 +141,7 @@ elseif (!empty($_GET["projekt"])) {
 		<div class="form-row">
 			<!-- Eingabefeld für Materialwünsche -->
 			<label>Materialwünsche</label>
-			<input type="text" class="form-control" placeholder="Beamer" name="material" value="<?php echo empty($_POST["material"]) ? (empty($projekt["material"]) ? "" : $projekt["material"]) : $_POST["material"]; ?>">
+			<input type="text" class="form-control" placeholder="Beispielsweise: Beamer, Smart-board" name="material" value="<?php echo empty($_POST["material"]) ? (empty($projekt["material"]) ? "" : $projekt["material"]) : $_POST["material"]; ?>">
 		</div>
     <p>
       <small class="text-muted">

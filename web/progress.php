@@ -1,11 +1,9 @@
 <?php
-  if (file_exists("../FinishedAlgorithm/prozentzahl")) {
+  require("php/utils.php");
+  if (file_exists("../FinishedAlgorithm/prozentzahl") && isRunning(file_get_contents("../data/algorithmus.pid"))) {
     echo file_get_contents("../FinishedAlgorithm/prozentzahl");
   }
-  elseif (file_exists("../data/algorithmus.pid")) {
-    echo 1;
-  }
   else {
-    echo 0;
+    echo 1;
   }
 ?>

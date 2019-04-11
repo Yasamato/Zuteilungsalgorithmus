@@ -1,11 +1,12 @@
 <?php
 if (isLogin()) {
-	if (!empty($_POST['wahl']) && count($_POST['wahl']) == 4 && $_SESSION['benutzer']['typ'] != "teachers") {
+	if (!empty($_POST['wahl']) && count($_POST['wahl']) == CONFIG["anzahlWahlen"] && $_SESSION['benutzer']['typ'] != "teachers") {
 		$valid = true;
 		foreach ($_POST['wahl'] as $p) {
 			$projekt = getProjektInfo($projekte, $p);
 			if (empty($projekt) || $projekt['minKlasse'] > $_SESSION['benutzer']['stufe'] && $projekt['maxKlasse'] < $_SESSION['benutzer']['stufe']) {
 				$valid = false;
+				break;
 			}
 		}
 

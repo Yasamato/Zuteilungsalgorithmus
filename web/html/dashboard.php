@@ -128,7 +128,7 @@ $errorIncluded = false;
         }
         ?>
         <div class="alert alert-<?php echo $config["Stage"] < 4 ? "primary alert-dismissible fade show" : "danger"; ?>" role="alert">
-          Es ha<?php echo $klassenFertig > 1 ? "ben " : "t " . $klassenFertig . " von " . count($klassenliste); ?> Klassen vollständig gewählt. Einträge <a href="javascript: ;" onclick="javascript: $('#studentsInKlassen').modal('show');" class="alert-link">auflisten</a>
+          Es ha<?php echo ($klassenFertig > 1 ? "ben " : "t ") . $klassenFertig . " von " . count($klassenliste); ?> Klassen vollständig gewählt. Einträge <a href="javascript: ;" onclick="javascript: $('#studentsInKlassen').modal('show');" class="alert-link">auflisten</a>
           <?php if ($config["Stage"] < 4) { ?>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -154,7 +154,7 @@ $errorIncluded = false;
           }
           ?>
           <div class="alert alert-<?php echo ($pMax < $gesamtanzahl ? "danger" : "warning"); ?>" role="alert">
-            Die von allen Projekten summierte Maximalteilnehmeranzahl ist <?php echo ($pMax < $gesamtanzahl ? "kleiner als die" : " liegt nur wenig über der"); ?> Gesamtschülerzahl. Dies kann zu Problemen führen. Bitte erweitern sie die Maximalzahl bestehender Projekte <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> oder fügen sie weitere Projekte <a href="javascript: ;" onclick="javascript: window.location.href = '?site=create';" class="alert-link">hier</a> hinzu.
+            Die von allen Projekten summierte Maximalteilnehmeranzahl <?php echo ($pMax < $gesamtanzahl ? "ist kleiner als die" : "liegt nur wenig über der"); ?> Gesamtschülerzahl und kann zu Problemen führen. Bitte erweitern sie die Maximalzahl bestehender Projekte <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> oder fügen sie weitere Projekte <a href="javascript: ;" onclick="javascript: window.location.href = '?site=create';" class="alert-link">hier</a> hinzu.
           </div><?php
         }
 
@@ -225,9 +225,18 @@ $errorIncluded = false;
     </p>
     <form method="post">
       <input type="hidden" name="action" value="runZuteilungsalgorithmus">
-      <button type="submit" class="btn btn-primary">
-        Erneut ausführen
-      </a>
+      <div class="input-group">
+        <select class="form-control custom-select" name="genauigkeit">
+          <option value="1">Schnellste Laufzeit</option>
+          <option value="2" selected>Normale Genauigkeit</option>
+          <option value="3">Optimalere Verteilung</option>
+        </select>
+        <div class="input-group-append">
+          <button type="submit" class="btn btn-primary">
+            Erneut ausführen
+          </button>
+        </div>
+      </div>
     </form>
     <?php
       }
@@ -247,9 +256,18 @@ $errorIncluded = false;
     </p>
     <form method="post">
       <input type="hidden" name="action" value="runZuteilungsalgorithmus">
-      <button type="submit" class="btn btn-primary">
-        Starten
-      </a>
+      <div class="input-group">
+        <select class="form-control custom-select" name="genauigkeit">
+          <option value="1">Schnellste Laufzeit</option>
+          <option value="2" selected>Normale Genauigkeit</option>
+          <option value="3">Optimalere Verteilung</option>
+        </select>
+        <div class="input-group-append">
+          <button type="submit" class="btn btn-primary">
+            Starten
+          </button>
+        </div>
+      </div>
     </form>
     <?php
       }
@@ -279,7 +297,10 @@ $errorIncluded = false;
               } else {
                 $($('.progress-bar')[0]).css('width', '100%').html("100%");
                 $($('.progress-bar')[1]).css('width', '0%').html("");
-                window.location.reload();
+                clearInterval(progressbarCheck);
+                setTimeout(function () {
+                  window.location.href = "?";
+                }, 2000);
               }
             }
             else {
@@ -305,7 +326,7 @@ $errorIncluded = false;
     if (!empty($studentOhneZuteilung)) {
       ?>
       <div class="alert alert-danger" role="alert">
-        Es konnten <strong><?php echo count($studentOhneZuteilung); ?> Schüler</strong> keinem Projekt zugeteilt werden und diese müssen <a href="javascript: ;" onclick="javascript: $('#schuelerModal').modal('show');" class="alert-link">hier manuell</a> zugeteilt werden.
+        Es konnten <strong><?php echo count($studentOhneZuteilung); ?> Schüler</strong> keinem Projekt zugeteilt werden. Diese müssen <a href="javascript: ;" onclick="javascript: $('#schuelerModal').modal('show');" class="alert-link">hier manuell</a> zugeteilt werden.
       </div><?php
     }
 
@@ -323,13 +344,13 @@ $errorIncluded = false;
     if (!empty($projekteNichtStattfinden)) {
       ?>
       <div class="alert alert-danger" role="alert">
-        Es können <strong><?php echo count($projekteNichtStattfinden); ?> Projekte</strong> aufgrund mangelnder Teilnehmerzahl nicht stattfinden. <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">Projekt einsehen</a>
+        Es können <strong><?php echo count($projekteNichtStattfinden); ?> Projekte</strong> aufgrund mangelnder Teilnehmerzahl nicht stattfinden. <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">Projekte einsehen</a>
       </div><?php
     }
     if (!empty($projekteZuViel)) {
       ?>
       <div class="alert alert-warning" role="alert">
-        Die Teilnehmerzahl von <strong><?php echo count($projekteZuViel); ?> Projekten</strong> übersteigt die Maximalteilnehmeranzahl. <a href="javasript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">Projekt einsehen</a>
+        Die Teilnehmerzahl von <strong><?php echo count($projekteZuViel); ?> Projekten</strong> übersteigt die Maximalteilnehmeranzahl. <a href="javasript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">Projekte einsehen</a>
       </div><?php
     }
   }
@@ -592,6 +613,12 @@ $errorIncluded = false;
           <tbody>
             <?php
             foreach ($projekteNichtStattfinden as $projekt) {
+              foreach ($projekte as $k => $p) {
+                if ($p["id"] == $projekt["id"]) {
+                  $key = $k;
+                  break;
+                }
+              }
               echo '
               <tr class="border-left border-danger">
                 <td><a href="javascript:;" onclick="javasript: showProjektInfoModal(projekte[' . $key . ']);">' . $projekt["name"] . '</a></td>
@@ -608,7 +635,7 @@ $errorIncluded = false;
           if (!empty($projekteZuViel)) {
             ?>
         <h4 class="text-warning">Die Teilnehmerzahl der folgenden Projekte überschreitet deren Maximalteilnehmeranzahl.</h4>
-        <table class="table table-dark table-striped table-hover border border-danger">
+        <table class="table table-dark table-striped table-hover border border-warning">
           <thead class="thead-dark">
             <tr>
               <th class="sticky-top">Name</th>
@@ -619,13 +646,19 @@ $errorIncluded = false;
           </thead>
           <tbody>
             <?php
-            foreach ($projekteNichtStattfinden as $projekt) {
+            foreach ($projekteNichtStattfinden as $key => $projekt) {
+              foreach ($projekte as $k => $p) {
+                if ($p["id"] == $projekt["id"]) {
+                  $key = $k;
+                  break;
+                }
+              }
               echo '
               <tr class="border-left border-warning">
                 <td><a href="javascript:;" onclick="javasript: showProjektInfoModal(projekte[' . $key . ']);">' . $projekt["name"] . '</a></td>
                 <td>' . $projekt["betreuer"] . '</td>
                 <td>' . $projekt["minKlasse"] . '-' . $projekt["maxKlasse"] . '</td>
-                <td class="bg-warning">(' . count($projekt["teilnehmer"]) . ') >' . $projekt["minPlatz"] . '-' . $projekt["maxPlatz"] . '</td>
+                <td class="bg-warning">(' . count($projekt["teilnehmer"]) . ') ' . $projekt["minPlatz"] . '-' . $projekt["maxPlatz"] . '</td>
               </tr>';
             }
             ?>
@@ -995,13 +1028,13 @@ $errorIncluded = false;
           <button type="submit" class="btn btn-primary">Änderung speichern</button>
           <br>
           <small class="text-muted">
-            Um Schüler Zwangszuzuteilen tragen Sie bitte die U-ID (Login-Name des Schülers) korrekt ein und wählen sie das entsprechende Projekt aus.
+            Um Schüler vorab fest einem Projekt zuzuteilen, tragen Sie bitte die U-ID (Login-Name des Schülers) korrekt ein und wählen sie das entsprechende Projekt aus.
             Falls sie bereits ein Projekt ausgewählt haben, färbt sich der Knopf zur Projektauswahl grün und die Beschriftung ändert sich zu "Ändern".
-            Es kann jedoch weiterhin jederzeit das ausgewwählte Projekt geändert werden.
+            Es kann jedoch weiterhin jederzeit das ausgewählte Projekt geändert werden.
             Unten sehen sie einen beispielhaften Eintrag.
             Um einen weiteres Eingabefeld hinzuzufügen, klicken Sie auf den grünen Knopf links unten mit der Beschriftung "Schüler hinzufügen &#10010;".
-            Um einen Eintrag zu entfernen betätigen sie das rote Kreuz rechts vom Eintrag.
-            Bitte beachten Sie, dass unvollständige Einträge beim Speichern gelöscht werden und getätigte Änderungen nur übernommen werden bei der Tätigung des "Änderungen speichern"-Knopfes.
+            Um einen Eintrag zu entfernen, betätigen sie das rote Kreuz rechts vom Eintrag.
+            Bitte beachten Sie, dass unvollständige Einträge beim Speichern gelöscht werden und Änderungen nur übernommen werden bei Betätigung des "Änderungen speichern"-Knopfes.
           </small>
 
           <table class="table table-dark">
@@ -1234,7 +1267,7 @@ $errorIncluded = false;
           Dadurch kann eine Überprüfung der Vollständigkeit durchgeführt werden.
           Um einen weiteres Eingabefeld hinzuzufügen, klicken Sie auf den grünen Knopf links unten mit der Beschriftung "Klasse hinzufügen &#10010;".
           Um einen Eintrag zu entfernen betätigen sie das rote Kreuz rechts vom Eintrag.
-          Bitte beachten Sie, dass unvolständige Einträge beim Speichern gelöscht werden.
+          Bitte beachten Sie, dass unvollständige Einträge beim Speichern gelöscht werden.
           Im Nachfolgenden sehen Sie einen beispielhaften Eintrag einer 5. Klasse mit 28 Schülern.
         </small>
 

@@ -8,7 +8,7 @@ Neben der mühseligen Aufgabe der Datensammlung, beherscht die Software eine aut
 # Systemanforderungen
 - Linux OS, Mac OS (getestet mit Ubuntu 18.04 LTS)
 - php-fähiger Webserver (getestet mit Apache 2.4.29)
-- >=php7.0 (getestet mit php7.2.15)
+- php7.0 (getestet mit php7.2.15)
 - java Runtime Environment (getestet mit java 7 und 8)
 
 

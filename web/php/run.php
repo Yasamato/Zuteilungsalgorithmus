@@ -5,6 +5,9 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
 if (file_exists("../data/algorithmus.pid")) {
   alert("Der Zuteilungsalgorithmus läuft bereits.");
 }
+elseif (empty($_POST["genauigkeit"]) || $_POST["genauigkeit"] < 1 || $_POST["genauigkeit"] > 3) {
+  alert("Ungültiger Genauigkeitsangabe.");
+}
 else {
   // generate the statistics how many places are available in each class
   // initialize the data array
@@ -89,11 +92,13 @@ else {
     if (($fh = fopen("../FinishedAlgorithm/projekte.csv", "w")) === false) {
       die("Mangelnde Zugriffsberechtigung auf den Ordner FinishedAlgorithm");
     }
+    $zwangszugeteiltGesamt = 0;
     foreach ($projekte as $projekt) {
       $zwangszugeteilt = 0;
       foreach ($zwangszuteilung as $zuteilung) {
         if ($zuteilung["projekt"] == $projekt["id"]) {
           $zwangszugeteilt += 1;
+          $zwangszugeteiltGesamt += 1;
         }
       }
       fwrite($fh, $projekt["id"] . "," . ($projekt["minPlatz"] - $zwangszugeteilt) . "," . ($projekt["maxPlatz"] - $zwangszugeteilt));
@@ -121,7 +126,12 @@ else {
     }
     fclose($fh);
 
-    $cmd = "java -jar ../FinishedAlgorithm/Algorithmus.jar 2 100000 '../FinishedAlgorithm/projekte.csv' ',ImM' '../FinishedAlgorithm/schueler.csv' ',KNV1234'";
+    $iterationen = count($projekte) * (count($wahlen) - $zwangszugeteiltGesamt) * pow(10, $_POST["genauigkeit"] - 2); // mit $_POST["genauigkeit"] = [0; 2]
+    $wahlString = "";
+    for ($i = 1; $i <= CONFIG["anzahlWahlen"]; $i++) {
+      $wahlString .= $i;
+    }
+    $cmd = "java -jar ../FinishedAlgorithm/Algorithmus.jar 2 " . intval($iterationen) . " '../FinishedAlgorithm/projekte.csv' ',ImM' '../FinishedAlgorithm/schueler.csv' ',KNV" . $wahlString . "'";
     $outputfile = "../data/algorithmus.log";
     $pidfile = "../data/algorithmus.pid";
     exec("cd ../FinishedAlgorithm; " . sprintf("%s > %s 2>&1 & echo $! >> %s", $cmd, $outputfile, $pidfile));
