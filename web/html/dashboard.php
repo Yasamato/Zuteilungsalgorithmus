@@ -297,7 +297,10 @@ $errorIncluded = false;
               } else {
                 $($('.progress-bar')[0]).css('width', '100%').html("100%");
                 $($('.progress-bar')[1]).css('width', '0%').html("");
-                window.location.href = "?";
+                clearInterval(progressbarCheck);
+                setTimeout(function () {
+                  window.location.href = "?";
+                }, 2000);
               }
             }
             else {

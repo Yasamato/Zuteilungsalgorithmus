@@ -126,8 +126,12 @@ else {
     }
     fclose($fh);
 
-    $iterationen = count($projekte) * (count($wahlen) - $zwangszugeteiltGesamt) * pow(10, $_POST["genauigkeit"] - 1); // mit $_POST["genauigkeit"] = [0; 2]
-    $cmd = "java -jar ../FinishedAlgorithm/Algorithmus.jar 2 " . $iterationen . " '../FinishedAlgorithm/projekte.csv' ',ImM' '../FinishedAlgorithm/schueler.csv' ',KNV1234'";
+    $iterationen = count($projekte) * (count($wahlen) - $zwangszugeteiltGesamt) * pow(10, $_POST["genauigkeit"] - 2); // mit $_POST["genauigkeit"] = [0; 2]
+    $wahlString = "";
+    for ($i = 1; $i <= CONFIG["anzahlWahlen"]; $i++) {
+      $wahlString .= $i;
+    }
+    $cmd = "java -jar ../FinishedAlgorithm/Algorithmus.jar 2 " . intval($iterationen) . " '../FinishedAlgorithm/projekte.csv' ',ImM' '../FinishedAlgorithm/schueler.csv' ',KNV" . $wahlString . "'";
     $outputfile = "../data/algorithmus.log";
     $pidfile = "../data/algorithmus.pid";
     exec("cd ../FinishedAlgorithm; " . sprintf("%s > %s 2>&1 & echo $! >> %s", $cmd, $outputfile, $pidfile));

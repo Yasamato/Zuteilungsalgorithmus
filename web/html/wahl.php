@@ -61,7 +61,7 @@
 	    		</thead>
 	    		<tbody>
 					<?php
-					for ($i = 0; $i < 4; $i++) {
+					for ($i = 0; $i < CONFIG["anzahlWahlen"]; $i++) {
 						echo "
 						<tr>
 							<th>" . ($i + 1) . "</th>

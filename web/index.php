@@ -176,6 +176,7 @@
 					break;
 				case "runZuteilungsalgorithmus":
 					require("php/run.php");
+					$waittime = 1;
 					break;
 				default:
 					die("Unbekannter Befehl!");

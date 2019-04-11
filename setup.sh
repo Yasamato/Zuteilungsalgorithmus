@@ -64,6 +64,7 @@ cat > data/config.php <<EOF
     "dbFilesPermission" => $level, // siehe https://www.w3schools.com/php/func_filesystem_chmod.asp
     "adminUser" => "$adminUser",
     "adminPassword" => "$adminPassword",
+    "anzahlWahlen" => 5, // Anzahl der Wahlfelder für die Schüler
     "minStufe" => 5,
     "maxStufe" => 12
   ]);
