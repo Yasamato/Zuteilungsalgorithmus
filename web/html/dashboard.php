@@ -229,7 +229,7 @@ $errorIncluded = false;
         <select class="form-control custom-select" name="genauigkeit">
           <option value="0">Schnellste Laufzeit</option>
           <option value="1" selected>Normale Genauigkeit</option>
-          <option value="2">Optimale Verteilung</option>
+          <option value="2">Optimalere Verteilung</option>
         </select>
         <div class="input-group-append">
           <button type="submit" class="btn btn-primary">
@@ -260,7 +260,7 @@ $errorIncluded = false;
         <select class="form-control custom-select" name="genauigkeit">
           <option value="0">Schnellste Laufzeit</option>
           <option value="1" selected>Normale Genauigkeit</option>
-          <option value="2">Optimale Verteilung</option>
+          <option value="2">Optimalere Verteilung</option>
         </select>
         <div class="input-group-append">
           <button type="submit" class="btn btn-primary">
