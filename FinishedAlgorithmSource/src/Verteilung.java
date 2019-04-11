@@ -257,6 +257,12 @@ public class Verteilung {
                         for (Schueler s : reinTauschKandidaten) {
                             assert (s.getWahlPosition(p) != -1);
                             reinTauschScore += Math.pow(s.getWahlPosition(p) - 1, 2);
+                            //Minus Score davor
+                            if (s.hatZugeteiltesProjekt()) {
+                                reinTauschScore -= Math.pow(s.getWahlPosition(s.getZugeteiltesProjekt()) - 1, 2);
+                            } else {
+                                reinTauschScore -= anzahlWahlen * anzahlWahlen;
+                            }
                         }
                     }
                     double rausTauschScore = 0;
@@ -280,6 +286,7 @@ public class Verteilung {
                         }
                     }
                     for (Schueler s : p.getTeilnehmer()) {
+                        rausTauschScore -= Math.pow(s.getWahlPosition(s.getZugeteiltesProjekt()) - 1, 2);
                         if (!imaginärZugeteilt.containsKey(s)) {
                             rausTauschScore += Math.pow(anzahlWahlen, 2);
                         }
@@ -300,14 +307,19 @@ public class Verteilung {
                     } else {
                         //Raus tauschen
                         projektIterator.remove();
+                        ArrayList<Schueler> deleteLater = new ArrayList<>();
                         for (Schueler s : p.getTeilnehmer()) {
                             Projekt tausch = imaginärZugeteilt.getOrDefault(s, null);
                             if (tausch != null) {
-                                s.schreibeAusProjektAus();
-                                s.teileProjektZu(tausch);
+                                deleteLater.add(s);
                             } else {
                                 deadSchueler.add(s);
                             }
+                        }
+                        for (Schueler s : deleteLater) {
+                            s.schreibeAusProjektAus();
+                            Projekt tausch = imaginärZugeteilt.getOrDefault(s, null);
+                            s.teileProjektZu(tausch);
                         }
                         int vorher = deadSchueler.size();
                         platzFreiFuerSchueler(deadSchueler, anzahlWahlen);
@@ -319,25 +331,25 @@ public class Verteilung {
                 }
             }
         }
-
-        /* TODO */
-        A:
-        for (Schueler s : this.schuelerListe) {
-            int wahl = s.hatZugeteiltesProjekt() ? s.getWahlPosition(s.getZugeteiltesProjekt()) : anzahlWahlen + 1;
-            Projekt z = s.getZugeteiltesProjekt();
-            if (z == null || z.getTeilnehmer().size() > z.getminTeilnehmer()) {
-                for (int i = 1; i < wahl; i++) {
+        for (int i = 1; i <= anzahlWahlen; i++) {
+            for (Schueler s : this.schuelerListe) {
+                if (s.hatZugeteiltesProjekt() && s.getWahlPosition(s.getZugeteiltesProjekt()) <= i) {
+                    continue;
+                }
+                Projekt z = s.getZugeteiltesProjekt();
+                if (z == null || z.getTeilnehmer().size() > z.getminTeilnehmer()) {
                     Projekt projekt = s.getWahl(i);
                     if (projekt.getTeilnehmer().size() < projekt.getmaxTeilnehmer()) {
                         if (s.hatZugeteiltesProjekt()) {
                             s.schreibeAusProjektAus();
                         }
                         s.teileProjektZu(projekt);
-                        continue A;
+                        continue;
                     }
                 }
             }
         }
+
         boolean tausch = true;
         A:
         while (tausch) {
@@ -356,7 +368,7 @@ public class Verteilung {
                             int wahls2 = s2.getWahlPosition(iteWahl);
                             int welcheWahlIstProjekt = s2.getWahlPosition(projekt);
                             if (welcheWahlIstProjekt == -1) {
-                                welcheWahlIstProjekt = s2.wuensche.length + 1;
+                                continue;
                             }
                             double minusScore = (wahls2 - 1) * (wahls2 - 1) - (welcheWahlIstProjekt - 1) * (welcheWahlIstProjekt - 1);
                             if (plusScore + minusScore > bestTausch) {
@@ -395,7 +407,7 @@ public class Verteilung {
                 Projekt p = s.getWahl(i + 1);
                 if (p.getTeilnehmer().size() < p.getmaxTeilnehmer()) {
                     s.teileProjektZu(p);
-                    deadSchueler.remove(s);
+                    dSI.remove();
                 }
             }
         }
