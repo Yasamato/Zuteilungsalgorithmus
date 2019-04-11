@@ -98,7 +98,7 @@ public class Verteilung {
 
                         for (int m = j - 1; m >= 1; m--) {
                             Projekt p = s.getWahl(m);
-                            Schueler s2 = p.getSchuelerDessenNteWahlNochFreiIst(j);
+                            Schueler s2 = p.getSchuelerDessenNteWahlNochFreiIst(j, this.projektListe);
                             if (s2 != null) {
                                 s2.schreibeAusProjektAus();
                                 s2.teileProjektZu(s2.getWahl(j));
@@ -116,7 +116,6 @@ public class Verteilung {
 
         //Verschiebe Schueler die jetzt noch in einem Projekt sind, welches aufgrund der Mindestanzahl nicht stattfinden koennen.
         if (beachteProjekteDieNichtStattFinden) {
-            ArrayList<Schueler> dieSchueler = new ArrayList<Schueler>();
             int countPlaetze = 0;
             ArrayList<Projekt> zuloeschen = new ArrayList<Projekt>();
             for (Projekt p : this.projektListe) {
@@ -126,7 +125,6 @@ public class Verteilung {
                     for (int i = 0; i < p.getTeilnehmer().size(); ) {
                         Schueler s = p.getTeilnehmer().get(i);
                         s.schreibeAusProjektAus();
-                        dieSchueler.add(s);
                     }
                 }
             }
