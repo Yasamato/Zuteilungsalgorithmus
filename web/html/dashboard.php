@@ -128,7 +128,7 @@ $errorIncluded = false;
         }
         ?>
         <div class="alert alert-<?php echo $config["Stage"] < 4 ? "primary alert-dismissible fade show" : "danger"; ?>" role="alert">
-          Es ha<?php echo $klassenFertig > 1 ? "ben " : "t " . $klassenFertig . " von " . count($klassenliste); ?> Klassen vollständig gewählt. Einträge <a href="javascript: ;" onclick="javascript: $('#studentsInKlassen').modal('show');" class="alert-link">auflisten</a>
+          Es ha<?php echo ($klassenFertig > 1 ? "ben " : "t ") . $klassenFertig . " von " . count($klassenliste); ?> Klassen vollständig gewählt. Einträge <a href="javascript: ;" onclick="javascript: $('#studentsInKlassen').modal('show');" class="alert-link">auflisten</a>
           <?php if ($config["Stage"] < 4) { ?>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -154,7 +154,7 @@ $errorIncluded = false;
           }
           ?>
           <div class="alert alert-<?php echo ($pMax < $gesamtanzahl ? "danger" : "warning"); ?>" role="alert">
-            Die von allen Projekten summierte Maximalteilnehmeranzahl ist <?php echo ($pMax < $gesamtanzahl ? "kleiner als die" : " liegt nur wenig über der"); ?> Gesamtschülerzahl. Dies kann zu Problemen führen. Bitte erweitern sie die Maximalzahl bestehender Projekte <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> oder fügen sie weitere Projekte <a href="javascript: ;" onclick="javascript: window.location.href = '?site=create';" class="alert-link">hier</a> hinzu.
+            Die von allen Projekten summierte Maximalteilnehmeranzahl <?php echo ($pMax < $gesamtanzahl ? "ist kleiner als die" : "liegt nur wenig über der"); ?> Gesamtschülerzahl und kann zu Problemen führen. Bitte erweitern sie die Maximalzahl bestehender Projekte <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> oder fügen sie weitere Projekte <a href="javascript: ;" onclick="javascript: window.location.href = '?site=create';" class="alert-link">hier</a> hinzu.
           </div><?php
         }
 
@@ -228,7 +228,7 @@ $errorIncluded = false;
       <div class="input-group">
         <select class="form-control custom-select" name="genauigkeit">
           <option value="0">Schnellste Laufzeit</option>
-          <option value="1" selected>Normal Genauigkeit</option>
+          <option value="1" selected>Normale Genauigkeit</option>
           <option value="2">Optimale Verteilung</option>
         </select>
         <div class="input-group-append">
@@ -259,7 +259,7 @@ $errorIncluded = false;
       <div class="input-group">
         <select class="form-control custom-select" name="genauigkeit">
           <option value="0">Schnellste Laufzeit</option>
-          <option value="1" selected>Normal Genauigkeit</option>
+          <option value="1" selected>Normale Genauigkeit</option>
           <option value="2">Optimale Verteilung</option>
         </select>
         <div class="input-group-append">
@@ -297,7 +297,7 @@ $errorIncluded = false;
               } else {
                 $($('.progress-bar')[0]).css('width', '100%').html("100%");
                 $($('.progress-bar')[1]).css('width', '0%').html("");
-                window.location.reload();
+                window.location.href = "?";
               }
             }
             else {
@@ -610,6 +610,12 @@ $errorIncluded = false;
           <tbody>
             <?php
             foreach ($projekteNichtStattfinden as $projekt) {
+              foreach ($projekte as $k => $p) {
+                if ($p["id"] == $projekt["id"]) {
+                  $key = $k;
+                  break;
+                }
+              }
               echo '
               <tr class="border-left border-danger">
                 <td><a href="javascript:;" onclick="javasript: showProjektInfoModal(projekte[' . $key . ']);">' . $projekt["name"] . '</a></td>
@@ -637,7 +643,13 @@ $errorIncluded = false;
           </thead>
           <tbody>
             <?php
-            foreach ($projekteNichtStattfinden as $projekt) {
+            foreach ($projekteNichtStattfinden as $key => $projekt) {
+              foreach ($projekte as $k => $p) {
+                if ($p["id"] == $projekt["id"]) {
+                  $key = $k;
+                  break;
+                }
+              }
               echo '
               <tr class="border-left border-warning">
                 <td><a href="javascript:;" onclick="javasript: showProjektInfoModal(projekte[' . $key . ']);">' . $projekt["name"] . '</a></td>

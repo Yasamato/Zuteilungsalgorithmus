@@ -5,6 +5,9 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
 if (file_exists("../data/algorithmus.pid")) {
   alert("Der Zuteilungsalgorithmus läuft bereits.");
 }
+elseif (empty($_POST["genauigkeit"]) || $_POST["genauigkeit"] < 0 || $_POST["genauigkeit"] > 2) {
+  alert("Ungültiger Genauigkeitsangabe.");
+}
 else {
   // generate the statistics how many places are available in each class
   // initialize the data array

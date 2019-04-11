@@ -37,7 +37,7 @@
 	require "php/utils.php";
 
 	/*
-	Integration von Fabi's Verteilung
+	// Integration von Fabi's Verteilung
 	$tmp = file_get_contents("../data/nurSchueler.csv");
 	$data = [];
 	$header = [
@@ -85,6 +85,20 @@
 		logout();
 	}
 	require 'php/setup.php';
+
+	if (($fh = fopen("../data/p.csv", "w")) === false) {
+		die("Mangelnde Zugriffsberechtigung auf den Ordner FinishedAlgorithm");
+	}
+	fwrite($fh, "id,minPlatz,maxPlatz,minKlasse,maxKlasse\n");
+	foreach ($projekte as $projekt) {
+    fwrite($fh, $projekt["id"] . "," . $projekt["minPlatz"] . "," . $projekt["maxPlatz"] . "," . $projekt["minKlasse"] . "," . $projekt["maxKlasse"]);
+    if ($projekt["id"] != $projekte[count($projekte) - 1]["id"]) {
+      fwrite($fh, "\n");
+    }
+	}
+	fclose($fh);
+
+
 	$waittime = 0;
 	if (isset($_POST['action']) || isLogin() && $_SESSION['benutzer']['typ'] == "admin" && file_exists("../data/algorithmus.pid") && !isRunning(file_get_contents("../data/algorithmus.pid"))) {
 		// cleanup des Zuteilungsalgorithmus
