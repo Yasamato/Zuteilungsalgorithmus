@@ -240,7 +240,7 @@ public class Verteilung {
                         }
                         assert (p.getTeilnehmer().size() >= p.getminTeilnehmer());
                         int vorher = deadSchueler.size();
-                        platzFreiFuerSchueler(deadSchueler, anzahlWahlen);
+                        platzFreiFuerSchueler(deadSchueler, anzahlWahlen, this.projektListe);
                         int nachher = deadSchueler.size();
                         if (vorher != nachher) {
                             beliebteste = beliebtheitsListe(deadSchueler);
@@ -299,7 +299,7 @@ public class Verteilung {
                         }
                         assert (p.getTeilnehmer().size() >= p.getminTeilnehmer());
                         int vorher = deadSchueler.size();
-                        platzFreiFuerSchueler(deadSchueler, anzahlWahlen);
+                        platzFreiFuerSchueler(deadSchueler, anzahlWahlen, this.projektListe);
                         int nachher = deadSchueler.size();
                         if (vorher != nachher) {
                             beliebteste = beliebtheitsListe(deadSchueler);
@@ -313,16 +313,19 @@ public class Verteilung {
                             if (tausch != null) {
                                 deleteLater.add(s);
                             } else {
+                                deleteLater.add(s);
                                 deadSchueler.add(s);
                             }
                         }
                         for (Schueler s : deleteLater) {
                             s.schreibeAusProjektAus();
                             Projekt tausch = imaginärZugeteilt.getOrDefault(s, null);
-                            s.teileProjektZu(tausch);
+                            if (tausch != null) {
+                                s.teileProjektZu(tausch);
+                            }
                         }
                         int vorher = deadSchueler.size();
-                        platzFreiFuerSchueler(deadSchueler, anzahlWahlen);
+                        platzFreiFuerSchueler(deadSchueler, anzahlWahlen, this.projektListe);
                         int nachher = deadSchueler.size();
                         if (vorher != nachher) {
                             beliebteste = beliebtheitsListe(deadSchueler);
@@ -339,7 +342,7 @@ public class Verteilung {
                 Projekt z = s.getZugeteiltesProjekt();
                 if (z == null || z.getTeilnehmer().size() > z.getminTeilnehmer()) {
                     Projekt projekt = s.getWahl(i);
-                    if (projekt.getTeilnehmer().size() < projekt.getmaxTeilnehmer()) {
+                    if (projekt.getTeilnehmer().size() < projekt.getmaxTeilnehmer() && this.projektListe.contains(projekt)) {
                         if (s.hatZugeteiltesProjekt()) {
                             s.schreibeAusProjektAus();
                         }
@@ -395,17 +398,18 @@ public class Verteilung {
      * Schaut, ob ein gewaehltes Projekt eines noch nicht zugeteilten Schuelers noch freie Plaetze hat. Ist dies der Fall,
      * so wird der Schueler dort zugeteilt.
      *
-     * @param deadSchueler Noch nicht zugeteilte Schueler
-     * @param anzahlWahlen Die Anzahl der abgegebenen Wuensche
+     * @param deadSchueler          Noch nicht zugeteilte Schueler
+     * @param anzahlWahlen          Die Anzahl der abgegebenen Wuensche
+     * @param stattfindendeProjekte Projekte, die stattfinden
      */
-    public void platzFreiFuerSchueler(ArrayList<Schueler> deadSchueler, int anzahlWahlen) {
+    public void platzFreiFuerSchueler(ArrayList<Schueler> deadSchueler, int anzahlWahlen, ArrayList<Projekt> stattfindendeProjekte) {
         for (int i = 0; i < anzahlWahlen; i++) {
             Iterator<Schueler> dSI = deadSchueler.iterator();
             Schueler s;
             while (dSI.hasNext()) {
                 s = dSI.next();
                 Projekt p = s.getWahl(i + 1);
-                if (p.getTeilnehmer().size() < p.getmaxTeilnehmer()) {
+                if (p.getTeilnehmer().size() < p.getmaxTeilnehmer() && stattfindendeProjekte.contains(p)) {
                     s.teileProjektZu(p);
                     dSI.remove();
                 }
