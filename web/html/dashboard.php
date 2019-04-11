@@ -632,7 +632,7 @@ $errorIncluded = false;
           if (!empty($projekteZuViel)) {
             ?>
         <h4 class="text-warning">Die Teilnehmerzahl der folgenden Projekte überschreitet deren Maximalteilnehmeranzahl.</h4>
-        <table class="table table-dark table-striped table-hover border border-danger">
+        <table class="table table-dark table-striped table-hover border border-warning">
           <thead class="thead-dark">
             <tr>
               <th class="sticky-top">Name</th>
