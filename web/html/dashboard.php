@@ -655,7 +655,7 @@ $errorIncluded = false;
                 <td><a href="javascript:;" onclick="javasript: showProjektInfoModal(projekte[' . $key . ']);">' . $projekt["name"] . '</a></td>
                 <td>' . $projekt["betreuer"] . '</td>
                 <td>' . $projekt["minKlasse"] . '-' . $projekt["maxKlasse"] . '</td>
-                <td class="bg-warning">(' . count($projekt["teilnehmer"]) . ') >' . $projekt["minPlatz"] . '-' . $projekt["maxPlatz"] . '</td>
+                <td class="bg-warning">(' . count($projekt["teilnehmer"]) . ') ' . $projekt["minPlatz"] . '-' . $projekt["maxPlatz"] . '</td>
               </tr>';
             }
             ?>

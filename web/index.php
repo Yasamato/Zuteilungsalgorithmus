@@ -102,9 +102,11 @@
 	$waittime = 0;
 	if (isset($_POST['action']) || isLogin() && $_SESSION['benutzer']['typ'] == "admin" && file_exists("../data/algorithmus.pid") && !isRunning(file_get_contents("../data/algorithmus.pid"))) {
 		// cleanup des Zuteilungsalgorithmus
-		if (file_exists("../data/algorithmus.pid") && !isRunning(file_get_contents("../data/algorithmus.pid"))) {
-		  alert("Der Zuteilungsalgorithmus wurde beendet.");
+		if (!file_exists("../data/cleanup.lock") && file_exists("../data/algorithmus.pid") && !isRunning(file_get_contents("../data/algorithmus.pid"))) {
+			$fh = fopen("../data/cleanup.lock", "w");
+			fclose($fh);
 		  unlink("../data/algorithmus.pid");
+		  alert("Der Zuteilungsalgorithmus wurde beendet.");
 		  if (file_exists("../FinishedAlgorithm/prozentzahl")) {
 		    unlink("../FinishedAlgorithm/prozentzahl");
 		  }
@@ -119,6 +121,8 @@
 		  else {
 		    alert("Es konnten keine Ergebnisdateien gefunden werden. Überprüfen sie die Dateiberechtigungen im Verzeichnis 'FinishedAlgorithm', da es sich hierbei wahrscheinlich um einen Berechtigungsfehler handelt.");
 		  }
+			$waittime = 2;
+			unlink("../data/cleanup.lock");
 		}
 		else {
 			// eigentlicher action-handler
