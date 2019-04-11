@@ -72,7 +72,8 @@
 				$row[3],
 				$row[4],
 				$row[5],
-				$row[6]
+				$row[6],
+				$row[7] // nur bei 5 Wahlen
 			]), // wahl
 			"" // ergebnis
 		]);
