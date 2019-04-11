@@ -99,12 +99,13 @@ public class Projekt {
      * So wird die Standardabweichung der Klassenstufen eines Projektes moeglichst niedrig gehalten.
      *
      * @param n die n-te Wahl, die bei den Schuelern noch frei.
+     * @param projekte Ueberhaupt stattfindene Projekte
      * @return Schueler, der aus diesem Projekt rausgetauscht werden kann
      */
     public Schueler getSchuelerDessenNteWahlNochFreiIst(int n, ArrayList<Projekt> projekte) {
         ArrayList<Schueler> alleWoNochFrei = new ArrayList<Schueler>();
         for (Schueler s : this.teilnehmer) {
-            if (s.wahlFrei(n)&&projekte.contains(s.getWahl(n))) {
+            if (s.wahlFrei(n) && projekte.contains(s.getWahl(n))) {
                 alleWoNochFrei.add(s);
             }
         }
@@ -148,7 +149,6 @@ public class Projekt {
      * @param s Schueler, der hinzugefuegt werden soll
      */
     public void addTeilnehmer(Schueler s) {
-        assert (!this.istVoll());
         this.teilnehmer.add(s);
     }
 
@@ -176,8 +176,8 @@ public class Projekt {
     public int getBeliebtheit(ArrayList<Schueler> schuelerSet) {
         int beliebtheit = 0;
         for (Schueler s : schuelerSet) {
-            if (s.getWahlPosition(this) != -1) {
-                int position = s.getWahlPosition(this);
+            int position = s.getWahlPosition(this);
+            if (position != -1) {
                 if (position == 1) {
                     beliebtheit += 4;
                 } else if (position == 2) {
