@@ -246,7 +246,8 @@ class Verteilungsthread implements Runnable {
             //Neue Verteilung anlegen, daten mischen und Algorithmus auswählen
             Verteilung verteilung = new Verteilung(schuelerKopie, projektListeKopie);
             verteilung.mischeSchueler();
-            verteilung.verteile4(true);
+            //verteilung.verteile4(true);
+            verteilung.verteile5();
             //verteilung.macheAusgabe();
 
             //Nur beste Verteilung wird gespeichert
