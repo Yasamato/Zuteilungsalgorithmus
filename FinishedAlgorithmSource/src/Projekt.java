@@ -101,10 +101,10 @@ public class Projekt {
      * @param n die n-te Wahl, die bei den Schuelern noch frei.
      * @return Schueler, der aus diesem Projekt rausgetauscht werden kann
      */
-    public Schueler getSchuelerDessenNteWahlNochFreiIst(int n) {
+    public Schueler getSchuelerDessenNteWahlNochFreiIst(int n, ArrayList<Projekt> projekte) {
         ArrayList<Schueler> alleWoNochFrei = new ArrayList<Schueler>();
         for (Schueler s : this.teilnehmer) {
-            if (s.wahlFrei(n)) {
+            if (s.wahlFrei(n)&&projekte.contains(s.getWahl(n))) {
                 alleWoNochFrei.add(s);
             }
         }
@@ -200,7 +200,7 @@ public class Projekt {
     @Override
     public String toString() {
         String s = "-------------------------------------------------------------\n";
-        s += "Projekt Nr. " + id + " Min. Teilnehmer: " + minTeilnehmer + " Max.Teilnehmer: " + maxTeilnehmer + " Anzahl Teilnehmer: " + this.teilnehmer.size() + ",Mittlere Klassenstufe: "+getDurchschnittKlasse() +" Std: " + this.getStd() + "\n";
+        s += "Projekt Nr. " + id + " Min. Teilnehmer: " + minTeilnehmer + " Max.Teilnehmer: " + maxTeilnehmer + " Anzahl Teilnehmer: " + this.teilnehmer.size() + ",Mittlere Klassenstufe: " + getDurchschnittKlasse() + " Std: " + this.getStd() + "\n";
         for (Schueler sch : this.teilnehmer) {
             s += "Schueler " + sch.getName() + "(" + sch.getWahlPosition(this) + ") Wahl" + " , Klasse:  " + sch.getIntKlasse() + "\n";
         }
