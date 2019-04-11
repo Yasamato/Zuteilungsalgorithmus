@@ -227,9 +227,9 @@ $errorIncluded = false;
       <input type="hidden" name="action" value="runZuteilungsalgorithmus">
       <div class="input-group">
         <select class="form-control custom-select" name="genauigkeit">
-          <option value="0">Schnellste Laufzeit</option>
-          <option value="1" selected>Normale Genauigkeit</option>
-          <option value="2">Optimalere Verteilung</option>
+          <option value="1">Schnellste Laufzeit</option>
+          <option value="2" selected>Normale Genauigkeit</option>
+          <option value="3">Optimalere Verteilung</option>
         </select>
         <div class="input-group-append">
           <button type="submit" class="btn btn-primary">
@@ -258,9 +258,9 @@ $errorIncluded = false;
       <input type="hidden" name="action" value="runZuteilungsalgorithmus">
       <div class="input-group">
         <select class="form-control custom-select" name="genauigkeit">
-          <option value="0">Schnellste Laufzeit</option>
-          <option value="1" selected>Normale Genauigkeit</option>
-          <option value="2">Optimalere Verteilung</option>
+          <option value="1">Schnellste Laufzeit</option>
+          <option value="2" selected>Normale Genauigkeit</option>
+          <option value="3">Optimalere Verteilung</option>
         </select>
         <div class="input-group-append">
           <button type="submit" class="btn btn-primary">

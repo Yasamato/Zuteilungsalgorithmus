@@ -5,7 +5,7 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
 if (file_exists("../data/algorithmus.pid")) {
   alert("Der Zuteilungsalgorithmus läuft bereits.");
 }
-elseif (empty($_POST["genauigkeit"]) || $_POST["genauigkeit"] < 0 || $_POST["genauigkeit"] > 2) {
+elseif (empty($_POST["genauigkeit"]) || $_POST["genauigkeit"] < 1 || $_POST["genauigkeit"] > 3) {
   alert("Ungültiger Genauigkeitsangabe.");
 }
 else {
@@ -126,7 +126,7 @@ else {
     }
     fclose($fh);
 
-    $iterationen = count($projekte) * (count($wahlen) - $zwangszugeteiltGesamt) * pow(10, $_POST["genauigkeit"]); // mit $_POST["genauigkeit"] = [0; 2]
+    $iterationen = count($projekte) * (count($wahlen) - $zwangszugeteiltGesamt) * pow(10, $_POST["genauigkeit"] - 1); // mit $_POST["genauigkeit"] = [0; 2]
     $cmd = "java -jar ../FinishedAlgorithm/Algorithmus.jar 2 " . $iterationen . " '../FinishedAlgorithm/projekte.csv' ',ImM' '../FinishedAlgorithm/schueler.csv' ',KNV1234'";
     $outputfile = "../data/algorithmus.log";
     $pidfile = "../data/algorithmus.pid";
