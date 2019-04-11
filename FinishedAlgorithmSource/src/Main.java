@@ -209,7 +209,7 @@ class Verteilungsthread implements Runnable {
         System.out.println("Running " + threadName);
         double minScore = 10000;
         for (int i = 0; i < this.durchgaenge; i++) {
-            if (i % 1000 == 0) {
+            if (i % 50 == 0) {
                 if (this.threadName.equals("Thread 0")) {
                     System.out.println((100 * (i + 0.0)) / this.durchgaenge + " % done!");
                     try {
@@ -246,7 +246,8 @@ class Verteilungsthread implements Runnable {
             //Neue Verteilung anlegen, daten mischen und Algorithmus auswählen
             Verteilung verteilung = new Verteilung(schuelerKopie, projektListeKopie);
             verteilung.mischeSchueler();
-            verteilung.verteile4(true);
+            //verteilung.verteile4(true);
+            verteilung.verteile5();
             //verteilung.macheAusgabe();
 
             //Nur beste Verteilung wird gespeichert

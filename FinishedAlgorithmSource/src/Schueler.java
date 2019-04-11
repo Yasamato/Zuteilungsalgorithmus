@@ -138,7 +138,6 @@ public class Schueler {
      * @param p Projekt, zu welchem der Schueler zugeteilt werden soll
      */
     public void teileProjektZu(Projekt p) {
-        assert (!p.istVoll());
         p.addTeilnehmer(this);
         this.zugeteilt = p;
     }
