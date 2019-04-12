@@ -70,7 +70,7 @@ function showProjektInfoModal(p) {
 				</div>
 				<div class="modal-footer">
 					` + (window.user == "admin" ? `
-      		<form id="delete` + p.id + `" method="post" action="/">
+      		<form id="delete` + p.id + `" method="post" action="?">
       			<input type="hidden" name="action" value="deleteProjekt">
       			<input type="hidden" name="projekt" value="` + p.id + `">
       		</form>

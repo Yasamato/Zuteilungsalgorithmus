@@ -917,6 +917,7 @@ $errorIncluded = false;
             $("#schuelerEditForm").children("div.form-group")[2].children[1].value = $(student).children()[1].innerHTML; //klasse
             $("#schuelerEditForm").children("div.form-group")[3].children[1].value = $(student).children()[2].innerHTML; //vorname
             $("#schuelerEditForm").children("div.form-group")[4].children[1].value = $(student).children()[3].innerHTML; //nachname
+            $("#schuelerDeleteForm").children()[2].value = $(student).children()[2].innerHTML + " " + $(student).children()[3].innerHTML; //name
             if (window.config.Stage > 4) {
               if ($(student).children()[5].innerHTML == "Konnte nicht zugeteilt werden") {
                 $("#schuelerEditForm .projekt-input").html(`
@@ -933,7 +934,7 @@ $errorIncluded = false;
                   <button type="button" onclick="javascript: changeProjektzuteilung(this);" class="btn btn-success">
                     Ändern
                   </button>
-                  <button type="button" onclick="javascript: $('#schuelerProjektzuteilungDeleteForm').submit();" class="btn btn-danger">
+                  <button type="button" onclick="javascript: confirmDeleteProjektzuteilung();" class="btn btn-danger">
                     Löschen
                   </button>`);
               }
@@ -1007,13 +1008,32 @@ $errorIncluded = false;
       <form method="post" id="schuelerDeleteForm">
         <input type="hidden" name="action" value="deleteWahleintrag">
         <input type="hidden" name="uid">
+        <input type="hidden" name="name">
       </form>
       <form method="post" id="schuelerProjektzuteilungDeleteForm">
         <input type="hidden" name="action" value="deleteProjektzuteilung">
         <input type="hidden" name="uid">
       </form>
+      <script>
+        function confirmDeleteWahl() {
+        	if (confirm("Wollen sie wirklich den Wahleintrag des Schülers '" + $("#schuelerDeleteForm").children()[2].value + "' löschen?")) {
+        		$('#schuelerDeleteForm').submit();
+        	}
+        	else {
+        		alert("Löschvorgang abgebrochen");
+        	}
+        }
+        function confirmDeleteProjektzuteilung() {
+        	if (confirm("Wollen sie wirklich die Projektzuteilung des Schülers '" + $("#schuelerDeleteForm").children()[2].value + "' löschen?")) {
+        		$('#schuelerProjektzuteilungDeleteForm').submit();
+        	}
+        	else {
+        		alert("Löschvorgang abgebrochen");
+        	}
+        }
+      </script>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" onclick="javascript: $('#schuelerDeleteForm').submit();">Löschen</button>
+        <button type="button" class="btn btn-danger" onclick="javascript: confirmDeleteWahl();">Löschen</button>
         <button type="button" class="btn btn-success" onclick="javascript: $('#schuelerEditForm').submit();">Änderung speichern</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
       </div>
