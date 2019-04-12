@@ -221,7 +221,7 @@ $errorIncluded = false;
       if (!file_exists("../data/algorithmus.pid")) { ?>
     <h4 class="alert-heading">Zuteilung erfolgreich</h4>
     <p>
-      Die Wahlphase wurde erflogreich abgeschlossen und die Auswertung durch den Zuteilungsalgorithmus wurde vom Admin bereits <?php echo file_exists("../data/algorithmus.pid") ? "gestartet" : "durchgeführt"; ?>.
+      Die Wahlphase wurde erfolgreich abgeschlossen und die Auswertung durch den Zuteilungsalgorithmus wurde vom Admin bereits <?php echo file_exists("../data/algorithmus.pid") ? "gestartet" : "durchgeführt"; ?>.
     </p>
     <form method="post">
       <input type="hidden" name="action" value="runZuteilungsalgorithmus">
@@ -243,7 +243,7 @@ $errorIncluded = false;
       else { ?>
     <h4 class="alert-heading">Am erneuten Auswerten</h4>
     <p>
-      Die Wahlphase wurde erflogreich abgeschlossen und der Zuteilungsalgorithmus wurde vom Admin erneut gestartet auf Basis der Wahlen und Zwangszuzuteilungen.
+      Die Wahlphase wurde erfolgreich abgeschlossen und der Zuteilungsalgorithmus wurde vom Admin erneut gestartet auf Basis der Wahlen und Zwangszuzuteilungen.
     </p>
     <?php
       }
@@ -252,7 +252,7 @@ $errorIncluded = false;
       if (!file_exists("../data/algorithmus.pid")) { ?>
     <h4 class="alert-heading">Bereit zur Auswertung</h4>
     <p>
-      Die Wahlphase wurde erflogreich abgeschlossen und somit kann die Auswertung durch den Zuteilungsalgorithmus vom Admin gestartet werden.
+      Die Wahlphase wurde erfolgreich abgeschlossen und somit kann die Auswertung durch den Zuteilungsalgorithmus vom Admin gestartet werden.
     </p>
     <form method="post">
       <input type="hidden" name="action" value="runZuteilungsalgorithmus">
@@ -274,7 +274,7 @@ $errorIncluded = false;
       else { ?>
     <h4 class="alert-heading">Am Auswerten</h4>
     <p>
-      Die Wahlphase wurde erflogreich abgeschlossen und der Zuteilungsalgorithmus wurde vom Admin gestartet.
+      Die Wahlphase wurde erfolgreich abgeschlossen und der Zuteilungsalgorithmus wurde vom Admin gestartet.
     </p>
     <?php
       }
