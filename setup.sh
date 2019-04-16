@@ -4,6 +4,10 @@
 echo "Zuteilungsalgorithmus für Projektwahlen"
 echo "Erstellt für das LMG8 Maxdorf"
 echo
+if [ $(id -u) -ne "0" ]; then
+  echo "Dieses Skript benötigt sudo-Rechte"
+  exit
+fi
 echo
 echo "(c) 2018-19 Projektgruppe"
 echo "Leiter des Projekts"
@@ -31,10 +35,6 @@ echo "\t- Leo Jung"
 echo "\t- Tim Schneider"
 echo "\t- Lukas Fausten"
 echo
-if [ $(id -u) -ne "0" ]; then
-  echo "Dieses Skript benötigt sudo-Rechte"
-  exit
-fi
 echo
 echo
 echo
@@ -55,6 +55,8 @@ echo "Mit welchen Zugriffsrechten sollen die gesamten Daten abgespeichert werden
 echo "Schema siehe: https://www.w3schools.com/php/func_filesystem_chmod.asp"
 read -p "Berechtigung: " level
 echo
+mkdir data
+echo "Datenverzeichnis data/ erstellt"
 echo "Speichere Ergebnisse ab in data/config.php"
 cat > data/config.php <<EOF
 <?php
@@ -70,7 +72,8 @@ cat > data/config.php <<EOF
   ]);
 ?>
 EOF
-
+echo
+echo "Setze die Berechtigungen"
 sudo chown -R $user:$user data/
 sudo chmod -R $level data/
 sudo chown -R $user:$user FinishedAlgorithm/
