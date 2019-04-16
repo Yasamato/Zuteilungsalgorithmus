@@ -221,7 +221,7 @@ $errorIncluded = false;
       if (!file_exists("../data/algorithmus.pid")) { ?>
     <h4 class="alert-heading">Zuteilung erfolgreich</h4>
     <p>
-      Die Wahlphase wurde erflogreich abgeschlossen und die Auswertung durch den Zuteilungsalgorithmus wurde vom Admin bereits <?php echo file_exists("../data/algorithmus.pid") ? "gestartet" : "durchgeführt"; ?>.
+      Die Wahlphase wurde erfolgreich abgeschlossen und die Auswertung durch den Zuteilungsalgorithmus wurde vom Admin bereits <?php echo file_exists("../data/algorithmus.pid") ? "gestartet" : "durchgeführt"; ?>.
     </p>
     <form method="post">
       <input type="hidden" name="action" value="runZuteilungsalgorithmus">
@@ -243,7 +243,7 @@ $errorIncluded = false;
       else { ?>
     <h4 class="alert-heading">Am erneuten Auswerten</h4>
     <p>
-      Die Wahlphase wurde erflogreich abgeschlossen und der Zuteilungsalgorithmus wurde vom Admin erneut gestartet auf Basis der Wahlen und Zwangszuzuteilungen.
+      Die Wahlphase wurde erfolgreich abgeschlossen und der Zuteilungsalgorithmus wurde vom Admin erneut gestartet auf Basis der Wahlen und Zwangszuzuteilungen.
     </p>
     <?php
       }
@@ -252,7 +252,7 @@ $errorIncluded = false;
       if (!file_exists("../data/algorithmus.pid")) { ?>
     <h4 class="alert-heading">Bereit zur Auswertung</h4>
     <p>
-      Die Wahlphase wurde erflogreich abgeschlossen und somit kann die Auswertung durch den Zuteilungsalgorithmus vom Admin gestartet werden.
+      Die Wahlphase wurde erfolgreich abgeschlossen und somit kann die Auswertung durch den Zuteilungsalgorithmus vom Admin gestartet werden.
     </p>
     <form method="post">
       <input type="hidden" name="action" value="runZuteilungsalgorithmus">
@@ -274,7 +274,7 @@ $errorIncluded = false;
       else { ?>
     <h4 class="alert-heading">Am Auswerten</h4>
     <p>
-      Die Wahlphase wurde erflogreich abgeschlossen und der Zuteilungsalgorithmus wurde vom Admin gestartet.
+      Die Wahlphase wurde erfolgreich abgeschlossen und der Zuteilungsalgorithmus wurde vom Admin gestartet.
     </p>
     <?php
       }
@@ -329,6 +329,12 @@ $errorIncluded = false;
         Es konnten <strong><?php echo count($studentOhneZuteilung); ?> Schüler</strong> keinem Projekt zugeteilt werden. Diese müssen <a href="javascript: ;" onclick="javascript: $('#schuelerModal').modal('show');" class="alert-link">hier manuell</a> zugeteilt werden.
       </div><?php
     }
+    else {
+      ?>
+      <div class="alert alert-success" role="alert">
+        Es konnten <strong>alle <?php echo count($wahlen); ?> Schüler</strong> einem ihrer Wunsch-Projekte zugeteilt werden.
+      </div><?php
+    }
 
     // Projekte die Stattfinden oder nicht
     $projekteNichtStattfinden = [];
@@ -351,6 +357,12 @@ $errorIncluded = false;
       ?>
       <div class="alert alert-warning" role="alert">
         Die Teilnehmerzahl von <strong><?php echo count($projekteZuViel); ?> Projekten</strong> übersteigt die Maximalteilnehmeranzahl. <a href="javasript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">Projekte einsehen</a>
+      </div><?php
+    }
+    elseif (empty($projekteNichtStattfinden)) {
+      ?>
+      <div class="alert alert-success" role="alert">
+        Es können <strong>alle <?php echo count($projekte); ?> Projekte</strong> statt finden.
       </div><?php
     }
   }
@@ -905,6 +917,7 @@ $errorIncluded = false;
             $("#schuelerEditForm").children("div.form-group")[2].children[1].value = $(student).children()[1].innerHTML; //klasse
             $("#schuelerEditForm").children("div.form-group")[3].children[1].value = $(student).children()[2].innerHTML; //vorname
             $("#schuelerEditForm").children("div.form-group")[4].children[1].value = $(student).children()[3].innerHTML; //nachname
+            $("#schuelerDeleteForm").children()[2].value = $(student).children()[2].innerHTML + " " + $(student).children()[3].innerHTML; //name
             if (window.config.Stage > 4) {
               if ($(student).children()[5].innerHTML == "Konnte nicht zugeteilt werden") {
                 $("#schuelerEditForm .projekt-input").html(`
@@ -921,7 +934,7 @@ $errorIncluded = false;
                   <button type="button" onclick="javascript: changeProjektzuteilung(this);" class="btn btn-success">
                     Ändern
                   </button>
-                  <button type="button" onclick="javascript: $('#schuelerProjektzuteilungDeleteForm').submit();" class="btn btn-danger">
+                  <button type="button" onclick="javascript: confirmDeleteProjektzuteilung();" class="btn btn-danger">
                     Löschen
                   </button>`);
               }
@@ -995,13 +1008,32 @@ $errorIncluded = false;
       <form method="post" id="schuelerDeleteForm">
         <input type="hidden" name="action" value="deleteWahleintrag">
         <input type="hidden" name="uid">
+        <input type="hidden" name="name">
       </form>
       <form method="post" id="schuelerProjektzuteilungDeleteForm">
         <input type="hidden" name="action" value="deleteProjektzuteilung">
         <input type="hidden" name="uid">
       </form>
+      <script>
+        function confirmDeleteWahl() {
+        	if (confirm("Wollen sie wirklich den Wahleintrag des Schülers '" + $("#schuelerDeleteForm").children()[2].value + "' löschen?")) {
+        		$('#schuelerDeleteForm').submit();
+        	}
+        	else {
+        		alert("Löschvorgang abgebrochen");
+        	}
+        }
+        function confirmDeleteProjektzuteilung() {
+        	if (confirm("Wollen sie wirklich die Projektzuteilung des Schülers '" + $("#schuelerDeleteForm").children()[2].value + "' löschen?")) {
+        		$('#schuelerProjektzuteilungDeleteForm').submit();
+        	}
+        	else {
+        		alert("Löschvorgang abgebrochen");
+        	}
+        }
+      </script>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" onclick="javascript: $('#schuelerDeleteForm').submit();">Löschen</button>
+        <button type="button" class="btn btn-danger" onclick="javascript: confirmDeleteWahl();">Löschen</button>
         <button type="button" class="btn btn-success" onclick="javascript: $('#schuelerEditForm').submit();">Änderung speichern</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
       </div>

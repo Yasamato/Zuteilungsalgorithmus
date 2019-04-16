@@ -87,6 +87,7 @@
 	}
 	require 'php/setup.php';
 
+	/*
 	if (($fh = fopen("../data/p.csv", "w")) === false) {
 		die("Mangelnde Zugriffsberechtigung auf den Ordner FinishedAlgorithm");
 	}
@@ -97,7 +98,7 @@
       fwrite($fh, "\n");
     }
 	}
-	fclose($fh);
+	fclose($fh);*/
 
 
 	$waittime = 0;

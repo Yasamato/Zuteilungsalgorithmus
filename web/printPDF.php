@@ -313,7 +313,7 @@
 			$pdf->SetTitle("Projektwoche " . date("Y") . " - Projekt " . $projekt["name"]);
 			$pdf->SetSubject("Projekt " . $projekt["name"]);
       $pdf->printProjekt($projekt);
-			if (!empty($projekt["teilnehmer"])) {
+			if (!empty($projekt["teilnehmer"]) && $_SESSION['benutzer']['typ'] == "admin") {
 				$pdf->printKlasse("Teilnehmerliste " . $projekt["name"], $projekt["teilnehmer"], $projekte, $zwangszuteilung);
 			}
     }
