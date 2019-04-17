@@ -11,8 +11,15 @@ Neben der mühseligen Aufgabe der Datensammlung, beherscht die Software eine aut
 - php7.0 (getestet mit php7.2.15)
 - java Runtime Environment (getestet mit java 7 und 8)
 
+# Installation
+1. In das zu installierende Verzeichnis mit `cd /directory/to/work` wechseln.  
+Beachten Sie dabei, dass Sie _**niemals direkt ins Webverzeichnis installieren sollten**_ (Default bei Apache wäre hier `/var/www/html`).
+2. Den Befehl `git clone https://github.com/Agent77326/Zuteilungsalgorithmus/` ausführen
+3. Einen Alias oder neuen VirtualHost in der Webserver-Konfiguration einfügen, welche auf das Verzeichnis `Zuteilungsalgorithmus/web` verweist.
+4. Führen sie anschließend die `Zuteilungsalgorithmus/setup.sh` aus und die Software ist somit fertig installiert.
 
-# Verwendete externe Bibliotheken
+
+# Verwendete externe Bibliotheken (sind bereits eingebunden)
 - Bootstrap v.4.3.1 (CSS und JS-Framework) [offizielle Webseite](https://getbootstrap.com/)
 - jQuery v.3.3.1 (JS-Framework) [offizielle Webseite](https://jquery.com/)
 - TCPDF v.6.2.26 (PHP-Libary) [offizielle Webseite](https://tcpdf.org/)
