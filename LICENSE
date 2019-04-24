@@ -16,7 +16,7 @@ sind (bezeichnet als "Lizenzgeber" im weiteren). Durch Installation, Kopieren
 oder anderweitige Nutzung des Softwareprodukts erklären Sie sich mit den
 Bedingungen dieses EULAs gebunden zu sein. Wenn Sie nicht mit den Bedingungen
 dieser EULA einverstanden sind, installieren oder verwenden Sie nicht die
-Software oder kontaktieren Sie uns um einen eventuellen neue Lizenz auszuhandeln.
+Software oder kontaktieren Sie uns um eventuelle neue Lizenzen auszuhandeln.
 
 Das Produkt ist durch Urheberrechtsgesetze und internationale Copyright-Verträge,
 sowie andere Gesetze zum geistigen Eigentum und Verträge geschützt. Die Software
@@ -36,7 +36,9 @@ sowie eine kommerzieller und privater Einsatz sind untersagt.
 (C) Sicherungskopien
 Jegliche vom Produkt generierten Daten, können nach Belieben vervielfältigt sowie
 verteilt werden, da diese Daten vom Nutzer generiert werden und die Lizenzgeber
-keinen Anspruch darauf erheben.
+keinen Anspruch darauf erheben. Des weiteren ist es dem Anwender erlaubt alle Daten
+als Sicherungskopie zu speichern, von denen jedoch nur eine zur gleichen Zeit aktiv
+eingesetzt werden darf, außer anders festgelegt in einem anderen Vertrag.
 (D) Vermietung
 Eine kostenlose oder kommerzielle Vermietung, Pachtung, Verleihung des Produkts
 in jeglicher Form ist untersagt.
@@ -49,23 +51,25 @@ dieses EULAs sowie eventuellen weiteren Lizenzvereinbarungen.
 (F) Einhaltung der geltenden Gesetze
 Sie müssen alle geltenden nationalen sowie internationalen Gesetze Ihres Landes
 einhalten und Ihnen ist untersagt die Software für illegale Zwecke einzusetzen
-oder dadurch willentlich Personen oder Gruppen zu schaden.
+oder dadurch willentlich Personen sowie Gruppen zu schaden.
 
 2. Kündigung
 Die Lizenzgeber können Ihnen jederzeit den weiteren Einsatz des Produkts verbieten.
 Bei einem Entzug der Nutzungserlaubnis ist eine sofortige Löschung des Produkts
 sowie aller angefertigten Kopien zu tätigen, solange nicht anders in einer weitern
-Lizenzvereinbarung gegeben.
+Lizenzvereinbarung gegeben. Die generierten Daten unterliegen weiterhin dem
+Recht des Anwenders.
 
 3. Copyright
-Alle Komponenten, einschließlic derer die nicht dem Urheberrecht unterliegen, in
-und an dem Produkt sowie alle Kopien gehören den Lizenzgebern. Alle Titel und Rechte
-an dem geistigen Eigentum des jeweiligen Besitzers und können durch anwendbare
+Alle Komponenten, einschließlich derer, die nicht dem Urheberrecht unterliegen,
+in und an dem Produkt sowie alle Kopien gehören den Lizenzgebern. Alle Titel und
+Rechte an dem geistigen Eigentum des jeweiligen Besitzers und können durch anwendbare
 Urheberrechtsgesetze und andere Gesetze zum geistigen Eigentum werden und durch
 Verträge geschützt werden. Dieses EULA gewährt Ihnen keine Rechte zur Nutzung
-solcher Inhalte. Alle nicht ausdrücklich eingeräumten Rechte sind durch die
-Lizenzgeber reserviert. Das geistige Eigentum verwendeter Komponenten Dritter
-gehört den jeweiligen Inhabern und deren Lizenzvereinbarungen sind zu beachten.
+solcher Inhalte außerhalb des Softwareprodukts. Alle nicht ausdrücklich eingeräumten
+Rechte sind durch die Lizenzgeber reserviert. Das geistige Eigentum verwendeter
+Komponenten Dritter gehört den jeweiligen Inhabern und deren Lizenzvereinbarungen
+sind zu beachten.
 
 4. Keine Garantie
 Wir die Lizenzgeber lehnen ausdrücklich jegliche Gewährleistung für das Produkt
@@ -77,12 +81,14 @@ durch Schadsoftware oder Anderem, welche durch Dritte eingesetzt werden.
 
 5. Haftungsbeschränkung
 Die Lizenzgeber haften in keinem Fall für Schäden jeglicher Art, welche durch die
-Installation, Einsatz oder sonstigen Fällen im Zusammanhang mit dem Softwareprodukt
+Installation, den Einsatz oder sonstigen Fällen im Zusammanhang mit dem Softwareprodukt
 entstandenen sind. Des weiteren übernehmen die Lizenzgeber keinerlei Verantwortung
 für die Inhalte des Produkts, sowie der daraus generierten Daten. Für die Einhaltung
 geltender Gesetze und Verträge ist der Anwender des Produkts verantwortlich.
 
 6. Salvatorische Klausel
+Rechte, welche nicht durch diese EULA abgedeckt sind, gelten im Zweifelsfall als
+nicht gegeben und entsprechend muss eine Rücksprache mit den Lizenzgebern erfolgen.
 Sollten einzelne Bestimmungen dieses Vertrages unwirksam oder undurchführbar sein
 oder nach Vertragsschluss unwirksam oder undurchführbar werden, bleibt davon die
 Wirksamkeit des Vertrages im Übrigen unberührt. An die Stelle der unwirksamen oder

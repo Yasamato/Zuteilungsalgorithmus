@@ -1,4 +1,7 @@
 <?php
+	if (!file_exists("../LICENSE") || !file_exists("../VERSION")) {
+		die("</head><body style='color: #000'>Bei diesem Produkt handelt es sich möglicherweise um eine illegale Kopie. Bitte beziehen Sie dieses Produkt nur von der offiziellen Github-Seite unter <a href='https://github.com/Agent77326/Zuteilungsalgorithmus'>https://github.com/Agent77326/Zuteilungsalgorithmus</a></body></html>");
+	}
 	session_start();
   (include "../data/config.php") OR die("</head><body style='color: #000'>Der Webserver wurde noch nicht konfiguriert, kontaktiere einen Admin damit dieser setup.sh ausführt.</body></html>");
 	require "php/db.php";
@@ -11,6 +14,16 @@
   }
 
   class printPDF extends TCPDF {
+
+		function printHeader() {
+			$this->Image("pictures/logo.jpg", 10, 6, 30); // Logo-Bild-Größe anpassen, die Parameter sind: (pfad ,x ,y ,size)
+			$this->SetFont('freeserif', 'B', 24);
+			$this->Cell(30);
+			$this->Cell(66, 10, 'Projektwoche ' . date("Y"));
+			$this->ln(13);
+		}
+
+
     // Breite: 297mm - 2cm margin => 277mm zum Arbeiten
     function printProjekt($projekt) {
       $this->AddPage("L", "A4");
@@ -239,18 +252,6 @@
 				$this->Cell(0, 6, count($studentlist) - $dummyWertVorhanden . " Teilnehmer");
 			}
 		}
-
-		function Header() {
-			return;
-		}
-
-    function printHeader() {
-      $this->Image("pictures/Logo_Farbe.jpg", 10, 6, 30); // pfad ,x ,y , size
-      $this->SetFont('freeserif', 'B', 24);
-      $this->Cell(30);
-      $this->Cell(66, 10, 'Projektwoche ' . date("Y"));
-      $this->ln(13);
-    }
 
 		// Colored table
     public function ColoredTable($header, $data, $widths) {

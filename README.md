@@ -11,13 +11,23 @@ Neben der mühseligen Aufgabe der Datensammlung, beherscht die Software eine aut
 - php7.0 (getestet mit php7.2.15)
 - java Runtime Environment (getestet mit java 7 und 8)
 
+# Ich will das Produkt benutzen!
+Wenn Sie nach dem Testen unserer Software Interesse haben diese für beispielsweise ihre eigene Schule einzusetzen, kontaktieren Sie uns damit wir gemeinsam eine Vereinbarung treffen können.
+
 # Installation
 1. In das zu installierende Verzeichnis mit `cd /directory/to/work` wechseln.  
-Beachten Sie dabei, dass Sie _**niemals direkt ins Webverzeichnis installieren sollten**_ (Default bei Apache wäre hier `/var/www/html`).
+Beachten Sie dabei, dass Sie _**niemals direkt in ein aus dem Web erreichbaren Verzeichnis installieren sollten**_ (Default bei Apache wäre hier `/var/www/html`).
 2. Den Befehl `git clone https://github.com/Agent77326/Zuteilungsalgorithmus/` ausführen
 3. Einen Alias oder neuen VirtualHost in der Webserver-Konfiguration einfügen, welche auf das Verzeichnis `Zuteilungsalgorithmus/web` verweist.
 4. Führen sie anschließend die `Zuteilungsalgorithmus/setup.sh` aus und die Software ist somit fertig installiert.
 
+# Anpassungen
+Das Projekt ist für das Lise-Meitner Gymnasium G8GTS in Maxdorf (LMG8) ausgelegt worden, weshalb der Hintergrund sowie das Logo von der Schule noch als Standard vorhanden ist.
+Diese Bilder können jedoch durch eigene Bilder ersetzt werden.
+- Ersetzen Sie die Datei `Zuteilungsalgorithmus/web/pictures/background.jpg` mit ihrem eigenen Hintergrundbild.
+- Ersetzen Sie die Datei `Zuteilungsalgorithmus/web/pictures/logo.jpg` mit ihrem eigenem Logo.
+Hierbei muss beachtet werden, dass bei den Druckansichten das Logo nicht in der richtigen Größe erscheinen kann.
+Hierfür modifizieren sie die Datei  `Zuteilungsalgorithmus/web/printPDF.pdf` bei der Funktion `printHeader()` der Klasse `printPDF`.
 
 # Verwendete externe Bibliotheken (sind bereits eingebunden)
 - Bootstrap v.4.3.1 (CSS und JS-Framework) [offizielle Webseite](https://getbootstrap.com/)
