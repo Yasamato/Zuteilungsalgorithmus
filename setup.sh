@@ -74,10 +74,8 @@ cat > data/config.php <<EOF
 EOF
 echo
 echo "Setze die Berechtigungen"
-sudo chown -R $user:$user data/
-sudo chmod -R $level data/
-sudo chown -R $user:$user FinishedAlgorithm/
-sudo chmod -R $level FinishedAlgorithm/
+sudo chown -R $user:$user ../Zuteilungsalgorithmus
+sudo chmod -R $level ../Zuteilungsalgorithmus
 
 echo "Fertig"
 echo

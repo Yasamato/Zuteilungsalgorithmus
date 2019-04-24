@@ -31,8 +31,8 @@
 
 		<script src="js/main.js"></script>
 <?php
-	if (!file_exists("LICENSE") || !file_exists("VERSION")) {
-		die("</head><body style='color: #000'>Bei diesem Produkt handelt es sich möglicherweise um eine illegale Kopie. Bitte beziehen Sie dieses Produkt nur von der offiziellen Github-Seite unter </body></html>");
+	if (!file_exists("../LICENSE") || !file_exists("../VERSION")) {
+		die("</head><body style='color: #000'>Bei diesem Produkt handelt es sich möglicherweise um eine illegale Kopie. Bitte beziehen Sie dieses Produkt nur von der offiziellen Github-Seite unter <a href='https://github.com/Agent77326/Zuteilungsalgorithmus'>https://github.com/Agent77326/Zuteilungsalgorithmus</a></body></html>");
 	}
 	session_start();
   (include "../data/config.php") OR die("</head><body style='color: #000'>Der Webserver wurde noch nicht konfiguriert, kontaktiere einen Admin damit dieser setup.sh ausführt.</body></html>");
@@ -129,6 +129,19 @@
 			$waittime = 2;
 			unlink("../data/cleanup.lock");
 		}
+		elseif (!file_exists("../data/update.lock") && file_exists("../data/update.pid") && !isRunning(file_get_contents("../data/update.pid"))) {
+		  $fh = fopen("../data/update.lock", "w");
+		  fclose($fh);
+		  unlink("../data/update.pid");
+		  if ($newest == $version) {
+		  	alert("Das Update wurde erfolgreich durchgeführt.");
+		  }
+		  else {
+		  	alert("Das Update auf Version " . $newest . " von Version " . $version . " ist fehlgeschlagen. Überprüfen Sie bitte die Berechtigungen.");
+		  }
+			$waittime = 2;
+			unlink("../data/update.lock");
+		}
 		else {
 			// eigentlicher action-handler
 			switch ($_POST['action']) {
@@ -182,6 +195,10 @@
 				case "runZuteilungsalgorithmus":
 					require("php/run.php");
 					$waittime = 1;
+					break;
+				case "update":
+					require("php/update.php");
+					$waittime = 5;
 					break;
 				default:
 					die("Unbekannter Befehl!");

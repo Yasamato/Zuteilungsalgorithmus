@@ -262,4 +262,13 @@ if (isLogin()) {
     }
   }
 }
+
+$version = file_get_contents("../VERSION");
+while (substr($version, strlen($version) - 1, strlen($version)) == "\n" || substr($version, strlen($version) - 1, strlen($version)) == "\r") {
+  $version = substr($version, 0, -1);
+}
+$newest = file_get_contents("https://raw.githubusercontent.com/Agent77326/Zuteilungsalgorithmus/master/VERSION");
+while (substr($newest, strlen($newest) - 1, strlen($newest)) == "\n" || substr($newest, strlen($newest) - 1, strlen($newest)) == "\r") {
+  $newest = substr($newest, 0, -1);
+}
 ?>
