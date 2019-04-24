@@ -1,23 +1,93 @@
-MIT License
+Copyright (c) 2018 - 2019 Leo Jung, Fabian von der Warth, Jan Pfenning, Leon
+Selig, Lukas Fausten, Jonas Dalchow, Tim Schneider, Tobias Palzer
 
-Copyright (c) 2018 - 2019
+ENDBENUTZER-LIZENZVERTRAG für den Zuteilungsalgorithmus samt Web-Oberfläche,
+Serverprogrammierung und Dokumentation sowie weiteren Komponenten, welche im
+direkten Bezug zu diesem Produkt steht (bezeichnet als "Produkt", "Software" oder
+"Softwareprodukt" im weiteren).
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+BITTE LESEN SIE DIE BEDINGUNGEN DIESER Lizenzvereinbarung sorgfältig, bevor Sie
+das Produkt benutzen, weitergeben, bearbeiten oder sonstiges.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+Diese End-User Licencse Agreement (EULA) ist ein rechtsgültiger Vertrag zwischen
+dem Anwender (Sie oder die juristische Person oder Vertretung) mit den
+Privatpersonen, welche die Ersteller dieses Produkts sind und im obigen genannt
+sind (bezeichnet als "Lizenzgeber" im weiteren). Durch Installation, Kopieren
+oder anderweitige Nutzung des Softwareprodukts erklären Sie sich mit den
+Bedingungen dieses EULAs gebunden zu sein. Wenn Sie nicht mit den Bedingungen
+dieser EULA einverstanden sind, installieren oder verwenden Sie nicht die
+Software oder kontaktieren Sie uns um einen eventuellen neue Lizenz auszuhandeln.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Das Produkt ist durch Urheberrechtsgesetze und internationale Copyright-Verträge,
+sowie andere Gesetze zum geistigen Eigentum und Verträge geschützt. Die Software
+wird lizenziert und für den kommerziellen sowie privaten Einsatz verkauft.
 
-This product was created by Fabian von der Warth, Leo Jung, Jan Pfenning, Leon Selig, Lukas Fausten, Jonas Dalchow, Tim Schneider, Tobias Palzer.
+1. LIZENZGEWÄHRUNG
+Das Softwareprodukt wird lizensiert wie folgt:
+(A) Installation und Verwendung
+Die Lizenzgeber gewähren eine kostenfreie Benutzung und Installation der Software
+an Dritte um das Produkt zu testen.
+Zum privaten und kommerziellen Einsatz darf das Produkt, außgenommen vom Test-
+Betrieb, nur mit der Zustimmung der Lizenzgeber und im Falle eines Einsatzes sowie
+der Installation ist eine weitere Lizenzvereinbarung mit den Lizenzgebern notwendig.
+(B) Verteilung
+Eine Weitergabe des Produkts durch anfertigen von Kopien oder anderen Mitteln,
+sowie eine kommerzieller und privater Einsatz sind untersagt.
+(C) Sicherungskopien
+Jegliche vom Produkt generierten Daten, können nach Belieben vervielfältigt sowie
+verteilt werden, da diese Daten vom Nutzer generiert werden und die Lizenzgeber
+keinen Anspruch darauf erheben.
+(D) Vermietung
+Eine kostenlose oder kommerzielle Vermietung, Pachtung, Verleihung des Produkts
+in jeglicher Form ist untersagt.
+(E) Support Service.
+Die Lizenzgeber können Ihnen Dienstleistungen ("Supportleistungen") im Zusam-
+menhang mit der Software anbieten, welche jedoch nicht garantiert ist. Jegliche
+ergänzende oder veränderte Software-Code, der Ihnen als Supportleistungen dieses
+Softwareprodukts angeboten wird, unterliegt den Bestimmungen und Bedingungen
+dieses EULAs sowie eventuellen weiteren Lizenzvereinbarungen.
+(F) Einhaltung der geltenden Gesetze
+Sie müssen alle geltenden nationalen sowie internationalen Gesetze Ihres Landes
+einhalten und Ihnen ist untersagt die Software für illegale Zwecke einzusetzen
+oder dadurch willentlich Personen oder Gruppen zu schaden.
+
+2. Kündigung
+Die Lizenzgeber können Ihnen jederzeit den weiteren Einsatz des Produkts verbieten.
+Bei einem Entzug der Nutzungserlaubnis ist eine sofortige Löschung des Produkts
+sowie aller angefertigten Kopien zu tätigen, solange nicht anders in einer weitern
+Lizenzvereinbarung gegeben.
+
+3. Copyright
+Alle Komponenten, einschließlic derer die nicht dem Urheberrecht unterliegen, in
+und an dem Produkt sowie alle Kopien gehören den Lizenzgebern. Alle Titel und Rechte
+an dem geistigen Eigentum des jeweiligen Besitzers und können durch anwendbare
+Urheberrechtsgesetze und andere Gesetze zum geistigen Eigentum werden und durch
+Verträge geschützt werden. Dieses EULA gewährt Ihnen keine Rechte zur Nutzung
+solcher Inhalte. Alle nicht ausdrücklich eingeräumten Rechte sind durch die
+Lizenzgeber reserviert. Das geistige Eigentum verwendeter Komponenten Dritter
+gehört den jeweiligen Inhabern und deren Lizenzvereinbarungen sind zu beachten.
+
+4. Keine Garantie
+Wir die Lizenzgeber lehnen ausdrücklich jegliche Gewährleistung für das Produkt
+ab und übernehmen keine Haftung, Gewährleistung jeglicher Art für Fehler (Bugs)
+oder die Korrektheit der Inhalte sowie Vollständigkeit der vorhanden Informationen,
+Texte, Grafiken, Links sowie anderer Inhalte die im Produkt enthalten sind. Zudem
+gewähren die Lizenzgeber in keinem Fall eine Garantie für Schäden jeglicher Art
+durch Schadsoftware oder Anderem, welche durch Dritte eingesetzt werden.
+
+5. Haftungsbeschränkung
+Die Lizenzgeber haften in keinem Fall für Schäden jeglicher Art, welche durch die
+Installation, Einsatz oder sonstigen Fällen im Zusammanhang mit dem Softwareprodukt
+entstandenen sind. Des weiteren übernehmen die Lizenzgeber keinerlei Verantwortung
+für die Inhalte des Produkts, sowie der daraus generierten Daten. Für die Einhaltung
+geltender Gesetze und Verträge ist der Anwender des Produkts verantwortlich.
+
+6. Salvatorische Klausel
+Sollten einzelne Bestimmungen dieses Vertrages unwirksam oder undurchführbar sein
+oder nach Vertragsschluss unwirksam oder undurchführbar werden, bleibt davon die
+Wirksamkeit des Vertrages im Übrigen unberührt. An die Stelle der unwirksamen oder
+undurchführbaren Bestimmung soll diejenige wirksame und durchführbare Regelung
+treten, deren Wirkungen der wirtschaftlichen Zielsetzung am nächsten kommen, die
+die Vertragsparteien mit der unwirksamen bzw. undurchführbaren Bestimmung verfolgt
+haben. Die vorstehenden Bestimmungen gelten entsprechend für den Fall, dass sich
+der Vertrag als lückenhaft erweist.

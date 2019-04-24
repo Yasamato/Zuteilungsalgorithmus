@@ -198,7 +198,7 @@
 					break;
 				case "update":
 					require("php/update.php");
-					$waittime = 5;
+					$waittime = 2;
 					break;
 				default:
 					die("Unbekannter Befehl!");
