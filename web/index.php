@@ -117,7 +117,7 @@
 		  if (file_exists("../FinishedAlgorithm/prozentzahl")) {
 		    unlink("../FinishedAlgorithm/prozentzahl");
 		  }
-		  if (file_exists("../FinishedAlgorithm/verteilungNachSchuelern.csv") && file_exists("../FinishedAlgorithm/verteilungNachProjekten.csv")) {
+		  if (isLogin() && $_SESSION['benutzer']['typ'] == "admin" && file_exists("../FinishedAlgorithm/verteilungNachSchuelern.csv") && file_exists("../FinishedAlgorithm/verteilungNachProjekten.csv")) {
 		    dbSet("../data/config.csv", "Stage", $config["Stage"], "Stage", "5");
 				foreach (explode("\n", file_get_contents("../FinishedAlgorithm/verteilungNachSchuelern.csv")) as $row) {
 					$data = explode(",", $row);
