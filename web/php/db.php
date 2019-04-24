@@ -68,11 +68,11 @@
 
 		$parsedData = [];
 		$file = file_get_contents($path);
-		if (substr($file, 0, 1) == "\n" || substr($file, 0, 1) == "\r") {
+		while (substr($file, 0, 1) == "\n" || substr($file, 0, 1) == "\r") {
 			$file = substr($file, 1, filesize($path));
 		}
-		if (substr($file, 0, -1) == "\n" || substr($file, 0, -1) == "\r") {
-			$file = substr($file, 0, filesize($path) - 1);
+		while (substr($file, strlen($file) - 1, strlen($file)) == "\n" || substr($file, strlen($file) - 1, strlen($file)) == "\r") {
+			$file = substr($file, 0, -1);
 		}
 
 		// parsen

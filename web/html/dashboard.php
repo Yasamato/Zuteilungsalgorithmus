@@ -585,11 +585,22 @@ $errorIncluded = false;
           <hr class="my-4">
           <h5>Informationen</h5>
           <small class="form-text text-muted">
-            Version <?php file_get_contents("../VERSION"); ?>
-            <?php
-            $newest = file_get_contents("https://raw.githubusercontent.com/Agent77326/Zuteilungsalgorithmus/master/VERSION");
-            if ($newest != file_get_contents("../VERSION")) {
-              echo "<br><span class='text-warning'>Es ist eine neuere Version verfügbar: " . $newest . "</span>";
+            Version: <?php
+            echo $version . "<br>";
+            if ($newest != $version) {
+              ?>
+              <span class="text-warning">
+                Es ist eine neuere Version verfügbar: <?php echo $newest; ?>
+              <span>
+              <form method="post">
+                <button type="submit" class="btn btn-success" name="action" value="update">
+                  Update
+                </button>
+              </form>
+              <?php
+            }
+            else {
+              echo "<span class='text-success'>Die neueste Version ist installiert</span>";
             }
             ?>
           </small>
