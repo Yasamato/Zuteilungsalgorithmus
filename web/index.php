@@ -31,6 +31,9 @@
 
 		<script src="js/main.js"></script>
 <?php
+	if (!file_exists("LICENSE") || !file_exists("VERSION")) {
+		die("</head><body style='color: #000'>Bei diesem Produkt handelt es sich möglicherweise um eine illegale Kopie. Bitte beziehen Sie dieses Produkt nur von der offiziellen Github-Seite unter </body></html>");
+	}
 	session_start();
   (include "../data/config.php") OR die("</head><body style='color: #000'>Der Webserver wurde noch nicht konfiguriert, kontaktiere einen Admin damit dieser setup.sh ausführt.</body></html>");
 	require "php/db.php";

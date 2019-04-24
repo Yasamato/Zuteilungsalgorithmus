@@ -108,6 +108,17 @@ if (!file_exists("../data/zwangszuteilung.csv")) {
   ]);
 }
 
+if (!file_exists("../data/keineWahl.csv")) {
+  // define the header of the columns in the first row
+  dbCreateFile("../data/keineWahl.csv", [
+    "uid",
+    "vorname",
+    "nachname",
+    "stufe",
+    "klasse"
+  ]);
+}
+
 if (!file_exists("../data/klassen.csv")) {
   // define the header of the columns in the first row
   dbCreateFile("../data/klassen.csv", [
@@ -120,6 +131,14 @@ if (!file_exists("../data/klassen.csv")) {
 
 $zwangszuteilung = dbRead("../data/zwangszuteilung.csv");
 usort($zwangszuteilung, function ($a, $b) {
+  if (strtolower($a["nachname"]) == strtolower($b["nachname"])) {
+    return strtolower($a["vorname"]) < strtolower($b["vorname"]) ? -1 : 1;
+  }
+  return strtolower($a["nachname"]) < strtolower($b["nachname"]) ? -1 : 1;
+});
+
+$keineWahl = dbRead("../data/keineWahl.csv");
+usort($keineWahl, function ($a, $b) {
   if (strtolower($a["nachname"]) == strtolower($b["nachname"])) {
     return strtolower($a["vorname"]) < strtolower($b["vorname"]) ? -1 : 1;
   }
@@ -161,6 +180,18 @@ uasort($klassenliste, function ($a, $b) {
 // aufteilung aller Schüler-Wahlen in Klassen
 $klassen = [];
 foreach ($wahlen as $key => $student) {
+  if (empty($student) || empty($student["uid"])) {
+    continue;
+  }
+  if (empty($klassen[$student["klasse"]])) {
+    $klassen[$student["klasse"]] = [[
+      "stufe" => $student["stufe"],
+      "klasse" => $student["klasse"]
+      ]];
+  }
+  array_push($klassen[$student["klasse"]], $student);
+}
+foreach ($keineWahl as $key => $student) {
   if (empty($student) || empty($student["uid"])) {
     continue;
   }

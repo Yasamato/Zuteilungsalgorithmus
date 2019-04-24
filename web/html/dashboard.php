@@ -582,6 +582,22 @@ $errorIncluded = false;
               </tr>
             </tbody>
           </table>
+          <hr class="my-4">
+          <h5>Informationen</h5>
+          <small class="form-text text-muted">
+            Version <?php file_get_contents("../VERSION"); ?>
+            <?php
+            $newest = file_get_contents("https://raw.githubusercontent.com/Agent77326/Zuteilungsalgorithmus/master/VERSION");
+            if ($newest != file_get_contents("../VERSION")) {
+              echo "<br><span class='text-warning'>Es ist eine neuere Version verfügbar: " . $newest . "</span>";
+            }
+            ?>
+          </small>
+          <br>
+          <h5>Lizenz</h5>
+          <small class="form-text text-muted">
+            <?php echo file_get_contents("../LICENSE"); ?>
+          </small>
         </div>
 
         <div class="modal-footer">
@@ -1513,6 +1529,45 @@ $errorIncluded = false;
   <!-- Klassenauflistung -->
   <div class="row flex d-flex justify-content-center">
 
+    <?php
+    if ($config["Stage"] > 4) {
+    ?>
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+      <div class="card shadow bg-dark w-100 p-3 border <?php
+      if (count($wahlen) + count($keineWahl) < $gesamtanzahl) {
+        echo " border-danger text-danger";
+      }
+      elseif (count($wahlen) == $gesamtanzahl && count($keineWahl) == 0) {
+        echo "text-success border-success";
+      }
+      else {
+        echo "border-warning text-warning";
+      } ?>" style="border: 4px solid !important;">
+        <div class="card-body"><?php
+        if ($gesamtanzahl - count($wahlen) > 0) {
+          ?>
+          <h5 class="card-title"><?php echo $gesamtanzahl - count($wahlen); ?></h5>
+          <p class="card-text">Schüler ha<?php echo $gesamtanzahl - count($wahlen) > 1 ? "ben" : "t"; ?> keine Wahl getätigt</p>
+          <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#">
+              Einträge bearbeiten
+            </button>
+          </div>
+          <?php
+        }
+        else {
+          ?>
+          <h5 class="card-title">Kein</h5>
+          <p class="card-text">Schüler hat nicht gewählt</p>
+          <?php
+        }
+        ?>
+        </div>
+      </div>
+    </div>
+    <?php
+    }
+    ?>
 
     <div class="col-12 col-sm-6 col-md-4 col-lg-3">
       <div class="card shadow bg-dark w-100 p-3 border <?php
@@ -1524,18 +1579,18 @@ $errorIncluded = false;
       }
       else {
         echo "border-warning text-warning";
-      } ?>" style="border: 3px solid !important;">
+      } ?>" style="border: 4px solid !important;">
         <div class="card-body"><?php
         if (count($klassenliste) == 0) {
           ?>
           <h5 class="card-title">Keine</h5>
-          <p class="card-text">Klasse wurde bisher im System eingetragen.</p>
+          <p class="card-text">Klasse wurde bisher im System eingetragen</p>
           <?php
         }
         else {
           ?>
           <h5 class="card-title"><?php echo $klassenFertig; ?> von <?php echo count($klassenliste); ?></h5>
-          <p class="card-text">Klassen haben<?php echo $config["Stage"] > 3 ? "" : " bereits"; ?> vollständig gewählt.</p>
+          <p class="card-text">Klassen haben<?php echo $config["Stage"] > 3 ? "" : " bereits"; ?> vollständig gewählt</p>
           <?php
         }
         ?>
@@ -1558,7 +1613,7 @@ $errorIncluded = false;
       }
       else {
         echo "border-warning text-warning";
-      } ?>" style="border: 3px solid !important;">
+      } ?>" style="border: 4px solid !important;">
         <div class="card-body">
           <h5 class="card-title"><?php echo count($wahlen); ?> von <?php echo $gesamtanzahl; ?>
           </h5>
@@ -1574,10 +1629,10 @@ $errorIncluded = false;
     </div>
 
     <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-      <div class="card shadow bg-dark w-100 p-3 border border-warning text-warning" style="border: 3px solid !important;">
+      <div class="card shadow bg-dark w-100 p-3 border border-warning text-warning" style="border: 4px solid !important;">
         <div class="card-body">
           <h5 class="card-title"><?php echo count($zwangszuteilung); ?></h5>
-          <p class="card-text">Schüler wurden vorab einem Projekt zugeteilt.</p>
+          <p class="card-text">Schüler wurden fest einem Projekt zugeteilt</p>
           <div class="btn-group btn-group-toggle" data-toggle="buttons">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#zwangszuteilungModal">
               Auflisten
@@ -1590,6 +1645,7 @@ $errorIncluded = false;
   </div>
 
   <?php if ($config["Stage"] > 2) { ?>
+  <hr class="my-4">
   <div class="row flex d-flex justify-content-center">
 
     <?php
