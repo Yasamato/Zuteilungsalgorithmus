@@ -51,10 +51,6 @@ echo "Mit welchem Benutzer wird der Webserver ausgeführt"
 echo "Apache benutzt beispielsweise www-data"
 read -p "Benutzer: " user
 echo
-echo "Mit welchen Zugriffsrechten sollen die gesamten Daten abgespeichert werden?"
-echo "Schema siehe: https://www.w3schools.com/php/func_filesystem_chmod.asp"
-read -p "Berechtigung: " level
-echo
 mkdir data
 echo "Datenverzeichnis data/ erstellt"
 echo "Speichere Ergebnisse ab in data/config.php"
@@ -63,7 +59,7 @@ cat > data/config.php <<EOF
   define("CONFIG", [
     "dbLineSeperator" => "__;__",
     "dbElementSeperator" => "__#__",
-    "dbFilesPermission" => $level, // siehe https://www.w3schools.com/php/func_filesystem_chmod.asp
+    "dbFilesPermission" => "0750", // siehe https://www.w3schools.com/php/func_filesystem_chmod.asp
     "adminUser" => "$adminUser",
     "adminPassword" => "$adminPassword",
     "anzahlWahlen" => 5, // Anzahl der Wahlfelder für die Schüler
@@ -75,7 +71,7 @@ EOF
 echo
 echo "Setze die Berechtigungen"
 sudo chown -R $user:$user ../Zuteilungsalgorithmus
-sudo chmod -R $level ../Zuteilungsalgorithmus
+sudo chmod -R 0750 ../Zuteilungsalgorithmus
 
 echo "Fertig"
 echo
