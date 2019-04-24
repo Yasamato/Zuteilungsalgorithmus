@@ -191,6 +191,18 @@ foreach ($wahlen as $key => $student) {
   }
   array_push($klassen[$student["klasse"]], $student);
 }
+foreach ($keineWahl as $key => $student) {
+  if (empty($student) || empty($student["uid"])) {
+    continue;
+  }
+  if (empty($klassen[$student["klasse"]])) {
+    $klassen[$student["klasse"]] = [[
+      "stufe" => $student["stufe"],
+      "klasse" => $student["klasse"]
+      ]];
+  }
+  array_push($klassen[$student["klasse"]], $student);
+}
 // bereits vorhandene Datensätze mit den eingetragenen Datensätzen auffüllen
 foreach ($klassenliste as $klasse) {
   if (empty($klassen[$klasse["klasse"]])) {

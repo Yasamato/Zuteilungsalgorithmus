@@ -582,6 +582,22 @@ $errorIncluded = false;
               </tr>
             </tbody>
           </table>
+          <hr class="my-4">
+          <h5>Informationen</h5>
+          <small class="form-text text-muted">
+            Version <?php file_get_contents("../VERSION"); ?>
+            <?php
+            $newest = file_get_contents("https://raw.githubusercontent.com/Agent77326/Zuteilungsalgorithmus/master/VERSION");
+            if ($newest != file_get_contents("../VERSION")) {
+              echo "<br><span class='text-warning'>Es ist eine neuere Version verfügbar: " . $newest . "</span>";
+            }
+            ?>
+          </small>
+          <br>
+          <h5>Lizenz</h5>
+          <small class="form-text text-muted">
+            <?php echo file_get_contents("../LICENSE"); ?>
+          </small>
         </div>
 
         <div class="modal-footer">
