@@ -26,7 +26,7 @@
 
 	if (!empty($_POST['user']) && !empty($_POST["pw"]) && $_POST["user"] == CONFIG["adminUser"] && $_POST["pw"] == CONFIG["adminPassword"]) {
 		// nur 1 Admin darf zeitgleich angemeldet sein
-		if (file_exists("../data/admin.lock") && time() - time(explode(",", file_get_contents("../data/admin.lock"))[0]) / 60 > 1) {
+		if (file_exists("../data/admin.lock") && time() - time(explode(",", file_get_contents("../data/admin.lock"))[0]) / 20 < 1) {
 				alert("Aktuell ist berereits ein Admin eingelockt!");
 		}
 		else {
@@ -52,7 +52,6 @@
 				// 4. restore current session id. If don't restore it, your current session will refer to the session you just destroyed!
 				session_id($current_session_id);
 				session_start();
-				session_commit();
 			}
 
 	    if (($fh = fopen("../data/admin.lock", "w")) === false) {

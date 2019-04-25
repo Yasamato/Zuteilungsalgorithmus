@@ -191,6 +191,11 @@ $errorIncluded = false;
 
 <!-- Fehldermeldungen -->
 <div class="container">
+  <div class="alert alert-danger d-none" role="alert">
+    <div class="spinner-border text-primary m-2" role="status"></div>
+    Momentan wird ein Update durchgeführt, daher kann es zur Einschränkung aller Funktionen kommen.
+  </div>
+
   <?php
   if ($showErrorModal && $errorIncluded) {
     ?>
@@ -285,30 +290,6 @@ $errorIncluded = false;
         <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"></div>
         <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 100%;">Loading...</div>
       </div>
-      <script>
-        var progressbarCheck = setInterval(function () {
-          $.get("progress.php", function(data, status) {
-            if (status = "success") {
-              data = parseFloat(data) * 100;
-              console.log("Fortschritt: " + data + "%");
-              if (data != 100) {
-                $($('.progress-bar')[0]).css('width', data + '%').html((data > 50 ? (Math.round(data * 100) / 100) + "%" : ""));
-                $($('.progress-bar')[1]).css('width', (100 - data) + '%').html((data < 50 ? (Math.round(data * 100) / 100) + "%" : ""));
-              } else {
-                $($('.progress-bar')[0]).css('width', '100%').html("100%");
-                $($('.progress-bar')[1]).css('width', '0%').html("");
-                clearInterval(progressbarCheck);
-                setTimeout(function () {
-                  window.location.href = "?";
-                }, 2000);
-              }
-            }
-            else {
-              console.log("Progress-fetch failed!!");
-            }
-          });
-        }, 1000);
-      </script>
       <?php
     }
     ?>

@@ -52,7 +52,6 @@
 				// 4. restore current session id. If don't restore it, your current session will refer to the session you just destroyed!
 				session_id($current_session_id);
 				session_start();
-				session_commit();
 			}
 
 	    if (($fh = fopen("../data/admin.lock", "w")) === false) {
