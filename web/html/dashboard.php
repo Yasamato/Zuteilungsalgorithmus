@@ -1145,19 +1145,19 @@ $errorIncluded = false;
               ?>
               <tr>
                 <td>
-                  <input type="text" class="form-control" aria-label="U-ID" value="<?php echo $student['uid']; ?>" name="uid[]" oninput="javascript: zwangszuteilungAppend();">
+                  <input type="text" class="form-control" aria-label="U-ID" value="<?php echo $student['uid']; ?>" name="uid[]" oninput="javascript: autoAppendTable('#zwangszuteilungModal tbody', addStudentsInZwangszuteilungInput);">
                 </td>
                 <td>
-                  <input type="number" class="form-control" aria-label="Stufe" value="<?php echo $student['stufe']; ?>" min="<?php echo CONFIG["minStufe"]; ?>" max="<?php echo CONFIG["maxStufe"]; ?>" name="stufe[]" oninput="javascript: zwangszuteilungAppend();">
+                  <input type="number" class="form-control" aria-label="Stufe" value="<?php echo $student['stufe']; ?>" min="<?php echo CONFIG["minStufe"]; ?>" max="<?php echo CONFIG["maxStufe"]; ?>" name="stufe[]" oninput="javascript: autoAppendTable('#zwangszuteilungModal tbody', addStudentsInZwangszuteilungInput);">
                 </td>
                 <td>
-                  <input type="text" class="form-control" aria-label="Klasse" value="<?php echo $student['klasse']; ?>" name="klasse[]" oninput="javascript: zwangszuteilungAppend();">
+                  <input type="text" class="form-control" aria-label="Klasse" value="<?php echo $student['klasse']; ?>" name="klasse[]" oninput="javascript: autoAppendTable('#zwangszuteilungModal tbody', addStudentsInZwangszuteilungInput);">
                 </td>
                 <td>
-                  <input type="text" class="form-control" aria-label="Vorname" value="<?php echo $student['vorname']; ?>" name="vorname[]" oninput="javascript: zwangszuteilungAppend();">
+                  <input type="text" class="form-control" aria-label="Vorname" value="<?php echo $student['vorname']; ?>" name="vorname[]" oninput="javascript: autoAppendTable('#zwangszuteilungModal tbody', addStudentsInZwangszuteilungInput);">
                 </td>
                 <td>
-                  <input type="text" class="form-control" aria-label="Nachname" value="<?php echo $student['nachname']; ?>" name="nachname[]" oninput="javascript: zwangszuteilungAppend();">
+                  <input type="text" class="form-control" aria-label="Nachname" value="<?php echo $student['nachname']; ?>" name="nachname[]" oninput="javascript: autoAppendTable('#zwangszuteilungModal tbody', addStudentsInZwangszuteilungInput);">
                 </td>
                 <td>
                   <input type="hidden" class="form-control" value="<?php echo $student['projekt']; ?>" name="projekt[]">
@@ -1177,8 +1177,8 @@ $errorIncluded = false;
           </table>
         </form>
         <script>
-          function zwangszuteilungAppend() {
-            let inputs = $("#zwangszuteilungModal tbody")[1].querySelectorAll("input");
+          function autoAppendTable(selector, appendFunction) {
+            let inputs = $(selector)[1].querySelectorAll("input");
             for (var input of inputs) {
               if (!input.value.replace(/\s+/, '').length) {
                 console.log(input);
@@ -1186,7 +1186,7 @@ $errorIncluded = false;
                 return;
               }
             }
-            addStudentsInZwangszuteilungInput();
+            appendFunction();
           }
 
           function addStudentsInZwangszuteilungInput() {
@@ -1194,19 +1194,19 @@ $errorIncluded = false;
             $($("#zwangszuteilungModal tbody")[1]).append($(`
             <tr>
               <td>
-                <input type="text" class="form-control" aria-label="U-ID" name="uid[]" oninput="javascript: zwangszuteilungAppend();">
+                <input type="text" class="form-control" aria-label="U-ID" name="uid[]" oninput="javascript: autoAppendTable('#zwangszuteilungModal tbody', addStudentsInZwangszuteilungInput);">
               </td>
               <td>
-                <input type="number" class="form-control" aria-label="Stufe" name="stufe[]" min="<?php echo CONFIG["minStufe"]; ?>" max="<?php echo CONFIG["maxStufe"]; ?>" oninput="javascript: zwangszuteilungAppend();">
+                <input type="number" class="form-control" aria-label="Stufe" name="stufe[]" min="<?php echo CONFIG["minStufe"]; ?>" max="<?php echo CONFIG["maxStufe"]; ?>" oninput="javascript: autoAppendTable('#zwangszuteilungModal tbody', addStudentsInZwangszuteilungInput);">
               </td>
               <td>
-                <input type="text" class="form-control" aria-label="Klasse" name="klasse[]" oninput="javascript: zwangszuteilungAppend();">
+                <input type="text" class="form-control" aria-label="Klasse" name="klasse[]" oninput="javascript: autoAppendTable('#zwangszuteilungModal tbody', addStudentsInZwangszuteilungInput);">
               </td>
               <td>
-                <input type="text" class="form-control" aria-label="Vorname" name="vorname[]" oninput="javascript: zwangszuteilungAppend();">
+                <input type="text" class="form-control" aria-label="Vorname" name="vorname[]" oninput="javascript: autoAppendTable('#zwangszuteilungModal tbody', addStudentsInZwangszuteilungInput);">
               </td>
               <td>
-                <input type="text" class="form-control" aria-label="Nachname" name="nachname[]" oninput="javascript: zwangszuteilungAppend();">
+                <input type="text" class="form-control" aria-label="Nachname" name="nachname[]" oninput="javascript: autoAppendTable('#zwangszuteilungModal tbody', addStudentsInZwangszuteilungInput);">
               </td>
               <td>
                 <input type="hidden" class="form-control" name="projekt[]">
@@ -1232,7 +1232,7 @@ $errorIncluded = false;
             button.children("button").first().addClass("btn-success");
             $(".current-open").removeClass("current-open");
             $("#editStudentProjektzuteilungModal tbody").html("");
-            zwangszuteilungAppend();
+            autoAppendTable('#zwangszuteilungModal tbody', addStudentsInZwangszuteilungInput);
           }
 
           function changeProjektzuteilung(student) {
@@ -1451,6 +1451,148 @@ $errorIncluded = false;
   </div>
 </div>
 
+<!-- Keine Wahl-Modal -->
+<div class="modal fade" id="keineWahlModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+    <div class="modal-content bg-dark">
+
+      <div class="modal-header">
+        <h4 class="modal-title">Schüler ohne Wahlen</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span class="closebutton" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <form method="post" id="keineWahlForm">
+          <input type="hidden" name="action" value="updateKeineWahl">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Zurück</button>
+          <button type="submit" class="btn btn-primary">Änderung speichern</button>
+          <br>
+          <small class="text-muted">
+            Bitte tragen Sie hier alle Schüler ein, welche es versäumt haben eine Wahl zu tätigen und dementsprechend irgendein Projekt Ihrer Jahrgangsstufe zugewiesen bekommen.
+            Durch den Einsatz der Schüler als "Wildcards" kann es möglich werden Projekte stattfinden zu lassen, die vorher nicht zustande kamen.
+            Im Folgenden ist ein Beispieldatensatz aufgeführt.
+          </small>
+
+          <table class="table table-dark">
+            <tbody>
+              <tr>
+                <td>
+                  <input type="text" class="form-control" aria-label="U-ID" value="mustmax" readonly>
+                </td>
+                <td>
+                  <input type="number" class="form-control" aria-label="Stufe" value="5" readonly>
+                </td>
+                <td>
+                  <input type="text" class="form-control" aria-label="Klasse" value="5a" readonly>
+                </td>
+                <td>
+                  <input type="text" class="form-control" aria-label="Vorname" value="Max" readonly>
+                </td>
+                <td>
+                  <input type="text" class="form-control" aria-label="Nachname" value="Mustermann" readonly>
+                </td>
+                <td>
+                  <button type="button" class="close text-danger" aria-label="Close" disabled>
+                    <span class="closebutton" aria-hidden="true">&times;</span>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <small class="text-muted">
+            Tragen Sie die echten Werte bitte in der nachfolgenden Tabelle ein.
+          </small>
+          <table class="table table-dark table-striped table-hover">
+            <thead class="thead-dark">
+              <tr>
+                <th class="sticky-top">U-ID</th>
+                <th class="sticky-top">Stufe</th>
+                <th class="sticky-top">Klasse</th>
+                <th class="sticky-top">Vorname</th>
+                <th class="sticky-top">Nachname</th>
+                <th class="sticky-top"></th>
+              </tr>
+            </thead>
+            <tbody><?php
+            foreach ($keineWahl as $student) {
+              ?>
+              <tr>
+                <td>
+                  <input type="text" class="form-control" aria-label="U-ID" value="<?php echo $student['uid']; ?>" name="uid[]" oninput="javascript: autoAppendTable('#keineWahlModal tbody', addStudentsInZwangszuteilungInput);">
+                </td>
+                <td>
+                  <input type="number" class="form-control" aria-label="Stufe" value="<?php echo $student['stufe']; ?>" min="<?php echo CONFIG["minStufe"]; ?>" max="<?php echo CONFIG["maxStufe"]; ?>" name="stufe[]" oninput="javascript: autoAppendTable('#keineWahlModal tbody', addStudentsInZwangszuteilungInput);">
+                </td>
+                <td>
+                  <input type="text" class="form-control" aria-label="Klasse" value="<?php echo $student['klasse']; ?>" name="klasse[]" oninput="javascript: autoAppendTable('#keineWahlModal tbody', addStudentsInZwangszuteilungInput);">
+                </td>
+                <td>
+                  <input type="text" class="form-control" aria-label="Vorname" value="<?php echo $student['vorname']; ?>" name="vorname[]" oninput="javascript: autoAppendTable('#keineWahlModal tbody', addStudentsInZwangszuteilungInput);">
+                </td>
+                <td>
+                  <input type="text" class="form-control" aria-label="Nachname" value="<?php echo $student['nachname']; ?>" name="nachname[]" oninput="javascript: autoAppendTable('#keineWahlModal tbody', addStudentsInZwangszuteilungInput);">
+                </td>
+                <td>
+                  <button type="button" class="close text-danger" aria-label="Close" onclick="javascript: removeLine(this);">
+                    <span class="closebutton" aria-hidden="true">&times;</span>
+                  </button>
+                </td>
+              </tr>
+            <?php
+            }
+            ?>
+
+            </tbody>
+          </table>
+        </form>
+        <script>
+          function addStudentsInKeineWahlInput() {
+            //var node = document.querySelector('#studentsInKlassen tbody');
+            $($("#keineWahlModal tbody")[1]).append($(`
+            <tr>
+              <td>
+                <input type="text" class="form-control" aria-label="U-ID" name="uid[]" oninput="javascript: autoAppendTable('#keineWahlModal tbody', addStudentsInZwangszuteilungInput);">
+              </td>
+              <td>
+                <input type="number" class="form-control" aria-label="Stufe" name="stufe[]" min="<?php echo CONFIG["minStufe"]; ?>" max="<?php echo CONFIG["maxStufe"]; ?>" oninput="javascript: autoAppendTable('#keineWahlModal tbody', addStudentsInZwangszuteilungInput);">
+              </td>
+              <td>
+                <input type="text" class="form-control" aria-label="Klasse" name="klasse[]" oninput="javascript: autoAppendTable('#keineWahlModal tbody', addStudentsInZwangszuteilungInput);">
+              </td>
+              <td>
+                <input type="text" class="form-control" aria-label="Vorname" name="vorname[]" oninput="javascript: autoAppendTable('#keineWahlModal tbody', addStudentsInZwangszuteilungInput);">
+              </td>
+              <td>
+                <input type="text" class="form-control" aria-label="Nachname" name="nachname[]" oninput="javascript: autoAppendTable('#keineWahlModal tbody', addStudentsInZwangszuteilungInput);">
+              </td>
+              <td>
+                <input type="hidden" class="form-control" name="projekt[]">
+                <button type="button" class="btn btn-warning" onclick="javascript: changeProjektzuteilung(this);">Projekt festlegen</button>
+              </td>
+              <td>
+                <button type="button" class="close text-danger" aria-label="Close" onclick="javascript: removeLine(this);">
+                  <span class="closebutton" aria-hidden="true">&times;</span>
+                </button>
+              </td>
+            </tr>`));
+          }
+
+          addStudentsInKeineWahlInput();
+        </script>
+        <button onclick="javascript: addStudentsInKeineWahlInput();" type="button" class="btn btn-success">Schüler hinzufügen &#10010;</button>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="javascript: $('#keineWahlForm').submit();">Änderung speichern</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Zurück</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 <!-- eigentlicher Seiteninhalt -->
 <div class="container-fluid">
@@ -1554,25 +1696,16 @@ $errorIncluded = false;
       else {
         echo "border-warning text-warning";
       } ?>" style="border: 4px solid !important;">
-        <div class="card-body"><?php
-        if ($gesamtanzahl - count($wahlen) > 0) {
-          ?>
+        <div class="card-body">
           <h5 class="card-title"><?php echo $gesamtanzahl - count($wahlen); ?></h5>
-          <p class="card-text">Schüler ha<?php echo $gesamtanzahl - count($wahlen) > 1 ? "ben" : "t"; ?> keine Wahl getätigt</p>
+          <p class="card-text">Schüler ha<?php echo $gesamtanzahl - count($wahlen) != 1 ? "ben" : "t"; ?> keine Wahl getätigt</p>
+          <?php if ($gesamtanzahl - count($wahlen) > 0) { ?>
           <div class="btn-group btn-group-toggle" data-toggle="buttons">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#">
               Einträge bearbeiten
             </button>
           </div>
-          <?php
-        }
-        else {
-          ?>
-          <h5 class="card-title">Kein</h5>
-          <p class="card-text">Schüler hat nicht gewählt</p>
-          <?php
-        }
-        ?>
+        <?php } ?>
         </div>
       </div>
     </div>
@@ -1643,7 +1776,7 @@ $errorIncluded = false;
       <div class="card shadow bg-dark w-100 p-3 border border-warning text-warning" style="border: 4px solid !important;">
         <div class="card-body">
           <h5 class="card-title"><?php echo count($zwangszuteilung); ?></h5>
-          <p class="card-text">Schüler wurden fest einem Projekt zugeteilt</p>
+          <p class="card-text">Schüler wurde<?php echo count($zwangszuteilung) != 1 ? "n" : ""; ?> fest einem Projekt zugeteilt</p>
           <div class="btn-group btn-group-toggle" data-toggle="buttons">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#zwangszuteilungModal">
               Auflisten
@@ -1704,3 +1837,5 @@ $errorIncluded = false;
   <?php } ?>
 
 </div>
+
+<script src="js/dashboard.js"></script>

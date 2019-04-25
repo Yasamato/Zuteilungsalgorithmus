@@ -25,16 +25,52 @@
 
 
 	if (!empty($_POST['user']) && !empty($_POST["pw"]) && $_POST["user"] == CONFIG["adminUser"] && $_POST["pw"] == CONFIG["adminPassword"]) {
-		// admin ist vom login-System losgelöst
-		// passwort und benutzername können in ../data/config.php festgelegt werden
-		$_SESSION['benutzer'] = [
-			"uid" => "admin",
-			"typ" => "admin",
-			"klasse" => "",
-			"stufe" => "",
-			"vorname" => "",
-			"nachname" => ""
-		];
+		// nur 1 Admin darf zeitgleich angemeldet sein
+		if (file_exists("../data/admin.lock") && time() - time(explode(",", file_get_contents("../data/admin.lock"))[0]) / 60 > 1) {
+				alert("Aktuell ist berereits ein Admin eingelockt!");
+		}
+		else {
+			if (file_exists("../data/admin.lock")) {
+				// see https://www.php.net/manual/en/function.session-destroy.php#114709
+				$session_id_to_destroy = explode(",", file_get_contents("../data/admin.lock"))[1];
+				// 1. commit session if it's started.
+				if (session_id()) {
+				    session_commit();
+				}
+
+				// 2. store current session id
+				session_start();
+				$current_session_id = session_id();
+				session_commit();
+
+				// 3. hijack then destroy session specified.
+				session_id($session_id_to_destroy);
+				session_start();
+				session_destroy();
+				session_commit();
+
+				// 4. restore current session id. If don't restore it, your current session will refer to the session you just destroyed!
+				session_id($current_session_id);
+				session_start();
+				session_commit();
+			}
+
+	    if (($fh = fopen("../data/admin.lock", "w")) === false) {
+				die("Fehlende Berechtigung, bitte überprüfen Sie die Datei-Berechtigungen");
+			}
+	    fwrite($fh, time() . "," . session_id());
+	    fclose($fh);
+			// admin ist vom login-System losgelöst
+			// passwort und benutzername können in ../data/config.php festgelegt werden
+			$_SESSION['benutzer'] = [
+				"uid" => "admin",
+				"typ" => "admin",
+				"klasse" => "",
+				"stufe" => "",
+				"vorname" => "",
+				"nachname" => ""
+			];
+		}
 	}
 	// DEBUG fake-accounts
 	elseif ($_POST['user'] == "lehrer" && $_POST['pw'] == "lehrer") {
