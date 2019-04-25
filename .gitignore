@@ -1,5 +1,1 @@
-
-*.class
-*.csv
-*.log
-data/config.php
+data/*

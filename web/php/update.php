@@ -9,9 +9,9 @@ elseif (file_exists("../data/update.pid")) {
   alert("Aktuell wird bereits ein Update durchgeführt.");
 }
 else {
-  $cmd = "git pull --all";
-  $outputfile = "../data/update.log";
-  $pidfile = "../data/update.pid";
+  $cmd = "git fetch --all && git reset --hard origin/master && git clean -df";
+  $outputfile = "data/update.log";
+  $pidfile = "data/update.pid";
   exec("cd ../; " . sprintf("%s > %s 2>&1 & echo $! >> %s", $cmd, $outputfile, $pidfile));
   alert("Das Update wurde gestartet.");
 }

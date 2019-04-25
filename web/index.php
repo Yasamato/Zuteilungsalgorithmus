@@ -105,9 +105,11 @@
 
 
 	$waittime = 0;
-	if (isset($_POST['action']) || isLogin() && $_SESSION['benutzer']['typ'] == "admin" && file_exists("../data/algorithmus.pid") && !isRunning(file_get_contents("../data/algorithmus.pid"))) {
+	if (isset($_POST['action']) || isLogin() && $_SESSION['benutzer']['typ'] == "admin" && (
+		!file_exists("../data/cleanup.lock") && file_exists("../data/algorithmus.pid") && !isRunning(file_get_contents("../data/algorithmus.pid")) ||
+		!file_exists("../data/update.lock") && file_exists("../data/update.pid") && !isRunning(file_get_contents("../data/update.pid")))) {
 		// cleanup des Zuteilungsalgorithmus
-		if (!file_exists("../data/cleanup.lock") && file_exists("../data/algorithmus.pid") && !isRunning(file_get_contents("../data/algorithmus.pid"))) {
+		if (isLogin() && $_SESSION['benutzer']['typ'] == "admin" && !file_exists("../data/cleanup.lock") && file_exists("../data/algorithmus.pid") && !isRunning(file_get_contents("../data/algorithmus.pid"))) {
 			$fh = fopen("../data/cleanup.lock", "w");
 			fclose($fh);
 		  unlink("../data/algorithmus.pid");
@@ -115,7 +117,7 @@
 		  if (file_exists("../FinishedAlgorithm/prozentzahl")) {
 		    unlink("../FinishedAlgorithm/prozentzahl");
 		  }
-		  if (file_exists("../FinishedAlgorithm/verteilungNachSchuelern.csv") && file_exists("../FinishedAlgorithm/verteilungNachProjekten.csv")) {
+		  if (isLogin() && $_SESSION['benutzer']['typ'] == "admin" && file_exists("../FinishedAlgorithm/verteilungNachSchuelern.csv") && file_exists("../FinishedAlgorithm/verteilungNachProjekten.csv")) {
 		    dbSet("../data/config.csv", "Stage", $config["Stage"], "Stage", "5");
 				foreach (explode("\n", file_get_contents("../FinishedAlgorithm/verteilungNachSchuelern.csv")) as $row) {
 					$data = explode(",", $row);
@@ -129,7 +131,7 @@
 			$waittime = 2;
 			unlink("../data/cleanup.lock");
 		}
-		elseif (!file_exists("../data/update.lock") && file_exists("../data/update.pid") && !isRunning(file_get_contents("../data/update.pid"))) {
+		elseif (isLogin() && $_SESSION['benutzer']['typ'] == "admin" && !file_exists("../data/update.lock") && file_exists("../data/update.pid") && !isRunning(file_get_contents("../data/update.pid"))) {
 		  $fh = fopen("../data/update.lock", "w");
 		  fclose($fh);
 		  unlink("../data/update.pid");
