@@ -12,6 +12,8 @@
     $fh = fopen("../data/admin.lock", "w");
     fwrite($fh, time() . "," . session_id());
     fclose($fh);
+    echo '"version" : "' . $version . '"' . ", \n";
+    echo '"newest" : "' . $newest . '"' . ", \n";
     // Algorithmus-isRunning
     $status;
     if (isRunning(file_get_contents("../data/algorithmus.pid"))) {

@@ -191,7 +191,7 @@ $errorIncluded = false;
 
 <!-- Fehldermeldungen -->
 <div class="container">
-  <div class="alert alert-danger d-none" role="alert">
+  <div class="alert alert-danger d-none" role="alert" id="updateAlert">
     <div class="spinner-border text-primary m-2" role="status"></div>
     Momentan wird ein Update durchgeführt, daher kann es zur Einschränkung aller Funktionen kommen.
   </div>
