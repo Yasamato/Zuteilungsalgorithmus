@@ -32,7 +32,7 @@
     echo '"updateRunning" : "' . $status . '"' . ", \n";
 
     // databases
-    echo '"config" : ' . JSON_encode($config) . ",\n";
+    echo '"config" : ' . JSON_encode(array_merge($config, CONFIG)) . ",\n";
     echo '"projekte" : ' . JSON_encode($projekte) . ",\n";
     echo '"wahlen" : ' . JSON_encode($wahlen) . ",\n";
     echo '"zwangszuteilung" : ' . JSON_encode($zwangszuteilung) . ",\n";
