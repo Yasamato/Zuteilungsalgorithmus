@@ -1028,4 +1028,4 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
 
 </div>
 
-<script src="js/dashboard.js"></script>
+<script src="js/dashboard.js?hash=<?php echo sha1_file("js/dashboard.js"); ?>"></script>

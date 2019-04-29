@@ -160,3 +160,22 @@ function debounce(func, wait, immediate) {
 		if (callNow) func.apply(context, args);
 	};
 };
+
+
+function updateUpdate(progress) {
+	if (progress == "false") {
+		if (!$("#updateAlert").hasClass("d-none")) {
+			$("#updateAlert").addClass("d-none");
+			// reload to get updated version
+			setTimeout(function () {
+				alert("Das Update wurde beendet und die Seite wird nun neu geladen um die neuere Version zu erhalten.");
+				window.location.href = "?";
+			}, 2000);
+		}
+		return;
+	}
+	if ($("#updateAlert").hasClass("d-none")) {
+		$("#updateAlert").removeClass("d-none");
+	}
+	console.log("Update wird durchgeführt");
+}

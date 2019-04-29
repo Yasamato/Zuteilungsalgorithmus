@@ -15,7 +15,6 @@
     echo '"version" : "' . $version . '"' . ", \n";
     echo '"newest" : "' . $newest . '"' . ", \n";
     // Algorithmus-isRunning
-    $status;
     if (isRunning(file_get_contents("../data/algorithmus.pid"))) {
       $status = file_exists("../FinishedAlgorithm/prozentzahl") ? file_get_contents("../FinishedAlgorithm/prozentzahl") : 0;
     }
@@ -40,5 +39,14 @@
     echo '"klassen" : ' . JSON_encode($klassen) . ",\n";
     echo '"klassenliste" : ' . JSON_encode($klassenliste) . "\n";
   }
+  elseif (isLogin() && $_SESSION["benutzer"]["typ"] == "teachers") {
+    // Update-isRunning
+    $status = isRunning(file_get_contents("../data/update.pid")) ? "true" : "false";
+    echo '"updateRunning" : "' . $status . '"' . ", \n";
+    echo '"config" : ' . JSON_encode($config) . ",\n";
+    echo '"projekte" : ' . JSON_encode($projekte) . ",\n";
+    echo '"klassen" : ' . JSON_encode($klassen) . ",\n";
+    echo '"klassenliste" : ' . JSON_encode($klassenliste) . "\n";
+	}
 ?>
 }
