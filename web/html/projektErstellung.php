@@ -1,6 +1,6 @@
 <?php
 if (!isLogin() || ($_SESSION['benutzer']['typ'] != "admin" && $_SESSION['benutzer']['typ'] != "teachers") ||
-  $_SESSION['benutzer']['typ'] == "teachers" && $config["Stage"] != 1) {
+  $_SESSION['benutzer']['typ'] == "teachers" && ($config["Stage"] < 1 || $config["Stage"] != 1 && $_GET['site'] != "edit")) {
   die("Zugriff verweigert");
 }
 
