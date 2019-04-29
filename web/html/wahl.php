@@ -15,7 +15,6 @@
 		<div class="d-flex flex-wrap align-content-start" id="projektliste">
 			<?php
 			$vorherigeWahl = null;
-			$vorherigeWahlKey = array();
 			foreach ($wahlen as $key => $wahl) {
 				if ($_SESSION["benutzer"]["uid"] == $wahl["uid"]) {
 					$vorherigeWahl = $wahl;
@@ -24,7 +23,6 @@
 			}
 			foreach ($projekte as $key => $projekt) {
 				if (!empty($vorherigeWahl["wahl"]) && in_array($projekt["id"], $vorherigeWahl["wahl"])) {
-					array_push($vorherigeWahlKey, $key);
 					continue;
 				}
 			?>
@@ -32,7 +30,7 @@
 				<input type="hidden" value="<?php echo $projekt["id"]; ?>">
 				<div class="card-body">
 					<h5><?php echo $projekt["name"]; ?></h5>
-					<a href="javascript: ;" onclick="javascript: showProjektInfoModal(projekte[<?php echo $key; ?>]);" class="btn btn-primary">Info</a>
+					<a href="javascript: ;" onclick="javascript: showProjektInfoModal('<?php echo $projekt["id"]; ?>');" class="btn btn-primary">Info</a>
 				</div>
 			</div>
 			<?php
@@ -67,13 +65,13 @@
 							<th>" . ($i + 1) . "</th>
 							<td>";
 							if (!empty($vorherigeWahl["wahl"])) {
-								$projekt = getProjektInfo($vorherigeWahl["wahl"][$i]);
+								$projekt = getProjektInfo($projekte, $vorherigeWahl["wahl"][$i]);
 							?>
 							<div class="card projekt text-black shadow list-group-item-dark">
 								<input type="hidden" value="<?php echo $projekt["id"]; ?>">
 								<div class="card-body">
 									<h5><?php echo $projekt["name"]; ?></h5>
-									<a href="javascript: ;" onclick="javascript: showProjektInfoModal(projekte[<?php echo $vorherigeWahlKey[$i]; ?>]);" class="btn btn-primary">Info</a>
+									<a href="javascript: ;" onclick="javascript: showProjektInfoModal('<?php echo $vorherigeWahl["wahl"][$i]; ?>');" class="btn btn-primary">Info</a>
 								</div>
 							</div>
 							<?php
@@ -88,5 +86,6 @@
 		</div>
 	</div>
 </div>
+
 <script src="js/interact-1.3.4.min.js"></script>
-<script src="js/wahl.js"></script>
+<script src="js/wahl.js?hash=<?php echo sha1_file("js/wahl.js"); ?>"></script>

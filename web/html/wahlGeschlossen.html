@@ -8,9 +8,17 @@
 				<p>Die Phase der Projekt-Wahl ist geschlossen. Bei Fragen und Problemen bitte an einen Lehrer/Admin wenden</p>
 			</div>
 			<div class="modal-footer">
-				<button id="okbtn" type="button" class="btn btn-primary">OK</button>
+				<button id="okbtn" type="button" class="btn btn-primary" onclick="javascript: window.location.href = '?';">OK</button>
 			</div>
 		</div>
 	</div>
 </div>
-<script src="js/closedModal.js"></script>
+<script>
+	window.onload = function() {
+		$('.modal').modal({
+			show: true,
+			keyboard: false,
+			backdrop: 'static'
+		});
+	}
+</script>
