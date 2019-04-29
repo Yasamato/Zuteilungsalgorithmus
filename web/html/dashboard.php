@@ -2,69 +2,6 @@
 if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
   die("Zugriff verweigert");
 }
-
-
-// generate the statistics how many places are available in each class
-// initialize the data array
-$stufen = [];
-for ($i = CONFIG["minStufe"]; $i <= CONFIG["maxStufe"]; $i++) {
-  $stufen[$i] = [
-    "min" => 0,
-    "max" => 0,
-    "students" => 0
-  ];
-}
-
-// read each project and add the max members to the affected classes
-$pMin = 0;
-$pMax = 0;
-foreach ($projekte as $p) {
-  for ($i = CONFIG["minStufe"]; $i <= CONFIG["maxStufe"]; $i++) {
-		if ($p["minKlasse"] <= $i && $p["maxKlasse"] >= $i) {
-			$stufen[$i]["min"] += $p["minPlatz"];
-			$stufen[$i]["max"] += $p["maxPlatz"];
-		}
-	}
-  $pMin += $p["minPlatz"];
-  $pMax += $p["maxPlatz"];
-}
-
-// Gesamtanzahl der Schüler
-$gesamtanzahl = 0;
-foreach ($klassenliste as $klasse) {
-  $gesamtanzahl += $klasse["anzahl"];
-
-  // für die einzelnen Stufen
-  for ($i = CONFIG["minStufe"]; $i <= CONFIG["maxStufe"]; $i++) {
-    if ($i == $klasse["stufe"]) {
-			$stufen[$i]["students"] += $klasse["anzahl"];
-			$stufen[$i]["students"] += $klasse["anzahl"];
-    }
-  }
-}
-
-// Zählen der bereits gewählten Schüler
-$klassenFertig = 0;
-$nichtEingetrageneKlassen = [];
-foreach ($klassen as $klasse => $liste) {
-  $found = false;
-  foreach ($klassenliste as $k) {
-    if ($klasse == $k["klasse"]) {
-      if (count($liste) - 1 == $k["anzahl"]) {
-        $klassenFertig += 1;
-      }
-      $found = true;
-      break;
-    }
-  }
-  if (!$found) {
-    array_push($nichtEingetrageneKlassen, $klasse);
-  }
-}
-
-$buffer = 0.10; // +/- 10% Buffer bei den Projektplätzen
-$showErrorModal = false;
-$errorIncluded = false;
 ?>
 
 <!-- Fehldermeldungs-Modal -->
@@ -317,6 +254,19 @@ $errorIncluded = false;
           Version: <?php
           echo $version . "<br>";
           if ($newest != $version) {
+            if ($newest < $version) {
+            ?>
+            <span class="text-warning">
+              Sie verwenden eine experimentelle Version. Es ist eine stabile Version verfügbar: <?php echo $newest; ?>
+            <span>
+            <form method="post">
+              <button type="submit" class="btn btn-success" name="action" value="update">
+                Wechseln
+              </button>
+            </form>
+            <?php
+            }
+            else {
             ?>
             <span class="text-warning">
               Es ist eine neuere Version verfügbar: <?php echo $newest; ?>
@@ -327,6 +277,7 @@ $errorIncluded = false;
               </button>
             </form>
             <?php
+            }
           }
           else {
             echo "<span class='text-success'>Die neueste Version ist installiert</span>";
@@ -826,6 +777,12 @@ $errorIncluded = false;
       </div>
 
       <div class="modal-footer">
+        <div class="input-group col-6">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Suche</span>
+          </div>
+          <input id="klassenlisteTableSearch" type="text" class="form-control" placeholder="Table durchsuchen">
+        </div>
         <button type="button" class="btn btn-primary" onclick="javascript: $('#klassenlisteForm').submit();">Änderung speichern</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Zurück</button>
       </div>
@@ -909,7 +866,7 @@ $errorIncluded = false;
                 <input type="text" class="form-control" aria-label="U-ID" name="uid[]" oninput="javascript: autoAppendTable('#keineWahlTable', addStudentsInKeineWahlInput);">
               </td>
               <td>
-                <input type="number" class="form-control" aria-label="Stufe" name="stufe[]" min="` + window.config["minStufe"] + `" max="` + window.config["maxStufe"] + `" oninput="javascript: autoAppendTable('#keineWahlModal tbody', addStudentsInKeineWahlInput);">
+                <input type="number" class="form-control" aria-label="Stufe" name="stufe[]" min="` + window.config["minStufe"] + `" max="` + window.config["maxStufe"] + `" oninput="javascript: autoAppendTable('#keineWahlTable', addStudentsInKeineWahlInput);">
               </td>
               <td>
                 <input type="text" class="form-control" aria-label="Klasse" name="klasse[]" oninput="javascript: autoAppendTable('#keineWahlTable', addStudentsInKeineWahlInput);">
@@ -919,10 +876,6 @@ $errorIncluded = false;
               </td>
               <td>
                 <input type="text" class="form-control" aria-label="Nachname" name="nachname[]" oninput="javascript: autoAppendTable('#keineWahlTable', addStudentsInKeineWahlInput);">
-              </td>
-              <td>
-                <input type="hidden" class="form-control" name="projekt[]">
-                <button type="button" class="btn btn-warning" onclick="javascript: changeProjektzuteilung(this);">Projekt festlegen</button>
               </td>
               <td>
                 <button type="button" class="close text-danger" aria-label="Close" onclick="javascript: removeLine(this);">
@@ -1015,7 +968,7 @@ $errorIncluded = false;
           <h5 class="card-title"></h5>
           <p class="card-text"></p>
           <div class="btn-group btn-group-toggle d-none" data-toggle="buttons">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#keineWahlModal">
               Einträge bearbeiten
             </button>
           </div>
