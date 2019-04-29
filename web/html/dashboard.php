@@ -254,6 +254,19 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
           Version: <?php
           echo $version . "<br>";
           if ($newest != $version) {
+            if ($newest < $version) {
+            ?>
+            <span class="text-warning">
+              Sie verwenden eine experimentelle Version. Es ist eine stabile Version verfügbar: <?php echo $newest; ?>
+            <span>
+            <form method="post">
+              <button type="submit" class="btn btn-success" name="action" value="update">
+                Wechseln
+              </button>
+            </form>
+            <?php
+            }
+            else {
             ?>
             <span class="text-warning">
               Es ist eine neuere Version verfügbar: <?php echo $newest; ?>
@@ -264,6 +277,7 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
               </button>
             </form>
             <?php
+            }
           }
           else {
             echo "<span class='text-success'>Die neueste Version ist installiert</span>";
