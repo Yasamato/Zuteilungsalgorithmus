@@ -777,6 +777,12 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
       </div>
 
       <div class="modal-footer">
+        <div class="input-group col-6">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Suche</span>
+          </div>
+          <input id="klassenlisteTableSearch" type="text" class="form-control" placeholder="Table durchsuchen">
+        </div>
         <button type="button" class="btn btn-primary" onclick="javascript: $('#klassenlisteForm').submit();">Änderung speichern</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Zurück</button>
       </div>

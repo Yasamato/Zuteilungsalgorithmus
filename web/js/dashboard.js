@@ -7,6 +7,7 @@ window.onload = function() {
 	$("#projekteTableSearch").keyup(debounce(projekteTableSearch, 300));
 	$("#zwangszuteilungTableSearch").keyup(debounce(zwangszuteilungTableSearch, 300));
 	$("#keineWahlTableSearch").keyup(debounce(keineWahlTableSearch, 300));
+	$("#klassenlisteTableSearch").keyup(debounce(klassenlisteTableSearch, 300));
 }
 function studentTableSearch() {
   return search(this, $('#studentTable tbody tr'))
@@ -19,6 +20,9 @@ function zwangszuteilungTableSearch() {
 }
 function keineWahlTableSearch() {
   return search(this, $('#keineWahlTable tr'), true)
+}
+function klassenlisteTableSearch() {
+  return search(this, $('#klassenlisteTable tr'), true)
 }
 
 function checkUp() {
