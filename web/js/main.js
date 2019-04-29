@@ -128,3 +128,35 @@ function confirmDeleteProjekt(id, name) {
 		alert("Löschvorgang abgebrochen");
 	}
 }
+
+// see https://stackoverflow.com/a/9127872/9127322 by https://stackoverflow.com/users/949476/dfsq
+function search(me, rows, isInput = false) {
+	var val = $.trim($(me).val()).replace(/ +/g, ' ').toLowerCase();
+	rows.show().filter(function() {
+		var text = "";
+		if (isInput) {
+			$(this).find("input").each(function (index) {
+				text += $(this).val().replace(/\s+/g, ' ').toLowerCase();
+			});
+		}
+		else {
+    	text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+		}
+    return !~text.indexOf(val);
+	}).hide();
+}
+
+function debounce(func, wait, immediate) {
+	var timeout;
+	return function() {
+		var context = this, args = arguments;
+		var later = function() {
+			timeout = null;
+			if (!immediate) func.apply(context, args);
+		};
+		var callNow = immediate && !timeout;
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+		if (callNow) func.apply(context, args);
+	};
+};
