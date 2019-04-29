@@ -367,6 +367,12 @@ $errorIncluded = false;
       </div>
 
       <div class="modal-footer">
+        <div class="input-group col-8 col-md-6 col-lg-4">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Suche</span>
+          </div>
+          <input id="projekteTableSearch" type="text" class="form-control" placeholder="Table durchsuchen">
+        </div>
         <button onclick="javascript: window.open('printPDF.php?print=projekt&projekt=all');" type="button" class="btn btn-secondary">Liste drucken</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
       </div>
@@ -439,6 +445,12 @@ $errorIncluded = false;
       </div>
 
       <div class="modal-footer">
+        <div class="input-group col-8 col-md-6 col-lg-4">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Suche</span>
+          </div>
+          <input id="studentTableSearch" type="text" class="form-control" placeholder="Table durchsuchen">
+        </div>
         <button onclick="javascript: window.open('printPDF.php?print=students&klasse=all');" type="button" class="btn btn-secondary">Liste drucken</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
       </div>
@@ -648,7 +660,7 @@ $errorIncluded = false;
             button.children("button").first().addClass("btn-success");
             $(".current-open").removeClass("current-open");
             $("#editStudentProjektzuteilungModal tbody").html("");
-            autoAppendTable('#zwangszuteilungModal', addStudentsInZwangszuteilungInput);
+            autoAppendTable('#zwangszuteilungTable', addStudentsInZwangszuteilungInput);
           }
 
           function changeProjektzuteilung(student) {
@@ -679,6 +691,12 @@ $errorIncluded = false;
       </div>
 
       <div class="modal-footer">
+        <div class="input-group col-8 col-md-6 col-lg-4">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Suche</span>
+          </div>
+          <input id="zwangszuteilungTableSearch" type="text" class="form-control" placeholder="Table durchsuchen">
+        </div>
         <button type="button" class="btn btn-primary" onclick="javascript: $('#zwangszuteilungForm').submit();">Änderung speichern</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Zurück</button>
       </div>
@@ -918,6 +936,12 @@ $errorIncluded = false;
       </div>
 
       <div class="modal-footer">
+        <div class="input-group col-8 col-md-6 col-lg-4">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Suche</span>
+          </div>
+          <input id="keineWahlTableSearch" type="text" class="form-control" placeholder="Table durchsuchen">
+        </div>
         <button type="button" class="btn btn-primary" onclick="javascript: $('#keineWahlForm').submit();">Änderung speichern</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Zurück</button>
       </div>

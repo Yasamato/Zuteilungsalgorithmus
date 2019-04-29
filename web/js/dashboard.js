@@ -3,6 +3,22 @@ window.buffer = 0.10; // +/- 10% Buffer bei den Projektplätzen
 window.onload = function() {
 	checkUp();
 	var autoUpdate = setInterval(checkUp, 2000);
+	$("#studentTableSearch").keyup(debounce(studentTableSearch, 300));
+	$("#projekteTableSearch").keyup(debounce(projekteTableSearch, 300));
+	$("#zwangszuteilungTableSearch").keyup(debounce(zwangszuteilungTableSearch, 300));
+	$("#keineWahlTableSearch").keyup(debounce(keineWahlTableSearch, 300));
+}
+function studentTableSearch() {
+  return search(this, $('#studentTable tbody tr'))
+}
+function projekteTableSearch() {
+  return search(this, $('#projekteTable tbody tr'))
+}
+function zwangszuteilungTableSearch() {
+  return search(this, $('#zwangszuteilungTable tr'), true)
+}
+function keineWahlTableSearch() {
+  return search(this, $('#keineWahlTable tr'), true)
 }
 
 function checkUp() {
