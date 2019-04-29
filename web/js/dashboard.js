@@ -733,12 +733,12 @@ function updateErrors(data) {
 	var errorIncluded = false;
 
 	// Nicht eingetragene Klassen
-	for (var key in nichtEingetrageneKlassen) {
+	for (var key in window.nichtEingetrageneKlassen) {
 		showErrorModal = true;
 		errorIncluded = true;
 		$("#errorModal .modal-body").append(`
 		<div class="alert alert-danger" role="alert">
-			Die <strong>Klasse ` + nichtEingetrageneKlassen[key] + `</strong> konnte nicht gefunden werden. Korrigieren Sie bitte die Klassseneinträge entsprechend <a href="javascript:;" onclick="javascript: $('#studentsInKlassen').modal('show');" class="alert-link">hier</a> oder bearbeiten sie den Schülereintrag <a href="javascript: ;" onclick="javascript: $('#schuelerModal').modal('show');" class="alert-link">hier</a>.
+			Die <strong>Klasse ` + window.nichtEingetrageneKlassen[key] + `</strong> konnte nicht gefunden werden. Korrigieren Sie bitte die Klassseneinträge entsprechend <a href="javascript:;" onclick="javascript: $('#studentsInKlassen').modal('show');" class="alert-link">hier</a> oder bearbeiten sie den Schülereintrag <a href="javascript: ;" onclick="javascript: $('#schuelerModal').modal('show');" class="alert-link">hier</a>.
 		</div>`);
 	}
 
@@ -755,14 +755,14 @@ function updateErrors(data) {
 	}
 
 	// Wahlfortschritt nach Schülern
-	if (window.config["Stage"] > 2 && gesamtanzahl != window.wahlen.length) {
+	if (window.config["Stage"] > 2 && window.gesamtanzahl != window.wahlen.length) {
 		showErrorModal = true;
 		if (window.config["Stage"] > 3) {
 			errorIncluded = true;
 		}
 		$("#errorModal .modal-body").append(`
 		<div class="alert alert-` + (window.config["Stage"] < 4 ? "primary alert-dismissible fade show" : "danger") + `" role="alert">
-			Es ha` + (gesamtanzahl > 1 ? "ben" : "t") + ` nur ` + window.wahlen.length + " von " + gesamtanzahl + ` Schülern gewählt. Einträge <a href="javascript: ;" onclick="javascript: $('#schuelerModal').modal('show');" class="alert-link">auflisten</a>.
+			Es ha` + (window.gesamtanzahl > 1 ? "ben" : "t") + ` nur ` + window.wahlen.length + " von " + window.gesamtanzahl + ` Schülern gewählt. Einträge <a href="javascript: ;" onclick="javascript: $('#schuelerModal').modal('show');" class="alert-link">auflisten</a>.
 			` + (window.config["Stage"] < 4 ? `
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 				<span aria-hidden="true">&times;</span>
@@ -771,14 +771,14 @@ function updateErrors(data) {
 	}
 
 	// Wahlfortschritt nach Klassen
-	if (window.config["Stage"] > 2 && klassenFertig != window.klassenliste.length) {
+	if (window.config["Stage"] > 2 && window.klassenFertig != window.klassenliste.length) {
 		showErrorModal = true;
 		if (window.config["Stage"] > 3) {
 			errorIncluded = true;
 		}
 		$("#errorModal .modal-body").append(`
 		<div class="alert alert-` + (window.config["Stage"] < 4 ? "primary alert-dismissible fade show" : "danger") + `" role="alert">
-			Es ha` + (klassenFertig > 1 ? "ben " : "t ") + klassenFertig + " von " + window.klassenliste.length + ` Klassen vollständig gewählt. Einträge <a href="javascript: ;" onclick="javascript: $('#studentsInKlassen').modal('show');" class="alert-link">auflisten</a>
+			Es ha` + (window.klassenFertig > 1 ? "ben " : "t ") + window.klassenFertig + " von " + window.klassenliste.length + ` Klassen vollständig gewählt. Einträge <a href="javascript: ;" onclick="javascript: $('#studentsInKlassen').modal('show');" class="alert-link">auflisten</a>
 			` + (window.config["Stage"] < 4 ? `
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 				<span aria-hidden="true">&times;</span>
@@ -790,44 +790,44 @@ function updateErrors(data) {
 	if (window.config["Stage"] < 5) {
 
 		// Ausreichend Plätze für Schüler
-		if (pMin > gesamtanzahl * (1 - buffer)) {
-			showErrorModal = true;
+		if (window.pMin > window.gesamtanzahl * (1 - window.buffer)) {
+			window.showErrorModal = true;
 			$("#errorModal .modal-body").append(`
 			<div class="alert alert-warning" role="alert">
-				Die von allen Projekten summierte Mindestteilnehmeranzahl ist ` + (pMin > gesamtanzahl ? "größer als" : "zu groß für") + ` die Gesamtschülerzahl. Falls nicht Projekte nicht stattfinden sollen, passen Sie bitte <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> ggf. die Mindestteilnehmeranzahl an.
+				Die von allen Projekten summierte Mindestteilnehmeranzahl ist ` + (window.pMin > window.gesamtanzahl ? "größer als" : "zu groß für") + ` die Gesamtschülerzahl. Falls nicht Projekte nicht stattfinden sollen, passen Sie bitte <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> ggf. die Mindestteilnehmeranzahl an.
 			</div>`);
 		}
-		if (pMax < gesamtanzahl * (1 + buffer)) {
+		if (window.pMax < window.gesamtanzahl * (1 + window.buffer)) {
 			showErrorModal = true;
-			if (pMax < gesamtanzahl) {
+			if (window.pMax < window.gesamtanzahl) {
 				errorIncluded = true;
 			}
 			$("#errorModal .modal-body").append(`
-			<div class="alert alert-` + (pMax < gesamtanzahl ? "danger" : "warning") + `" role="alert">
-				Die von allen Projekten summierte Maximalteilnehmeranzahl ` + (pMax < gesamtanzahl ? "ist kleiner als die" : "liegt nur wenig über der") + ` Gesamtschülerzahl und kann zu Problemen führen. Bitte erweitern sie die Maximalzahl bestehender Projekte <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> oder fügen sie weitere Projekte <a href="javascript: ;" onclick="javascript: window.location.href = '?site=create';" class="alert-link">hier</a> hinzu.
+			<div class="alert alert-` + (window.pMax < window.gesamtanzahl ? "danger" : "warning") + `" role="alert">
+				Die von allen Projekten summierte Maximalteilnehmeranzahl ` + (window.pMax < window.gesamtanzahl ? "ist kleiner als die" : "liegt nur wenig über der") + ` Gesamtschülerzahl und kann zu Problemen führen. Bitte erweitern sie die Maximalzahl bestehender Projekte <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> oder fügen sie weitere Projekte <a href="javascript: ;" onclick="javascript: window.location.href = '?site=create';" class="alert-link">hier</a> hinzu.
 			</div>`);
 		}
 
 		// Platz pro Stufe
 		for (var i = window.config["minStufe"]; i <= window.config["maxStufe"]; i++) {
-			if (stufen[i]["min"] > stufen[i]["students"] * (1 - buffer)) {
+			if (window.stufen[i]["min"] > window.stufen[i]["students"] * (1 - window.buffer)) {
 				showErrorModal = true;
 				$("#errorModal .modal-body").append(`
 				<div class="alert alert-warning alert-dismissible fade show" role="alert">
-					Die von allen Projekten summierte Mindestteilnehmeranzahl für die <strong>Klassenstufe ` + i + `</strong> ist ` + (stufen[i]["min"] > stufen[i]["students"] ? "größer als" : "zu groß für") + ` die Schüleranzahl der Stufe. Dies kann zu Problemen führen und kann <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> bearbeitet werden.
+					Die von allen Projekten summierte Mindestteilnehmeranzahl für die <strong>Klassenstufe ` + i + `</strong> ist ` + (window.stufen[i]["min"] > window.stufen[i]["students"] ? "größer als" : "zu groß für") + ` die Schüleranzahl der Stufe. Dies kann zu Problemen führen und kann <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> bearbeitet werden.
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>`);
 			}
-			if (stufen[i]["max"] < stufen[i]["students"] * (1 + buffer)) {
+			if (window.stufen[i]["max"] < window.stufen[i]["students"] * (1 + window.buffer)) {
 				showErrorModal = true;
-				if (stufen[i]["max"] < stufen[i]["students"]) {
+				if (window.stufen[i]["max"] < window.stufen[i]["students"]) {
 					errorIncluded = true;
 				}
 				$("#errorModal .modal-body").append(`
-				<div class="alert alert-` + (stufen[i]["max"] < stufen[i]["students"] ? "danger" : "warning") + `" role="alert">
-					Die von allen Projekten summierte Maximalteilnehmeranzahl für die <strong>Klassenstufe ` + i + `</strong> ist ` + (stufen[i]["max"] < stufen[i]["students"] ? "kleiner als die" : " liegt nur wenig über der") + ` Schüleranzahl der Stufe. Dies kann zu Problemen führen. Bitte erweitern sie die Maximalzahl bestehender Projekte <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> oder fügen sie weitere Projekte <a href="javascript: ;" onclick="javascript: window.location.href = '?site=create';" class="alert-link">hier</a> hinzu.
+				<div class="alert alert-` + (window.stufen[i]["max"] < window.stufen[i]["students"] ? "danger" : "warning") + `" role="alert">
+					Die von allen Projekten summierte Maximalteilnehmeranzahl für die <strong>Klassenstufe ` + i + `</strong> ist ` + (window.stufen[i]["max"] < window.stufen[i]["students"] ? "kleiner als die" : " liegt nur wenig über der") + ` Schüleranzahl der Stufe. Dies kann zu Problemen führen. Bitte erweitern sie die Maximalzahl bestehender Projekte <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> oder fügen sie weitere Projekte <a href="javascript: ;" onclick="javascript: window.location.href = '?site=create';" class="alert-link">hier</a> hinzu.
 				</div>`);
 			}
 		}
@@ -992,10 +992,10 @@ function updateErrors(data) {
         window.studentOhneZuteilung.push(window.wahlen[wahl]);
       }
     }
-    if (window.studentOhneZuteilung.length > 0) {
+    if (window.studentOhneZuteilung.length + (window.gesamtanzahl - window.wahlen.length) > 0) {
 			$("#alertAlgorithmusResult").append(`
       <div class="alert alert-danger" role="alert">
-        Es konnten <strong>` + window.studentOhneZuteilung.length + ` Schüler</strong> keinem Projekt zugeteilt werden. Diese müssen <a href="javascript: ;" onclick="javascript: $('#schuelerModal').modal('show');" class="alert-link">hier manuell</a> zugeteilt werden.
+        Es konnte` + (window.studentOhneZuteilung.length + window.gesamtanzahl - window.wahlen.length == 1 ? "n" : "") + ` <strong>` + (window.studentOhneZuteilung.length + window.gesamtanzahl - window.wahlen.length) + ` Schüler</strong> keinem Projekt zugeteilt werden. Diese müssen <a href="javascript: ;" onclick="javascript: $('#schuelerModal').modal('show');" class="alert-link">hier manuell</a> zugeteilt werden.
       </div>`);
     }
     else {
