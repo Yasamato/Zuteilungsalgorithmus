@@ -778,7 +778,7 @@ function updateErrors(data) {
 		}
 		$("#errorModal .modal-body").append(`
 		<div class="alert alert-` + (window.config["Stage"] < 4 ? "primary alert-dismissible fade show" : "danger") + `" role="alert">
-			Es ha` + (window.klassenFertig > 1 ? "ben " : "t ") + window.klassenFertig + " von " + window.klassenliste.length + ` Klassen vollständig gewählt. Einträge <a href="javascript: ;" onclick="javascript: $('#studentsInKlassen').modal('show');" class="alert-link">auflisten</a>
+			Es ha` + (window.klassenFertig > 1 ? "ben " : "t ") + window.klassenFertig + " von " + window.klassenliste.length + ` Klassen vollständig gewählt. Einträge <a href="javascript: ;" onclick="javascript: $('#klassenlisteModal').modal('show');" class="alert-link">auflisten</a>
 			` + (window.config["Stage"] < 4 ? `
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 				<span aria-hidden="true">&times;</span>
