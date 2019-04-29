@@ -1,6 +1,6 @@
 <?php
 //authentication
-if (isLogin() && ($_SESSION['benutzer']['typ'] == "teachers" && $config["Stage"] == 1 || $_SESSION['benutzer']['typ'] == "admin")) {
+if (isLogin() && ($_SESSION['benutzer']['typ'] == "teachers" && ($config["Stage"] == 1 || $config["Stage"] > 1  && $_GET['site'] == "edit") || $_SESSION['benutzer']['typ'] == "admin")) {
 	$error = false;
 	if (empty($_POST["pName"]) ||
 		empty($_POST["beschreibung"]) ||

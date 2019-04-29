@@ -189,7 +189,20 @@ foreach ($wahlen as $key => $student) {
       "klasse" => $student["klasse"]
       ]];
   }
-  array_push($klassen[$student["klasse"]], $student);
+  if (isLogin()) {
+    if ($_SESSION["benutzer"]["typ"] == "admin") {
+      array_push($klassen[$student["klasse"]], $student);
+    }
+    else {
+      array_push($klassen[$student["klasse"]], [
+        "uid" => $student["uid"],
+        "vorname" => $student["vorname"],
+        "nachname" => $student["nachname"],
+        "stufe" => $student["stufe"],
+        "klasse" => $student["klasse"]
+      ]);
+    }
+  }
 }
 foreach ($keineWahl as $key => $student) {
   if (empty($student) || empty($student["uid"])) {
@@ -201,7 +214,20 @@ foreach ($keineWahl as $key => $student) {
       "klasse" => $student["klasse"]
       ]];
   }
-  array_push($klassen[$student["klasse"]], $student);
+  if (isLogin()) {
+    if ($_SESSION["benutzer"]["typ"] == "admin") {
+      array_push($klassen[$student["klasse"]], $student);
+    }
+    else {
+      array_push($klassen[$student["klasse"]], [
+        "uid" => $student["uid"],
+        "vorname" => $student["vorname"],
+        "nachname" => $student["nachname"],
+        "stufe" => $student["stufe"],
+        "klasse" => $student["klasse"]
+      ]);
+    }
+  }
 }
 // bereits vorhandene Datensätze mit den eingetragenen Datensätzen auffüllen
 foreach ($klassenliste as $klasse) {

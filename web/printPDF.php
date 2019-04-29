@@ -205,7 +205,8 @@
 						$string = empty($student["projekt"]) ? ($config["Stage"] > 4 ? "Konnte nicht zugeteilt werden" : "N/A") : getProjektInfo($projekte, $student["projekt"])["name"];
 					}
 					else {
-						$string = $zugeteilt ? "Zugeteilt" : (empty($student["wahl"]) ? "Nein" : "Ja");
+						$keineWahl = empty(dbSearch("../data/wahl.csv", "uid", $student["uid"])[0]["wahl"]);
+						$string = $zugeteilt ? "Zugeteilt" : ($keineWahl ? "Nein" : "Ja");
 					}
 					array_push($dataToPrint, [
 						$student["klasse"],

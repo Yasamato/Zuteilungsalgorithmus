@@ -10,23 +10,23 @@ window.onload = function() {
 	$("#klassenlisteTableSearch").keyup(debounce(klassenlisteTableSearch, 300));
 }
 function studentTableSearch() {
-  return search(this, $('#studentTable tbody tr'))
+  return search(this, $('#studentTable tbody tr'));
 }
 function projekteTableSearch() {
-  return search(this, $('#projekteTable tbody tr'))
+  return search(this, $('#projekteTable tbody tr'));
 }
 function zwangszuteilungTableSearch() {
-  return search(this, $('#zwangszuteilungTable tr'), true)
+  return search(this, $('#zwangszuteilungTable tr'), true);
 }
 function keineWahlTableSearch() {
-  return search(this, $('#keineWahlTable tr'), true)
+  return search(this, $('#keineWahlTable tr'), true);
 }
 function klassenlisteTableSearch() {
-  return search(this, $('#klassenlisteTable tr'), true)
+  return search(this, $('#klassenlisteTable tr'), true);
 }
 
 function checkUp() {
-	$.get("adminPing.php", function(data, status) {
+	$.get("ping.php", function(data, status) {
 		if (status = "success") {
 			console.log("Check-Up erhalten, wende Daten-Update an");
 			data = JSON.parse(data);
@@ -84,23 +84,6 @@ function checkUp() {
 			console.log("JS-Data Update failed!!");
 		}
 	});
-}
-
-function updateUpdate(progress) {
-	if (progress == "false") {
-		if (!$("#updateAlert").hasClass("d-none")) {
-			$("#updateAlert").addClass("d-none");
-			// reload to get updated version
-			setTimeout(function () {
-				window.location.href = "?";
-			}, 2000);
-		}
-		return;
-	}
-	if ($("#updateAlert").hasClass("d-none")) {
-		$("#updateAlert").removeClass("d-none");
-	}
-	console.log("Update wird durchgeführt");
 }
 
 function updateProgressbar(progress) {

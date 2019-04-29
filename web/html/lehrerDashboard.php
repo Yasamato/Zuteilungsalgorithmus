@@ -6,6 +6,11 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "teachers") {
 
 <div class="container-fluid">
   <div class="container">
+    <div class="alert alert-danger d-none" role="alert" id="updateAlert">
+      <div class="spinner-border text-primary m-2" role="status"></div>
+      Momentan wird ein Update durchgeführt, daher kann es zur Einschränkung aller Funktionen kommen.
+    </div>
+
 		<div class="card-deck">
 			<div class="card text-white bg-dark mb-3" >
 				<div class="card-body">
@@ -18,88 +23,37 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "teachers") {
               Editierungen an bereits bestehenden Projekten können jederzeit von allen Lehrern vorgenommen werden.
               Die Listen der Wahlergebnisse werden durch den Administrator nach Abschluss der Auswertung an die Lehrerschaft sowie Projektleiter verteilt.
             </small>
-            <?php
-            if ($config["Stage"] > 1) {
-            ?>
-            <p class="text-danger">
+            <p id="einreichungGeschlossen" class="text-danger d-none">
               Die Projekteinreichephase ist geschlossen!
             </p>
-            <?php
-            }
-            ?>
           </div>
 
-          <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <button type="button" class="btn btn-danger" onclick="logout()">
-              Abmelden
-            </button>
-          </div>
-      		<div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <button onclick="javascript: window.open('printPDF.php?print=projekt&projekt=all');" type="button" class="btn btn-secondary">
-              Alle Projekte drucken
-            </button>
-            <?php if ($config["Stage"] < 2) { ?>
-        			<button type="button" class="btn btn-success" onclick="window.location.href = '?site=create';">
-                Reiche ein neues Projekt ein
-              </button>
-              <?php
-            } ?>
-          </div>
+          <button type="button" class="btn btn-danger" onclick="logout()">
+            Abmelden
+          </button>
+          <button onclick="javascript: window.open('printPDF.php?print=projekt&projekt=all');" type="button" class="btn btn-secondary">
+            Alle Projekte drucken
+          </button>
+    			<button id="createProjektButton" type="button" class="btn btn-success d-none" onclick="javascript: window.location.href = '?site=create';">
+            Reiche ein neues Projekt ein
+          </button>
 				</div>
 			</div>
 		</div>
   </div>
 
   <div class="container">
-    <?php if ($config["Stage"] > 2) { ?>
-    <div class="row flex">
-      <?php
-      foreach ($klassen as $key => $klasse) {
-        $anzahl = 0;
-        $found = false;
-        foreach ($klassenliste as $liste) {
-          if (strtolower($liste["klasse"]) == strtolower($key)) {
-            $anzahl = $liste["anzahl"];
-            $found = true;
-            break;
-          }
-        }
-      ?>
-      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-        <div class="card w-100 bg-dark p-3 border <?php
-        if (!$found || $anzahl < count($klasse) - 1) {
-          echo "border-danger text-danger";
-        }
-        elseif ($anzahl == count($klasse) - 1) {
-          echo "text-success border-success";
-        }
-        else {
-          echo "border-warning text-warning";
-        } ?>">
-          <div class="card-body">
-            <?php
-            if (!$found) {
-              echo " <span>Diese Klasse wurde nicht in den Datensätzen gefunden!!!</span>";
-            }
-            elseif ($anzahl < count($klasse) - 1) {
-              echo " <span>Diese Klasse hat scheinbar mehr Schüler als eingetragen!!!</span>";
-            }
-            ?>
-            <h5 class="card-title"><?php echo $key ?></h5>
-            <p class="card-text"><?php echo count($klasse) - 1 > 0 ? count($klasse) - 1 . "/" . $anzahl . " Personen ha" . (count($klasse) - 1 > 1 ? "ben" : "t") . " bereits gewählt" : "Keine Person hat gewählt"; ?></p>
-            <button onclick="javascript: window.open('printPDF.php?print=students&klasse=<?php echo $key; ?>');" type="button" class="btn btn-primary">Auflisten</button>
-          </div>
-        </div>
-      </div><?php
-      }
-      ?>
-
-    </div>
-    <?php } ?>
+    <div id="klassen" class="row flex d-flex justify-content-center d-none"></div>
 
     <div class="card w-100 bg-dark p-3">
       <div class="card-body">
         <h5 class="card-title">Liste aller eingereichten Projekte</h5>
+        <div class="input-group m-2">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Suche</span>
+          </div>
+          <input id="projekteTableSearch" type="text" class="form-control" placeholder="Table durchsuchen">
+        </div>
         <table class="table table-dark table-striped table-hover text-left">
           <thead class="thead-dark">
             <tr>
@@ -109,27 +63,7 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "teachers") {
               <th class="sticky-top">Platz</th>
             </tr>
           </thead>
-          <tbody><?php
-          if (empty($projekte)) {
-            echo "
-            <tr>
-              <td>
-                Bisher wurden keine Projekte eingereicht
-              </td>
-            </tr>";
-          }
-          foreach ($projekte as $key => $projekt) {
-            echo '
-            <tr>
-              <td><a href="javascript:;" class="btn btn-success" onclick="showProjektInfoModal(projekte[' . $key . ']);">Info</a> ' . $projekt["name"] . '</td>
-              <td>' . $projekt["betreuer"] . '</td>
-              <td>' . $projekt["minKlasse"] . '-' . $projekt["maxKlasse"] . '</td>
-              <td>' . $projekt["minPlatz"] . '-' . $projekt["maxPlatz"] . '</td>
-            </tr>';
-          }
-          ?>
-
-          </tbody>
+          <tbody id="projekteTable"></tbody>
         </table>
       </div>
     </div>
@@ -137,3 +71,5 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "teachers") {
   </div>
 
 </div>
+
+<script src="js/lehrerDashboard.js?hash=<?php echo sha1_file("js/lehrerDashboard.js"); ?>"></script>

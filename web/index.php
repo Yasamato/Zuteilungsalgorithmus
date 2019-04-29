@@ -22,14 +22,14 @@
 
 		<!-- bootstrap-frameworks -->
 		<link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.min.css">
-		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="css/main.css?hash=<?php echo sha1_file("css/main.css"); ?>">
 
 		<!-- JS-Libs -->
 		<script src="js/jquery-3.3.1.min.js"></script>
 		<script src="js/popper-1.14.7.min.js"></script>
 		<script src="bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
 
-		<script src="js/main.js"></script>
+		<script src="js/main.js?hash=<?php echo sha1_file("js/main.js"); ?>"></script>
 <?php
 	if (!file_exists("../LICENSE") || !file_exists("../VERSION")) {
 		die("</head><body style='color: #000'>Bei diesem Produkt handelt es sich möglicherweise um eine illegale Kopie. Bitte beziehen Sie dieses Produkt nur von der offiziellen Github-Seite unter <a href='https://github.com/Agent77326/Zuteilungsalgorithmus'>https://github.com/Agent77326/Zuteilungsalgorithmus</a></body></html>");
@@ -241,45 +241,6 @@
 	}*/
 ?>
 <script>
-  var config = {<?php
-    end($config);
-    $last = key($config);
-    foreach ($config as $key => $v) {
-      echo "'" . $key . "': '" . $v . "'";
-      if ($key != $last) {
-        echo ",\n";
-      }
-    }
-  ?>};
-  // convert the string into a bool
-  config["MontagVormittag"] = (config["MontagVormittag"] == 'true');
-  config["MontagNachmittag"] = (config["MontagNachmittag"] == 'true');
-  config["DienstagVormittag"] = (config["DienstagVormittag"] == 'true');
-  config["DienstagNachmittag"] = (config["DienstagNachmittag"] == 'true');
-  config["MittwochVormittag"] = (config["MittwochVormittag"] == 'true');
-  config["MittwochNachmittag"] = (config["MittwochNachmittag"] == 'true');
-  config["DonnerstagVormittag"] = (config["DonnerstagVormittag"] == 'true');
-  config["DonnerstagNachmittag"] = (config["DonnerstagNachmittag"] == 'true');
-  config["FreitagVormittag"] = (config["FreitagVormittag"] == 'true');
-  config["FreitagNachmittag"] = (config["FreitagNachmittag"] == 'true');
-
-	var projekte = [<?php
-	foreach ($projekte as $p) {
-    echo "{";
-    foreach ($p as $key => $v) {
-			if ($key == "teilnehmer") {
-				continue;
-			}
-      echo "'" . $key . "': `" . $v . "`,";
-    }
-    echo "}";
-		if ($p != $projekte[sizeof($projekte) - 1]) {
-			echo ",\n";
-		}
-	}
-?>
-	];
-
 	var user = "<?php echo empty($_SESSION['benutzer']['typ']) ? "logged out" : $_SESSION['benutzer']['typ']; ?>";
 </script>
 <?php
@@ -289,7 +250,7 @@
 		if ($_SESSION['benutzer']['typ'] == "admin") {
 			if (!empty($_GET['site']) && ($_GET['site'] == "create" || $_GET["site"] == "edit")) {
 ?>
-	<link rel="stylesheet" href="css/projektErstellung.css">
+	<link rel="stylesheet" href="css/projektErstellung.css?hash=<?php echo sha1_file("css/projektErstellung.css"); ?>">
 </head>
 <body>
 <?php
@@ -297,7 +258,7 @@
 			}
 			else {
 ?>
-		<link rel="stylesheet" href="css/dashboard.css">
+		<link rel="stylesheet" href="css/dashboard.css?hash=<?php echo sha1_file("css/dashboard.css"); ?>">
 	</head>
 	<body>
 <?php
@@ -308,7 +269,7 @@
 			if ($config["Stage"] > 0) {
 				if (!empty($_GET['site']) && ($_GET['site'] == "create" && $config["Stage"] == 1 || $_GET['site'] == "edit")) {
 ?>
-		<link rel="stylesheet" href="css/projektErstellung.css">
+		<link rel="stylesheet" href="css/projektErstellung.css?hash=<?php echo sha1_file("css/projektErstellung.css"); ?>">
 	</head>
 	<body>
 <?php
@@ -344,7 +305,7 @@
 			}
 			if ($config["Stage"] == 3 && !$zwangszugeteilt) {
 ?>
-		<link rel="stylesheet" href="css/wahl.css">
+		<link rel="stylesheet" href="css/wahl.css?hash=<?php echo sha1_file("css/wahl.css"); ?>">
 	</head>
 	<body>
 <?php
@@ -367,7 +328,7 @@
 	}
 	else {
 ?>
-		<link rel="stylesheet" href="css/login.css">
+		<link rel="stylesheet" href="css/login.css?hash=<?php echo sha1_file("css/login.css"); ?>">
 	</head>
 	<body>
 	<div class="container text-center login-box d-flex justify-content-center">
