@@ -238,20 +238,22 @@ $projekte = [];
 if (isLogin()) {
   if ($_SESSION['benutzer']['typ'] == "teachers" || $_SESSION['benutzer']['typ'] == "admin") {
     $projekte = dbRead("../data/projekte.csv");
-    foreach ($projekte as $key => $projekt) {
-      $teilnehmer = [];
-      foreach ($wahlen as $student) {
-        if (!empty($student["projekt"]) && $student["projekt"] == $projekt["id"]) {
-          array_push($teilnehmer, $student);
+    if ($_SESSION['benutzer']['typ'] == "admin") {
+      foreach ($projekte as $key => $projekt) {
+        $teilnehmer = [];
+        foreach ($wahlen as $student) {
+          if (!empty($student["projekt"]) && $student["projekt"] == $projekt["id"]) {
+            array_push($teilnehmer, $student);
+          }
         }
+        usort($teilnehmer, function ($a, $b) {
+          if (strtolower($a["nachname"]) == strtolower($b["nachname"])) {
+            return strtolower($a["vorname"]) < strtolower($b["vorname"]) ? -1 : 1;
+          }
+          return strtolower($a["nachname"]) < strtolower($b["nachname"]) ? -1 : 1;
+        });
+        $projekte[$key]["teilnehmer"] = $teilnehmer;
       }
-      usort($teilnehmer, function ($a, $b) {
-        if (strtolower($a["nachname"]) == strtolower($b["nachname"])) {
-          return strtolower($a["vorname"]) < strtolower($b["vorname"]) ? -1 : 1;
-        }
-        return strtolower($a["nachname"]) < strtolower($b["nachname"]) ? -1 : 1;
-      });
-      $projekte[$key]["teilnehmer"] = $teilnehmer;
     }
   }
   else {
@@ -261,6 +263,22 @@ if (isLogin()) {
       }
     }
   }
+}
+uasort($projekte, function ($a, $b) {
+  for ($i = 0; $i < strlen($a["name"]); $i++) {
+    if ($a["name"][$i] == $b["name"][$i]) {
+      continue;
+    }
+    return ($a["name"][$i] < $b["name"][$i] ? -1 : 1);
+  }
+  return 0;
+});
+
+// prevent json_encode from creating json object instead of array
+$tmp = $projekte;
+$projekte = [];
+foreach ($tmp as $projekt) {
+  array_push($projekte, $projekt);
 }
 
 $version = file_get_contents("../VERSION");
