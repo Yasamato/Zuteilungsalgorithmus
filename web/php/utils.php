@@ -6,6 +6,7 @@
 	function logout() {
 		session_destroy();
 		unset($_SESSION);
+		unlink("../data/admin.lock");
 		session_start();
 	}
 

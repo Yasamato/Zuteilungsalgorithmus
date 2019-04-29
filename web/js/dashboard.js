@@ -999,7 +999,7 @@ function updateErrors(data) {
     if (window.studentOhneZuteilung.length + (window.gesamtanzahl - window.wahlen.length) > 0) {
 			$("#alertAlgorithmusResult").append(`
       <div class="alert alert-danger" role="alert">
-        Es konnte` + (window.studentOhneZuteilung.length + window.gesamtanzahl - window.wahlen.length == 1 ? "n" : "") + ` <strong>` + (window.studentOhneZuteilung.length + window.gesamtanzahl - window.wahlen.length) + ` Schüler</strong> keinem Projekt zugeteilt werden. Diese müssen <a href="javascript: ;" onclick="javascript: $('#schuelerModal').modal('show');" class="alert-link">hier manuell</a> zugeteilt werden.
+        Es konnte` + (window.studentOhneZuteilung.length + window.gesamtanzahl - window.wahlen.length == 1 ? "" : "n") + ` <strong>` + (window.studentOhneZuteilung.length + window.gesamtanzahl - window.wahlen.length) + ` Schüler</strong> keinem Projekt zugeteilt werden. Diese müssen <a href="javascript: ;" onclick="javascript: $('#schuelerModal').modal('show');" class="alert-link">hier manuell</a> zugeteilt werden.
       </div>`);
     }
     else {
