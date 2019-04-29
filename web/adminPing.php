@@ -12,6 +12,8 @@
     $fh = fopen("../data/admin.lock", "w");
     fwrite($fh, time() . "," . session_id());
     fclose($fh);
+    echo '"version" : "' . $version . '"' . ", \n";
+    echo '"newest" : "' . $newest . '"' . ", \n";
     // Algorithmus-isRunning
     $status;
     if (isRunning(file_get_contents("../data/algorithmus.pid"))) {
@@ -30,10 +32,10 @@
     echo '"updateRunning" : "' . $status . '"' . ", \n";
 
     // databases
-    echo '"config" : ' . JSON_encode($config) . ",\n";
+    echo '"config" : ' . JSON_encode(array_merge($config, CONFIG)) . ",\n";
     echo '"projekte" : ' . JSON_encode($projekte) . ",\n";
     echo '"wahlen" : ' . JSON_encode($wahlen) . ",\n";
-    echo '"zwangszuteilung" : ' . JSON_encode($zwangszuteilung) . ",\n";
+    echo '"zwangszuteilungen" : ' . JSON_encode($zwangszuteilung) . ",\n";
     echo '"keineWahl" : ' . JSON_encode($keineWahl) . ",\n";
     echo '"klassen" : ' . JSON_encode($klassen) . ",\n";
     echo '"klassenliste" : ' . JSON_encode($klassenliste) . "\n";

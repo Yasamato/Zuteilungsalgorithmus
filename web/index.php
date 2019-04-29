@@ -186,8 +186,8 @@
 					require("php/dashboard.php");
 					$waittime = 1;
 					break;
-				case "updateStudentsInKlassen":
-					require("php/klassen.php");
+				case "updateKlassenliste":
+					require("php/klassenliste.php");
 					$waittime = 1;
 					break;
 				case "updateZwangszuteilung":
@@ -239,7 +239,6 @@
 		//print_r($loginResult);
 		print_r($_SESSION['benutzer']);
 	}*/
-
 ?>
 <script>
   var config = {<?php

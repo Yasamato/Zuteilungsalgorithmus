@@ -4,7 +4,39 @@ function logout() {
 	$("#logout").submit();
 }
 
-function showProjektInfoModal(p) {
+function getProjektInfo(id) {
+	for (var i in window.projekte) {
+		if (window.projekte[i]["id"] == id) {
+			return window.projekte[i];
+		}
+	}
+	alert("Ungültige Projekt-ID");
+	return;
+}
+
+function autoAppendTable(selector, appendFunction) {
+	let inputs = $(selector)[0].querySelectorAll("input");
+	for (var input of inputs) {
+		if (!input.value.replace(/\s+/, '').length) {
+			console.log(input);
+			console.log("found empty");
+			return;
+		}
+	}
+	appendFunction();
+}
+
+function removeLine(element) {
+	// button -> td -> tr -> tbody
+	var row = element.parentNode.parentNode;
+	row.parentNode.removeChild(row);
+}
+
+function showProjektInfoModal(id) {
+	p = getProjektInfo(id);
+	if (!p) {
+		return;
+	}
 	$(".tmp-modal").html(`
 	<div class="modal fade" id="tmp-modal" tabindex="-1" role="dialog" aria-labelledby="tmp-modalLabel" aria-hidden="true" style="z-index: 1051 !important;">
 		<div class="modal-dialog modal-lg" role="document">
