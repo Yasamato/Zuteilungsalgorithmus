@@ -255,6 +255,14 @@ function updateProjekte(data) {
 			</div>`).appendTo("#projektliste");
 			neueProjekte.push(data["projekte"][p]);
 		}
+
+		$(".card.projekt").each(function(index) {
+			if ($(this).find("input").val() == data["projekte"][p]["id"]) {
+				if ($(this).find("h5").html() != data["projekte"][p]["name"]){
+					$(this).find("h5").html(data["projekte"][p]["name"]);
+				}
+			}
+		});
 	}
 	if (neueProjekte) {
 		msg += "Es wurde" + (neueProjekte.length > 1 ? "" : "n") + " " + neueProjekte.length + " Projekt" + (neueProjekte.length > 1 ? "e" : "") + " hinzugefügt:\n";
