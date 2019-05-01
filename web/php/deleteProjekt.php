@@ -2,14 +2,13 @@
 //authentication
 if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
   if (!empty($_POST['action']) && $_POST['action'] == "deleteProjekt" && !empty($_POST["projekt"])) {
-    $projekt = getProjektInfo($_POST["projekt"]);
+    $projekt = getProjektInfo($projekte, $_POST["projekt"]);
     if (empty($projekt)) {
-      error_log("Das Projekt mit der ID " . $_POST["projekt"] . " konnte nicht gefunden werden und dementsprechend nicht gelöscht werden", 0, "../data/error.log");
       alert("Zu löschendes Projekt nicht gefunden");
     }
     else {
       if (dbRemove("../data/projekte.csv", "id", $_POST["projekt"])) {
-        alert("Das Projekt '" . $projekt["name"] . "' mit der ID " . $_POST["projekt"] . " wurde erfolgreich gelöscht");
+        alert("Das Projekt '" . $projekt["name"] . "' wurde erfolgreich gelöscht");
         $entrysModified = [];
         foreach ($wahlen as $key => $wahl) {
           if (in_array($_POST["projekt"], $wahl["wahl"])) {
@@ -25,16 +24,15 @@ if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
         }
 
         if (count($entrysModified) > 0) {
-          $stringToPrint = "Aufgrund des Löschvorgangs, wurden bei " . count($entrysModified) . " Schülern die Wahlen bearbeitet. Folgende Schüler müssen ihre Wahl erneut abgeben:\r\n";
+          $stringToPrint = "Aufgrund des Löschvorgangs, wurden bei " . count($entrysModified) . " Schülern die Wahlen gelöscht. Folgende Schüler müssen ihre Wahl erneut tätigen:\n";
           foreach ($entrysModified as $entry) {
-            $stringToPrint .= "\r\n" . $entry["nachname"] . " " . $entry["vorname"] . " aus Klasse " . $entry["klasse"];
+            $stringToPrint .= "\n- " . $entry["nachname"] . " " . $entry["vorname"] . " aus Klasse " . $entry["klasse"];
           }
           alert($stringToPrint);
         }
       }
       else {
-        error_log("Löschen des Projekts mit der ID " . $_POST["projekt"] . " fehlgeschlagen.", 0, "../data/error.log");
-        alert("Es ist ein unerwartetes Problem aufgetreten beim Löschen des Projekts mit der ID " . $_POST["projekt"]);
+        alert("Es ist ein unerwartetes Problem aufgetreten beim Löschen des Projekts '" . $projekt["name"] . "'");
       }
     }
   }

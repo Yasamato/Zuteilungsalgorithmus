@@ -48,5 +48,19 @@
     echo '"klassen" : ' . JSON_encode($klassen) . ",\n";
     echo '"klassenliste" : ' . JSON_encode($klassenliste) . "\n";
 	}
+  elseif (isLogin()) {
+    // Update-isRunning
+    $status = isRunning(file_get_contents("../data/update.pid")) ? "true" : "false";
+    echo '"updateRunning" : "' . $status . '"' . ", \n";
+		$vorherigeWahl = "false";
+		foreach ($wahlen as $wahl) {
+			if ($_SESSION["benutzer"]["uid"] == $wahl["uid"]) {
+				$vorherigeWahl = $wahl;
+				break;
+			}
+		}
+    echo '"vorherigeWahl" : "' . JSON_encode($vorherigeWahl) . '"' . ", \n";
+		echo '"projekte" : ' . JSON_encode($projekte) . "\n";
+	}
 ?>
 }
