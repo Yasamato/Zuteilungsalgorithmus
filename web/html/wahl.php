@@ -1,3 +1,10 @@
+<div class="alert alert-danger d-none" role="alert" id="updateAlert">
+	<div class="spinner-border text-primary m-2" role="status"></div>
+	Momentan wird ein Update durchgeführt, daher kann es zur Einschränkung aller Funktionen kommen.<br>
+	Die Seite wird automatisch aktualisiert, sobald das Update abgeschlossen ist, um die Änderungen zu übernehmen.<br>
+	Alle nicht gespeicherten Änderungen gehen dabei verloren!
+</div>
+
 <div class="container text-center d-none invisible" id="tiltPhone">
 	<h4>
 		Handybildschirm bitte drehen
@@ -12,6 +19,12 @@
 <div class="row" id="wahlpage">
 
 	<div class="col-sm-7 col-md-7 col-lg-8 col-xl-9">
+		<div class="input-group m-2 sticky-top">
+			<div class="input-group-prepend">
+				<span class="input-group-text">Suche</span>
+			</div>
+			<input id="projektlisteSearch" type="text" class="form-control" placeholder="Projekt finden">
+		</div>
 		<div class="d-flex flex-wrap align-content-start" id="projektliste">
 			<?php
 			$vorherigeWahl = null;
