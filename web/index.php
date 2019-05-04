@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="de">
 	<head>
-		<title>LMG8 Campus | Wahl</title>
 		<meta charset="utf-8">
 
 		<meta name="github" content="https://github.com/Agent77326/Zuteilungsalgorithmus/">
@@ -14,7 +13,7 @@
 		<meta name="author" content="Jonas Dalchow">
 		<meta name="author" content="Leon Selig">
 
-		<meta name="description" content="Wahlseite des LMG8 von Maxdorf">
+		<?php echo file_get_contents("html/head.html"); ?>
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
 		<meta http-equiv='cache-control' content='no-cache'>
 		<meta http-equiv='expires' content='0'>
