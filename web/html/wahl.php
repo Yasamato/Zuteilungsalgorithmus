@@ -100,5 +100,5 @@
 	</div>
 </div>
 
-<script src="js/interact-1.3.4.min.js"></script>
+<script src="js/interact-1.4.0.min.js"></script>
 <script src="js/wahl.js?hash=<?php echo sha1_file("js/wahl.js"); ?>"></script>

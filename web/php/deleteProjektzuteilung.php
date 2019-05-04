@@ -10,7 +10,6 @@ if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
       }
     }
     if (empty($student)) {
-      error_log("Der Schüler mit der ID " . $_POST["uid"] . " konnte nicht gefunden werden und wurde dementsprechend nicht gelöscht werden", 0, "../data/error.log");
       alert("Der Schüler mit der ID " . $_POST["uid"] . " konnte nicht gefunden werden und wurde dementsprechend nicht gelöscht werden");
     }
     else {
@@ -18,7 +17,6 @@ if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
         alert("Die Projektzuteilung des Schülers '" . $student["vorname"] . " " . $student["nachname"] . "' mit der ID " . $_POST["uid"] . " wurde erfolgreich gelöscht");
       }
       else {
-        error_log("Löschen der Projektzuteilung des Schülereintrags mit der ID " . $_POST["uid"] . " ist fehlgeschlagen.", 0, "../data/error.log");
         alert("Löschen der Projektzuteilung des Schülereintrags mit der ID " . $_POST["uid"] . " ist fehlgeschlagen.");
       }
     }

@@ -23,11 +23,11 @@ if (isLogin() && ($_SESSION['benutzer']['typ'] == "teachers" && $config["Stage"]
 		alert("Ungültige Angabe: die Mindeststufe ist größer wie die maximale Jahrgangsstufe");
 		$error = true;
 	}
-	if ($_POST["minKlasse"] < 5) {
+	if ($_POST["minKlasse"] < CONFIG["minStufe"]) {
 		alert("Ungültige Angabe: die Mindeststufe ist kleiner als der kleinstmögliche Jahrgangsstufe");
 		$error = true;
 	}
-	if ($_POST["maxKlasse"] > 12) {
+	if ($_POST["maxKlasse"] > CONFIG["maxStufe"]) {
 		alert("Ungültige Angabe: die Maximalstufe ist größer als die größtmögliche Jahrgangsstufe");
 		$error = true;
 	}
