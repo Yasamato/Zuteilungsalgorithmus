@@ -193,6 +193,10 @@
 					require("php/zwangszuteilung.php");
 					$waittime = 1;
 					break;
+				case "updateKeineWahl":
+					require("php/updateKeineWahl.php");
+					$waittime = 1;
+					break;
 				case "runZuteilungsalgorithmus":
 					require("php/run.php");
 					$waittime = 1;
