@@ -57,6 +57,8 @@
 	    if (($fh = fopen("../data/admin.lock", "w")) === false) {
 				die("Fehlende Berechtigung, bitte überprüfen Sie die Datei-Berechtigungen");
 			}
+	    fwrite($fh, time() . "," . session_id());
+	    fclose($fh);
 			// admin ist vom login-System losgelöst
 			// passwort und benutzername können in ../data/config.php festgelegt werden
 			$_SESSION['benutzer'] = [
@@ -107,7 +109,10 @@
 		}
 		else {
 			alert("Anmeldedaten ungültig");
-			error_log("Anmeldung des Accounts '" . $_POST['user'] . "' fehlgeschlagen.", 0, "../data/error.log");
+		}
+
+		if (!empty($_SESSION["benutzer"])) {
+			alert("Erfolgreich angemeldet");
 		}
 	}
 ?>

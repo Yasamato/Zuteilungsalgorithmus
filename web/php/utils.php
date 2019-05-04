@@ -4,6 +4,7 @@
 	}
 
 	function logout() {
+		alert("Erfolgreich abgemeldet");
 		session_destroy();
 		unset($_SESSION);
 		unlink("../data/admin.lock");
@@ -12,6 +13,16 @@
 
 	function alert($msg) {
 		echo "<script>alert(`" . $msg . "`);</script>";
+		if (!file_exists("../data/log/")) {
+			if (!mkdir("../data/log", CONFIG["dbFilesPermission"])) {
+				die("Es konnte kein log-Ordner angelegt werden, bitte kontaktieren sie einen Admin.");
+			}
+		}
+		if (($fh = fopen("../data/log/" . date("Y-m-dl") . ".log", "a+")) === false) {
+			die("Es konnte keine log-Datei angelegt werden, bitte kontaktieren sie einen Admin.");
+		}
+		fwrite($fh, date("H:i:s e") . "\t" . (!empty($_SESSION["benutzer"]) ? $_SESSION["benutzer"]["typ"] . " " . $_SESSION["benutzer"]["uid"] : "Gast") . "\t" . $msg);
+		fclose($fh);
 	}
 
 	function newlineBack($txt) {

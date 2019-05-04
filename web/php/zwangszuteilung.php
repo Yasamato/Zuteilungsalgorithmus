@@ -9,6 +9,7 @@ if (isLogin() && $_SESSION["benutzer"]["typ"] == "admin") {
       && count($_POST["vorname"]) == count($_POST["nachname"])
       && count($_POST["nachname"]) == count($_POST["projekt"])) {
       $data = [];
+      alert("Zwangszuteilungen werden gespeichert");
       for ($i = 0; $i < count($_POST["uid"]); $i++) {
         if (empty($_POST["uid"][$i])) {
           continue;

@@ -3,13 +3,13 @@
 	// erstellt eine neue Datei
 	function dbCreateFile($path, $headers, $ignoreExistingFile = false) {
 		if (file_exists($path)) {
-			error_log("Die Datei " . $path . " existiert bereits und wird ersetzt.");
+			alert("Die Datei " . $path . " existiert bereits und wird ersetzt.");
 			if ($ignoreExistingFile) {
-				error_log("Die ursprüngliche Datei " . $path . " wurde endgültig überschrieben", 0, "../data/error.log");
+				alert("Die ursprüngliche Datei " . $path . " wurde endgültig überschrieben");
 			}
 			else {
 				rename($path, $path . ".old");
-				error_log("Die ursprüngliche Datei " . $path . " wurde sicherheitshalber nach " . $path . ".old verschoben", 0, "../data/error.log");
+				alert("Die ursprüngliche Datei " . $path . " wurde sicherheitshalber nach " . $path . ".old verschoben");
 			}
 		}
 		$result = dbWrite($path, null, $headers);
@@ -35,7 +35,6 @@
 			fclose($fh);
 		}
 		else {
-			error_log("Die Datei " . $path . " konnte nicht angelegt werden", 0, "../data/error.log");
 			die("Datei: " . $file . " konnte nicht angelegt werden, kontaktiere einen Admin damit dieser die Zugriffsberechtigungen überprüfen kann");
 		}
 		return true;
@@ -47,7 +46,7 @@
 			fwrite($fh, CONFIG["dbLineSeperator"] . "\n" . implode(CONFIG["dbElementSeperator"], newlineRemove($data)));
 		}
 		else {
-			error_log("Die Datei " . $path . " konnte nicht geöffnet werden", 0, "../data/error.log");
+			alert("Die Datei " . $path . " konnte nicht geöffnet werden");
 			die("Datei: " . $file . " konnte nicht geöffnet werden, kontaktiere einen Admin damit dieser die Zugriffsberechtigungen überprüfen kann");
 		}
 		fclose($fh);
@@ -56,13 +55,13 @@
 	// liest eine Datei ein und parsed diese
 	function dbRead($path) {
 		if (!file_exists($path)) {
-			error_log("Die Datei " . $path . " konnte nicht gefunden werden", 0, "../data/error.log");
+			alert("Die Datei " . $path . " konnte nicht gefunden werden");
 			die("Die Datei " . $path . " konnte nicht gefunden werden, kontaktiere einen Admin damit dieser das Dateisystem überprüfen kann.");
 			return false;
 		}
 
 		if (($fh = fopen($path, "r")) === false) {
-			error_log("Die Datei " . $path . " konnte nicht geöffnet werden", 0, "../data/error.log");
+			alert("Die Datei " . $path . " konnte nicht geöffnet werden");
 			die("Datei: " . $file . " konnte nicht geöffnet werden, kontaktiere einen Admin damit dieser die Zugriffsberechtigungen überprüfen kann");
 		}
 
@@ -100,7 +99,7 @@
 		foreach (explode(CONFIG["dbLineSeperator"] . "\n", $file) as $line) {
 			// das auskommentierte führt zu Fehlern bei leerem Text, welcher bsp. nur optional ist
 			/*if (empty($line)) {
-				error_log("Die Datei " . $path . " ist eventuell korrumpiert, enthält einen leeren Eintrag", 0, "../data/error.log");
+				alert("Die Datei " . $path . " ist eventuell korrumpiert, enthält einen leeren Eintrag");
 				continue;
 			}*/
 
@@ -111,7 +110,7 @@
 			else {
 				$line = explode(CONFIG["dbElementSeperator"], $line);
 				if (count($line) != count($head)) {
-					error_log("Korrumpierte Zeile in der Datei " . $path . " gefunde. ignoriere...", 0, "../data/error.log");
+					alert("Korrumpierte Zeile in der Datei " . $path . " gefunde. ignoriere...");
 					continue;
 				}
 				$parsedEntry = [];
@@ -198,21 +197,21 @@
 		if ($removed) {
 			return dbWrite($path, $data, $dataHeader);
 		}
-		error_log("Versuche nicht vorhandenen Eintrag " . $search . " = " . $searchNeedle . " in " . $path . " zu entfernen", 0, "../data/error.log");
+		alert("Versuche nicht vorhandenen Eintrag " . $search . " = " . $searchNeedle . " in " . $path . " zu entfernen");
 		return false;
 	}
 
 	// löscht eine Datei
 	function dbDrop($path, $verifyDeletionOfFile = false) {
 		if (!file_exists($path)) {
-			error_log("Die Datei " . $path . " konnte nicht gefunden werden", 0, "../data/error.log");
+			alert("Die Datei " . $path . " konnte nicht gefunden werden");
 			return false;
 		}
 
 		if ($verifyDeletionOfFile) {
 			return unlink($path);
 		}
-		error_log("Zum unwiderruflichen Löschen der Datei " . $path . " muss das Argument verifyDeletionOfFile auf true gesetzt werden", 0, "../data/error.log");
+		alert("Zum unwiderruflichen Löschen der Datei " . $path . " muss das Argument verifyDeletionOfFile auf true gesetzt werden");
 		return false;
 	}
 ?>

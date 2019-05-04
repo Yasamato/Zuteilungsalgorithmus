@@ -14,12 +14,14 @@ if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
           if (in_array($_POST["projekt"], $wahl["wahl"])) {
             array_push($entrysModified, $wahl);
             dbRemove("../data/wahl.csv", "uid", $wahl["id"]);
+            break;
           }
         }
         foreach ($zwangszuteilung as $key => $zuteilung) {
           if ($_POST["projekt"] == $zuteilung["ergebnis"]) {
             array_push($entrysModified, $zuteilung);
             dbRemove("../data/zwangszuteilung", "uid", $zuteilung["uid"]);
+            break;
           }
         }
 
