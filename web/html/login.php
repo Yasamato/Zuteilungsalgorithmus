@@ -20,9 +20,9 @@
 		<img class="mb-4" src="pictures/wahlbox.svg" alt="Wahlbox" width="144" height="144">
 		<h1 class="h3 mb-3 font-weight-normal">Anmeldung</h1>
 		<label for="inputBenutzername" class="sr-only">Benutzername</label>
-		<input type="text" name="user" id="inputBenutzername" class="form-control" placeholder="Benutzername" required autofocus>
+		<input type="text" name="user" class="form-control" placeholder="Benutzername" required autofocus>
 		<label for="inputPasswort" class="sr-only">Passwort</label>
-		<input type="password" name="pw" id="inputPasswort" class="form-control" placeholder="Passwort" required>
+		<input type="password" name="pw" class="form-control" placeholder="Passwort" required>
 		<button name="action" value="login" class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
 	</form>
 </div>

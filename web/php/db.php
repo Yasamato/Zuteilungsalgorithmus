@@ -19,12 +19,13 @@
 
 	// speichert die Daten in einer Datei ab
 	function dbWrite($path, $data, $head = "") {
+		$firstline = file($path)[0]; // first line (headers)
 		if (($fh = fopen($path, "w")) !== false) {
-			if ($head == "") {
-				$head = [];
-				foreach ((empty($data[0]) ? $data[1] : $data[0]) as $key => $value) {
-					array_push($head, $key);
+			if (empty($head)) {
+				if (empty($firstline)) {
+					die("Datei: " . $file . " scheint Fehler zu enthalten, kontaktiere einen Admin.");
 				}
+				$head = explode(CONFIG["dbElementSeperator"], $firstline);
 			}
 			fwrite($fh, implode(CONFIG["dbElementSeperator"], newlineRemove($head)));
 			if (!empty($data)) {

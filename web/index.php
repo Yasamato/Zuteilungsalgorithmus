@@ -190,7 +190,7 @@
 					$waittime = 1;
 					break;
 				case "updateZwangszuteilung":
-					require("php/zwangszuteilung.php");
+					require("php/updateZwangszuteilung.php");
 					$waittime = 1;
 					break;
 				case "updateKeineWahl":
@@ -319,13 +319,13 @@
 	</head>
 	<body>
 <?php
-				logout();
 				if ($zwangszugeteilt) {
 					include "html/zwangszuteilung.php";
 				}
 				else {
 					include "html/wahlGeschlossen.html";
 				}
+				logout();
 			}
 		}
 	}
