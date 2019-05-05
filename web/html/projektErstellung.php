@@ -12,6 +12,14 @@ elseif (!empty($_GET["projekt"])) {
   $projekt = getProjektInfo($projekte, $_GET["projekt"]);
 }
 ?>
+<div class="container">
+  <div class="alert alert-danger d-none" role="alert" id="updateAlert">
+    <div class="spinner-border text-primary m-2" role="status"></div>
+  	Momentan wird ein Update durchgeführt, daher kann es zur Einschränkung aller Funktionen kommen.<br>
+  	Die Seite wird automatisch aktualisiert, sobald das Update abgeschlossen ist, um die Änderungen zu übernehmen.<br>
+  	Alle nicht gespeicherten Änderungen gehen dabei verloren!
+  </div>
+</div>
 
 <!-- overflow field with blured background -->
 <div id="bg-blur" class="container-fluid">
@@ -295,3 +303,5 @@ elseif (!empty($_GET["projekt"])) {
 		</div>
 	</form>
 </div>
+
+<script src="js/pingUpdateOnly.js"></script>
