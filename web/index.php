@@ -118,7 +118,12 @@
 		  }
 		  if (isLogin() && $_SESSION['benutzer']['typ'] == "admin" && file_exists("../FinishedAlgorithm/verteilungNachSchuelern.csv") && file_exists("../FinishedAlgorithm/verteilungNachProjekten.csv")) {
 		    dbSet("../data/config.csv", "Stage", $config["Stage"], "Stage", "5");
+				$head = true;
 				foreach (explode("\n", file_get_contents("../FinishedAlgorithm/verteilungNachSchuelern.csv")) as $row) {
+					if ($head) {
+						$head = false;
+						continue;
+					}
 					$data = explode(",", $row);
 					dbSet("../data/wahl.csv", "uid", $data[1], "projekt", ($data[3] == "null" ? "" : $data[3]));
 				}

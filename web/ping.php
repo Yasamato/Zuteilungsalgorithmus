@@ -25,10 +25,12 @@
       $status = "false";
     }
     echo '"algorithmusRunning" : "' . $status . '"' . ",\n";
+  	echo '"algorithmusLog" : ' . JSON_encode(newlineRemove(file_get_contents("../data/algorithmus.log"))) . ",\n";
 
     // Update-isRunning
     $status = isRunning(file_get_contents("../data/update.pid")) ? "true" : "false";
     echo '"updateRunning" : "' . $status . '"' . ",\n";
+  	echo '"updateLog" : ' . JSON_encode(newlineRemove(file_get_contents("../data/update.log"))) . ",\n";
 
     // databases
     echo '"config" : ' . JSON_encode(array_merge($config, CONFIG)) . ",\n";

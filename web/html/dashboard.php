@@ -26,6 +26,10 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
   	Momentan wird ein Update durchgeführt, daher kann es zur Einschränkung aller Funktionen kommen.<br>
   	Die Seite wird automatisch aktualisiert, sobald das Update abgeschlossen ist, um die Änderungen zu übernehmen.<br>
   	Alle nicht gespeicherten Änderungen gehen dabei verloren!
+    <details>
+      <summary>Update-Log</summary>
+      <p></p>
+    </details>
   </div>
 
   <div class="alert alert-danger d-none" role="alert" id="alertErrorModal"></div>
@@ -286,6 +290,15 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
           }
           ?>
         </small>
+        <?php
+        if (file_exists("../data/update.log")) {
+          ?>
+        <details id="updateLog">
+          <summary>Update-log</summary>
+          <p></p>
+        </details><?php
+        }
+        ?>
         <br>
         <h5>Lizenz</h5>
         <small class="form-text text-muted">

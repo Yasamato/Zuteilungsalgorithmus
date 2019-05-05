@@ -145,7 +145,6 @@ function search(me, rows, isInput = false) {
     return !~text.indexOf(val);
 	}).hide();
 }
-
 function debounce(func, wait, immediate) {
 	var timeout;
 	return function() {
@@ -162,7 +161,10 @@ function debounce(func, wait, immediate) {
 };
 
 
-function updateUpdate(progress) {
+function updateUpdate(progress, log = false) {
+	if (log && $("#updateLog p").length && $("#updateLog p").html() != log) {
+		$("#updateLog p").html(log);
+	}
 	if (progress == "false") {
 		if (!$("#updateAlert").hasClass("d-none")) {
 			$("#updateAlert").addClass("d-none");
@@ -176,6 +178,9 @@ function updateUpdate(progress) {
 	}
 	if ($("#updateAlert").hasClass("d-none")) {
 		$("#updateAlert").removeClass("d-none");
+	}
+	if (log && $("#updateAlert details p").length) {
+		$("#updateAlert details p").html(log);
 	}
 	console.log("Update wird durchgeführt");
 }
