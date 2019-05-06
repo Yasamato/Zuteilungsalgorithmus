@@ -92,7 +92,10 @@ function updateProgressbar(data) {
 		$("#alertAlgorithmus details p").html(data["algorithmusLog"]);
 	}
 	if (progress == "false") {
-		return;
+		if (!$(".progress-bar").length) {
+			return;
+		}
+		progress = 1;
 	}
 	console.log("Algorithmus läuft");
 	progress = parseFloat(progress) * 100;

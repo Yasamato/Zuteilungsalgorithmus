@@ -25,12 +25,13 @@
 				if (empty($firstline)) {
 					die("Datei: " . $file . " scheint Fehler zu enthalten, kontaktiere einen Admin.");
 				}
+				$firstline = str_replace(CONFIG["dbLineSeperator"] . "\n", "", $firstline);
 				$head = explode(CONFIG["dbElementSeperator"], $firstline);
 			}
-			fwrite($fh, implode(CONFIG["dbElementSeperator"], newlineRemove($head)));
+			fwrite($fh, newlineRemove(implode(CONFIG["dbElementSeperator"], $head)));
 			if (!empty($data)) {
 				foreach ($data as $entry) {
-					fwrite($fh, CONFIG["dbLineSeperator"] . "\n" . implode(CONFIG["dbElementSeperator"], newlineRemove($entry)));
+					fwrite($fh, CONFIG["dbLineSeperator"] . "\n" . newlineRemove(implode(CONFIG["dbElementSeperator"], $entry)));
 				}
 			}
 			fclose($fh);
@@ -69,7 +70,7 @@
 		$parsedData = [];
 		$file = file_get_contents($path);
 		while (substr($file, 0, 1) == "\n" || substr($file, 0, 1) == "\r") {
-			$file = substr($file, 1, filesize($path));
+			$file = substr($file, 1, strlen($file));
 		}
 		while (substr($file, strlen($file) - 1, strlen($file)) == "\n" || substr($file, strlen($file) - 1, strlen($file)) == "\r") {
 			$file = substr($file, 0, -1);
@@ -97,6 +98,7 @@
 		// 	]
 		// ]
 		$headLineNeeded = true;
+		$i = 1;
 		foreach (explode(CONFIG["dbLineSeperator"] . "\n", $file) as $line) {
 			// das auskommentierte führt zu Fehlern bei leerem Text, welcher bsp. nur optional ist
 			/*if (empty($line)) {
@@ -111,22 +113,24 @@
 			else {
 				$line = explode(CONFIG["dbElementSeperator"], $line);
 				if (count($line) != count($head)) {
-					alert("Korrumpierte Zeile in der Datei " . $path . " gefunde. ignoriere...");
+					alert("Korrumpierte Zeile " . $i . " in der Datei " . $path . " gefunde. ignoriere...");
+					var_dump($line, $head);
 					continue;
 				}
 				$parsedEntry = [];
 				$i = 0;
 				foreach ($line as $element) {
-					if (substr($element, 0, 1) == "\n" || substr($element, 0, 1) == "\r") {
+					while (substr($element, 0, 1) == "\n" || substr($element, 0, 1) == "\r") {
 						$element = substr($element, 1, strlen($element));
 					}
-					if (substr($element, 0, -1) == "\n" || substr($element, 0, -1) == "\r") {
-						$element = substr($element, 0, strlen($element) - 1);
+					while (substr($element, strlen($element) - 1, strlen($element)) == "\n" || substr($element, strlen($element) - 1, strlen($element)) == "\r") {
+						$element = substr($element, 0, -1);
 					}
 					$parsedEntry[$head[$i++]] = $element;
 				}
 				array_push($parsedData, $parsedEntry);
 			}
+			$i++;
 		}
 
 		fclose($fh);

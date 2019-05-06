@@ -116,7 +116,7 @@
 		  if (file_exists("../FinishedAlgorithm/prozentzahl")) {
 		    unlink("../FinishedAlgorithm/prozentzahl");
 		  }
-		  if (isLogin() && $_SESSION['benutzer']['typ'] == "admin" && file_exists("../FinishedAlgorithm/verteilungNachSchuelern.csv") && file_exists("../FinishedAlgorithm/verteilungNachProjekten.csv")) {
+		  if (file_exists("../FinishedAlgorithm/verteilungNachSchuelern.csv") && file_exists("../FinishedAlgorithm/verteilungNachProjekten.csv")) {
 		    dbSet("../data/config.csv", "Stage", $config["Stage"], "Stage", "5");
 				$head = true;
 				foreach (explode("\n", file_get_contents("../FinishedAlgorithm/verteilungNachSchuelern.csv")) as $row) {
@@ -135,9 +135,7 @@
 			$waittime = 2;
 			unlink("../data/cleanup.lock");
 		}
-		elseif (isLogin() && $_SESSION['benutzer']['typ'] == "admin" && !file_exists("../data/update.lock") && file_exists("../data/update.pid") && !isRunning(file_get_contents("../data/update.pid"))) {
-		  $fh = fopen("../data/update.lock", "w");
-		  fclose($fh);
+		elseif (isLogin() && $_SESSION['benutzer']['typ'] == "admin" && file_exists("../data/update.pid") && !isRunning(file_get_contents("../data/update.pid"))) {
 		  unlink("../data/update.pid");
 		  if ($newest == $version) {
 		  	alert("Das Update wurde erfolgreich durchgeführt.");
@@ -146,7 +144,6 @@
 		  	alert("Das Update auf Version " . $newest . " von Version " . $version . " ist fehlgeschlagen. Überprüfen Sie bitte die Berechtigungen.");
 		  }
 			$waittime = 2;
-			unlink("../data/update.lock");
 		}
 		else {
 			// eigentlicher action-handler
