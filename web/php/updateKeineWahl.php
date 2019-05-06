@@ -2,14 +2,14 @@
 if (isLogin() && $_SESSION["benutzer"]["typ"] == "admin") {
   if (!empty($_POST["uid"]) && !empty($_POST["stufe"])
     && !empty($_POST["klasse"]) && !empty($_POST["vorname"])
-    && !empty($_POST["nachname"]) && !empty($_POST["projekt"])) {
+    && !empty($_POST["nachname"])) {
     if (count($_POST["uid"]) == count($_POST["stufe"])
       && count($_POST["stufe"]) == count($_POST["klasse"])
       && count($_POST["klasse"]) == count($_POST["vorname"])
       && count($_POST["vorname"]) == count($_POST["nachname"])
-      && count($_POST["nachname"]) == count($_POST["projekt"])) {
+      && count($_POST["nachname"])) {
       $data = [];
-      alert("Zwangszuteilungen werden gespeichert");
+      alert("Keine Wahlen werden gespeichert");
       for ($i = 0; $i < count($_POST["uid"]); $i++) {
         if (empty($_POST["uid"][$i])) {
           continue;
@@ -38,16 +38,21 @@ if (isLogin() && $_SESSION["benutzer"]["typ"] == "admin") {
             break;
           }
         }
+        foreach ($zwangszugeteilt as $key => $student) {
+          if ($student["uid"] == $_POST["uid"][$i]) {
+            dbRemove("../data/zwangszuteilung.csv", "uid", $_POST["uid"][$i]);
+            break;
+          }
+        }
         array_push($data, [
           "uid" => $_POST["uid"][$i],
           "stufe" => $_POST["stufe"][$i],
           "klasse" => $_POST["klasse"][$i],
           "vorname" => $_POST["vorname"][$i],
-          "nachname" => $_POST["nachname"][$i],
-          "projekt" => $_POST["projekt"][$i]
+          "nachname" => $_POST["nachname"][$i]
         ]);
       }
-      if (dbWrite("../data/zwangszuteilung.csv", $data) === false) {
+      if (dbWrite("../data/keineWahl.csv", $data) === false) {
         alert("Die Daten konnten nicht gespeichert werden: '" . json_encode($data) . "'");
       }
       else {

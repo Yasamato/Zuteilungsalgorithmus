@@ -3,3 +3,4 @@ web/html/head.html
 web/pictures/favicon/*
 web/pictures/background.jpg
 web/pictures/logo.jpg
+*.csv

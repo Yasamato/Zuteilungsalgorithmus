@@ -116,9 +116,14 @@
 		  if (file_exists("../FinishedAlgorithm/prozentzahl")) {
 		    unlink("../FinishedAlgorithm/prozentzahl");
 		  }
-		  if (isLogin() && $_SESSION['benutzer']['typ'] == "admin" && file_exists("../FinishedAlgorithm/verteilungNachSchuelern.csv") && file_exists("../FinishedAlgorithm/verteilungNachProjekten.csv")) {
+		  if (file_exists("../FinishedAlgorithm/verteilungNachSchuelern.csv") && file_exists("../FinishedAlgorithm/verteilungNachProjekten.csv")) {
 		    dbSet("../data/config.csv", "Stage", $config["Stage"], "Stage", "5");
+				$head = true;
 				foreach (explode("\n", file_get_contents("../FinishedAlgorithm/verteilungNachSchuelern.csv")) as $row) {
+					if ($head) {
+						$head = false;
+						continue;
+					}
 					$data = explode(",", $row);
 					dbSet("../data/wahl.csv", "uid", $data[1], "projekt", ($data[3] == "null" ? "" : $data[3]));
 				}
@@ -130,9 +135,7 @@
 			$waittime = 2;
 			unlink("../data/cleanup.lock");
 		}
-		elseif (isLogin() && $_SESSION['benutzer']['typ'] == "admin" && !file_exists("../data/update.lock") && file_exists("../data/update.pid") && !isRunning(file_get_contents("../data/update.pid"))) {
-		  $fh = fopen("../data/update.lock", "w");
-		  fclose($fh);
+		elseif (isLogin() && $_SESSION['benutzer']['typ'] == "admin" && file_exists("../data/update.pid") && !isRunning(file_get_contents("../data/update.pid"))) {
 		  unlink("../data/update.pid");
 		  if ($newest == $version) {
 		  	alert("Das Update wurde erfolgreich durchgeführt.");
@@ -141,7 +144,6 @@
 		  	alert("Das Update auf Version " . $newest . " von Version " . $version . " ist fehlgeschlagen. Überprüfen Sie bitte die Berechtigungen.");
 		  }
 			$waittime = 2;
-			unlink("../data/update.lock");
 		}
 		else {
 			// eigentlicher action-handler
@@ -190,7 +192,11 @@
 					$waittime = 1;
 					break;
 				case "updateZwangszuteilung":
-					require("php/zwangszuteilung.php");
+					require("php/updateZwangszuteilung.php");
+					$waittime = 1;
+					break;
+				case "updateKeineWahl":
+					require("php/updateKeineWahl.php");
 					$waittime = 1;
 					break;
 				case "runZuteilungsalgorithmus":
@@ -315,13 +321,13 @@
 	</head>
 	<body>
 <?php
-				logout();
 				if ($zwangszugeteilt) {
 					include "html/zwangszuteilung.php";
 				}
 				else {
 					include "html/wahlGeschlossen.html";
 				}
+				logout();
 			}
 		}
 	}
@@ -330,28 +336,8 @@
 		<link rel="stylesheet" href="css/login.css?hash=<?php echo sha1_file("css/login.css"); ?>">
 	</head>
 	<body>
-	<div class="container text-center login-box d-flex justify-content-center">
-		<form class="form-signin" method="post">
 <?php
-		if (isset($loginResult)) {
-?>
-			<div class="alert alert-danger alert-dismissible fade show" role="alert">
-				<strong>Verweigert</strong> Falsche Benutzerdaten!
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-<?php } ?>
-			<img class="mb-4" src="pictures/wahlbox.svg" alt="Wahlbox" width="144" height="144">
-			<h1 class="h3 mb-3 font-weight-normal">Anmeldung</h1>
-			<label for="inputBenutzername" class="sr-only">Benutzername</label>
-			<input type="text" name="user" id="inputBenutzername" class="form-control" placeholder="Benutzername" required autofocus>
-			<label for="inputPasswort" class="sr-only">Passwort</label>
-			<input type="password" name="pw" id="inputPasswort" class="form-control" placeholder="Passwort" required>
-			<button name="action" value="login" class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-		</form>
-	</div>
-<?php
+			include "html/login.php";
 	}
 ?>
 		<form id="logout" method="post" action="/">

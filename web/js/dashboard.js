@@ -30,8 +30,8 @@ function checkUp() {
 		if (status = "success") {
 			console.log("Check-Up erhalten, wende Daten-Update an");
 			data = JSON.parse(data);
-			updateProgressbar(data["algorithmusRunning"]);
-			updateUpdate(data["updateRunning"]);
+			updateProgressbar(data);
+			updateUpdate(data["updateRunning"], data["updateLog"]);
 
 			var changes = false;
 			if (JSON.stringify(window.config) != JSON.stringify(data["config"])) {
@@ -86,9 +86,16 @@ function checkUp() {
 	});
 }
 
-function updateProgressbar(progress) {
+function updateProgressbar(data) {
+	var progress = data["algorithmusRunning"];
+	if ($("#alertAlgorithmus details p").length) {
+		$("#alertAlgorithmus details p").html(data["algorithmusLog"]);
+	}
 	if (progress == "false") {
-		return;
+		if (!$(".progress-bar").length) {
+			return;
+		}
+		progress = 1;
 	}
 	console.log("Algorithmus läuft");
 	progress = parseFloat(progress) * 100;
@@ -919,7 +926,11 @@ function updateErrors(data) {
           </button>
         </div>
       </div>
-    </form>`);
+    </form>
+		<details>
+			<summary>Algorithmus-Log</summary>
+			<p></p>
+		</details>`);
       }
       else {
 				$("#alertAlgorithmus").html(`
@@ -963,11 +974,15 @@ function updateErrors(data) {
 
 		// Fortschritts-Balken
     if (data["algorithmusRunning"] != "false") {
-			$("#alertAlgorithmus").html(`
+			$("#alertAlgorithmus").append(`
       <div class="progress">
         <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"></div>
         <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 100%;">Loading...</div>
-      </div>`);
+      </div>
+	    <details>
+	      <summary>Algorithmus-Log</summary>
+	      <p></p>
+	    </details>`);
     }
 
 		// Auswerungs-Ergebnis

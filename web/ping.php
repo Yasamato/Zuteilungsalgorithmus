@@ -12,8 +12,8 @@
     $fh = fopen("../data/admin.lock", "w");
     fwrite($fh, time() . "," . session_id());
     fclose($fh);
-    echo '"version" : "' . $version . '"' . ", \n";
-    echo '"newest" : "' . $newest . '"' . ", \n";
+    echo '"version" : "' . $version . '"' . ",\n";
+    echo '"newest" : "' . $newest . '"' . ",\n";
     // Algorithmus-isRunning
     if (isRunning(file_get_contents("../data/algorithmus.pid"))) {
       $status = file_exists("../FinishedAlgorithm/prozentzahl") ? file_get_contents("../FinishedAlgorithm/prozentzahl") : 0;
@@ -24,11 +24,13 @@
     else {
       $status = "false";
     }
-    echo '"algorithmusRunning" : "' . $status . '"' . ", \n";
+    echo '"algorithmusRunning" : "' . $status . '"' . ",\n";
+  	echo '"algorithmusLog" : ' . JSON_encode(newlineRemove(file_get_contents("../data/algorithmus.log"))) . ",\n";
 
     // Update-isRunning
     $status = isRunning(file_get_contents("../data/update.pid")) ? "true" : "false";
-    echo '"updateRunning" : "' . $status . '"' . ", \n";
+    echo '"updateRunning" : "' . $status . '"' . ",\n";
+  	echo '"updateLog" : ' . JSON_encode(newlineRemove(file_get_contents("../data/update.log"))) . ",\n";
 
     // databases
     echo '"config" : ' . JSON_encode(array_merge($config, CONFIG)) . ",\n";
@@ -42,7 +44,7 @@
   elseif (isLogin() && $_SESSION["benutzer"]["typ"] == "teachers") {
     // Update-isRunning
     $status = isRunning(file_get_contents("../data/update.pid")) ? "true" : "false";
-    echo '"updateRunning" : "' . $status . '"' . ", \n";
+    echo '"updateRunning" : "' . $status . '"' . ",\n";
     echo '"config" : ' . JSON_encode($config) . ",\n";
     echo '"projekte" : ' . JSON_encode($projekte) . ",\n";
     echo '"klassen" : ' . JSON_encode($klassen) . ",\n";
@@ -51,7 +53,7 @@
   elseif (isLogin()) {
     // Update-isRunning
     $status = isRunning(file_get_contents("../data/update.pid")) ? "true" : "false";
-    echo '"updateRunning" : "' . $status . '"' . ", \n";
+    echo '"updateRunning" : "' . $status . '"' . ",\n";
 		$vorherigeWahl = "false";
 		foreach ($wahlen as $wahl) {
 			if ($_SESSION["benutzer"]["uid"] == $wahl["uid"]) {
@@ -61,6 +63,11 @@
 		}
     echo '"vorherigeWahl" : "' . JSON_encode($vorherigeWahl) . '"' . ", \n";
 		echo '"projekte" : ' . JSON_encode($projekte) . "\n";
+	}
+	else {
+    // Update-isRunning
+    $status = isRunning(file_get_contents("../data/update.pid")) ? "true" : "false";
+    echo '"updateRunning" : "' . $status . '"' . "\n";
 	}
 ?>
 }
