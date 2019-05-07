@@ -135,6 +135,7 @@
 			$waittime = 2;
 			unlink("../data/cleanup.lock");
 		}
+		// cleanup des Updates
 		elseif (isLogin() && $_SESSION['benutzer']['typ'] == "admin" && file_exists("../data/update.pid") && !isRunning(file_get_contents("../data/update.pid"))) {
 		  unlink("../data/update.pid");
 		  if ($newest == $version) {

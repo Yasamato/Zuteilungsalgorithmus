@@ -825,8 +825,11 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
           <button type="submit" class="btn btn-primary">Änderung speichern</button>
           <br>
           <small class="text-muted">
-            Bitte tragen Sie hier alle Schüler ein, welche es versäumt haben eine Wahl zu tätigen und dementsprechend irgendein Projekt Ihrer Jahrgangsstufe zugewiesen bekommen.
-            Durch den Einsatz der Schüler als "Wildcards" kann es möglich werden Projekte stattfinden zu lassen, die vorher nicht zustande kamen.
+            Bitte tragen Sie hier alle Schüler ein, welche es versäumt haben eine Wahl zu tätigen.
+            Dies dient der Vollständigkeit, damit keine Schüler übersehen werden.
+            Der Algorithmus teilt die Schüler nicht automatisch einem Projekt zu.
+            Dies muss durch den Administrator geschehen, welcher die Schüler nach der Ausführung des Algorithmus einem Projekt zuteilt.
+            Um die Zahl der Schüler ohne Wahlen zu verringern, kann das Wahl-Interface erneut geöffnet werden oder diese durch eine Zwangszuteilung einem Projekt vorab fest zugeteilt werden.
             Im Folgenden ist ein Beispieldatensatz aufgeführt.
           </small>
 
