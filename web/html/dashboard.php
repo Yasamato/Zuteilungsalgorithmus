@@ -333,14 +333,15 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
       </div>
 
       <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
+        <button onclick="javascript: window.open('printPDF.php?print=projekt&projekt=all');" type="button" class="btn btn-secondary">Liste drucken</button>
+        <form class="deleteSelected d-none" method="post"></form>
         <div class="input-group col-8 col-md-6 col-lg-4">
           <div class="input-group-prepend">
             <span class="input-group-text">Suche</span>
           </div>
           <input id="projekteTableSearch" type="text" class="form-control" placeholder="Table durchsuchen">
         </div>
-        <button onclick="javascript: window.open('printPDF.php?print=projekt&projekt=all');" type="button" class="btn btn-secondary">Liste drucken</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
       </div>
     </div>
   </div>
@@ -411,14 +412,15 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
       </div>
 
       <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
+        <button onclick="javascript: window.open('printPDF.php?print=students&klasse=all');" type="button" class="btn btn-secondary">Liste drucken</button>
+        <form class="deleteSelected d-none" method="post"></form>
         <div class="input-group col-8 col-md-6 col-lg-4">
           <div class="input-group-prepend">
             <span class="input-group-text">Suche</span>
           </div>
           <input id="studentTableSearch" type="text" class="form-control" placeholder="Table durchsuchen">
         </div>
-        <button onclick="javascript: window.open('printPDF.php?print=students&klasse=all');" type="button" class="btn btn-secondary">Liste drucken</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
       </div>
     </div>
   </div>
@@ -474,8 +476,7 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
 
       <form method="post" id="schuelerDeleteForm">
         <input type="hidden" name="action" value="deleteWahleintrag">
-        <input type="hidden" name="uid">
-        <input type="hidden" name="name">
+        <input type="hidden" name="uid[]">
       </form>
       <form method="post" id="schuelerProjektzuteilungDeleteForm">
         <input type="hidden" name="action" value="deleteProjektzuteilung">
