@@ -16,7 +16,9 @@
   class printPDF extends TCPDF {
 
 		function printHeader() {
-			$this->Image("pictures/logo.jpg", 10, 6, 30); // Logo-Bild-Größe anpassen, die Parameter sind: (pfad ,x ,y ,size)
+			// Logo-Bild-Größe anpassen, die Parameter sind: (pfad ,x ,y ,size)
+			$pos = JSON_decode(file_get_contents("pictures/logo-position.json"), true);
+			$this->Image("pictures/logo.jpg", $pos["x"], $pos["y"], $pos["size"]);
 			$this->SetFont('freeserif', 'B', 24);
 			$this->Cell(30);
 			$this->Cell(66, 10, 'Projektwoche ' . date("Y"));
