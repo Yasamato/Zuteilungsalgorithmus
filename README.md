@@ -33,6 +33,17 @@ Hierfür modifizieren sie die Datei  `web/printPDF.pdf` bei der Funktion `printH
 Für die Favicons empfehlen wir den [Favicon Generator. For real.](https://realfavicongenerator.net/).
 Beachten Sie beim erstellen, dass die Icons im Pfad `pictures/favicon` abgelegt werden müssen.
 
+# Backups
+Das System erstellt automatisch beim ersten Seitenaufruf des Tages für den Vortag ein Backup des Ordners `data/`.
+Dieses wird als Archive im Ordner `backup/` als `.tar.gz` gespeichert.
+Es ist empfehlenswert die Daten auch auf anderen Medien zu sichern im Falle des Falles.  
+**Hinweis:** _Es werden nicht die manuelle Anpassungen im oben erwähnten Abschnitt gesichert_  
+Um den Datenstand des Backups wiederherzustellen, muss das Archiev lediglich im Root-Ordner der Software mit sudo-Rechten entpackt werden.
+Dadurch wird der `data/`-Ordner unweigerlich überschrieben und alle vorherigen nicht gesicherten Daten gehen verloren.  
+Im Falle das die Daten auf einem DOS-System modifiziert wurden, kann es zu Problemen mit der Dateiberechtigungen kommen.
+Um dies zu lösen, ist eine Korrektur der Dateiberechtigung notwendig.
+Führen Sie hierzu den Befehl `sudo chown -R <<webserver-user>>:<<webserver-user>> data/` aus.
+
 # Verwendete externe Bibliotheken (sind bereits eingebunden)
 - Bootstrap v.4.3.1 (CSS und JS-Framework) [offizielle Webseite](https://getbootstrap.com/)
 - jQuery v.3.3.1 (JS-Framework) [offizielle Webseite](https://jquery.com/)
