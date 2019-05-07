@@ -92,3 +92,8 @@ table {
 input {
 	min-width: 80px;
 }
+
+details p {
+	max-height: 70vh;
+	overflow-y: scroll;
+}
