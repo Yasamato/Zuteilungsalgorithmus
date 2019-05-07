@@ -27,7 +27,7 @@ Diese Inhalte können jedoch durch Eigene ersetzt werden.
 - Ersetzen Sie die Datei `web/pictures/background.jpg` mit ihrem eigenen Hintergrundbild.
 - Ersetzen Sie die Datei `web/pictures/logo.jpg` mit ihrem eigenem Logo.
 Hierbei muss beachtet werden, dass bei den Druckansichten das Logo nicht in der richtigen Größe erscheinen kann.
-Hierfür modifizieren sie die Datei  `web/printPDF.pdf` bei der Funktion `printHeader()` der Klasse `printPDF`.  
+Hierfür modifizieren sie die Datei  `web/pictures/logo-position.json` und passen Sie den `x-Offset` sowie `y-Offset` und die Logo-Größe an.  
 - In der Datei `web/html/head.html` passen Sie die Seitenbeschreibung sowie den Titel an.
 - Fügen Sie ihr Favicon in `web/pictures/favicon` ein und binden dieses in `web/html/head.html` ein.  
 Für die Favicons empfehlen wir den [Favicon Generator. For real.](https://realfavicongenerator.net/).
