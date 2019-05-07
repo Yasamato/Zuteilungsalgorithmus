@@ -1,12 +1,13 @@
 @media (max-width: 1125px) {
-  .tmp-modal table {
-    overflow-x: scroll !important;
-  }
   #configModal table {
     display: block !important;
     overflow-x: scroll !important;
   }
-  #schuelerModal table {
-    display: block !important;
-  }
+}
+
+
+@media (max-width: 945px) {
+	#schuelerModal .modal-footer {
+    display: block;
+	}
 }

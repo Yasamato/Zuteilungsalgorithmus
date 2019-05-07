@@ -51,12 +51,9 @@ table {
 	background-color: #098C38;
 }
 
-@media (max-width: 750px) {
-	table {
-    display: block !important;
-	}
-	.modal-lg {
-	    max-width: 100% !important;
+@media (max-width: 480px) {
+	.modal-footer {
+    display: block;
 	}
 }
 
@@ -85,10 +82,21 @@ table {
 		display: block;
 	}
 }
+@media (max-width: 920px) {
+  .tmp-modal table {
+		display: block;
+    overflow-x: scroll !important;
+  }
+}
 .row.flex > div > div.card {
 	margin-bottom: 12px;
 }
 
 input {
 	min-width: 80px;
+}
+
+details p {
+	max-height: 70vh;
+	overflow-y: scroll;
 }

@@ -1,5 +1,67 @@
 window.buffer = 0.10; // +/- 10% Buffer bei den Projektplätzen
 
+function checkCheckbox(element, attr="id", action="deleteProjekt") {
+	console.log("Checkbox verändert");
+	var table = $(element).closest("table");
+	// input -> th | td -> tr -> thead | tbody
+	if ($(element).parent().parent().parent().is("thead")) {
+		if (element.checked) {
+			table.find("tbody input[type='checkbox']").each(function (index) {
+				$(this).prop("checked", true);
+			});
+		}
+		else {
+			table.find("tbody input[type='checkbox']").each(function (index) {
+				$(this).prop("checked", false);
+			});
+		}
+	}
+	else {
+		var checked = 0;
+		table.find("tbody input[type='checkbox']").each(function (index) {
+			if (this.checked) {
+				checked++;
+			}
+		});
+		if (checked == 0) {
+			table.find("thead input[type='checkbox']").prop("checked", false);
+			table.find("thead input[type='checkbox']").prop("indeterminate", false);
+		}
+		else if (checked == table.find("tbody input[type='checkbox']").length) {
+			table.find("thead input[type='checkbox']").prop("indeterminate", false);
+			table.find("thead input[type='checkbox']").prop("checked", true);
+		}
+		else {
+			table.find("thead input[type='checkbox']").prop("checked", false);
+			table.find("thead input[type='checkbox']").prop("indeterminate", true);
+		}
+	}
+
+	var modal = table.closest(".modal");
+	var show = 0;
+	modal.find("tbody input[type='checkbox']").each(function (index) {
+		if (this.checked) {
+			show++;
+		}
+	});
+	if (show) {
+		if (modal.find(".deleteSelected").hasClass("d-none")) {
+			modal.find(".deleteSelected").removeClass("d-none");
+		}
+		modal.find("form.deleteSelected").html(`<button class="btn btn-danger" type="submit" name="action" value="` + action + `deleteWahleintrag">` + show + ` Einträge löschen &#10005;</button>`);
+		modal.find("tbody input[type='checkbox']").each(function (index) {
+			if (this.checked) {
+				modal.find("form.deleteSelected").append(`<input type="hidden" name="` + attr + `[]" value="` + $(this).closest("tr").attr(attr) + `">`);
+			}
+		});
+	}
+	else {
+		if (!modal.find(".deleteSelected").hasClass("d-none")) {
+			modal.find(".deleteSelected").addClass("d-none");
+		}
+	}
+}
+
 window.onload = function() {
 	checkUp();
 	var autoUpdate = setInterval(checkUp, 2000);
@@ -153,6 +215,7 @@ function updateProjekte() {
 			<table class="table table-dark table-striped table-hover border border-warning">
 			  <thead class="thead-dark">
 			    <tr>
+						<th><input type="checkbox" onchange="javascript: checkCheckbox(this);"></th>
 			      <th class="sticky-top">Name</th>
 			      <th class="sticky-top">Betreuer</th>
 			      <th class="sticky-top">Stufe</th>
@@ -162,7 +225,8 @@ function updateProjekte() {
 			  <tbody>`;
 			for (var i in window.projekteZuViel) {
 				appendText += `
-			    <tr class="border-left border-warning">
+			    <tr class="border-left border-warning" id="` + window.projekteZuViel[i]["id"] + `">
+						<td><input type="checkbox" onchange="javascript: checkCheckbox(this);"></td>
 			      <td><a href="javascript:;" onclick="javasript: showProjektInfoModal('` + window.projekteZuViel[i]["id"] + `');">` + window.projekteZuViel[i]["name"] + `</a></td>
 			      <td>` + window.projekteZuViel[i]["betreuer"] + `</td>
 			      <td>` + window.projekteZuViel[i]["minKlasse"] + `-` + window.projekteZuViel[i]["maxklasse"] + `</td>
@@ -179,6 +243,7 @@ function updateProjekte() {
 			<table class="table table-dark table-striped table-hover border border-danger">
 			  <thead class="thead-dark">
 			    <tr>
+						<th><input type="checkbox" onchange="javascript: checkCheckbox(this);"></th>
 			      <th class="sticky-top">Name</th>
 			      <th class="sticky-top">Betreuer</th>
 			      <th class="sticky-top">Stufe</th>
@@ -188,7 +253,8 @@ function updateProjekte() {
 			  <tbody>`;
 			for (var i in window.projekteNichtStattfinden) {
 				appendText += `
-			    <tr class="border-left border-danger">
+			    <tr class="border-left border-danger" id="` + window.projekteNichtStattfinden[i]["id"] + `">
+						<td><input type="checkbox" onchange="javascript: checkCheckbox(this);"></td>
 			      <td><a href="javascript:;" onclick="javasript: showProjektInfoModal('` + window.projekteNichtStattfinden[i]["id"] + `');">` + window.projekteNichtStattfinden[i]["name"] + `</a></td>
 			      <td>` + window.projekteNichtStattfinden[i]["betreuer"] + `</td>
 			      <td>` + window.projekteNichtStattfinden[i]["minKlasse"] + `-` + window.projekteNichtStattfinden[i]["maxklasse"] + `</td>
@@ -205,6 +271,7 @@ function updateProjekte() {
   <table class="table table-dark table-striped table-hover">
     <thead class="thead-dark">
       <tr>
+				<th><input type="checkbox" onchange="javascript: checkCheckbox(this);"></th>
         <th class="sticky-top">Name</th>
         <th class="sticky-top">Betreuer</th>
         <th class="sticky-top">Stufe</th>
@@ -223,7 +290,8 @@ function updateProjekte() {
 	for (var i in window.projekte) {
 		let color = (window.projekte[i]["teilnehmer"].length >= window.projekte[i]["minPlatz"] ? (window.projekte[i]["teilnehmer"].length <= window.projekte[i]["maxPlatz"] ? 'success' : 'warning') : 'danger');
 		appendText += `
-      <tr` + (window.config["Stage"] > 4 ? ` class="border-left border-` + color + `"` : '') + `>
+      <tr` + (window.config["Stage"] > 4 ? ` class="border-left border-` + color + `"` : '') + ` id="` + window.projekte[i]["id"] + `">
+				<td><input type="checkbox" onchange="javascript: checkCheckbox(this);"></td>
         <td><a href="javascript:;" onclick="javasript: showProjektInfoModal('` + window.projekte[i]["id"] + `');">` + window.projekte[i]["name"] + `</a></td>
         <td>` + window.projekte[i]["betreuer"] + `</td>
         <td>` + window.projekte[i]["minKlasse"] + `-` + window.projekte[i]["maxKlasse"] + `</td>
@@ -312,6 +380,7 @@ function updateStudents() {
 <table class="table table-dark table-striped table-hover border border-danger">
   <thead class="thead-dark">
     <tr>
+			<th class="sticky-top"><input type="checkbox" onchange="javascript: checkCheckbox(this, 'uid', 'deleteWahleintrag);"></th>
       <th class="sticky-top">Stufe</th>
       <th class="sticky-top">Klasse</th>
       <th class="sticky-top">Vorname</th>
@@ -325,6 +394,7 @@ function updateStudents() {
 		for (var i in window.studentOhneZuteilung) {
 			appendText += `
 	  <tr uid="` + window.studentOhneZuteilung[i]["uid"] + `">
+			<td><input type="checkbox" onchange="javascript: checkCheckbox(this, 'uid', 'deleteWahleintrag);"></th>
 	    <td>` + window.studentOhneZuteilung[i]["stufe"] + `</td>
 	    <td>` + window.studentOhneZuteilung[i]["klasse"] + `</td>
 	    <td>` + window.studentOhneZuteilung[i]["vorname"] + `</td>
@@ -360,6 +430,7 @@ function updateStudents() {
 <table class="table table-dark table-striped table-hover">
   <thead class="thead-dark">
     <tr>
+			<th class="sticky-top"><input type="checkbox" onchange="javascript: checkCheckbox(this, 'uid', 'deleteWahleintrag);"></th>
       <th class="sticky-top">Stufe</th>
       <th class="sticky-top">Klasse <a href="javascript: ;" onclick="javascript: $('#class-` + window.klassen[klasse][0]["klasse"] + `').collapse('toggle');">` + window.klassen[klasse][0]["klasse"] + `</a></th>
       <th class="sticky-top">Vorname</th>
@@ -376,6 +447,7 @@ function updateStudents() {
 			}
 			appendText += `
     <tr uid="` + window.klassen[klasse][i]["uid"] + `"` + (window.config["Stage"] > 4 ? ` class="border-left border-` + (window.klassen[klasse][i]["projekt"] ? "success" : "danger") + '"' : "") + `>
+			<td><input type="checkbox" onchange="javascript: checkCheckbox(this, 'uid', 'deleteWahleintrag);"></th>
       <td>` + window.klassen[klasse][i]["stufe"] + `</td>
       <td>` + window.klassen[klasse][i]["klasse"] + `</td>
       <td>` + window.klassen[klasse][i]["vorname"] + `</td>

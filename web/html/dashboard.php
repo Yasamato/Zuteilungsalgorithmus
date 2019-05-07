@@ -333,14 +333,15 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
       </div>
 
       <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
+        <button onclick="javascript: window.open('printPDF.php?print=projekt&projekt=all');" type="button" class="btn btn-secondary">Liste drucken</button>
+        <form class="deleteSelected d-none" method="post"></form>
         <div class="input-group col-8 col-md-6 col-lg-4">
           <div class="input-group-prepend">
             <span class="input-group-text">Suche</span>
           </div>
           <input id="projekteTableSearch" type="text" class="form-control" placeholder="Table durchsuchen">
         </div>
-        <button onclick="javascript: window.open('printPDF.php?print=projekt&projekt=all');" type="button" class="btn btn-secondary">Liste drucken</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
       </div>
     </div>
   </div>
@@ -411,14 +412,15 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
       </div>
 
       <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
+        <button onclick="javascript: window.open('printPDF.php?print=students&klasse=all');" type="button" class="btn btn-secondary">Liste drucken</button>
+        <form class="deleteSelected d-none" method="post"></form>
         <div class="input-group col-8 col-md-6 col-lg-4">
           <div class="input-group-prepend">
             <span class="input-group-text">Suche</span>
           </div>
           <input id="studentTableSearch" type="text" class="form-control" placeholder="Table durchsuchen">
         </div>
-        <button onclick="javascript: window.open('printPDF.php?print=students&klasse=all');" type="button" class="btn btn-secondary">Liste drucken</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Zurück</button>
       </div>
     </div>
   </div>
@@ -474,8 +476,7 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
 
       <form method="post" id="schuelerDeleteForm">
         <input type="hidden" name="action" value="deleteWahleintrag">
-        <input type="hidden" name="uid">
-        <input type="hidden" name="name">
+        <input type="hidden" name="uid[]">
       </form>
       <form method="post" id="schuelerProjektzuteilungDeleteForm">
         <input type="hidden" name="action" value="deleteProjektzuteilung">
@@ -825,8 +826,11 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
           <button type="submit" class="btn btn-primary">Änderung speichern</button>
           <br>
           <small class="text-muted">
-            Bitte tragen Sie hier alle Schüler ein, welche es versäumt haben eine Wahl zu tätigen und dementsprechend irgendein Projekt Ihrer Jahrgangsstufe zugewiesen bekommen.
-            Durch den Einsatz der Schüler als "Wildcards" kann es möglich werden Projekte stattfinden zu lassen, die vorher nicht zustande kamen.
+            Bitte tragen Sie hier alle Schüler ein, welche es versäumt haben eine Wahl zu tätigen.
+            Dies dient der Vollständigkeit, damit keine Schüler übersehen werden.
+            Der Algorithmus teilt die Schüler nicht automatisch einem Projekt zu.
+            Dies muss durch den Administrator geschehen, welcher die Schüler nach der Ausführung des Algorithmus einem Projekt zuteilt.
+            Um die Zahl der Schüler ohne Wahlen zu verringern, kann das Wahl-Interface erneut geöffnet werden oder diese durch eine Zwangszuteilung einem Projekt vorab fest zugeteilt werden.
             Im Folgenden ist ein Beispieldatensatz aufgeführt.
           </small>
 
