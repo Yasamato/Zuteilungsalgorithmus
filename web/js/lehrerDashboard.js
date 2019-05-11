@@ -74,7 +74,7 @@ function updateProjekte() {
     $("#projekteTable").append(`
     <tr>
       <td>
-        Bisher wurden keine Projekte eingereicht
+        Bisher wurden keine ` + (window.config["wahlTyp"] == "ag" ? "AG" : "Projekt") + ` eingereicht
       </td>
     </tr>`);
     return;

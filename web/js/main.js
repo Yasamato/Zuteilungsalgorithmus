@@ -58,6 +58,7 @@ function showProjektInfoModal(id) {
               <p>` + p.beschreibung + `</p>
             </div>
           </div>
+					` + (window.config["wahlTyp"] == "ag" ? `<span class="text-danger">To be implemented!</span>` : `
 					<table class="table table-dark table-hover table-striped">
 						<thead>
 							<tr>
@@ -99,6 +100,7 @@ function showProjektInfoModal(id) {
 					<small class="text-muted">
 						Blau hinterlegte Tabelleneinträge kennzeichnen, dass dort kein Projekt stattfindet sondern beispielsweise regulärer Unterricht stattfindet.
 					</small>
+					`) + `
 				</div>
 				<div class="modal-footer">
 					` + (window.user == "admin" ? `
@@ -121,7 +123,7 @@ function showProjektInfoModal(id) {
 }
 
 function confirmDeleteProjekt(id, name) {
-	if (confirm("Wollen sie wirklich das Projekt '" + name + "' löschen?")) {
+	if (confirm("Wollen sie wirklich " + (window.config["wahlTyp"] == "ag" ? "die AG" : "das Projekt") + " '" + name + "' löschen?")) {
 		$('#delete' + id).submit();
 	}
 	else {
@@ -184,3 +186,22 @@ function updateUpdate(progress, log = false) {
 	}
 	console.log("Update wird durchgeführt");
 }
+
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();

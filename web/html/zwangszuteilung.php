@@ -21,7 +21,7 @@
 			<div class="modal-body">
 				<p>
 					Aufgrund einer Zwangszuteilung, kannst du keine Wahl tätigen.
-					Du bist <a href="javascript: ;" onclick="javascript: showProjektInfoModal('<?php echo $id; ?>');">diesem Projekt</a> zugeteilt.
+					Du bist <a href="javascript: ;" onclick="javascript: showProjektInfoModal('<?php echo $id; ?>');">diese<?php echo ($config["wahlTyp"] == "ag" ? "r AG" : "m Projekt"); ?></a> zugeteilt.
 					Bei Fragen und Problemen bitte an den Zuständigen wenden
 				</p>
 			</div>

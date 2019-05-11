@@ -46,7 +46,7 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
     <div class="modal-content bg-dark">
 
       <div class="modal-header">
-        <h4 class="modal-title" id="configModalLabel">Projektwahlkonfiguration</h4>
+        <h4 class="modal-title" id="configModalLabel">Wahlkonfiguration</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span class="closebutton" aria-hidden="true">&times;</span>
         </button>
@@ -55,12 +55,11 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
       <div class="modal-body">
         <form id="configForm" method="post">
           <input type="hidden" name="action" value="updateConfiguration">
-          <h5>Allgemeine Einstellungen</h5>
 
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">Aktuelle Phase:</label>
             <div class="col-sm-10">
-              <select class="form-control" name="stage" id="stageSelect" aria-describedby="stageHelper">
+              <select class="form-control" name="stage">
                 <?php
               	$stages = [
               		'<option value="0">#1 Nicht veröffentlicht</option>',
@@ -81,7 +80,7 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
               </select>
             </div>
           </div>
-          <small id="stageHelper" class="form-text text-muted">
+          <small class="form-text text-muted">
             <ul>
               <li>
                 "Nicht veröffentlicht": Keiner hat Zugriff außer der Admin
@@ -103,158 +102,318 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
               </li>
             </ul>
           </small>
-          <h5>Klassendatensätze</h5>
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#klassenlisteModal">
-            Einträge bearbeiten
-          </button>
+
+          <hr class="my-4">
+          <div class="row">
+            <div class="col-sm-2">
+              <h5>Klassendatensätze</h5>
+            </div>
+            <div class="col">
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#klassenlisteModal">
+                Einträge bearbeiten
+              </button>
+            </diV>
+          </div>
           <small class="form-text text-muted">
             Tragen Sie alle Klassen bitte in dieses Formular ein und speichern Sie dieses, damit Ihnen eine Übersicht zur Verfügung steht welche Klassen noch nicht vollständig gewählt haben.
           </small>
 
           <hr class="my-4">
-          <h5>Projekt-Einstellungen</h5>
+          <?php if ($config["Stage"] > 0) { ?>
+          <p class="text-danger">
+            Nur in der initialen nicht veröffentlichten Phase kann festgelegt werden, ob es sich um eine AG- oder Projektwahl handelt.
+          </p>
+          <?php } ?>
+          <fieldset class="form-group">
+            <div class="row">
+              <legend class="col-form-label col-sm-2 pt-0">Wahl-Typ</legend>
+              <div class="col-sm-10">
+                <select class="form-control" name="wahlTyp"<?php echo $config["Stage"] > 0  ? " disabled" : ""; ?> onchange="javascript: configToggleProjektAG(this);">
+                  <option value="ag"<?php echo ($config["wahlTyp"] == "ag" ? " selected" : ""); ?>>AGs</option>
+                  <option value="projektwoche"<?php echo ($config["wahlTyp"] == "projektwoche" ? " selected" : ""); ?>>Projektwoche</option>
+                </select>
+              </div>
+            </div>
+          </fieldset>
           <small class="form-text text-muted">
-            Stellen sie die Dauer der Projektwoche ein sowie ggf. Hinweise für die Lehrer zur Projekterstellung.
-            Diese Anmerkungen werden als zusätzliche Information beim Einreichen von Projekten beim entsprechenden Feld angezeigt.
-            Durch das Auswählen der Checkboxen wird festgelegt, ob Projekte an dem jeweiligem Vor-/Nachmittag statt finden.
+            Legen Sie fest, ob es sich hierbei um eine Wahl für AGs oder einer Projektwoche handelt.
           </small>
-          <br>
-          <table class="table table-dark table-striped">
-            <thead class="thead-dark">
-              <tr>
-                <th>
-                  Wochentag
-                </th>
-                <th>
-                  <label class="form-check-label">Montag</label>
-                </th>
-                <th>
-                  <label class="form-check-label">Dienstag</label>
-                </th>
-                <th>
-                  <label class="form-check-label">Mittwoch</label>
-                </th>
-                <th>
-                  <label class="form-check-label">Donnerstag</label>
-                </th>
-                <th>
-                  <label class="form-check-label">Freitag</label>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th>Vormittags</th>
-                <td>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="dauer[montag][vormittag]" <?php echo $config["MontagVormittag"] == "true" ? "checked" : ""; echo $config["Stage"] > 0  ? " disabled" : ""; ?>>Findet statt
-                  </div>
-                  <div class="form-group">
-                    <textarea class="form-control" name="dauer[montag][vormittagHinweis]" placeholder="Anmerkungen"><?php
-                      echo (!empty($config["MontagVormittagHinweis"]) ? $config["MontagVormittagHinweis"] : "");
-                    ?></textarea>
-                  </div>
-                </td>
-                <td>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="dauer[dienstag][vormittag]" <?php echo $config["DienstagVormittag"] == "true"  ? "checked" : ""; echo $config["Stage"] > 0  ? " disabled" : ""; ?>>Findet statt
-                  </div>
-                  <div class="form-group">
-                    <textarea class="form-control" name="dauer[dienstag][vormittagHinweis]" placeholder="Anmerkungen"><?php
-                      echo (!empty($config["DienstagVormittagHinweis"]) ? $config["DienstagVormittagHinweis"] : "");
-                    ?></textarea>
-                  </div>
-                </td>
-                <td>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="dauer[mittwoch][vormittag]" <?php echo $config["MittwochVormittag"] == "true"  ? "checked" : ""; echo $config["Stage"] > 0  ? " disabled" : ""; ?>>Findet statt
-                  </div>
-                  <div class="form-group">
-                    <textarea class="form-control" name="dauer[mittwoch][vormittagHinweis]" placeholder="Anmerkungen"><?php
-                      echo (!empty($config["MittwochVormittagHinweis"]) ? $config["MittwochVormittagHinweis"] : "");
-                    ?></textarea>
-                  </div>
-                </td>
-                <td>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="dauer[donnerstag][vormittag]" <?php echo $config["DonnerstagVormittag"] == "true"  ? "checked" : ""; echo $config["Stage"] > 0  ? " disabled" : ""; ?>>Findet statt
-                  </div>
-                  <div class="form-group">
-                    <textarea class="form-control" name="dauer[donnerstag][vormittagHinweis]" placeholder="Anmerkungen"><?php
-                      echo (!empty($config["DonnerstagVormittagHinweis"]) ? $config["DonnerstagVormittagHinweis"] : "");
-                    ?></textarea>
-                  </div>
-                </td>
-                <td>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="dauer[freitag][vormittag]" <?php echo $config["FreitagVormittag"] == "true"  ? "checked" : ""; echo $config["Stage"] > 0  ? " disabled" : ""; ?>>Findet statt
-                  </div>
-                  <div class="form-group">
-                    <textarea class="form-control" name="dauer[freitag][vormittagHinweis]" placeholder="Anmerkungen"><?php
-                      echo (!empty($config["FreitagVormittagHinweis"]) ? $config["FreitagVormittagHinweis"] : "");
-                    ?></textarea>
-                  </div>
-                </td>
-              </tr>
 
-              <tr>
-                <th>Nachmittags</th>
-                <td>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="dauer[montag][nachmittag]" <?php echo $config["MontagNachmittag"] == "true"  ? "checked" : ""; echo $config["Stage"] > 0  ? " disabled" : ""; ?>>Findet statt
-                  </div>
-                  <div class="form-group">
-                    <textarea class="form-control" name="dauer[montag][nachmittagHinweis]" placeholder="Anmerkungen"><?php
-                      echo (!empty($config["MontagNachmittagHinweis"]) ? $config["MontagNachmittagHinweis"] : "");
-                    ?></textarea>
-                  </div>
-                </td>
-                <td>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="dauer[dienstag][nachmittag]" <?php echo $config["DienstagNachmittag"] == "true"  ? "checked" : ""; echo $config["Stage"] > 0  ? " disabled" : ""; ?>>Findet statt
-                  </div>
-                  <div class="form-group">
-                    <textarea class="form-control" name="dauer[dienstag][nachmittagHinweis]" placeholder="Anmerkungen"><?php
-                      echo (!empty($config["DienstagNachmittagHinweis"]) ? $config["DienstagNachmittagHinweis"] : "");
+          <hr class="my-4">
+          <?php if ($config["Stage"] > 0) { ?>
+          <p class="text-danger">
+            Nur in der initialen nicht veröffentlichten Phase kann festgelegt werden, wann die AGs/Projekte stattfinden.
+            Die Bemerkungen können trotzdem weiterhin jederzeit angepasst werden.
+          </p>
+          <?php } ?>
 
-                    ?></textarea>
-                  </div>
-                </td>
-                <td>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="dauer[mittwoch][nachmittag]" <?php echo $config["MittwochNachmittag"] == "true"  ? "checked" : ""; echo $config["Stage"] > 0  ? " disabled" : ""; ?>>Findet statt
-                  </div>
-                  <div class="form-group">
-                    <textarea class="form-control" name="dauer[mittwoch][nachmittagHinweis]" placeholder="Anmerkungen"><?php
-                      echo (!empty($config["MittwochNachmittagHinweis"]) ? $config["MittwochNachmittagHinweis"] : "");
-                    ?></textarea>
-                  </div>
-                </td>
-                <td>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="dauer[donnerstag][nachmittag]" <?php echo $config["DonnerstagNachmittag"] == "true"  ? "checked" : ""; echo $config["Stage"] > 0  ? " disabled" : ""; ?>>Findet statt
-                  </div>
-                  <div class="form-group">
-                    <textarea class="form-control" name="dauer[donnerstag][nachmittagHinweis]" placeholder="Anmerkungen"><?php
-                      echo (!empty($config["DonnerstagNachmittagHinweis"]) ? $config["DonnerstagNachmittagHinweis"] : "");
-                    ?></textarea>
-                  </div>
-                </td>
-                <td>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="dauer[freitag][nachmittag]" <?php echo $config["FreitagNachmittag"] == "true"  ? "checked" : ""; echo $config["Stage"] > 0  ? " disabled" : ""; ?>>Findet statt
-                  </div>
-                  <div class="form-group">
-                    <textarea class="form-control" name="dauer[freitag][nachmittagHinweis]" placeholder="Anmerkungen"><?php
-                      echo (!empty($config["FreitagNachmittagHinweis"]) ? $config["FreitagNachmittagHinweis"] : "");
-                    ?></textarea>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <!-- Projektwoche Zeitablauf -->
+          <div <?php echo ($config["wahlTyp"] == "ag" ? "class='d-none' " : ""); ?>id="configProjekteTable">
+            <h5>Projekt-Einstellungen</h5>
+            <small class="form-text text-muted">
+              Stellen sie die Dauer der Projektwoche ein sowie ggf. Hinweise für die Lehrer zur Projekterstellung.
+              Diese Anmerkungen werden als zusätzliche Information beim Einreichen von Projekten beim entsprechenden Feld angezeigt.
+              Durch das Auswählen der Checkboxen wird festgelegt, ob Projekte an dem jeweiligem Vor-/Nachmittag statt finden.
+            </small>
+            <br>
+            <table class="table table-dark table-striped">
+              <thead class="thead-dark">
+                <tr>
+                  <th>
+                    Wochentag
+                  </th>
+                  <th>
+                    <label class="form-check-label">Montag</label>
+                  </th>
+                  <th>
+                    <label class="form-check-label">Dienstag</label>
+                  </th>
+                  <th>
+                    <label class="form-check-label">Mittwoch</label>
+                  </th>
+                  <th>
+                    <label class="form-check-label">Donnerstag</label>
+                  </th>
+                  <th>
+                    <label class="form-check-label">Freitag</label>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>Vormittags</th>
+                  <td>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" name="dauer[montag][vormittag]" <?php echo $config["MontagVormittag"] == "true" ? "checked" : ""; echo $config["Stage"] > 0  ? " disabled" : ""; ?>>Findet statt
+                    </div>
+                    <div class="form-group">
+                      <textarea class="form-control" name="dauer[montag][vormittagHinweis]" placeholder="Anmerkungen"><?php
+                        echo (!empty($config["MontagVormittagHinweis"]) ? $config["MontagVormittagHinweis"] : "");
+                      ?></textarea>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" name="dauer[dienstag][vormittag]" <?php echo $config["DienstagVormittag"] == "true"  ? "checked" : ""; echo $config["Stage"] > 0  ? " disabled" : ""; ?>>Findet statt
+                    </div>
+                    <div class="form-group">
+                      <textarea class="form-control" name="dauer[dienstag][vormittagHinweis]" placeholder="Anmerkungen"><?php
+                        echo (!empty($config["DienstagVormittagHinweis"]) ? $config["DienstagVormittagHinweis"] : "");
+                      ?></textarea>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" name="dauer[mittwoch][vormittag]" <?php echo $config["MittwochVormittag"] == "true"  ? "checked" : ""; echo $config["Stage"] > 0  ? " disabled" : ""; ?>>Findet statt
+                    </div>
+                    <div class="form-group">
+                      <textarea class="form-control" name="dauer[mittwoch][vormittagHinweis]" placeholder="Anmerkungen"><?php
+                        echo (!empty($config["MittwochVormittagHinweis"]) ? $config["MittwochVormittagHinweis"] : "");
+                      ?></textarea>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" name="dauer[donnerstag][vormittag]" <?php echo $config["DonnerstagVormittag"] == "true"  ? "checked" : ""; echo $config["Stage"] > 0  ? " disabled" : ""; ?>>Findet statt
+                    </div>
+                    <div class="form-group">
+                      <textarea class="form-control" name="dauer[donnerstag][vormittagHinweis]" placeholder="Anmerkungen"><?php
+                        echo (!empty($config["DonnerstagVormittagHinweis"]) ? $config["DonnerstagVormittagHinweis"] : "");
+                      ?></textarea>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" name="dauer[freitag][vormittag]" <?php echo $config["FreitagVormittag"] == "true"  ? "checked" : ""; echo $config["Stage"] > 0  ? " disabled" : ""; ?>>Findet statt
+                    </div>
+                    <div class="form-group">
+                      <textarea class="form-control" name="dauer[freitag][vormittagHinweis]" placeholder="Anmerkungen"><?php
+                        echo (!empty($config["FreitagVormittagHinweis"]) ? $config["FreitagVormittagHinweis"] : "");
+                      ?></textarea>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <th>Nachmittags</th>
+                  <td>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" name="dauer[montag][nachmittag]" <?php echo $config["MontagNachmittag"] == "true"  ? "checked" : ""; echo $config["Stage"] > 0  ? " disabled" : ""; ?>>Findet statt
+                    </div>
+                    <div class="form-group">
+                      <textarea class="form-control" name="dauer[montag][nachmittagHinweis]" placeholder="Anmerkungen"><?php
+                        echo (!empty($config["MontagNachmittagHinweis"]) ? $config["MontagNachmittagHinweis"] : "");
+                      ?></textarea>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" name="dauer[dienstag][nachmittag]" <?php echo $config["DienstagNachmittag"] == "true"  ? "checked" : ""; echo $config["Stage"] > 0  ? " disabled" : ""; ?>>Findet statt
+                    </div>
+                    <div class="form-group">
+                      <textarea class="form-control" name="dauer[dienstag][nachmittagHinweis]" placeholder="Anmerkungen"><?php
+                        echo (!empty($config["DienstagNachmittagHinweis"]) ? $config["DienstagNachmittagHinweis"] : "");
+                      ?></textarea>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" name="dauer[mittwoch][nachmittag]" <?php echo $config["MittwochNachmittag"] == "true"  ? "checked" : ""; echo $config["Stage"] > 0  ? " disabled" : ""; ?>>Findet statt
+                    </div>
+                    <div class="form-group">
+                      <textarea class="form-control" name="dauer[mittwoch][nachmittagHinweis]" placeholder="Anmerkungen"><?php
+                        echo (!empty($config["MittwochNachmittagHinweis"]) ? $config["MittwochNachmittagHinweis"] : "");
+                      ?></textarea>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" name="dauer[donnerstag][nachmittag]" <?php echo $config["DonnerstagNachmittag"] == "true"  ? "checked" : ""; echo $config["Stage"] > 0  ? " disabled" : ""; ?>>Findet statt
+                    </div>
+                    <div class="form-group">
+                      <textarea class="form-control" name="dauer[donnerstag][nachmittagHinweis]" placeholder="Anmerkungen"><?php
+                        echo (!empty($config["DonnerstagNachmittagHinweis"]) ? $config["DonnerstagNachmittagHinweis"] : "");
+                      ?></textarea>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" name="dauer[freitag][nachmittag]" <?php echo $config["FreitagNachmittag"] == "true"  ? "checked" : ""; echo $config["Stage"] > 0  ? " disabled" : ""; ?>>Findet statt
+                    </div>
+                    <div class="form-group">
+                      <textarea class="form-control" name="dauer[freitag][nachmittagHinweis]" placeholder="Anmerkungen"><?php
+                        echo (!empty($config["FreitagNachmittagHinweis"]) ? $config["FreitagNachmittagHinweis"] : "");
+                      ?></textarea>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- AG-Termin Auswahl-->
+          <div <?php echo ($config["wahlTyp"] == "projektwahl" ? "class='d-none' " : ""); ?>id="configAGTermine">
+            <h5>AG-Einstellung</h5>
+            <small class="form-text text-muted">
+              Stellen sie die möglichen Termine für die AGs ein sowie ggf. Hinweise für die Lehrer zur AG-Erstellung.
+              Diese Anmerkungen werden als zusätzliche Information beim Einreichen von AGs beim entsprechenden Feld angezeigt.
+              Im Nachfolgenden sehen Sie einen Beispieldatensatz zum Eintragen der möglichen AG-Termine.
+            </small>
+
+            <table class="table table-dark">
+              <tbody>
+                <tr>
+                  <td>
+                    <input type="text" class="form-control" aria-label="Tag" value="Montag" readonly>
+                  </td>
+                  <td>
+                    <input type="time" class="form-control" aria-label="Von" value="10:15" readonly>
+                  </td>
+                  <td>
+                    <input type="time" class="form-control" aria-label="Bis" value="12:00" readonly>
+                  </td>
+                  <td>
+                    <button type="button" class="close text-danger" aria-label="Close" disabled>
+                      <span class="closebutton" aria-hidden="true">&times;</span>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <small class="text-muted">
+              Tragen Sie nun die echten Werte bitte in der nachfolgenden Tabelle ein.
+            </small>
+            <datalist id="wochentage">
+              <option value="Montag">
+              <option value="Dienstag">
+              <option value="Mittwoch">
+              <option value="Donnerstag">
+              <option value="Freitag">
+              <option value="Samstag">
+              <option value="Sonntag">
+            </datalist>
+            <table class="table table-dark table-striped table-hover">
+              <thead class="thead-dark">
+                <tr>
+                  <th class="sticky-top">Tag</th>
+                  <th class="sticky-top">Von</th>
+                  <th class="sticky-top">Bis</th>
+                  <th class="sticky-top"></th>
+                </tr>
+              </thead>
+              <tbody id="agTermineTable"><?php
+              $found = false;
+              foreach ($config["agTermine"] as $termin) {
+                if (empty($termin)) {
+                  continue;
+                }
+                $found = true;
+                echo '
+                <tr>
+                  <td>
+                    <input type="text" value="' . $termin["tag"] . '" class="form-control" aria-label="Tag" name="tag[]" list="wochentage" ' . ($config["Stage"] == 0 ? 'onclick="javascript: addAGTermineInput();"' : 'disabled') . '>
+                  </td>
+                  <td>
+                    <input type="time" value="' . $termin["vonUhr"] . '" class="form-control" aria-label="Von" name="von[]" ' . ($config["Stage"] == 0 ? 'onclick="javascript: addAGTermineInput();"' : 'disabled') . '>
+                  </td>
+                  <td>
+                    <input type="time" value="' . $termin["bisUhr"] . '" class="form-control" aria-label="Bis" name="bis[]" ' . ($config["Stage"] == 0 ? 'onclick="javascript: addAGTermineInput();"' : 'disabled') . '>
+                  </td>
+                  <td>
+                    <button type="button" class="close text-danger" aria-label="Close" onclick="javascript: removeLine(this);"' . ($config["Stage"] == 0 ? '' : ' disabled') . '>
+                      <span class="closebutton" aria-hidden="true">&times;</span>
+                    </button>
+                  </td>
+                </tr>';
+              }
+              if (!$found) {
+                echo '
+                <tr>
+                  <td colspan="3">
+                    <span class="text-danger">
+                      Es wurde bisher kein Termin eingetragen! Fügen Sie bitte einen Termin hinzu.
+                      ' . ($config["Stage"] == 0 ? '' : '<br>Momentan befinden Sie sich nicht in der initalian Anfangsphase. Um diese Einstellung verändern zu können, ändern sie die Phase auf die ursprüngliche.') . '
+                    </span>
+                  </td>
+                  <td>
+                    <button type="button" class="close text-danger" aria-label="Close" onclick="javascript: removeLine(this);"' . ($config["Stage"] == 0 ? '' : ' disabled') . '>
+                      <span class="closebutton" aria-hidden="true">&times;</span>
+                    </button>
+                  </td>
+                </tr>';
+              }
+              ?></tbody>
+            </table>
+            <?php if ($config["Stage"] == 0) { ?>
+            <script>
+              function addAGTermineInput() {
+                $("#agTermineTable").append(`
+                <tr>
+                  <td>
+                    <input type="text" class="form-control" aria-label="Tag" name="tag[]" list="wochentage" oninput="javascript: autoAppendTable('#agTermineTable', addAGTermineInput);">
+                  </td>
+                  <td>
+                    <input type="time" class="form-control" aria-label="Von" name="von[]" oninput="javascript: autoAppendTable('#agTermineTable', addAGTermineInput);">
+                  </td>
+                  <td>
+                    <input type="time" class="form-control" aria-label="Bis" name="bis[]" oninput="javascript: autoAppendTable('#agTermineTable', addAGTermineInput);">
+                  </td>
+                  <td>
+                    <button type="button" class="close text-danger" aria-label="Close" onclick="javascript: removeLine(this);">
+                      <span class="closebutton" aria-hidden="true">&times;</span>
+                    </button>
+                  </td>
+                </tr>`);
+              }
+              addAGTermineInput();
+            </script>
+            <?php } ?>
+            <button <?php if ($config["Stage"] == 0) { ?>onclick="javascript: addAGTermineInput();" <?php } else { ?>disabled <?php } ?>type="button" class="btn btn-success">Termin hinzufügen &#10010;</button>
+          </div>
+
         </form>
         <hr class="my-4">
+
         <h5>Informationen</h5>
         <small class="form-text text-muted">
           Version: <?php
@@ -290,20 +449,23 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
           }
           ?>
         </small>
-        <?php
-        if (file_exists("../data/update.log")) {
-          ?>
+        <br>
+
+        <?php if (file_exists("../data/update.log")) { ?>
         <details id="updateLog">
           <summary>Update-log</summary>
           <p></p>
-        </details><?php
-        }
-        ?>
+        </details>
+        <?php } ?>
         <br>
-        <h5>Lizenz</h5>
-        <small class="form-text text-muted">
-          <?php echo file_get_contents("../LICENSE"); ?>
-        </small>
+        <details>
+          <summary>Lizenz</summary>
+          <p>
+            <small class="form-text text-muted">
+              <?php echo newlineRemove(file_get_contents("../LICENSE")); ?>
+            </small>
+          </p>
+        </details>
       </div>
 
       <div class="modal-footer">
@@ -320,7 +482,7 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
     <div class="modal-content bg-dark">
 
       <div class="modal-header">
-        <h4 class="modal-title">Projekte</h4>
+        <h4 class="modal-title"><?php echo ($config["wahlTyp"] == "ag" ? "AGs" : "Projekte"); ?></h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span class="closebutton" aria-hidden="true">&times;</span>
         </button>
@@ -385,7 +547,7 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
                 $("#schuelerEditForm .projekt-input").html(`
                   <input type="hidden" name="ergebnis">
                   <button type="button" onclick="javascript: changeProjektzuteilung(this);" class="btn btn-warning">
-                    Projekt zuteilen
+                    ` + (window.config["wahlTyp"] == "ag" ? "AG" : "Projekt") + ` zuteilen
                   </button>`);
               }
               else {
@@ -492,7 +654,7 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
         	}
         }
         function confirmDeleteProjektzuteilung() {
-        	if (confirm("Wollen sie wirklich die Projektzuteilung des Schülers '" + $("#schuelerDeleteForm").children()[2].value + "' löschen?")) {
+        	if (confirm("Wollen sie wirklich die " + (window.config["wahlTyp"] == "ag" ? "AG-Z" : "Projektz") + "uteilung des Schülers '" + $("#schuelerDeleteForm").children()[2].value + "' löschen?")) {
         		$('#schuelerProjektzuteilungDeleteForm').submit();
         	}
         	else {
@@ -528,9 +690,9 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
           <button type="submit" class="btn btn-primary">Änderung speichern</button>
           <br>
           <small class="text-muted">
-            Um Schüler vorab fest einem Projekt zuzuteilen, tragen Sie bitte die U-ID (Login-Name des Schülers) korrekt ein und wählen sie das entsprechende Projekt aus.
-            Falls sie bereits ein Projekt ausgewählt haben, färbt sich der Knopf zur Projektauswahl grün und die Beschriftung ändert sich zu "Ändern".
-            Es kann jedoch weiterhin jederzeit das ausgewählte Projekt geändert werden.
+            Um Schüler vorab fest eine<?php echo ($config["wahlTyp"] == "ag" ? "r AG" : "m Projekt"); ?> zuzuteilen, tragen Sie bitte die U-ID (Login-Name des Schülers) korrekt ein und wählen sie <?php echo ($config["wahlTyp"] == "ag" ? "die" : "das"); ?> entsprechende <?php echo ($config["wahlTyp"] == "ag" ? "AG" : "Projekt"); ?> aus.
+            Falls sie bereits ein Projekt ausgewählt haben, färbt sich der Knopf zur <?php echo ($config["wahlTyp"] == "ag" ? "AG-A" : "Projekta"); ?>uswahl grün und die Beschriftung ändert sich zu "Ändern".
+            Es kann jedoch weiterhin jederzeit <?php echo ($config["wahlTyp"] == "ag" ? "die ausgewählte AG" : "das ausgewählte Projekt"); ?> geändert werden.
             Unten sehen sie einen beispielhaften Eintrag.
             Um einen weiteres Eingabefeld hinzuzufügen, klicken Sie auf den grünen Knopf links unten mit der Beschriftung "Schüler hinzufügen &#10010;".
             Um einen Eintrag zu entfernen, betätigen sie das rote Kreuz rechts vom Eintrag.
@@ -567,7 +729,7 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
             </tbody>
           </table>
           <small class="text-muted">
-            Tragen Sie die echten Werte bitte in der nachfolgenden Tabelle ein.
+            Tragen Sie nun die echten Werte bitte in der nachfolgenden Tabelle ein.
           </small>
           <table class="table table-dark table-striped table-hover">
             <thead class="thead-dark">
@@ -577,7 +739,7 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
                 <th class="sticky-top">Klasse</th>
                 <th class="sticky-top">Vorname</th>
                 <th class="sticky-top">Nachname</th>
-                <th class="sticky-top">Projekt</th>
+                <th class="sticky-top"><?php echo ($config["wahlTyp"] == "ag" ? "AG" : "Projekt"); ?></th>
                 <th class="sticky-top"></th>
               </tr>
             </thead>
@@ -605,7 +767,7 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
               </td>
               <td>
                 <input type="hidden" class="form-control" name="projekt[]">
-                <button type="button" class="btn btn-warning" onclick="javascript: changeProjektzuteilung(this);">Projekt festlegen</button>
+                <button type="button" class="btn btn-warning" onclick="javascript: changeProjektzuteilung(this);">` + (window.config["wahlTyp"] == "ag" ? "AG" : "Projekt") + ` festlegen</button>
               </td>
               <td>
                 <button type="button" class="close text-danger" aria-label="Close" onclick="javascript: removeLine(this);">
@@ -677,7 +839,7 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
     <div class="modal-content bg-dark">
 
       <div class="modal-header">
-        <h4 class="modal-title">Projektwahl für eine Zwangszuteilung</h4>
+        <h4 class="modal-title"><?php echo ($config["wahlTyp"] == "ag" ? "AG-W" : "Projektw"); ?>ahl für eine Zwangszuteilung</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span class="closebutton" aria-hidden="true">&times;</span>
         </button>
@@ -688,7 +850,7 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
         <table class="table table-striped table-hover table-dark">
           <thead class="thead-dark">
             <tr>
-              <th class="sticky-top">Projektname</th>
+              <th class="sticky-top"><?php echo ($config["wahlTyp"] == "ag" ? "AG-N" : "Projektn"); ?>ame</th>
               <th class="sticky-top">Betreuer</th>
               <th class="sticky-top"></th>
             </tr>
@@ -769,7 +931,6 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
 
         <script>
           function addKlassenlisteInput() {
-            //var node = document.querySelector('#klassenliste tbody');
             $("#klassenlisteTable").append(`
             <tr>
               <td>
@@ -828,8 +989,8 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
           <small class="text-muted">
             Bitte tragen Sie hier alle Schüler ein, welche es versäumt haben eine Wahl zu tätigen.
             Dies dient der Vollständigkeit, damit keine Schüler übersehen werden.
-            Der Algorithmus teilt die Schüler nicht automatisch einem Projekt zu.
-            Dies muss durch den Administrator geschehen, welcher die Schüler nach der Ausführung des Algorithmus einem Projekt zuteilt.
+            Der Algorithmus teilt die Schüler nicht automatisch eine<?php echo ($config["wahlTyp"] == "ag" ? "r AG" : "m Projekt"); ?> zu.
+            Dies muss durch den Administrator geschehen, welcher die Schüler nach der Ausführung des Algorithmus eine<?php echo ($config["wahlTyp"] == "ag" ? "r AG" : "m Projekt"); ?> zuteilt.
             Um die Zahl der Schüler ohne Wahlen zu verringern, kann das Wahl-Interface erneut geöffnet werden oder diese durch eine Zwangszuteilung einem Projekt vorab fest zugeteilt werden.
             Im Folgenden ist ein Beispieldatensatz aufgeführt.
           </small>
@@ -933,8 +1094,8 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
         <div class="col-xs-12 col-sm-6 col-lg-12">
       		<div class="card w-100 text-white bg-dark p-3">
       			<div class="card-body">
-      				<h5 class="card-title">Dashboard Projektwahl</h5>
-      				<p class="card-text">Übersicht über die Projektwahl-Datenbank</p>
+      				<h5 class="card-title">Wahl-Dashboard</h5>
+      				<p class="card-text">Übersicht über die Wahl-Datenbank</p>
 
           		<div class="btn-group btn-group-toggle" data-toggle="buttons">
                 <button type="button" class="btn btn-danger" onclick="logout()">
@@ -962,7 +1123,7 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "admin") {
                 </button>
               </div>
               <button type="button" class="btn btn-success" onclick="window.location.href = '?site=create';">
-                Neues Projekt erstellen
+                Neue<?php echo ($config["wahlTyp"] == "ag" ? " AG" : "s Projekt"); ?> erstellen
               </button>
       			</div>
       		</div>

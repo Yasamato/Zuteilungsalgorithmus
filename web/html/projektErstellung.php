@@ -29,24 +29,24 @@ elseif (!empty($_GET["projekt"])) {
 	</button>
 	<!-- Formularüberschrift -->
 	<div align="center">
-		<h1>Projekt-Einschreibe-Formular</h1>
+		<h1><?php echo ($config["wahlTyp"] == "ag" ? "AG" : "Projekt"); ?>-Einschreibe-Formular</h1>
 		<p>
-      Hier können sie ihr Projekt einreichen.
+      Hier können Sie ihr<?php echo ($config["wahlTyp"] == "ag" ? "e AG" : " Projekt"); ?> einreichen.
     </p>
 	</div>
 
 	<!-- Hier ist das Formular -->
-	<form method="post">
+	<form class="needs-validation" method="post" novalidate>
 
 		<!-- erste Zeile -->
 		<div class="form-row">
 
 			<!-- Eingabefeld für Projektname -->
 			<div class="col-md">
-				<label>Projektname</label>
-				<input type="text" class="form-control" placeholder="Beispielsweise: Mein Traumprojekt" required name="pName" autofocus value="<?php echo empty($_POST["pName"]) ? (empty($projekt["name"]) ? "" : $projekt["name"]) : $_POST["pName"]; ?>">
+				<label><?php echo ($config["wahlTyp"] == "ag" ? "AG-N" : "Projektn"); ?>ame</label>
+				<input type="text" class="form-control" placeholder="Beispielsweise: Mein<?php echo ($config["wahlTyp"] == "ag" ? "e Traum-AG" : " Traumprojekt"); ?>" required name="pName" autofocus value="<?php echo empty($_POST["pName"]) ? (empty($projekt["name"]) ? "" : $projekt["name"]) : $_POST["pName"]; ?>">
 				<small class="text-muted">
-					Bitte geben Sie einen geeigneten Projektnamen an
+					Bitte geben Sie einen geeigneten <?php echo ($config["wahlTyp"] == "ag" ? "AG-N" : "Projektn"); ?>amen an
 				</small>
 			</div>
 
@@ -68,7 +68,7 @@ elseif (!empty($_GET["projekt"])) {
   			<label>Beschreibung</label>
   			<textarea class="form-control" placeholder="Beispielsweise:" required rows="12" name="beschreibung"><?php echo empty($_POST["beschreibung"]) ? (empty($projekt["beschreibung"]) ? "" : newlineBack($projekt["beschreibung"])) : $_POST["beschreibung"]; ?></textarea>
   			<small class="text-muted">
-  				Bitte geben Sie eine geeignete Beschreibung des Projektes an.
+  				Bitte geben Sie eine geeignete Beschreibung de<?php echo ($config["wahlTyp"] == "ag" ? "r AG" : "s Projekts"); ?> an.
   			</small>
       </div>
 		</div>
@@ -103,7 +103,7 @@ elseif (!empty($_GET["projekt"])) {
     <p>
       <small class="text-muted">
         Bitte die begrenzenden Rahmenbedingungen eintragen.
-        Hier legen Sie fest für welche Klassenstufen sich das Projekt eignet sowie ihre mindestens benötigte Teilnehmerzahl neben der maximal möglichen.
+        Hier legen Sie fest für welche Klassenstufen sich <?php echo ($config["wahlTyp"] == "ag" ? "die AG" : "das Projekt"); ?> eignet, sowie ihre mindestens benötigte Teilnehmerzahl neben der maximal möglichen.
       </small>
     </p>
 
@@ -115,7 +115,7 @@ elseif (!empty($_GET["projekt"])) {
     </div>
     <p>
       <small class="text-muted">
-        Falls besondere Räumlichkeiten erforderlich sind, bitte diese angeben damit diese von der Schulleitung organisiert werden kann.
+        Falls besondere Räumlichkeiten erforderlich sind, bitte diese angeben damit diese von Orga.-Team organisiert werden kann.
       </small>
     </p>
 
@@ -135,12 +135,12 @@ elseif (!empty($_GET["projekt"])) {
 
 		<!-- sechste Zeile -->
 		<div class="form-row">
-				<label>Besondere Voraussetzungen</label>
-				<input type="text" class="form-control" placeholder="Beispielsweise: Computerkenntnisse" name="vorraussetzungen" value="<?php echo empty($_POST["vorraussetzungen"]) ? (empty($projekt["vorraussetzungen"]) ? "" : $projekt["vorraussetzungen"]) : $_POST["vorraussetzungen"]; ?>">
+			<label>Besondere Voraussetzungen</label>
+			<input type="text" class="form-control" placeholder="Beispielsweise: Computerkenntnisse" name="vorraussetzungen" value="<?php echo empty($_POST["vorraussetzungen"]) ? (empty($projekt["vorraussetzungen"]) ? "" : $projekt["vorraussetzungen"]) : $_POST["vorraussetzungen"]; ?>">
 		</div>
     <p>
       <small class="text-muted">
-        Bei Bedingungen zur Teilnahme diese bitte hier eintragen.
+        Bei Bedingungen zur Teilnahme wie besondere Kenntnisse/Fähigkeiten, diese bitte hier eintragen.
       </small>
     </p>
 
@@ -153,11 +153,12 @@ elseif (!empty($_GET["projekt"])) {
 		</div>
     <p>
       <small class="text-muted">
-        Falls besondere Materialien mit der Schule organisiert werden müssen, diese bitte hier eintragen.
+        Falls besondere Materialien zusätzlich organisiert werden müssen, diese bitte hier eintragen.
       </small>
     </p>
 
 
+    <?php if ($config["wahlTyp"] == "projektwoche") { ?>
 		<!-- Überschrift für die Wochenplanung-->
 		<h2 class="text-center">
 			Projekt Tagesablaufplan
@@ -286,18 +287,49 @@ elseif (!empty($_GET["projekt"])) {
         </div>
       </div>
 		</div>
+    <?php } else { ?>
+		<h2 class="text-center">
+			AG Termine
+		</h2>
+
+		<!-- Die einzelnen Termine -->
+		<fieldset>
+      <?php
+      $count = 0;
+      foreach ($config["agTermine"] as $termin) {
+        if (empty($termin)) {
+          continue;
+        }
+        ?>
+      <div class="form-group">
+        <div class="form-check">
+          <label class="form-check-label">
+            <?php echo $termin; ?>
+          </label>
+          <input class="form-check-input" type="checkbox">
+        </div>
+      </div>
+      <?php
+        $count++;
+      }
+      if ($count == 0) {
+      ?>
+      <span class="text-center text-danger">Es konnten keine Termine gefunden werden. Kontaktieren Sie bitte einen Verantwortlichen.</span>
+      <?php
+      }
+      ?>
+    </fieldset>
+    <?php } ?>
 
 		<!-- Einreichen Knopf -->
-		<div class="text-center">
-			<div class="btn-group">
-	      <button type="button" class="btn btn-danger" onclick="logout()">
-					Abmelden
-				</button>
-				<button type="button" class="btn btn-primary" onclick="window.location.href = '?';">
-					Zurück
-				</button>
-			</div>
-			<button name="action" value="<?php echo !empty($_GET["projekt"]) ? "editProject" : "addProject"; ?>" class="btn btn-success" type="submit">
+		<div class="text-left">
+      <button type="button" class="btn btn-danger" onclick="logout()">
+				Abmelden
+			</button>
+			<button type="button" class="btn btn-primary" onclick="window.location.href = '?';">
+				Zurück
+			</button>
+			<button name="action" value="<?php echo !empty($_GET["projekt"]) ? "editProject" : "addProject"; ?>" class="btn btn-success float-right" type="submit">
 				<?php echo !empty($_GET["projekt"]) ? "Änderungen speichern" : "Projekt einreichen"; ?>
 			</button>
 		</div>

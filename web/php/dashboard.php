@@ -2,11 +2,12 @@
 if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
 
 	// Saving the new configuration after submitting it
-	//Projekt-Einstellungen können nur in der ersten Phase geändert werden
+	// Viele Einstellungen können nur in der initalen Phase geändert werden
 	if ($config['Stage'] == 0) {
 		//prepare data
 		$values = [
 			$_POST["stage"],
+			$_POST["wahlTyp"],
 			empty($_POST["dauer"]["montag"]["vormittag"]) ? "false" : "true",
 			empty($_POST["dauer"]["montag"]["vormittagHinweis"]) ? "" : $_POST["dauer"]["montag"]["vormittagHinweis"],
 			empty($_POST["dauer"]["montag"]["nachmittag"]) ? "false" : "true",
@@ -28,11 +29,43 @@ if (isLogin() && $_SESSION['benutzer']['typ'] == "admin") {
 			empty($_POST["dauer"]["freitag"]["nachmittag"]) ? "false" : "true",
 			empty($_POST["dauer"]["freitag"]["nachmittagHinweis"]) ? "" : $_POST["dauer"]["freitag"]["nachmittagHinweis"]
 		];
+
+	  if (!empty($_POST["tag"]) && !empty($_POST["von"]) && !empty($_POST["bis"]) && count($_POST["tag"]) == count($_POST["von"]) && count($_POST["von"]) == count($_POST["bis"])) {
+      $data = [];
+      for ($i = 0; $i < count($_POST["tag"]); $i++) {
+        if (empty($_POST["tag"][$i]) || empty($_POST["von"][$i]) || empty($_POST["bis"][$i])) {
+          continue;
+        }
+
+        $doppelt = false;
+        foreach ($data as $termin) {
+          if ($termin["tag"] == $_POST["tag"][$i] && $termin["von"] == $_POST["von"][$i] && $termin["bis"] == $_POST["bis"][$i]) {
+            $doppelt = true;
+            break;
+          }
+        }
+        if ($doppelt) {
+          continue;
+        }
+        array_push($data, [
+          "tag" => $_POST["tag"][$i],
+          "vonUhr" => $_POST["von"][$i],
+          "bisUhr" => $_POST["bis"][$i]
+        ]);
+      }
+      if (dbWrite("../data/agTermine.csv", $data) === false) {
+        alert("Die Daten der AG-Termine konnten nicht gespeichert werden: '" . json_encode($data) . "'");
+      }
+		}
+		else {
+			alert("AG-Termine sind ungültig...");
+		}
 	}
 	else {
 		// prepare data
 		$values = [
 			$_POST["stage"],
+			$config['wahlTyp'],
 			$config['MontagVormittag'],
 			empty($_POST["dauer"]["montag"]["vormittagHinweis"]) ? "" : $_POST["dauer"]["montag"]["vormittagHinweis"],
 			$config['MontagNachmittag'],

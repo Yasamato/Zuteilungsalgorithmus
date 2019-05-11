@@ -11,3 +11,7 @@
     display: block;
 	}
 }
+
+#configForm textarea {
+  min-height: 80px;
+}

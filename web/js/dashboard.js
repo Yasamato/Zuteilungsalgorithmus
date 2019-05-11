@@ -1,5 +1,28 @@
 window.buffer = 0.10; // +/- 10% Buffer bei den Projektplätzen
 
+function configToggleProjektAG(element) {
+	console.log("Verändere AG/Projekt-Ansicht");
+	if ($(element).val() == "ag") {
+		if (!$("#configProjekteTable").hasClass("d-none")) {
+			$("#configProjekteTable").addClass("d-none")
+		}
+		if ($("#configAGTermine").hasClass("d-none")) {
+			$("#configAGTermine").removeClass("d-none")
+		}
+	}
+	else if ($(element).val() == "projektwoche") {
+		if (!$("#configAGTermine").hasClass("d-none")) {
+			$("#configAGTermine").addClass("d-none")
+		}
+		if ($("#configProjekteTable").hasClass("d-none")) {
+			$("#configProjekteTable").removeClass("d-none")
+		}
+	}
+	else {
+		alert("Unbekannter Wahl-Typ!!");
+	}
+}
+
 function checkCheckbox(element, attr="id", action="deleteProjekt") {
 	function doubleCheck(element) {
 		var id = $(element).closest("tr").attr(attr);
@@ -199,7 +222,7 @@ function updateProgressbar(data) {
 function updateProjekte() {
 	// Info-Card
 	$("#projekteCard .card-title").html(window.projekte.length);
-	$("#projekteCard .card-text").html("Projekt" + (window.projekte.length == 1 ? " wurde" : "e wurden") + " eingereicht");
+	$("#projekteCard .card-text").html((window.config["wahlTyp"] == "ag" ? "AG" : "Projekt") + (window.projekte.length == 1 ? " wurde" : (window.config["wahlTyp"] == "ag" ? "s" : "e") + " wurden") + " eingereicht");
 
 	$("#projektPlatzCard").html("");
 	$("#projektPlatzCard").append(`
@@ -209,7 +232,7 @@ function updateProjekte() {
       <h5 class="card-title">
         <span` + (window.pMin > window.gesamtanzahl * (1 - window.buffer) ? " class='text-warning'" : "") + ">" + window.pMin + "</span> - <span" + (window.pMax < window.gesamtanzahl ? " class='text-danger'" : (window.pMax < window.gesamtanzahl * (1 + window.buffer) ? " class='text-warning'" : "")) + ">" + window.pMax + `</span>
       </h5>
-      <p class="card-text">Plätze sind laut Projektangaben insgesamt verfügbar</p>
+      <p class="card-text">Plätze sind laut ` + (window.config["wahlTyp"] == "ag" ? "AG-A" : "Projekta") + `ngaben insgesamt verfügbar</p>
     </div>
   </div>
 </div>`);
@@ -222,7 +245,7 @@ function updateProjekte() {
       <h5 class="card-title">
         <span` + (window.stufen[i]["min"] > window.stufen[i]["students"] * (1 - window.buffer) ? " class='text-warning'" : "") + ">" + window.stufen[i]["min"] + "</span> - <span" + (window.stufen[i]["max"] < window.stufen[i]["students"] ? " class='text-danger'" : (window.stufen[i]["max"] < window.stufen[i]["students"] * (1 + window.buffer) ? " class='text-warning'" : "")) + ">" + window.stufen[i]["max"] + `</span>
       </h5>
-      <p class="card-text">Plätze sind laut Projektangaben verfügbar für die Klassenstufe ` + i + `</p>
+      <p class="card-text">Plätze sind laut ` + (window.config["wahlTyp"] == "ag" ? "AG-A" : "Projekta") + `ngaben verfügbar für die Klassenstufe ` + i + `</p>
     </div>
   </div>
 </div>`);
@@ -233,7 +256,7 @@ function updateProjekte() {
 	if (window.config["Stage"] > 4) {
 		if (window.projekteZuViel.length > 0) {
 			var appendText = `
-			<h4 class="text-warning">Die Teilnehmerzahl der folgenden Projekte überschreitet deren Maximalteilnehmeranzahl.</h4>
+			<h4 class="text-warning">Die Teilnehmerzahl der folgenden ` + (window.config["wahlTyp"] == "ag" ? "AGs" : "Projekte") + ` überschreitet deren Maximalteilnehmeranzahl.</h4>
 			<table class="table table-dark table-striped table-hover border border-warning">
 			  <thead class="thead-dark">
 			    <tr>
@@ -261,7 +284,7 @@ function updateProjekte() {
 		}
 		if (window.projekteNichtStattfinden.length > 0) {
 			var appendText = `
-			<h4 class="text-danger">Folgende Projekte können aufgrund mangelnder Teilnehmerzahl nicht stattfinden.</h4>
+			<h4 class="text-danger">Folgende ` + (window.config["wahlTyp"] == "ag" ? "AGs" : "Projekte") + ` können aufgrund mangelnder Teilnehmerzahl nicht stattfinden.</h4>
 			<table class="table table-dark table-striped table-hover border border-danger">
 			  <thead class="thead-dark">
 			    <tr>
@@ -304,8 +327,8 @@ function updateProjekte() {
 	if (window.projekte.length == 0) {
 		appendText += `
       <tr>
-        <td>
-          Bisher wurden keine Projekte eingereicht
+        <td colspan="5">
+          Bisher wurden keine ` + (window.config["wahlTyp"] == "ag" ? "AGs" : "Projekte") + ` eingereicht
         </td>
       </tr>`;
 	}
@@ -389,7 +412,7 @@ function updateStudents() {
   </thead>
   <tbody>
     <tr>
-      <td>
+      <td colspan="7">
         Bisher wurde keine Wahl getätigt
       </td>
     </tr>
@@ -624,7 +647,7 @@ function updateKlassenliste() {
 function updateZwangszuteilung() {
 	// Info-Card
 	$("#zwangszuteilungCard .card-title").html(window.zwangszuteilungen.length);
-	$("#zwangszuteilungCard .card-text").html("Schüler wurde" + (window.zwangszuteilungen.length != 1 ? "n" : "") + " fest einem Projekt zugeteilt");
+	$("#zwangszuteilungCard .card-text").html("Schüler wurde" + (window.zwangszuteilungen.length != 1 ? "n" : "") + " fest eine" + (window.config["wahlTyp"] == "ag" ? "r AG" : "m Projekt") + " zugeteilt");
 
 	// Modal
 	if ($("#zwangszuteilungTable").html() != "") {
@@ -882,7 +905,7 @@ function updateErrors(data) {
 			window.showErrorModal = true;
 			$("#errorModal .modal-body").append(`
 			<div class="alert alert-warning" role="alert">
-				Die von allen Projekten summierte Mindestteilnehmeranzahl ist ` + (window.pMin > window.gesamtanzahl ? "größer als" : "zu groß für") + ` die Gesamtschülerzahl. Falls nicht Projekte nicht stattfinden sollen, passen Sie bitte <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> ggf. die Mindestteilnehmeranzahl an.
+				Die von allen ` + (window.config["wahlTyp"] == "ag" ? "AGs" : "Projekten") + ` summierte Mindestteilnehmeranzahl ist ` + (window.pMin > window.gesamtanzahl ? "größer als" : "zu groß für") + ` die Gesamtschülerzahl. Falls nicht Projekte nicht stattfinden sollen, passen Sie bitte <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> ggf. die Mindestteilnehmeranzahl an.
 			</div>`);
 		}
 		if (window.pMax < window.gesamtanzahl * (1 + window.buffer)) {
@@ -892,7 +915,7 @@ function updateErrors(data) {
 			}
 			$("#errorModal .modal-body").append(`
 			<div class="alert alert-` + (window.pMax < window.gesamtanzahl ? "danger" : "warning") + `" role="alert">
-				Die von allen Projekten summierte Maximalteilnehmeranzahl ` + (window.pMax < window.gesamtanzahl ? "ist kleiner als die" : "liegt nur wenig über der") + ` Gesamtschülerzahl und kann zu Problemen führen. Bitte erweitern sie die Maximalzahl bestehender Projekte <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> oder fügen sie weitere Projekte <a href="javascript: ;" onclick="javascript: window.location.href = '?site=create';" class="alert-link">hier</a> hinzu.
+				Die von allen ` + (window.config["wahlTyp"] == "ag" ? "AGs" : "Projekten") + ` summierte Maximalteilnehmeranzahl ` + (window.pMax < window.gesamtanzahl ? "ist kleiner als die" : "liegt nur wenig über der") + ` Gesamtschülerzahl und kann zu Problemen führen. Bitte erweitern sie die Maximalzahl bestehender Projekte <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> oder fügen sie weitere Projekte <a href="javascript: ;" onclick="javascript: window.location.href = '?site=create';" class="alert-link">hier</a> hinzu.
 			</div>`);
 		}
 
@@ -902,7 +925,7 @@ function updateErrors(data) {
 				showErrorModal = true;
 				$("#errorModal .modal-body").append(`
 				<div class="alert alert-warning alert-dismissible fade show" role="alert">
-					Die von allen Projekten summierte Mindestteilnehmeranzahl für die <strong>Klassenstufe ` + i + `</strong> ist ` + (window.stufen[i]["min"] > window.stufen[i]["students"] ? "größer als" : "zu groß für") + ` die Schüleranzahl der Stufe. Dies kann zu Problemen führen und kann <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> bearbeitet werden.
+					Die von allen ` + (window.config["wahlTyp"] == "ag" ? "AGs" : "Projekten") + ` summierte Mindestteilnehmeranzahl für die <strong>Klassenstufe ` + i + `</strong> ist ` + (window.stufen[i]["min"] > window.stufen[i]["students"] ? "größer als" : "zu groß für") + ` die Schüleranzahl der Stufe. Dies kann zu Problemen führen und kann <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> bearbeitet werden.
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -915,7 +938,7 @@ function updateErrors(data) {
 				}
 				$("#errorModal .modal-body").append(`
 				<div class="alert alert-` + (window.stufen[i]["max"] < window.stufen[i]["students"] ? "danger" : "warning") + `" role="alert">
-					Die von allen Projekten summierte Maximalteilnehmeranzahl für die <strong>Klassenstufe ` + i + `</strong> ist ` + (window.stufen[i]["max"] < window.stufen[i]["students"] ? "kleiner als die" : " liegt nur wenig über der") + ` Schüleranzahl der Stufe. Dies kann zu Problemen führen. Bitte erweitern sie die Maximalzahl bestehender Projekte <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> oder fügen sie weitere Projekte <a href="javascript: ;" onclick="javascript: window.location.href = '?site=create';" class="alert-link">hier</a> hinzu.
+					Die von allen ` + (window.config["wahlTyp"] == "ag" ? "AGs" : "Projekten") + ` summierte Maximalteilnehmeranzahl für die <strong>Klassenstufe ` + i + `</strong> ist ` + (window.stufen[i]["max"] < window.stufen[i]["students"] ? "kleiner als die" : " liegt nur wenig über der") + ` Schüleranzahl der Stufe. Dies kann zu Problemen führen. Bitte erweitern sie die Maximalzahl bestehender Projekte <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">hier</a> oder fügen sie weitere Projekte <a href="javascript: ;" onclick="javascript: window.location.href = '?site=create';" class="alert-link">hier</a> hinzu.
 				</div>`);
 			}
 		}
@@ -1091,13 +1114,13 @@ function updateErrors(data) {
     if (window.studentOhneZuteilung.length + (window.gesamtanzahl - window.wahlen.length) > 0) {
 			$("#alertAlgorithmusResult").append(`
       <div class="alert alert-danger" role="alert">
-        Es konnte` + (window.studentOhneZuteilung.length + window.gesamtanzahl - window.wahlen.length == 1 ? "" : "n") + ` <strong>` + (window.studentOhneZuteilung.length + window.gesamtanzahl - window.wahlen.length) + ` Schüler</strong> keinem Projekt zugeteilt werden. Diese müssen <a href="javascript: ;" onclick="javascript: $('#schuelerModal').modal('show');" class="alert-link">hier manuell</a> zugeteilt werden.
+        Es konnte` + (window.studentOhneZuteilung.length + window.gesamtanzahl - window.wahlen.length == 1 ? "" : "n") + ` <strong>` + (window.studentOhneZuteilung.length + window.gesamtanzahl - window.wahlen.length) + ` Schüler</strong> keine` + (window.config["wahlTyp"] == "ag" ? "r AG" : "m Projekt") + ` zugeteilt werden. Diese müssen <a href="javascript: ;" onclick="javascript: $('#schuelerModal').modal('show');" class="alert-link">hier manuell</a> zugeteilt werden.
       </div>`);
     }
     else {
 			$("#alertAlgorithmusResult").append(`
       <div class="alert alert-success" role="alert">
-        Es konnten <strong>alle ` + window.wahlen.length + ` Schüler</strong> einem ihrer Wunsch-Projekte zugeteilt werden.
+        Es konnten <strong>alle ` + window.wahlen.length + ` Schüler</strong> eine` + (window.config["wahlTyp"] == "ag" ? "r" : "m") + ` ihrer Wunsch-` + (window.config["wahlTyp"] == "ag" ? "AG" : "Projekt") + ` zugeteilt werden.
       </div>`);
     }
 
@@ -1115,19 +1138,19 @@ function updateErrors(data) {
     if (window.projekteNichtStattfinden.length > 0) {
 			$("#alertAlgorithmusResult").append(`
       <div class="alert alert-danger" role="alert">
-        Es können <strong>` + window.projekteNichtStattfinden.length + ` Projekte</strong> aufgrund mangelnder Teilnehmerzahl nicht stattfinden. <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">Projekte einsehen</a>
+        Es können <strong>` + window.projekteNichtStattfinden.length + ` ` + (window.config["wahlTyp"] == "ag" ? "AGs" : "Projekte") + `</strong> aufgrund mangelnder Teilnehmerzahl nicht stattfinden. <a href="javascript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">` + (window.config["wahlTyp"] == "ag" ? "AGs" : "Projekte") + ` einsehen</a>
       </div>`);
     }
     if (window.projekteZuViel.length > 0) {
 			$("#alertAlgorithmusResult").append(`
       <div class="alert alert-warning" role="alert">
-        Die Teilnehmerzahl von <strong>` + window.projekteZuViel.length + ` Projekten</strong> übersteigt die Maximalteilnehmeranzahl. <a href="javasript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">Projekte einsehen</a>
+        Die Teilnehmerzahl von <strong>` + window.projekteZuViel.length + ` ` + (window.config["wahlTyp"] == "ag" ? "AGs" : "Projekten") + `</strong> übersteigt die Maximalteilnehmeranzahl. <a href="javasript: ;" onclick="javascript: $('#projekteModal').modal('show');" class="alert-link">` + (window.config["wahlTyp"] == "ag" ? "AGs" : "Projekte") + ` einsehen</a>
       </div>`);
     }
     else if (window.projekteNichtStattfinden.length == 0) {
 			$("#alertAlgorithmusResult").append(`
       <div class="alert alert-success" role="alert">
-        Es können <strong>alle ` + window.projekte.length + ` Projekte</strong> statt finden.
+        Es können <strong>alle ` + window.projekte.length + ` ` + (window.config["wahlTyp"] == "ag" ? "AGs" : "Projekte") + `</strong> statt finden.
       </div>`);
     }
 	}
