@@ -8,7 +8,7 @@
 
   if (!file_exists("../backup/" . date("Y-m-d", time() - 60 * 60 * 24) . ".tar.gz")) {
     $cmd = "tar -cvzf backup/" . date("Y-m-d", time() - 60 * 60 * 24) . ".tar.gz data/";
-    $outputfile = "data/backup-" . date("Y-m-d", time() - 60 * 60 * 24) . ".log";
+    $outputfile = "data/log/backup-" . date("Y-m-d", time() - 60 * 60 * 24) . ".log";
     $pidfile = "data/backup.pid";
     exec("cd ../; " . sprintf("%s > %s 2>&1 & echo $! >> %s", $cmd, $outputfile, $pidfile));
   }
