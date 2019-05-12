@@ -19,7 +19,9 @@
 
 	// speichert die Daten in einer Datei ab
 	function dbWrite($path, $data, $head = "") {
-		$firstline = file($path)[0]; // first line (headers)
+		if (empty($head)) {
+			$firstline = file($path)[0]; // first line (headers)
+		}
 		if (($fh = fopen($path, "w")) !== false) {
 			if (empty($head)) {
 				if (empty($firstline)) {
