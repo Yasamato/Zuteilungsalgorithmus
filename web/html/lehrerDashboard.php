@@ -19,14 +19,14 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "teachers") {
 					<h3 class="card-title">Lehrer - Portal</h3>
           <div class="card-text">
             <small class="text-muted">
-              Um Projekte zu löschen, wenden Sie sich an den verwaltenden Administrator.
-              Nachdem die Wahlen begonnen haben oder die Einreich-Phase geschlossen wurde, können keine weiteren neuen Projekte eingereicht werden.
-              Auf Anfrage kann jedoch der Administrator jederzeit noch Projekte manuell hinzufügen.
-              Editierungen an bereits bestehenden Projekten können jederzeit von allen Lehrern vorgenommen werden.
-              Die Listen der Wahlergebnisse werden durch den Administrator nach Abschluss der Auswertung an die Lehrerschaft sowie Projektleiter verteilt.
+              Um <?php echo ($config["wahlTyp"] == "ag" ? "AGs" : "Projekte"); ?> zu löschen, wenden Sie sich an den verwaltenden Administrator.
+              Nachdem die Wahlen begonnen haben oder die Einreich-Phase geschlossen wurde, können keine weiteren neuen <?php echo ($config["wahlTyp"] == "ag" ? "AGs" : "Projekte"); ?> eingereicht werden.
+              Auf Anfrage kann jedoch der Administrator jederzeit noch <?php echo ($config["wahlTyp"] == "ag" ? "AGs" : "Projekte"); ?> manuell hinzufügen.
+              Editierungen an bereits bestehenden <?php echo ($config["wahlTyp"] == "ag" ? "AGs" : "Projekten"); ?> können jederzeit von allen Lehrern vorgenommen werden.
+              Die Listen der Wahlergebnisse werden durch den Administrator nach Abschluss der Auswertung an die Lehrerschaft sowie <?php echo ($config["wahlTyp"] == "ag" ? "AG-L" : "Projektel"); ?>eiter verteilt.
             </small>
             <p id="einreichungGeschlossen" class="text-danger d-none">
-              Die Projekteinreichephase ist geschlossen!
+              Die Einreichephase ist geschlossen!
             </p>
           </div>
 
@@ -34,10 +34,10 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "teachers") {
             Abmelden
           </button>
           <button onclick="javascript: window.open('printPDF.php?print=projekt&projekt=all');" type="button" class="btn btn-secondary">
-            Alle Projekte drucken
+            Alle <?php echo ($config["wahlTyp"] == "ag" ? "AGs" : "Projekte"); ?> drucken
           </button>
     			<button id="createProjektButton" type="button" class="btn btn-success d-none" onclick="javascript: window.location.href = '?site=create';">
-            Reiche ein neues Projekt ein
+            Reiche ein<?php echo ($config["wahlTyp"] == "ag" ? "e neue AG" : " neues Projekt"); ?> ein
           </button>
 				</div>
 			</div>
@@ -49,7 +49,7 @@ if (!isLogin() || $_SESSION['benutzer']['typ'] != "teachers") {
 
     <div class="card w-100 bg-dark p-3">
       <div class="card-body">
-        <h5 class="card-title">Liste aller eingereichten Projekte</h5>
+        <h5 class="card-title">Liste aller eingereichten <?php echo ($config["wahlTyp"] == "ag" ? "AGs" : "Projekte"); ?></h5>
         <div class="input-group m-2">
           <div class="input-group-prepend">
             <span class="input-group-text">Suche</span>

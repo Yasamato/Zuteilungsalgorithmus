@@ -170,6 +170,9 @@
 			if ($entry[$search] == $searchNeedle) {
 				$i = 0;
 				foreach ($data[$key] as $index => $oldValue) {
+					if (!isset($newRow[$i])) {
+						return false;
+					}
 					$data[$key][$index] = $newRow[$i++];
 				}
 			}

@@ -14,19 +14,19 @@
 
 <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="color: #000;">
 	<div class="modal-dialog" role="document">
-		<div class="modal-content">
+		<div class="modal-content bg-dark text-light">
 			<div class="modal-header">
 				<h5 class="modal-title">Gesperrt</h5>
 			</div>
 			<div class="modal-body">
 				<p>
 					Aufgrund einer Zwangszuteilung, kannst du keine Wahl tätigen.
-					Du bist <a href="javascript: ;" onclick="javascript: showProjektInfoModal('<?php echo $id; ?>');">diesem Projekt</a> zugeteilt.
+					Du bist <a href="javascript: ;" onclick="javascript: showProjektInfoModal('<?php echo $id; ?>');">diese<?php echo ($config["wahlTyp"] == "ag" ? "r AG" : "m Projekt"); ?></a> zugeteilt.
 					Bei Fragen und Problemen bitte an den Zuständigen wenden
 				</p>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary">OK</button>
+				<button type="button" class="btn btn-primary" onclick="javascript: window.location.href = '?';">OK</button>
 			</div>
 		</div>
 	</div>

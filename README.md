@@ -19,7 +19,7 @@ Wenn Sie nach dem Testen unserer Software Interesse haben diese für beispielswe
 Beachten Sie dabei, dass Sie _**niemals direkt in ein aus dem Web erreichbaren Verzeichnis installieren sollten**_ (Default bei Apache wäre hier `/var/www/html`).
 2. Den Befehl `git clone https://github.com/Agent77326/Zuteilungsalgorithmus/` ausführen
 3. Einen Alias oder neuen VirtualHost in der Webserver-Konfiguration einfügen, welche auf das Verzeichnis `Zuteilungsalgorithmus/web` verweist.
-4. Führen sie anschließend die `setup.sh` aus und die Software ist somit fertig installiert.
+4. Führen sie anschließend die `setup.sh` mit `sudo bash setup.sh` aus und die Software ist somit fertig installiert.
 
 # Anpassungen
 Das Projekt ist für das Lise-Meitner Gymnasium G8GTS in Maxdorf (LMG8) ausgelegt worden, weshalb die Beschreibung, der Titel und das Hintergrundbild sowie das Logo von der Schule noch als Standard vorhanden ist.

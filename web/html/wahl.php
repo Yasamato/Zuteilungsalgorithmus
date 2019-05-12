@@ -56,7 +56,7 @@
 		<div class="card sticky-top" id="wahlliste">
 			<form method="post"></form>
 			<div class="card-body">
-				<h5 class="text-dark">Projektwahl <small>hier hinein ziehen</small></h5><?php
+				<h5 class="text-dark">Wahl <small>hier hinein ziehen</small></h5><?php
 				if (!empty($vorherigeWahl["wahl"])) {
 					?><small class="text-muted">Ihre Wahl wurde bereits gespeichert, Sie können diese jedoch weiterhin während der Wahlphase editieren.</small><?php
 				} ?>
@@ -67,7 +67,7 @@
 	    		<thead>
 	    			<tr>
 	    				<th scope="col">#</th>
-	    				<th scope="col">Projekt</th>
+	    				<th scope="col"><?php echo ($config["wahlTyp"] == "ag" ? "AG" : "Projekt"); ?></th>
 	    			</tr>
 	    		</thead>
 	    		<tbody>

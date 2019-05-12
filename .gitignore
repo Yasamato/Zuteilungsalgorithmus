@@ -1,8 +1,11 @@
-data/*
-backup/*
+# Custom-Files
 web/html/head.html
 web/pictures/favicon/*
 web/pictures/background.jpg
 web/pictures/logo.jpg
 web/pictures/logo-position.json
+
+# Benutzergenerierte Daten
+data/*
+backup/*
 *.csv

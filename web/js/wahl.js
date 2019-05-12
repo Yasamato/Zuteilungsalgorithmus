@@ -177,6 +177,14 @@ function checkUp() {
 			data = JSON.parse(data);
 			updateUpdate(data["updateRunning"]);
 
+			if (!window.config) {
+				window.config = data["config"];
+			}
+			else if (JSON.stringify(window.config) != JSON.stringify(data["config"])) {
+				console.log("config geupdated");
+				window.config = data["config"];
+			}
+
 			if (!window.vorherigeWahl) {
 				window.vorherigeWahl = data["vorherigeWahl"];
 			}

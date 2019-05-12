@@ -3,6 +3,7 @@ if (!file_exists("../data/config.csv")) {
   // define the header of the columns in the first row
   dbCreateFile("../data/config.csv", [
     "Stage",
+    "wahlTyp",
     "MontagVormittag",
     "MontagVormittagHinweis",
     "MontagNachmittag",
@@ -26,6 +27,7 @@ if (!file_exists("../data/config.csv")) {
   ]);
   dbAdd("../data/config.csv", [
     0,
+    "projektwoche",
     "true",
     "",
     "true",
@@ -49,6 +51,15 @@ if (!file_exists("../data/config.csv")) {
   ]);
 }
 $config = dbRead("../data/config.csv")[0];
+
+if (!file_exists("../data/agTermine.csv")) {
+  dbCreateFile("../data/agTermine.csv", [
+    "tag",
+    "vonUhr",
+    "bisUhr"
+  ]);
+}
+$config["agTermine"] = dbRead("../data/agTermine.csv");
 
 if (!file_exists("../data/projekte.csv")) {
   // define the header of the columns in the first row

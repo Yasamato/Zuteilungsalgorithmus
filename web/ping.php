@@ -54,7 +54,8 @@
     // Update-isRunning
     $status = isRunning(file_get_contents("../data/update.pid")) ? "true" : "false";
     echo '"updateRunning" : "' . $status . '"' . ",\n";
-		$vorherigeWahl = "false";
+		echo '"config" : ' . JSON_encode($config) . ",\n";
+		$vorherigeWahl = false;
 		foreach ($wahlen as $wahl) {
 			if ($_SESSION["benutzer"]["uid"] == $wahl["uid"]) {
 				$vorherigeWahl = $wahl;

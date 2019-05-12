@@ -6,7 +6,7 @@
   	Alle nicht gespeicherten Änderungen gehen dabei verloren!
   </div>
 
-	<form class="form-signin" method="post">
+	<form class="form-signin needs-validation" method="post" novalidate>
 <?php
 	if (isset($loginResult)) {
 ?>

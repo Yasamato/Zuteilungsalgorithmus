@@ -85,7 +85,7 @@
 					$waittime = 1;
 					break;
 				case "updateKlassenliste":
-					require("php/klassenliste.php");
+					require("php/updateKlassenliste.php");
 					$waittime = 1;
 					break;
 				case "updateZwangszuteilung":
