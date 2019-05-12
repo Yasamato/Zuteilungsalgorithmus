@@ -70,7 +70,7 @@ cp default/background.jpg web/pictures/background.jpg
 echo "Default-Hintergrundbild in web/pictures/background.jpg abgelegt"
 
 mkdir -p web/pictures/favicon
-tar -xvzf default/favicon.tar.gz -C web/pictures/favicon/
+tar -xzf default/favicon.tar.gz -C web/pictures/favicon/
 echo "Default-Favicon wurde im Verzeichnis web/pictures/favicon abgelegt"
 
 cp default/head.html web/html/head.html
