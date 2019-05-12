@@ -14,7 +14,7 @@
 
 <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="color: #000;">
 	<div class="modal-dialog" role="document">
-		<div class="modal-content">
+		<div class="modal-content bg-dark text-light">
 			<div class="modal-header">
 				<h5 class="modal-title">Gesperrt</h5>
 			</div>
@@ -26,7 +26,7 @@
 				</p>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary">OK</button>
+				<button type="button" class="btn btn-primary" onclick="javascript: window.location.href = '?';">OK</button>
 			</div>
 		</div>
 	</div>

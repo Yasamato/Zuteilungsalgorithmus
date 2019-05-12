@@ -163,8 +163,8 @@
 	</head>
 	<body>
 <?php
+				include "html/lehrerGeschlossen.php";
 				logout();
-				include "html/einreichenGeschlossen.html";
 			}
 		}
 		else {

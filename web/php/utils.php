@@ -5,9 +5,11 @@
 
 	function logout() {
 		alert("Erfolgreich abgemeldet");
+		if ($_SESSION["benutzer"]["typ"] == "admin") {
+			unlink("../data/admin.lock");
+		}
 		session_destroy();
 		unset($_SESSION);
-		unlink("../data/admin.lock");
 		session_start();
 	}
 
