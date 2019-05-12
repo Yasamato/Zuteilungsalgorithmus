@@ -71,7 +71,7 @@ EOF
 echo
 echo "Setze die Berechtigungen"
 sudo chown -R $user:$user ../Zuteilungsalgorithmus
-sudo chmod -R 0750 ../Zuteilungsalgorithmus
+sudo chmod -R 750 ../Zuteilungsalgorithmus
 
 echo "Fertig"
 echo
