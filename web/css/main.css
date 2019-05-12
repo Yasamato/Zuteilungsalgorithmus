@@ -1,7 +1,7 @@
 html, body {
 	color: #ffffff;
 	background-color: darkgray;
-	background-image: url("/pictures/background.jpg");
+	background-image: url("../pictures/background.jpg");
 	background-attachment: fixed;
 	background-size: cover;
 }
