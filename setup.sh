@@ -1,7 +1,7 @@
 #!/bin/bash
 # run this with sudo before you do anything
 
-echo "Zuteilungsalgorithmus für Projektwahlen"
+echo "Zuteilungsalgorithmus für AG- sowie Projektwahlen"
 echo "Erstellt für das LMG8 Maxdorf"
 echo
 if [ $(id -u) -ne "0" ]; then
@@ -42,16 +42,13 @@ echo "Konfiguration des Webservers"
 echo
 echo "Wählen sie den Namen des Adminaccounts, welcher zum Login der Administrationsseite benötigt wird. Der Name kann jederzeit in data/config.php eingesehen sowie editiert werden"
 read -p "Admin-Benutzername: " adminUser
-echo
-echo "Das Passwort kann gleichfalls jederzeit geändert werden"
 read -sp "Geben sie ein Admin-Passwort an: " adminPassword
 echo
-echo
 echo "Mit welchem Benutzer wird der Webserver ausgeführt"
-echo "Apache benutzt beispielsweise www-data"
+echo "Apache benutzt beispielsweise per default www-data"
 read -p "Benutzer: " user
 echo
-mkdir data
+mkdir -p data
 echo "Datenverzeichnis data/ erstellt"
 echo "Speichere Ergebnisse ab in data/config.php"
 cat > data/config.php <<EOF
@@ -68,8 +65,25 @@ cat > data/config.php <<EOF
   ]);
 ?>
 EOF
+
+cp default/background.jpg web/pictures/background.jpg
+echo "Default-Hintergrundbild in web/pictures/background.jpg abgelegt"
+
+mkdir -p web/pictures/favicon
+tar -xzf default/favicon.tar.gz -C web/pictures/favicon/
+echo "Default-Favicon wurde im Verzeichnis web/pictures/favicon abgelegt"
+
+cp default/head.html web/html/head.html
+echo "HTML-Headerdatei in web/html/head.html abgelegt"
+
+cp default/logo.jpg web/pictures/logo.jpg
+echo "Default-Logo in web/pictures/logo.jpg abgelegt"
+
+cp default/logo-position.jpg web/pictures/logo-position.json
+echo "Default-Logoposition in web/pictures/logo-position.json abgelegt"
+
 echo
-echo "Setze die Berechtigungen"
+echo "Setze die Datei-Berechtigungen"
 sudo chown -R $user:$user ../Zuteilungsalgorithmus
 sudo chmod -R 750 ../Zuteilungsalgorithmus
 
