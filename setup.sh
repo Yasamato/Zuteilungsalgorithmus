@@ -59,7 +59,7 @@ cat > data/config.php <<EOF
   define("CONFIG", [
     "dbLineSeperator" => "__;__",
     "dbElementSeperator" => "__#__",
-    "dbFilesPermission" => 750, // siehe https://www.w3schools.com/php/func_filesystem_chmod.asp
+    "dbFilesPermission" => 0750, // siehe https://www.w3schools.com/php/func_filesystem_chmod.asp
     "adminUser" => "$adminUser",
     "adminPassword" => "$adminPassword",
     "anzahlWahlen" => 5, // Anzahl der Wahlfelder für die Schüler
