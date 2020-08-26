@@ -17,7 +17,7 @@ Wenn Sie nach dem Testen unserer Software Interesse haben diese für beispielswe
 # Installation
 1. In das zu installierende Verzeichnis mit `cd /directory/to/work` wechseln.  
 Beachten Sie dabei, dass Sie _**niemals direkt in ein aus dem Web erreichbaren Verzeichnis installieren sollten**_ (Default bei Apache wäre hier `/var/www/html`).
-2. Den Befehl `git clone https://github.com/Agent77326/Zuteilungsalgorithmus/` ausführen
+2. Den Befehl `git clone https://github.com/Yasamato/Zuteilungsalgorithmus/` ausführen
 3. Einen Alias oder neuen VirtualHost in der Webserver-Konfiguration einfügen, welche auf das Verzeichnis `Zuteilungsalgorithmus/web` verweist.
 4. Führen sie anschließend die `setup.sh` mit `sudo bash setup.sh` aus und die Software ist somit fertig installiert.
 
