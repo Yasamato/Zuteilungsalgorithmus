@@ -1,3 +1,1 @@
-#!/bin/bash
-
-java -jar Algorithmus.jar 4 1000000 projekte.csv ,I;Mm; nurSchueler.csv ,KNV;1234 
+java -jar Algorithmus.jar 4 10000 projekte.csv ,ImM schueler.csv ,KNV12345
