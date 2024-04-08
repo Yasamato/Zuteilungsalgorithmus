@@ -21,10 +21,18 @@ for project in range(num_projects):
     ip += mip.xsum(relevant_student_vars[-1]) <= project_vars[project] * projects.iloc[project].iloc[2], f"project_{project}_ub"
     ip += mip.xsum(relevant_student_vars[-1]) >= project_vars[project] * projects.iloc[project].iloc[1], f"project_{project}_lb"
     
-punish_terms = [0, 1, 2, 4, 9, 16, 1000]
+punish_terms = [0, 1, 4, 9, 16, 1000]
 ip.objective = mip.xsum(student_vars[student][j] * punish_terms[j] for student in range(len(students)) for j in range(6))
 
 
 status = ip.optimize(max_seconds=10)
-for v in ip.vars:
-    print(f"{v.name}:{v.x}")
+print(status)
+print(ip.objective_value)
+wishes_nums = [0 for _ in range(6)]
+for student in range(num_students):
+    for j in range(6):
+        if student_vars[student][j].x == 1:
+            wishes_nums[j] += 1
+print(wishes_nums)
+#for v in ip.vars:
+#    print(f"{v.name}:{v.x}")
