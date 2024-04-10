@@ -9,7 +9,7 @@ Neben der mühseligen Aufgabe der Datensammlung, beherscht die Software eine aut
 - Linux OS, Mac OS (getestet mit Ubuntu 18.04 LTS)
 - php-fähiger Webserver (getestet mit Apache 2.4.29)
 - php7.0 (getestet mit php7.2.15)
-- java Runtime Environment (getestet mit java 7 und 8)
+- Python <3.12 (getestet mit conda, Python 3.11.8) (3.12 ging zum Zeitpunkt des Tests tatsächlich nicht, w.g. MIP library)
 
 # Ich will das Produkt benutzen!
 Wenn Sie nach dem Testen unserer Software Interesse haben diese für beispielsweise ihre eigene Schule einzusetzen, kontaktieren Sie uns damit wir gemeinsam eine Vereinbarung treffen können.
@@ -20,6 +20,8 @@ Beachten Sie dabei, dass Sie _**niemals direkt in ein aus dem Web erreichbaren V
 2. Den Befehl `git clone https://github.com/Yasamato/Zuteilungsalgorithmus/` ausführen
 3. Einen Alias oder neuen VirtualHost in der Webserver-Konfiguration einfügen, welche auf das Verzeichnis `Zuteilungsalgorithmus/web` verweist.
 4. Führen sie anschließend die `setup.sh` mit `sudo bash setup.sh` aus und die Software ist somit fertig installiert.
+5. (Optional) Wechseln in das korrekte python environment via conda activate /ähnliches
+6. pip install -r ip_solver/requirements.txt
 
 # Anpassungen
 Das Projekt ist für das Lise-Meitner Gymnasium G8GTS in Maxdorf (LMG8) ausgelegt worden, weshalb die Beschreibung, der Titel und das Hintergrundbild sowie das Logo von der Schule noch als Standard vorhanden ist.
