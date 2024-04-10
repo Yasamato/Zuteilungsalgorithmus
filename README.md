@@ -3,7 +3,7 @@ Dieses Softwareprojekt wurde speziell für das Lise-Meitner Gymnasium G8GTS in M
 
 Dieses Projekt bietet eine vollständige Weboberfläche samt Back-End Serverprogrammierung zur Datenverwaltung und Verarbeitung. Einsatzzweck ist das Anlagen von Wahlen für die Projekttage, deren Verwaltung sowie einem Wahlinterface für die Wählenden via Webserver. Es existiert hierfür eine Administrations-Oberfläche, welche die Konfiguration sowie die Freigabe einzelnen Wahlphasen steuern kann.
 
-Neben der mühseligen Aufgabe der Datensammlung, beherscht die Software eine automatische Datenanalyse und kann ein sehr gutes Optimum für die gewählten Projekte ermitteln, welches nahezu allen manuellen Auswertungen überlegen ist.
+Neben der mühseligen Aufgabe der Datensammlung, beherscht die Software eine automatische Datenanalyse und kann in allen Testfällen beweisbar optimale Lösungen für die gewählten Projekte ermitteln.
 
 # Systemanforderungen
 - Linux OS, Mac OS (getestet mit Ubuntu 18.04 LTS)
@@ -19,7 +19,7 @@ Wenn Sie nach dem Testen unserer Software Interesse haben diese für beispielswe
 Beachten Sie dabei, dass Sie _**niemals direkt in ein aus dem Web erreichbaren Verzeichnis installieren sollten**_ (Default bei Apache wäre hier `/var/www/html`).
 2. Den Befehl `git clone https://github.com/Yasamato/Zuteilungsalgorithmus/` ausführen
 3. Einen Alias oder neuen VirtualHost in der Webserver-Konfiguration einfügen, welche auf das Verzeichnis `Zuteilungsalgorithmus/web` verweist.
-4. Führen sie anschließend die `setup.sh` mit `sudo bash setup.sh` aus und die Software ist somit fertig installiert.
+4. Führen sie anschließend die `setup.sh` mit `sudo bash setup.sh`
 5. (Optional) Wechseln in das korrekte python environment via conda activate /ähnliches
 6. pip install -r ip_solver/requirements.txt
 
