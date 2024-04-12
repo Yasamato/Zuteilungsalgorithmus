@@ -24,7 +24,8 @@ heavily influences the amount of time the suggestion system needs.
 7. Parameter: Is called MAX_UB_INCREASE and is part of the suggestion system. Discussed below.
 8. Parameter: Is called MIN_LB_PERCENTAGE and is part of the suggestion system. Discussed below.
 9. Parameter: Is called PRINT_TOP_N_UB_SUGGESTIONS and is part of the suggestion system. Discussed below.
-
+10. Parameter: Is called NUM_TOTAL_CHANGES and is aprt of the suggestion system. Discussed below.
+11. Parameter: Is called PRINT_TOP_N_MULTIPLE_SUGGESTIONS and is part of the suggestion system. Discussed below.
 
 ### Punish-Terms parameter
 For five wishes, the default [0,1,4,9,16,1000] is reasonable.
@@ -47,7 +48,7 @@ exchange for shifting some students from their 1st wish to something worse.
 It is unclear to us which punish-terms vector should be used, hence why this parameter is freely changeable.
 
 ### Suggestion system
-After successfully solving the original problem, a suggestion system is started which consists of two types of suggestions:
+After successfully solving the original problem, a suggestion system is started which consists of three types of suggestions:
 - For each project that does not have a sufficient amount of participants, we try lowering the lower bound of acceptable participants one-by-one
 until the objective value is improved, which also means that then this project would be assigned a sufficient amount of participants. Lowering of the lower bound
 is done either until a better solution is found or until the lower bound gets too low, which is what the parameter MIN_LB_PERCENTAGE is for. 
@@ -55,10 +56,13 @@ The lowest possible bound is given by `MIN_LB_PERCENTAGE * original_lower_bound`
 - For all projects that do have sufficient amount of participants, we try increasing the upper bound of acceptable participants one-by-one
 and record the amount the objective value has improved. The maximum amount the upper bound is increased by is given by MAX_UB_INCREASE.
 Finally, the best improvements are printed to the console. The amount of prints to the console is given by PRINT_TOP_N_UB_SUGGESTIONS.
+- In the third type, we allow all participants bounds to be changed freely, upto a total amount given by NUM_TOTAL_CHANGES. The IP is resolved
+with these bounds allowed to change (optimization also optimize over how the bounds should be changed), and the best PRINT_TOP_N_MULTIPLE_SUGGESTIONS are printed.
+The top solutions usually entail changing the bounds of more than one project, hence the name MULTIPLE.
 
 
 
 It is clear that not every suggestion the program makes can be followed as the lower and upper bound for each project were set with good reason.
 However, in some cases it may still help.
 
-The suggestion system can hence be disabled by setting MAX_UB_INCREASE to 0 and MIN_LB_PERCENTAGE to 1. 
+The suggestion system can hence be disabled by setting MAX_UB_INCREASE to 0, MIN_LB_PERCENTAGE to 1 and PRINT_TOP_N_MULTIPLE_SUGGESTIONS to 0. 

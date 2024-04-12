@@ -112,8 +112,11 @@ if __name__ == "__main__":
     
     
     # Compute suggestions
-    print("Computing suggestions, this may take a while...")
+    print("-----------------------------------------------")
+    print("Computing individual suggestions, this may take a while...")
+    
     time_start = time.time()
+    ip.start = [(var, var.x) for var in ip.vars]
     MAX_UB_INCREASE = int(sys.argv[7])
     MIN_LB_PERCENTAGE=float(sys.argv[8])
     PRINT_TOP_N_UB_SUGGESTIONS=int(sys.argv[9])
@@ -132,7 +135,7 @@ if __name__ == "__main__":
                 ip.optimize(max_seconds=solving_time)
                 if ip.objective_value < orig_objective_value:
                     assert project_vars[project].x == 1.
-                    print(f"-Lowering the lower bound of attendants of project {projects[project, 0]} from {project_lb} to {new_lb} would produce a distribution with objective value {ip.objective_value} in which the project is now also used.")
+                    print(f"-Suggestion: Applying the following change produces a distribution with value {ip.objective_value} in which the project is now also used. {projects[project, 0]}({project_lb} -> {new_lb})")
                     break
                 else:
                     new_lb -= 1
@@ -151,7 +154,8 @@ if __name__ == "__main__":
                 ip += mip.xsum(relevant_student_vars[project]) <= project_vars[project] * new_ub, f"project_{project}_ub"
                 ip.optimize(max_seconds=solving_time)
                 if ip.objective_value < orig_objective_value:
-                    ub_suggestions.append((ip.objective_value, f"-Increasing the upper bound of attendants of project {projects[project, 0]} from {project_ub} to {new_ub} would produce a distribution with objective value {ip.objective_value}, an improvement of {orig_objective_value- ip.objective_value}."))
+                    
+                    ub_suggestions.append((ip.objective_value, f"-Suggestion: Applying the following changes produces a distribution with value {ip.objective_value}. {projects[project, 0]}({project_ub} -> {int(new_ub)})"))
             #Revert to the original model.
             ip.remove(ip.constr_by_name(f"project_{project}_ub"))
             ip += mip.xsum(relevant_student_vars[project]) <= project_vars[project] * project_ub, f"project_{project}_ub"
@@ -159,9 +163,58 @@ if __name__ == "__main__":
     ub_suggestions = sorted(ub_suggestions, key=lambda x: x[0])
     for i in range(min(PRINT_TOP_N_UB_SUGGESTIONS, len(ub_suggestions))):
         print(ub_suggestions[i][1])
-       
+    print("-----------------------------------------------")
+    NUM_TOTAL_CHANGES = int(sys.argv[10])
+    PRINT_TOP_N_MULTIPLE_SUGGESTIONS = int(sys.argv[11])
+    print(f"Computing combined suggestions with a total amount of {NUM_TOTAL_CHANGES} changes.")
+    project_relaxed = [0 for _ in range(num_projects)]
+    relaxation_vars = []
+    for project in range(num_projects):
+        ip.remove(ip.constr_by_name(f"project_{project}_lb"))
+        ip.remove(ip.constr_by_name(f"project_{project}_ub"))
+        relaxation_vars.append((ip.add_var(var_type=mip.INTEGER, lb=0., name="r_{project}_lb"), ip.add_var(var_type=mip.INTEGER, lb=0., name="r_{project}_ub")))
+        ip += relaxation_vars[project][0] <= project_vars[project] * NUM_TOTAL_CHANGES, f"no_relaxation_lb_unused_{project}"
+        ip += relaxation_vars[project][1] <= project_vars[project] * NUM_TOTAL_CHANGES, f"no_relaxation_ub_unused_{project}"
+        ip += mip.xsum(relevant_student_vars[project]) <= project_vars[project] * projects[project, 2] + relaxation_vars[project][1], f"project_{project}_ub"
+        ip += mip.xsum(relevant_student_vars[project]) >= project_vars[project] * projects[project, 1] - relaxation_vars[project][0], f"project_{project}_lb"
+    ip += mip.xsum(var for x in relaxation_vars for var in x) <= NUM_TOTAL_CHANGES, "relax_ub"
+    for _ in range(PRINT_TOP_N_MULTIPLE_SUGGESTIONS):
+        ip.optimize(max_seconds=solving_time, )
+        if ip.objective_value >= orig_objective_value:
+            break
+        changes = []
+        deltas = []
+        for project in range(num_projects):
+            project_name = projects[project, 0]
+            changed = False
+            if relaxation_vars[project][0].x !=0:
+                project_relaxed[project] += 1
+                changed=True
+                val = relaxation_vars[project][0].x
+                changes.append(f"{projects[project, 0]}({projects[project, 1]} -> {projects[project, 1] - int(relaxation_vars[project][0].x)})")
+                delta_1, delta_2 = ip.add_var(var_type=mip.BINARY), ip.add_var(var_type=mip.BINARY)
+                ip += relaxation_vars[project][0] <= delta_1 * (val-1) + (1-delta_1) * (NUM_TOTAL_CHANGES)
+                ip += relaxation_vars[project][0] >= delta_2 * (val+1)
+                deltas += [delta_1, delta_2]
+            if relaxation_vars[project][1].x !=0:
+                project_relaxed[project] += 1
+                changed=True
+                val = relaxation_vars[project][1].x
+                changes.append(f"{projects[project, 0]}({projects[project, 2]} -> {projects[project, 2] + int(relaxation_vars[project][1].x)})")
+                delta_1, delta_2 = ip.add_var(var_type=mip.BINARY), ip.add_var(var_type=mip.BINARY)
+                ip += relaxation_vars[project][1] <= delta_1 * (val-1) + (1-delta_1) * (NUM_TOTAL_CHANGES)
+                ip += relaxation_vars[project][1] >= delta_2 * (val+1)
+                deltas += [delta_1, delta_2]
+            if project_relaxed[project] >= 3 and changed:
+                ip += relaxation_vars[project][0] + relaxation_vars[project][1] == 0.
+                print(f"Excluding project {project_name} from further suggestions as it has appeared three times already.")
+        ip += mip.xsum(deltas) >= 1
+            
+        print(f"-Suggestion: Applying all of the following changes produces a distribution with value {ip.objective_value}. "+" ".join(changes))
     
+    
+    print("-----------------------------------------------")
     print("Notes:\n-Applying more than one suggestion can produce non-additive interference affects to the resulting distributions objective value.\nApply the suggestions to the data and rerun the script to see the exact effects suggestions have to the objective value and the resulting distribution.")
     print("-Make sure to backup the data before you apply any suggestions.")
-    print("-To see more or all suggestions, increase parameter PRINT_TOP_N_UB_SUGGESTIONS or investigate the variable ub_suggestions.")
+    print("-To see more or all suggestions, increase parameter PRINT_TOP_N_UB_SUGGESTIONS or PRINT_TOP_N_MULTIPLE_SUGGESTIONS.")
     print(f"Suggestions subroutine succesfully terminated in {time.time()-time_start:.2f}s! Exiting.")
