@@ -1,0 +1,11 @@
+{
+  "files.autoSave": "afterDelay",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "files.insertFinalNewline": true,
+  "js/ts.implicitProjectConfig.target": "ES2022",
+  "typescript.check.npmIsInstalled": false,
+  "python.analysis.autoFormatStrings": true,
+  "python.analysis.autoImportCompletions": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+}
