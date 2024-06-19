@@ -1,3 +1,3 @@
 export function TableProjects() {
-  return <>hello</>;
+  return <>hello</>
 }

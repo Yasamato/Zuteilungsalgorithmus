@@ -6,7 +6,6 @@ Dieses Projekt bietet eine vollständige Weboberfläche samt Back-End Serverprog
 
 Neben der mühseligen Aufgabe der Datensammlung, beherscht die Software eine automatische Datenanalyse und kann in allen Testfällen beweisbar optimale Lösungen für die gewählten Projekte ermitteln.
 
-
 # Dev setup
 
 Benötigt werden [docker](https://www.docker.com/products/docker-desktop/) und [bun](https://bun.sh/) vorinstalliert.
@@ -38,6 +37,8 @@ Zum Starten der DB die Anleitung befolgen:
 ```
 
 Nun kann über `bun run dev` das Frontend getestet werden
+
+> \*_*NOTE:*_ unter Windows muss erst wieder wsl verlassen werden mit `exit`
 
 # Systemanforderungen
 

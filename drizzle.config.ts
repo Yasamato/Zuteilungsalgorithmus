@@ -1,12 +1,12 @@
-import { type Config } from "drizzle-kit";
+import { type Config } from "drizzle-kit"
 
-import { env } from "~/env";
+import { env } from "~/env"
 
 export default {
   schema: "./src/lib/db/schema.ts",
-  driver: "pg",
+  dialect: "postgresql",
   dbCredentials: {
-    connectionString: env.DATABASE_URL,
+    url: env.DATABASE_URL,
   },
   tablesFilter: ["zuteilungsalgorithmus_*"],
-} satisfies Config;
+} satisfies Config

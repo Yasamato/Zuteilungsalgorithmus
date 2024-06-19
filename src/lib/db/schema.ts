@@ -4,7 +4,7 @@ import {
   pgTableCreator,
   serial,
   text,
-} from "drizzle-orm/pg-core";
+} from "drizzle-orm/pg-core"
 
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
@@ -14,7 +14,7 @@ import {
  */
 export const createTable = pgTableCreator(
   (name) => `zuteilungsalgorithmus_${name}`,
-);
+)
 
 export const days = createTable("day", {
   id: serial("id").primaryKey(),
@@ -23,19 +23,19 @@ export const days = createTable("day", {
   start: text("start"),
   // ending time
   stop: text("stop"),
-});
+})
 
 export interface Program {
-  dayId: number;
-  morning: string;
-  mensa: boolean;
-  afternoon: string;
+  dayId: number
+  morning: string
+  mensa: boolean
+  afternoon: string
 }
 
 export const classes = createTable("class", {
   class: text("class").primaryKey(),
   students: integer("students").notNull(),
-});
+})
 
 export const projects = createTable("project", {
   id: serial("id").primaryKey(),
@@ -52,7 +52,7 @@ export const projects = createTable("project", {
   material: text("material"),
   // JSON.stringify array of Program
   program: text("program"),
-});
+})
 
 export const selections = createTable("selection", {
   id: serial("id").primaryKey(),
@@ -65,4 +65,4 @@ export const selections = createTable("selection", {
   // Forcefully allocated to a project, disables selection for user
   compulsory: boolean("compulsory").default(false),
   allocation: integer("allocation"),
-});
+})

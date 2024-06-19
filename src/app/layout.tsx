@@ -1,15 +1,17 @@
-import "~/app/globals.css";
+import "~/app/globals.css"
+import { Footer } from "~/components/layout/Footer"
+import { Navbar } from "~/components/layout/Navbar"
 
 export const metadata = {
   title: "AG Wahlen",
   description: "Zuteilungsalgorithmus für die Wahlen von AGs",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
-};
+}
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <html lang="de">
@@ -27,15 +29,13 @@ export default function RootLayout({
         <meta name="author" content="Leo Jung" />
         <meta name="author" content="Fabian von der Warth" />
       </head>
-      <body className="flex min-h-screen flex-col">
-        <nav className="bg-blue-900 p-4 text-white">Ich bin eine Navbar</nav>
+      <body className="flex min-h-screen flex-col bg-white dark:bg-gray-900 dark:text-white">
+        <Navbar />
         <main className="flex grow flex-col items-center justify-center">
           {children}
         </main>
-        <footer className="bg-blue-900 p-4 text-white">
-          Ich bin ein Footer
-        </footer>
+        <Footer />
       </body>
     </html>
-  );
+  )
 }

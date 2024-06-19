@@ -15,6 +15,9 @@ ENV LDAP_URI="ldaps://10.16.1.1:636"
 ENV LDAP_BASE_DN="ou=accounts,dc=schule,dc=local"
 ENV LDAP_REALM="My Realm"
 
+# Branding
+ENV TITLE="AG Wahlen"
+
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends python3 python3-pip \
     && bun install --frozen-lockfile --production

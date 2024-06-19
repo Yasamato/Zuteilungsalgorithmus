@@ -1,5 +1,5 @@
-import { createEnv } from "@t3-oss/env-nextjs";
-import { z } from "zod";
+import { createEnv } from "@t3-oss/env-nextjs"
+import { z } from "zod"
 
 export const env = createEnv({
   /**
@@ -27,6 +27,7 @@ export const env = createEnv({
     LDAP_URI: z.string().url(),
     LDAP_BASE_DN: z.string(),
     LDAP_REALM: z.string(),
+    TITLE: z.string().default("AG Wahlen"),
   },
 
   /**
@@ -52,6 +53,7 @@ export const env = createEnv({
     LDAP_URI: process.env.LDAP_URI,
     LDAP_BASE_DN: process.env.LDAP_BASE_DN,
     LDAP_REALM: process.env.LDAP_REALM,
+    TITLE: process.env.TITLE,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
@@ -63,4 +65,4 @@ export const env = createEnv({
    * `SOME_VAR=''` will throw an error.
    */
   emptyStringAsUndefined: true,
-});
+})

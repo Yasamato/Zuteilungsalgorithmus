@@ -4,13 +4,15 @@ const config = {
   parserOptions: {
     project: true,
   },
-  plugins: ["@typescript-eslint", "drizzle"],
+  plugins: ["@typescript-eslint", "drizzle", "prettier"],
   extends: [
+    "prettier",
     "next/core-web-vitals",
     "plugin:@typescript-eslint/recommended-type-checked",
     "plugin:@typescript-eslint/stylistic-type-checked",
   ],
   rules: {
+    "prettier/prettier": ["error"],
     "@typescript-eslint/array-type": "off",
     "@typescript-eslint/consistent-type-definitions": "off",
     "@typescript-eslint/consistent-type-imports": [
@@ -48,5 +50,5 @@ const config = {
       },
     ],
   },
-};
-module.exports = config;
+}
+module.exports = config
