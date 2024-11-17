@@ -21,7 +21,7 @@ if __name__ == "__main__":
     time_start = time.time()
     #####
     # The IP is a Integer Program, consisting of two sets of variables
-    # For each student i, we have a variable x_i_j where j goes from 1 to the amount of wishes 
+    # For each student i, we have a variable x_i_j where j goes from 1 to the amount of wishes + 1
     # the students had to make plus one. It is added as a binary variable, i.e. x_i_j \in {0,1}
     # The semantic is as follows: x_i_j = 1 <=> "Student i is assigned to their j-th wish" (where if j is higher than the amount of wishes the student made, it means that the student is not assigned to any project)
     # For each project i, we have a variable p_i, which is added as a binary variable.
