@@ -1,3 +1,5 @@
+
+
 # Zuteilungsalgorithmus
 
 Dieses Softwareprojekt wurde speziell für das Lise-Meitner Gymnasium G8GTS in Maxdorf (LMG8) erstellt und nur für dessen Einsatz gedacht.
@@ -36,7 +38,7 @@ Zum Starten der DB die Anleitung befolgen:
 # On Linux and macOS you can run this script directly - `./start-database.sh`
 ```
 
-Nun kann über `bun run dev` das Frontend getestet werden
+Nun können die Datenbanktabellen mit `bun run db:push` angelegt und das Frontend anschließend über `bun run dev` getestet werden
 
 > \*_*NOTE:*_ unter Windows muss erst wieder wsl verlassen werden mit `exit`
 
